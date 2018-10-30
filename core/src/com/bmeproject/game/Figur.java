@@ -1,5 +1,5 @@
-package com.bmeproject.game;
 
+package com.bmeproject.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -18,6 +18,7 @@ public class Figur extends Actor
 		sprite = new Sprite(new Texture("core/assets/visuals/card.png"));
 		setWidth(sprite.getWidth());
 		setHeight(sprite.getHeight());
+
 	}
 
 	// METHODS

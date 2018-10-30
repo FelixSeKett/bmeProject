@@ -10,28 +10,25 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class GameScreen implements Screen
 {
-	BMEProject  project;
-	SpriteBatch batch;
-	Texture     img;
-	Stage       stage;
-	Figur       figur;
+	private final BMEProject  PROJECT;
+	private       SpriteBatch batch;
+	private       Stage       stage;
+	private       Figur       figur;
 
 	GameScreen(BMEProject project)
 	{
-		this.project = project;
-		img = new Texture("core/assets/badlogic.jpg");
-		batch = new SpriteBatch();
-		stage = new Stage(new ScreenViewport(), batch);
-
-		figur = new Figur();
-		stage.addActor(figur);
+		PROJECT = project;
 	}
 
 
 	@Override public void show()
 	{
-		stage.setDebugAll(project.debug);
+		batch = new SpriteBatch();
+		stage = new Stage(new ScreenViewport(), batch);
+		figur = new Figur();
+		stage.setDebugAll(PROJECT.DEBUG);
 		Gdx.input.setInputProcessor(stage);
+		stage.addActor(figur);
 	}
 
 	@Override public void render(float delta)
@@ -65,7 +62,6 @@ public class GameScreen implements Screen
 	@Override public void dispose()
 	{
 		batch.dispose();
-		img.dispose();
 		stage.dispose();
 	}
 }

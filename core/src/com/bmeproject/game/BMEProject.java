@@ -9,14 +9,28 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BMEProject extends Game
 {
+	// ===================================
+	// ATTRIBUTES
+	// ===================================
 
-	public boolean debug = true;
-	GameScreen gameScreen;
+	public final boolean DEBUG = true;
+	GameScreen gameScreen  = new GameScreen(this);
+
+	// ===================================
+	// CONSTRUCTORS
+	// ===================================
+
+//	public BMEProject()
+//	{
+//		gameScreen
+//	}
+
+	// ===================================
+	// PROCEDURES
+	// ===================================
 
 	@Override public void create()
 	{
-		gameScreen = new GameScreen(this);
-
 		setScreen(gameScreen);
 	}
 }
