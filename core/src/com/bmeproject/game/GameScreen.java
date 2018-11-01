@@ -3,32 +3,39 @@ package com.bmeproject.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class GameScreen implements Screen
 {
-	private final BMEProject  PROJECT;
+	// ===================================
+	// ATTRIBUTES
+	// ===================================
+
+	private final BMEProject  PROJECT; // aktuell noch nicht in Gebrauch - für später sinnvoll
 	private       SpriteBatch batch;
 	private       Stage       stage;
 	private       Figur       figur;
+
+	// ===================================
+	// CONSTRUCTORS
+	// ===================================
 
 	GameScreen(BMEProject project)
 	{
 		PROJECT = project;
 	}
 
+	// ===================================
+	// PROCEDURES
+	// ===================================
 
 	@Override public void show()
 	{
-		batch = new SpriteBatch();
-		stage = new Stage(new ScreenViewport(), batch);
-		figur = new Figur();
-		stage.setDebugAll(PROJECT.DEBUG);
+		initialize();
+		stage.setDebugAll(BMEProject.DEBUG);
 		Gdx.input.setInputProcessor(stage);
-		stage.addActor(figur);
 	}
 
 	@Override public void render(float delta)
@@ -63,5 +70,14 @@ public class GameScreen implements Screen
 	{
 		batch.dispose();
 		stage.dispose();
+	}
+
+	private void initialize()
+	{
+		batch = new SpriteBatch();
+		stage = new Stage(new ScreenViewport(), batch);
+		figur = new Figur();
+		figur.setupAttributes();
+		stage.addActor(figur);
 	}
 }

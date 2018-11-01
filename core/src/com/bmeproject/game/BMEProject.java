@@ -1,11 +1,6 @@
 package com.bmeproject.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BMEProject extends Game
 {
@@ -13,17 +8,8 @@ public class BMEProject extends Game
 	// ATTRIBUTES
 	// ===================================
 
-	public final boolean DEBUG = true;
-	GameScreen gameScreen  = new GameScreen(this);
-
-	// ===================================
-	// CONSTRUCTORS
-	// ===================================
-
-//	public BMEProject()
-//	{
-//		gameScreen
-//	}
+	static final boolean    DEBUG = true;
+	private      GameScreen gameScreen; // aktuell auch lokal ausreichend - später in dieser Form sinvoll
 
 	// ===================================
 	// PROCEDURES
@@ -31,6 +17,7 @@ public class BMEProject extends Game
 
 	@Override public void create()
 	{
+		gameScreen = new GameScreen(this);
 		setScreen(gameScreen);
 	}
 }
