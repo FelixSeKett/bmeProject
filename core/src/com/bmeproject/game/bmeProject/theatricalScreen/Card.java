@@ -1,11 +1,17 @@
-package com.bmeproject.game;
+package com.bmeproject.game.bmeProject.theatricalScreen;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Figur extends Actor
+/**
+ * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
+ * Darstellung (Grafik, Akustik) nötig sind. Werden durch
+ * {@link com.bmeproject.game.bmeProject.battleScreen.player.BattleCard} und
+ * {@link com.bmeproject.game.bmeProject.deckScreen.DeckCard} für die jeweiligen Screens erweitert.
+ */
+public class Card extends Actor
 {
 	// ===================================
 	// ATTRIBUTES
@@ -50,9 +56,9 @@ public class Figur extends Actor
 		sprite.draw(batch);
 	}
 
-	void setupAttributes()
+	public void setupAttributes(String texture)
 	{
-		sprite = new Sprite(new Texture("core/assets/visuals/card.png"));
+		sprite = new Sprite(new Texture(texture));
 		setWidth(sprite.getWidth());
 		setHeight(sprite.getHeight());
 	}
