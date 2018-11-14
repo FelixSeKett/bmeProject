@@ -1,9 +1,9 @@
 package com.bmeproject.game;
 
 import com.badlogic.gdx.Game;
-import com.bmeproject.game.bmeProject.BattleScreen;
-import com.bmeproject.game.bmeProject.DeckScreen;
-import com.bmeproject.game.bmeProject.TitleScreen;
+import com.bmeproject.game.bmeProject.*;
+
+import java.util.ArrayList;
 
 /**
  * Die Wurzel des Code-Stamms und Erweiterung von {@link Game}. Wird das Spiel gestartet, erstellt die jeweilige
@@ -18,9 +18,11 @@ public class BMEProject extends Game
 
 	public static final boolean DEBUG = true;
 
-	private TitleScreen  titleScreen;
-	private BattleScreen battleScreen;
-	private DeckScreen   deckScreen;
+	private TitleScreen       titleScreen;
+	private BattleScreen      battleScreen;
+	private DeckScreen        deckScreen;
+	private Profile           profile;
+	private ArrayList<Entity> entities;
 
 	// ===================================
 	// PROCEDURES
@@ -35,6 +37,8 @@ public class BMEProject extends Game
 		titleScreen = new TitleScreen(this);
 		battleScreen = new BattleScreen(this);
 		deckScreen = new DeckScreen(this);
+		profile = new Profile(this);
+		entities = new ArrayList<Entity>();
 
 		setScreen(titleScreen);
 	}
