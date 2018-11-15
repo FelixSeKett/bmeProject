@@ -31,9 +31,9 @@ public class BattleScreen extends TheatricalScreen
 	@Override public void show()
 	{
 		super.show();
+		System.out.println("BATTLE SCREEN SHOWN");
 		card = new Card();
 		card.setupAttributes("core/assets/visuals/card.png");
 		stage.addActor(card);
-		System.out.println("BATTLE SCREEN SHOWN");
 	}
 }
