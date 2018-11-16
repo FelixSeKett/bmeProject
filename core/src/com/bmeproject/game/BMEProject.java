@@ -1,33 +1,60 @@
 package com.bmeproject.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Game;
+import com.bmeproject.game.bmeProject.*;
 
-public class BMEProject extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("core/assets/badlogic.jpg");
+import java.util.ArrayList;
+
+/**
+ * Die Wurzel des Code-Stamms und Erweiterung von {@link Game}. Wird das Spiel gestartet, erstellt die jeweilige
+ * Launcher-Klasse (Desktop-Launcher, IOS-Launcher, etc.) eine Instanz dieser Klasse per Default-Constructor und ruft
+ * anschließend {@link #create} auf.
+ */
+public class BMEProject extends Game
+{
+	// ===================================
+	// ATTRIBUTES
+	// ===================================
+
+	public static final boolean DEBUG = true;
+
+	private TitleScreen       titleScreen;
+	private BattleScreen      battleScreen;
+	private DeckScreen        deckScreen;
+	private Profile           profile;
+	private ArrayList<Entity> entities;
+
+	// ===================================
+	// PROCEDURES
+	// ===================================
+
+	/**
+	 * Verrichtet alle Arbeiten, die einmalig beim Erzeugen der Instanz dieser Klasse - sprich: bei Spielstart -
+	 * anfallen. Soll alle komplexe Datentypen initialisieren und einen Screen aufrufen.
+	 */
+	@Override public void create()
+	{
+		titleScreen = new TitleScreen(this);
+		battleScreen = new BattleScreen(this);
+		deckScreen = new DeckScreen(this);
+		profile = new Profile(this);
+		entities = new ArrayList<Entity>();
+
+		setScreen(titleScreen);
 	}
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void activateTitleScreen()
+	{
+		setScreen(titleScreen);
 	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
+
+	public void activateBattleScreen()
+	{
+		setScreen(battleScreen);
+	}
+
+	public void activateDeckScreen()
+	{
+		setScreen(deckScreen);
 	}
 }
