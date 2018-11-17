@@ -3,7 +3,7 @@ package com.bmeproject.game;
 import com.badlogic.gdx.Game;
 import com.bmeproject.game.bmeProject.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Die Wurzel des Code-Stamms und Erweiterung von {@link Game}. Wird das Spiel gestartet, erstellt die jeweilige
@@ -18,11 +18,12 @@ public class BMEProject extends Game
 
 	public static final boolean DEBUG = true;
 
-	private TitleScreen       titleScreen;
-	private BattleScreen      battleScreen;
-	private DeckScreen        deckScreen;
-	private Profile           profile;
-	private ArrayList<Entity> entities;
+	private TitleScreen             titleScreen;
+	private BattleScreen            battleScreen;
+	private DeckScreen              deckScreen;
+	private TestScreen              testScreen;
+	private Profile                 profile;
+	private HashMap<String, Entity> entities;
 
 	// ===================================
 	// PROCEDURES
@@ -37,8 +38,9 @@ public class BMEProject extends Game
 		titleScreen = new TitleScreen(this);
 		battleScreen = new BattleScreen(this);
 		deckScreen = new DeckScreen(this);
+		testScreen = new TestScreen(this);
 		profile = new Profile(this);
-		entities = new ArrayList<Entity>();
+		entities = new HashMap<>();
 
 		setScreen(titleScreen);
 	}
@@ -56,5 +58,19 @@ public class BMEProject extends Game
 	public void activateDeckScreen()
 	{
 		setScreen(deckScreen);
+	}
+
+	public void activateTestScreen()
+	{
+		setScreen(testScreen);
+	}
+
+	// ===================================
+	// FUNCTIONS
+	// ===================================
+
+	public Profile getProfile()
+	{
+		return profile;
 	}
 }

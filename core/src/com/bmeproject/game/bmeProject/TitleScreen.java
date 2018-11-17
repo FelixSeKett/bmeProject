@@ -21,6 +21,6 @@ public class TitleScreen extends TheatricalScreen
 	{
 		super.show();
 		System.out.println("TITLE SCREEN SHOWN");
-		BME_PROJECT.activateBattleScreen();
+		BME_PROJECT.activateTestScreen();
 	}
 }

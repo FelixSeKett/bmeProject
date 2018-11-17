@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject.theatricalScreen;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,7 +16,7 @@ public class Card extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	private Sprite sprite;
+	protected Sprite sprite;
 
 	// ===================================
 	// PROCEDURES
@@ -53,13 +52,7 @@ public class Card extends Actor
 	 */
 	@Override public void draw(Batch batch, float parentAlpha)
 	{
+		super.draw(batch, parentAlpha);
 		sprite.draw(batch);
-	}
-
-	public void setupAttributes(String texture)
-	{
-		sprite = new Sprite(new Texture(texture));
-		setWidth(sprite.getWidth());
-		setHeight(sprite.getHeight());
 	}
 }

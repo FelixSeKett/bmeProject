@@ -11,4 +11,13 @@ public class Deck
 	// ===================================
 
 	private ArrayList<Entity> entities;
+
+	// ===================================
+	// FUNCTIONS
+	// ===================================
+
+	public ArrayList<Entity> getEntities()
+	{
+		return entities;
+	}
 }

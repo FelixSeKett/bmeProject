@@ -2,13 +2,13 @@ package com.bmeproject.game.bmeProject.battleScreen.player;
 
 import com.bmeproject.game.bmeProject.Entity;
 
-public class Base extends BattleCard
+public class Figure extends BattleCard
 {
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	public Base(Entity entity)
+	public Figure(Entity entity)
 	{
 		super(entity);
 	}

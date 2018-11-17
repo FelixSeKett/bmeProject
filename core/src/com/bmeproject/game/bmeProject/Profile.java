@@ -21,4 +21,13 @@ public class Profile
 	{
 		BME_PROJECT = bmeProject;
 	}
+
+	// ===================================
+	// FUNCTIONS
+	// ===================================
+
+	public Deck getDeck()
+	{
+		return deck;
+	}
 }

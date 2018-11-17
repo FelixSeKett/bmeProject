@@ -19,8 +19,8 @@ public abstract class TheatricalScreen implements Screen
 	// ATTRIBUTES
 	// ===================================
 
-	final   BMEProject  BME_PROJECT;
-	private SpriteBatch spriteBatch;
+	public final BMEProject  BME_PROJECT;
+	private      SpriteBatch spriteBatch;
 	Stage stage;
 
 	// ===================================
