@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.dataAccess;
 
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.Entity;
 import org.w3c.dom.*;
 
@@ -47,6 +48,14 @@ public class XMLReader {
         List<Entity> entityList;
         Entity tempEntity;
 
+        String name;
+        int strengh;
+        String illustrator;
+        String path;
+        String typeString;
+        String backgroundString;
+
+
         System.out.println("----------------------------------");
 
         for (int temp = 0; temp < nList.getLength(); temp++) {
@@ -58,12 +67,16 @@ public class XMLReader {
                 Element eElement = (Element) nNode;
 
                 System.out.println("ID: " + eElement.getAttribute("id"));
-                System.out.println("Card Name: " + eElement.getElementsByTagName("cardName").item(0).getTextContent());
-                System.out.println("cardStrength: " + eElement.getElementsByTagName("cardStrength").item(0).getTextContent());
-                System.out.println("cardIllustrator: " + eElement.getElementsByTagName("cardIllustrator").item(0).getTextContent());
-                System.out.println("cardIllustrationFilePath: " + eElement.getElementsByTagName("cardIllustrationFilePath").item(0).getTextContent());
-                System.out.println("cardType: " + eElement.getElementsByTagName("cardType").item(0).getTextContent());
-                System.out.println("cardBackground: " + eElement.getElementsByTagName("cardBackground").item(0).getTextContent());
+                name = eElement.getElementsByTagName("cardName").item(0).getTextContent();
+                strengh = Integer.parseInt(eElement.getElementsByTagName("cardStrengh").item(0).getTextContent());
+                illustrator = eElement.getElementsByTagName("cardIllustrator").item(0).getTextContent();
+                path = eElement.getElementsByTagName("cardIllustrationFilePath").item(0).getTextContent();
+                typeString = eElement.getElementsByTagName("cardType").item(0).getTextContent();
+                backgroundString = eElement.getElementsByTagName("cardBackground").item(0).getTextContent();
+                //Type und Background Constructor müssen implementiert werden
+
+                tempEntity = new Entity(name, strengh, illustrator, path, typeString,backgroundString);
+                System.out.println(tempEntity.getCardName());
             }
         }
     }

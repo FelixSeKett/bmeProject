@@ -2,6 +2,7 @@ package com.bmeproject.game;
 
 import com.badlogic.gdx.Game;
 import com.bmeproject.game.bmeProject.*;
+import com.bmeproject.game.bmeProject.dataAccess.XMLReader;
 
 import java.util.HashMap;
 
@@ -40,9 +41,14 @@ public class BMEProject extends Game
 		deckScreen = new DeckScreen(this);
 		testScreen = new TestScreen(this);
 		profile = new Profile(this);
-		entities = new HashMap<>();
+		entities = new HashMap();
+
+		System.out.println("INIT");
+		XMLReader reader =  new XMLReader("D:/Projekte/bmeProject/core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
+		reader.initCard();
 
 		setScreen(titleScreen);
+
 	}
 
 	public void activateTitleScreen()
