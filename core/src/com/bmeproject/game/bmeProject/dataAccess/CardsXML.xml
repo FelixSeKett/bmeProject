@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cards>
+    <card id="001">
+        <cardName>CardName</cardName>
+        <cardStrength>5</cardStrength>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>c:</cardIllustrationFilePath>
+        <cardType>Base</cardType>
+        <cardBackground>Water</cardBackground>
+    </card>
+</cards>
