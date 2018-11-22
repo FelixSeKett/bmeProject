@@ -29,7 +29,7 @@ public class Player
 	}
 
 	// ===================================
-	// PROCEDURES
+	// METHODS
 	// ===================================
 
 	public void initialize()
@@ -48,10 +48,6 @@ public class Player
 		// TODO
 	}
 
-	// ===================================
-	// FUNCTIONS
-	// ===================================
-
 	public Event getEvent()
 	{
 		return event;
@@ -62,7 +58,7 @@ public class Player
 		ArrayList<BattleCard> battleCards = new ArrayList<>();
 
 		ArrayList<Entity> entities = BATTLE_SCREEN.BME_PROJECT.getProfile().getDeck().getEntities();
-		for (Entity entity : entities) { battleCards.add(entity.createBattleCardOfYourself()); }
+		for (Entity entity : entities) { battleCards.add(entity.createBattleCardOfYourself(this)); }
 		return battleCards;
 	}
 }

@@ -1,6 +1,6 @@
 package com.bmeproject.game.bmeProject;
 
-import com.bmeproject.game.BMEProject;
+import com.bmeproject.game.bmeProject.battleScreen.Player;
 import com.bmeproject.game.bmeProject.battleScreen.player.BattleCard;
 import com.bmeproject.game.bmeProject.entity.Background;
 import com.bmeproject.game.bmeProject.entity.Type;
@@ -16,25 +16,15 @@ public class Entity
 	// ATTRIBUTES
 	// ===================================
 
-	public final BMEProject BME_PROJECT;
-	private      String     name;
-	private      int        strength;
-	private      String     illustrator;
-	private      String     illustrationFilePath;
-	private      Type       type;
-	private      Background background;
+	private String     name;
+	private int        strength;
+	private String     illustrator;
+	private String     illustrationFilePath;
+	private Type       type;
+	private Background background;
 
 	// ===================================
-	// CONTRUCTORS
-	// ===================================
-
-	public Entity(BMEProject bmeProject)
-	{
-		BME_PROJECT = bmeProject;
-	}
-
-	// ===================================
-	// PROCEDURES
+	// METHODS
 	// ===================================
 
 	public void initialize()
@@ -50,17 +40,13 @@ public class Entity
 
 	}
 
-	// ===================================
-	// FUNCTIONS
-	// ===================================
-
 	public int getStrength()
 	{
 		return strength;
 	}
 
-	public BattleCard createBattleCardOfYourself()
+	public BattleCard createBattleCardOfYourself(Player player)
 	{
-		return type.createBattleCard(this);
+		return type.createBattleCard(this, player);
 	}
 }

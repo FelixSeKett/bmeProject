@@ -14,7 +14,7 @@ public class TitleScreen extends TheatricalScreen
 	}
 
 	// ===================================
-	// PROCEDURES
+	// METHODS
 	// ===================================
 
 	@Override public void show()

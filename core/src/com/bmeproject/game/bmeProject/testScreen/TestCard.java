@@ -7,23 +7,32 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.bmeproject.game.bmeProject.Entity;
 import com.bmeproject.game.bmeProject.theatricalScreen.Card;
 
 public class TestCard extends Card
 {
 	// ===================================
-	// PROCEDURES
+	// CONSTRUCTORS
 	// ===================================
 
-	public void initialize(String textureFilePath)
+	public TestCard()
 	{
-		initializeVisuals(textureFilePath);
+		super(new Entity());
+	}
+
+	// ===================================
+	// METHODS
+	// ===================================
+
+	public void initialize()
+	{
+		initializeVisuals();
 		initializeControls();
 	}
 
-	private void initializeVisuals(String textureFilePath)
+	private void initializeVisuals()
 	{
-		sprite = new Sprite(new Texture(textureFilePath));
 		setWidth(sprite.getWidth());
 		setHeight(sprite.getHeight());
 		sprite.setOrigin(sprite.getX(), sprite.getY());

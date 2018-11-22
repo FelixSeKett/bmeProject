@@ -24,7 +24,7 @@ public class TestScreen extends TheatricalScreen
 	}
 
 	// ===================================
-	// PROCEDURES
+	// METHODS
 	// ===================================
 
 	@Override public void show()
@@ -33,7 +33,7 @@ public class TestScreen extends TheatricalScreen
 		System.out.println("TEST SCREEN SHOWN");
 
 		testCard = new TestCard();
-		testCard.initialize("core/assets/visuals/card.png");
+		testCard.initialize();
 		stage.addActor(testCard);
 	}
 }

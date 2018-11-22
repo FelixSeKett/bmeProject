@@ -1,14 +1,15 @@
 package com.bmeproject.game.bmeProject.entity;
 
 import com.bmeproject.game.bmeProject.Entity;
+import com.bmeproject.game.bmeProject.battleScreen.Player;
 import com.bmeproject.game.bmeProject.battleScreen.player.Base;
 import com.bmeproject.game.bmeProject.battleScreen.player.BattleCard;
 import com.bmeproject.game.bmeProject.battleScreen.player.Figure;
 import com.bmeproject.game.bmeProject.battleScreen.player.Manipulation;
 
 /**
- * Gibt eine Auswahl aller drei möglichen Kartentypen, die jeweils ein fertiges Design für die oberste visuelle Ebene
- * einer dargestellten Karte mitliefern.
+ * Gibt eine Auswahl aller drei möglichen Kartentypen, die jeweils Koordinaten für die entsprechende TextureRegion
+ * der obersten visuellen Ebene einer dargestellten Karte mitliefern.
  */
 public enum Type
 {
@@ -16,25 +17,25 @@ public enum Type
 	// ENTRIES
 	// ===================================
 
-	BASE("filepath")
+	BASE(204, 0)
 			{
-				@Override public BattleCard createBattleCard(Entity entity)
+				@Override public BattleCard createBattleCard(Entity entity, Player player)
 				{
-					return new Base(entity);
+					return new Base(entity, player);
 				}
 			},
-	FIGURE("filepath")
+	FIGURE(408, 0)
 			{
-				@Override public BattleCard createBattleCard(Entity entity)
+				@Override public BattleCard createBattleCard(Entity entity, Player player)
 				{
-					return new Figure(entity);
+					return new Figure(entity, player);
 				}
 			},
-	MANIPULATION("filepath")
+	MANIPULATION(612, 0)
 			{
-				@Override public BattleCard createBattleCard(Entity entity)
+				@Override public BattleCard createBattleCard(Entity entity, Player player)
 				{
-					return new Manipulation(entity);
+					return new Manipulation(entity, player);
 				}
 			};
 
@@ -42,20 +43,22 @@ public enum Type
 	// ATTRIBUTES
 	// ===================================
 
-	public final String TEXTURE_FILE_PATH;
+	public final int X;
+	public final int Y;
 
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	Type(String textureFilePath)
+	Type(int x, int y)
 	{
-		TEXTURE_FILE_PATH = textureFilePath;
+		X = x;
+		Y = y;
 	}
 
 	// ===================================
-	// FUNCTIONS
+	// METHODS
 	// ===================================
 
-	public abstract BattleCard createBattleCard(Entity entity);
+	public abstract BattleCard createBattleCard(Entity entity, Player player);
 }
