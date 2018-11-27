@@ -51,7 +51,7 @@ public class BMEProject extends Game
 
 	private void initializeEntities()
 	{
-		entities = new HashMap<>();
+		entities = new HashMap<String, Entity>();
 		/*
 		TODO
 		Hier soll die Hashmap "entities" mit einzelnen Instanzen der Klasse Entity gefüllt werden. Dazu soll ein
