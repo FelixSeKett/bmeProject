@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject;
 
-import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.battleScreen.player.BattleCard;
 import com.bmeproject.game.bmeProject.entity.Background;
 import com.bmeproject.game.bmeProject.entity.Type;
@@ -27,14 +26,13 @@ public class Entity {
     // CONTRUCTORS
     // ===================================
 
-    public Entity(String cardName, int cardStrengh, String cardIllustrator, String cardIlluFilePath, String typeString, String backgroundString) {
+    public Entity(String cardName, int cardStrengh, String cardIllustrator, String cardIlluFilePath, Type cType, Background cBackground) {
         name = cardName;
         strength = cardStrengh;
         illustrator = cardIllustrator;
         illustrationFilePath = cardIlluFilePath;
-        //type;
-        //background;
-        // für Type und Background müssen Constructor implementiert werden
+        type = cType;
+        background = cBackground;
     }
 
     // ===================================
@@ -60,7 +58,8 @@ als Key in der HashMap entities der Klasse BMEProject hinterlegt sein - das ist 
     public int getStrength() {
         return strength;
     }
-    public String getCardName(){
+
+    public String getCardName() {
         return name;
     }
 

@@ -43,9 +43,8 @@ public class BMEProject extends Game
 		profile = new Profile(this);
 		entities = new HashMap();
 
-		System.out.println("INIT");
 		XMLReader reader =  new XMLReader("D:/Projekte/bmeProject/core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
-		reader.initCard();
+		reader.initCards();
 
 		setScreen(titleScreen);
 

@@ -1,15 +1,23 @@
 package com.bmeproject.game.bmeProject.dataAccess;
 
-import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.Entity;
-import org.w3c.dom.*;
+import com.bmeproject.game.bmeProject.entity.Background;
+import com.bmeproject.game.bmeProject.entity.Type;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
-import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Die Klasse hat den Zweck, aus einem XML-File, dessen Pfad sie übergeben bekommt anhand zu lesen und daraus
+ * eine Entity zu bauen.
+ */
 public class XMLReader {
 
     String path;
@@ -18,15 +26,15 @@ public class XMLReader {
         path = filepath;
     }
 
-    public void initCard() {
+    //Initialises process
+    public void initCards() {
         Document document = readXML();
         readCardsFromXML(document);
     }
 
+    //Builds document from XML and returns it
     private Document readXML() {
         try {
-            System.out.println("INIT Filereader´- Path: " + this.path);
-
             File xmlFile = new File("/" + path);
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -40,44 +48,61 @@ public class XMLReader {
         }
     }
 
+    // reads given Document with specific card-tags
     private void readCardsFromXML(Document doc) {
         System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
-
         NodeList nList = doc.getElementsByTagName("card");
 
-        List<Entity> entityList;
+        List<Entity> entityList = new ArrayList<Entity>();
         Entity tempEntity;
-
-        String name;
-        int strengh;
-        String illustrator;
-        String path;
-        String typeString;
-        String backgroundString;
-
-
-        System.out.println("----------------------------------");
 
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
-
             System.out.println("\nCurrent Element: " + nNode.getNodeName());
 
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-
                 System.out.println("ID: " + eElement.getAttribute("id"));
-                name = eElement.getElementsByTagName("cardName").item(0).getTextContent();
-                strengh = Integer.parseInt(eElement.getElementsByTagName("cardStrengh").item(0).getTextContent());
-                illustrator = eElement.getElementsByTagName("cardIllustrator").item(0).getTextContent();
-                path = eElement.getElementsByTagName("cardIllustrationFilePath").item(0).getTextContent();
-                typeString = eElement.getElementsByTagName("cardType").item(0).getTextContent();
-                backgroundString = eElement.getElementsByTagName("cardBackground").item(0).getTextContent();
-                //Type und Background Constructor müssen implementiert werden
+                tempEntity = new Entity(
+                        eElement.getElementsByTagName("cardName").item(0).getTextContent(),
+                        Integer.parseInt(eElement.getElementsByTagName("cardStrengh").item(0).getTextContent()),
+                        eElement.getElementsByTagName("cardIllustrator").item(0).getTextContent(),
+                        eElement.getElementsByTagName("cardIllustrationFilePath").item(0).getTextContent(),
+                        getType(eElement.getElementsByTagName("cardType").item(0).getTextContent()),
+                        getBackground(eElement.getElementsByTagName("cardBackground").item(0).getTextContent())
+                        );
 
-                tempEntity = new Entity(name, strengh, illustrator, path, typeString,backgroundString);
-                System.out.println(tempEntity.getCardName());
+                entityList.add(tempEntity);
+                printEntity(tempEntity);
             }
         }
+    }
+
+    // returns Type of Card according to given String
+    private Type getType(String type) {
+        if (type.equals("BASE")) {
+            return Type.BASE;
+        } else if (type.equals("FIGURE")) {
+            return Type.FIGURE;
+        } else if (type.equals("MANIPULATION")) {
+            return Type.MANIPULATION;
+        } else return null;
+    }
+
+    // returns background of Card according to given String
+    private Background getBackground(String background) {
+        if (background.equals("OPEN_WATER")) {
+            return Background.OPEN_WATER;
+        } else if (background.equals("WRECK")) {
+            return Background.WRECK;
+        } else if (background.equals("GROUND")) {
+            return Background.GROUND;
+        } else return null;
+    }
+
+    // prints CardName and CardStrengh if read-process was successfull
+    private void printEntity(Entity e) {
+        System.out.println(e.getCardName());
+        System.out.println(e.getStrength());
     }
 }

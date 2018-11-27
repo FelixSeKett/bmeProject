@@ -2,10 +2,10 @@
 <cards>
     <card id="001">
         <cardName>CardName</cardName>
-        <cardStrength>5</cardStrength>
+        <cardStrengh>5</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
         <cardIllustrationFilePath>c:</cardIllustrationFilePath>
-        <cardType>Base</cardType>
-        <cardBackground>Water</cardBackground>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
     </card>
 </cards>
