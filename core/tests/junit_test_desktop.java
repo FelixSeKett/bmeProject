@@ -13,6 +13,11 @@ import org.junit.Test;
 
 public class junit_test_desktop {
 
+    // Übergreifendes Setup mit @Before möglich
+    //@Before
+    //public void testSetup(){
+    //}
+
     //Test 000: einfacher Basis-Test
     @Test
     public void baseTest() {
