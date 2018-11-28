@@ -13,17 +13,20 @@ import org.junit.Test;
 
 public class junit_test_desktop {
 
-    //einfacher Basis-Test
+    //Test 000: einfacher Basis-Test
     @Test
     public void baseTest() {
         Assert.assertTrue(true);
     }
 
-    //Test: Class entity / Methode getStrengh /
+    //Test 001: Class entity / Methode getStrengh /
     @Test
     public void entity_getStrengh_int() {
+        // Setup
         int testStrengh = 10;
-        Entity e = new Entity("TEST", testStrengh, "TESTIllu","TestilluPath", Type.BASE, Background.GROUND);
+        Entity e = new Entity("TEST", testStrengh, "TESTIllu", "TestilluPath", Type.BASE, Background.GROUND);
+
+        // Test
         Assert.assertEquals(testStrengh, e.getStrength());
     }
 
