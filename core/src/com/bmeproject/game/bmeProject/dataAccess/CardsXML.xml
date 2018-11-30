@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cards>
     <card id="001">
-        <cardName>CardName</cardName>
+        <cardName>FirstCard</cardName>
         <cardStrengh>5</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
         <cardIllustrationFilePath>c:</cardIllustrationFilePath>

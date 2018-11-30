@@ -27,9 +27,9 @@ public class XMLReader {
     }
 
     //Initialises process
-    public void initCards() {
+    public List<Entity> initCards() {
         Document document = readXML();
-        readCardsFromXML(document);
+        return readCardsFromXML(document);
     }
 
     //Builds document from XML and returns it
@@ -49,7 +49,7 @@ public class XMLReader {
     }
 
     // reads given Document with specific card-tags
-    private void readCardsFromXML(Document doc) {
+    private List<Entity> readCardsFromXML(Document doc) {
         System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
         NodeList nList = doc.getElementsByTagName("card");
 
@@ -73,9 +73,9 @@ public class XMLReader {
                         );
 
                 entityList.add(tempEntity);
-                printEntity(tempEntity);
             }
         }
+        return entityList;
     }
 
     // returns Type of Card according to given String
