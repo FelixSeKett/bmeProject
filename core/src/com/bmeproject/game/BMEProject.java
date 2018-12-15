@@ -2,8 +2,9 @@ package com.bmeproject.game;
 
 import com.badlogic.gdx.Game;
 import com.bmeproject.game.bmeProject.*;
-import com.bmeproject.game.bmeProject.cardGenerator.cardGenerator;
+import com.bmeproject.game.bmeProject.cardGenerator.CardGenerator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -25,6 +26,7 @@ public class BMEProject extends Game
 	private TestScreen              testScreen;
 	private Profile                 profile;
 	private HashMap<String, Entity> entities;
+	public static ArrayList<Entity> Cards;
 
 	// ===================================
 	// PROCEDURES
@@ -43,8 +45,9 @@ public class BMEProject extends Game
 		profile = new Profile(this);
 		entities = new HashMap();
 
-		cardGenerator cardgen = new cardGenerator("D:/Projekte/bmeProject/core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
-		cardgen.getCardList();
+
+		CardGenerator cardgen = new CardGenerator("/Users/philadelphiagaus/something/BMEProjekt/bmeProject/core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
+		Cards = cardgen.getCardList();
 
 		setScreen(titleScreen);
 	}

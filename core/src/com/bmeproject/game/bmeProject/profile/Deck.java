@@ -12,9 +12,21 @@ public class Deck
 
 	private ArrayList<Entity> entities;
 
+	private int[] deck;
+
+	public Deck()
+	{
+		deck = new int[]{1, 4, 5};
+	}
+
 	// ===================================
 	// FUNCTIONS
 	// ===================================
+
+	public int[] getDeck()
+	{
+		return deck;
+	}
 
 	public ArrayList<Entity> getEntities()
 	{

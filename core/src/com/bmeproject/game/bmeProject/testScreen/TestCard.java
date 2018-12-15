@@ -15,7 +15,7 @@ public class TestCard extends Card
 	// PROCEDURES
 	// ===================================
 
-	public void initialize(String textureFilePath)
+	public void initialize (String textureFilePath)
 	{
 		initializeVisuals(textureFilePath);
 		initializeControls();

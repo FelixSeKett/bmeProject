@@ -1,8 +1,19 @@
 package com.bmeproject.game.bmeProject.theatricalScreen;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.bmeproject.game.BMEProject;
+import com.bmeproject.game.bmeProject.Entity;
+import com.bmeproject.game.bmeProject.cardGenerator.CardGenerator;
+
+import java.util.ArrayList;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
@@ -18,9 +29,51 @@ public class Card extends Actor
 
 	protected Sprite sprite;
 
+
 	// ===================================
 	// PROCEDURES
 	// ===================================
+
+	public void initialize(int ID)
+	{
+		String path = BMEProject.Cards.get(ID).getIllustrationFilePath();
+		initializeVisuals(path);
+		initializeControls();
+	}
+
+	private void initializeVisuals(String textureFilePath)
+	{
+		sprite = new Sprite(new Texture(textureFilePath));
+		setWidth(sprite.getWidth());
+		setHeight(sprite.getHeight());
+		sprite.setOrigin(sprite.getX(), sprite.getY());
+	}
+
+	private void initializeControls()
+	{
+		InputListener inputListener = new InputListener()
+		{
+			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
+				float duration = 0.5f;
+
+				MoveToAction moveToAction = new MoveToAction();
+				moveToAction.setPosition(getX() + 100, getY() + 100);
+				moveToAction.setDuration(duration);
+
+				RotateByAction rotateByAction = new RotateByAction();
+				rotateByAction.setAmount(90);
+				rotateByAction.setDuration(duration);
+
+				ParallelAction parallelAction = new ParallelAction(moveToAction, rotateByAction);
+
+				addAction(parallelAction);
+
+				return true;
+			}
+		};
+		addListener(inputListener);
+	}
 
 	/**
 	 * Wird jedes Mal aufgerufen, wenn die Position (x- / y-Koordinaten) einer Instanz dieser Klasse geändert wird,
