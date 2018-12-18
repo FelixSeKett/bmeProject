@@ -55,7 +55,7 @@ public class Player
 
 	private ArrayList<BattleCard> transformDeck()
 	{
-		ArrayList<BattleCard> battleCards = new ArrayList<>();
+		ArrayList<BattleCard> battleCards = new ArrayList<BattleCard>();
 
 		ArrayList<Entity> entities = BATTLE_SCREEN.BME_PROJECT.getProfile().getDeck().getEntities();
 		for (Entity entity : entities) { battleCards.add(entity.createBattleCardOfYourself(this)); }

@@ -2,6 +2,7 @@ package com.bmeproject.game;
 
 import com.badlogic.gdx.Game;
 import com.bmeproject.game.bmeProject.*;
+import com.bmeproject.game.bmeProject.dataAccess.XMLReader;
 
 import java.util.HashMap;
 
@@ -47,19 +48,14 @@ public class BMEProject extends Game
 		battleScreen = new BattleScreen(this);
 		deckScreen = new DeckScreen(this);
 		testScreen = new TestScreen(this);
-	}
+		profile = new Profile(this);
+		entities = new HashMap();
 
-	private void initializeEntities()
-	{
-		entities = new HashMap<>();
-		/*
-		TODO
-		Hier soll die Hashmap "entities" mit einzelnen Instanzen der Klasse Entity gefüllt werden. Dazu soll ein
-		XML-Dokument ausgelesen werden, das die Inhalte einer Entity mit dazugehöriger ID hält. Die ID soll dann als
-		Key in der Hashmap hinterlegt werden - nicht als Variable in der Entity-Instanz. Die dazugehörigen Inhalte
-		sollen als Entity-Instanz im Value der Hashmap hinterlegt werden. Am Ende soll hier eine Liste stehen, in der
-		jede Karte exakt einmal wie in einem Register vertreten und adressierbar ist.
-		 */
+		XMLReader reader =  new XMLReader("D:/Projekte/bmeProject/core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
+		reader.initCards();
+
+		setScreen(titleScreen);
+
 	}
 
 	public void activateTitleScreen()
