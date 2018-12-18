@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject;
 
-import com.bmeproject.game.bmeProject.battleScreen.Player;
 import com.bmeproject.game.bmeProject.battleScreen.player.BattleCard;
 import com.bmeproject.game.bmeProject.entity.Background;
 import com.bmeproject.game.bmeProject.entity.Type;
@@ -15,6 +14,7 @@ public class Entity {
     // ATTRIBUTES
     // ===================================
 
+    //public final BMEProject BME_PROJECT;
     private String name;
     private int strength;
     private String illustrator;
@@ -22,42 +22,48 @@ public class Entity {
     private Type type;
     private Background background;
 
-    public Entity(String n, int s, String illu, String illuPath, Type cType, Background bGround) {
-		name = n;
-		strength = s;
-		illustrator = illu;
-		illustrationFilePath = illuPath;
-		type = cType;
-		background = bGround;
+    // ===================================
+    // CONTRUCTORS
+    // ===================================
+
+    public Entity(String cardName, int cardStrengh, String cardIllustrator, String cardIlluFilePath, Type cType, Background cBackground) {
+        name = cardName;
+        strength = cardStrengh;
+        illustrator = cardIllustrator;
+        illustrationFilePath = cardIlluFilePath;
+        type = cType;
+        background = cBackground;
     }
 
     // ===================================
-    // METHODS
+    // PROCEDURES
     // ===================================
 
+    /*
+TODO
+Im Zuge dieser Methode soll ein XML-File ausgelesen und die Feldvariablen name, strength, illustrator,
+illustrationFilePath, type und background initialisiert werden. type und background sind dabei in den
+entsprechenden Enum-Eintrag zu parsen. Die ID der Entität muss nicht hier gespeichert werden, sondern sollte
+als Key in der HashMap entities der Klasse BMEProject hinterlegt sein - das ist Performance-technisch besser
+(siehe 2. Semester Lano)
+ */
     public void initialize() {
-		/*
-		TODO
-		Im Zuge dieser Methode soll ein XML-File ausgelesen und die Feldvariablen name, strength, illustrator,
-		illustrationFilePath, type und background initialisiert werden. type und background sind dabei in den
-		entsprechenden Enum-Eintrag zu parsen. Die ID der Entität muss nicht hier gespeichert werden, sondern sollte
-		als Key in der HashMap entities der Klasse BMEProject hinterlegt sein - das ist Performance-technisch besser
-		(siehe 2. Semester Lano)
-		 */
 
     }
+
+    // ===================================
+    // FUNCTIONS
+    // ===================================
 
     public int getStrength() {
         return strength;
     }
 
-    public boolean entityExists(Entity e){
-        if (e != null){
-            return true;
-        } else return false;
+    public String getCardName() {
+        return name;
     }
 
-    public BattleCard createBattleCardOfYourself(Player player) {
-        return type.createBattleCard(this, player);
+    public BattleCard createBattleCardOfYourself() {
+        return null; // type.createBattleCard(this);
     }
 }
