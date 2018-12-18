@@ -64,6 +64,6 @@ als Key in der HashMap entities der Klasse BMEProject hinterlegt sein - das ist 
     }
 
     public BattleCard createBattleCardOfYourself() {
-        return type.createBattleCard(this);
+        return null; // type.createBattleCard(this);
     }
 }
