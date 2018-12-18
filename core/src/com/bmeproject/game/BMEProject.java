@@ -38,7 +38,7 @@ public class BMEProject extends Game
 	{
 		initializeScreens();
 		profile = new Profile(this);
-		initializeEntities();
+		//initializeEntities();
 		setScreen(titleScreen);
 	}
 
@@ -51,7 +51,9 @@ public class BMEProject extends Game
 		profile = new Profile(this);
 		entities = new HashMap();
 
-		XMLReader reader =  new XMLReader("D:/Projekte/bmeProject/core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
+		//Einfache Test-Initialisierung -- muss im weiteren Verlauf entfernt werden (bezieht aktuellen Pfad um CardsXML.xml einlesen zu können)
+        String cwd = System.getProperty("user.dir");
+		XMLReader reader =  new XMLReader(cwd + "/core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
 		reader.initCards();
 
 		setScreen(titleScreen);
