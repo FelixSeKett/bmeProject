@@ -1,8 +1,12 @@
 package com.bmeproject.game.bmeProject.theatricalScreen;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.bmeproject.game.bmeProject.Entity;
+import com.bmeproject.game.bmeProject.entity.Type;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
@@ -16,10 +20,26 @@ public class Card extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	protected Sprite sprite;
+	private static final Texture       TEXTURES     = new Texture("core/assets/visuals/texture_atlas.png");
+	private static final TextureRegion TEXTURE_BACK = new TextureRegion(TEXTURES, 0, 0, 204, 300);
+
+	protected final Entity        ENTITY;
+	private final   TextureRegion TEXTURE_FRONT;
+	protected       Sprite        sprite;
 
 	// ===================================
-	// PROCEDURES
+	// CONSTRUCTOR
+	// ===================================
+
+	public Card(Entity entity)
+	{
+		ENTITY = entity;
+		TEXTURE_FRONT = new TextureRegion(TEXTURES, Type.BASE.X, Type.BASE.Y, 204, 300);
+		sprite = new Sprite(TEXTURE_FRONT);
+	}
+
+	// ===================================
+	// METHODS
 	// ===================================
 
 	/**

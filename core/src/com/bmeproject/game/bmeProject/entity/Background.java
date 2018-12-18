@@ -1,8 +1,8 @@
 package com.bmeproject.game.bmeProject.entity;
 
 /**
- * Gibt eine Auswahl aller möglichen Hintergrundtypen, die jeweils ein fertiges Design für die unterste visuelle Ebene
- * einer dargestellten Karte mitliefern.
+ * Gibt eine Auswahl aller möglichen Hintergrundtypen, die jeweils Koordinaten für die entsprechende TextureRegion
+ * der untersten visuellen Ebene einer dargestellten Karte mitliefern.
  */
 public enum Background
 {
@@ -10,22 +10,24 @@ public enum Background
 	// ENTRIES
 	// ===================================
 
-	OPEN_WATER("filepath"),
-	WRECK("filepath"),
-	GROUND("filepath");
+	OPEN_WATER(408, 300),
+	WRECK(612, 300),
+	GROUND(816, 300);
 
 	// ===================================
 	// ATTRIBUTES
 	// ===================================
 
-	public final String TEXTURE_FILE_PATH;
+	public final int X;
+	public final int Y;
 
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	Background(String textureFilePath)
+	Background(int x, int y)
 	{
-		TEXTURE_FILE_PATH = textureFilePath;
+		X = x;
+		Y = y;
 	}
 }

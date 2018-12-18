@@ -27,7 +27,7 @@ public class BMEProject extends Game
 	private HashMap<String, Entity> entities;
 
 	// ===================================
-	// PROCEDURES
+	// METHODS
 	// ===================================
 
 	/**
@@ -35,6 +35,14 @@ public class BMEProject extends Game
 	 * anfallen. Soll alle komplexe Datentypen initialisieren und einen Screen aufrufen.
 	 */
 	@Override public void create()
+	{
+		initializeScreens();
+		profile = new Profile(this);
+		initializeEntities();
+		setScreen(titleScreen);
+	}
+
+	private void initializeScreens()
 	{
 		titleScreen = new TitleScreen(this);
 		battleScreen = new BattleScreen(this);
@@ -69,10 +77,6 @@ public class BMEProject extends Game
 	{
 		setScreen(testScreen);
 	}
-
-	// ===================================
-	// FUNCTIONS
-	// ===================================
 
 	public Profile getProfile()
 	{
