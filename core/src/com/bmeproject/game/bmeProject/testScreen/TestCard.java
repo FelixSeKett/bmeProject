@@ -6,6 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.bmeproject.game.bmeProject.Entity;
+import com.bmeproject.game.bmeProject.entity.Background;
+import com.bmeproject.game.bmeProject.entity.Type;
 import com.bmeproject.game.bmeProject.theatricalScreen.Card;
 
 public class TestCard extends Card
@@ -17,6 +19,8 @@ public class TestCard extends Card
 	public TestCard()
 	{
 		super(new Entity("", 0, "","",null, null));
+		super(new Entity("TEST", 10, "TESTIllu","TestilluPath", Type.BASE, Background.GROUND));
+
 	}
 
 	// ===================================
