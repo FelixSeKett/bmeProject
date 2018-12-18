@@ -18,9 +18,7 @@ public class TestCard extends Card
 
 	public TestCard()
 	{
-		super(new Entity("", 0, "","",null, null));
-		super(new Entity("TEST", 10, "TESTIllu","TestilluPath", Type.BASE, Background.GROUND));
-
+		super(new Entity("TEST", 10, "TESTILLU","TESTILLUPATH", Type.BASE, Background.GROUND));
 	}
 
 	// ===================================
