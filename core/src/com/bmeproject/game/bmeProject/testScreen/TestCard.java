@@ -2,6 +2,7 @@ package com.bmeproject.game.bmeProject.testScreen;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
@@ -14,6 +15,7 @@ public class TestCard extends Card
 	// ===================================
 	// PROCEDURES
 	// ===================================
+
 
 	public void initialize(String textureFilePath)
 	{
