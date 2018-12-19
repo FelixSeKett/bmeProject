@@ -35,7 +35,7 @@ public class XMLReader {
     //Builds document from XML and returns it
     private Document readXML() {
         try {
-            File xmlFile = new File("/" + path);
+            File xmlFile = new File(path);
 
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
