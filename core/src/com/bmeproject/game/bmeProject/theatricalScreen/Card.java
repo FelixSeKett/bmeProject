@@ -5,8 +5,16 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.Entity;
-import com.bmeproject.game.bmeProject.entity.Type;
+import com.bmeproject.game.bmeProject.cardGenerator.CardGenerator;
+
+import java.util.ArrayList;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
@@ -23,24 +31,51 @@ public class Card extends Actor
 	private static final Texture       TEXTURES     = new Texture("core/assets/visuals/texture_atlas.png");
 	private static final TextureRegion TEXTURE_BACK = new TextureRegion(TEXTURES, 0, 0, 204, 300);
 
-	protected final Entity        ENTITY;
-	private final   TextureRegion TEXTURE_FRONT;
-	protected       Sprite        sprite;
 
 	// ===================================
 	// CONSTRUCTOR
 	// ===================================
 
-	public Card(Entity entity)
+	public void initialize(int ID)
 	{
-		ENTITY = entity;
-		TEXTURE_FRONT = new TextureRegion(TEXTURES, Type.BASE.X, Type.BASE.Y, 204, 300);
-		sprite = new Sprite(TEXTURE_FRONT);
+		String path = BMEProject.Cards.get(ID).getIllustrationFilePath();
+		initializeVisuals(path);
+		initializeControls();
 	}
 
-	// ===================================
-	// METHODS
-	// ===================================
+	private void initializeVisuals(String textureFilePath)
+	{
+		sprite = new Sprite(new Texture(textureFilePath));
+		setWidth(sprite.getWidth());
+		setHeight(sprite.getHeight());
+		sprite.setOrigin(sprite.getX(), sprite.getY());
+	}
+
+	private void initializeControls()
+	{
+		InputListener inputListener = new InputListener()
+		{
+			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
+				float duration = 0.5f;
+
+				MoveToAction moveToAction = new MoveToAction();
+				moveToAction.setPosition(getX() + 100, getY() + 100);
+				moveToAction.setDuration(duration);
+
+				RotateByAction rotateByAction = new RotateByAction();
+				rotateByAction.setAmount(90);
+				rotateByAction.setDuration(duration);
+
+				ParallelAction parallelAction = new ParallelAction(moveToAction, rotateByAction);
+
+				addAction(parallelAction);
+
+				return true;
+			}
+		};
+		addListener(inputListener);
+	}
 
 	/**
 	 * Wird jedes Mal aufgerufen, wenn die Position (x- / y-Koordinaten) einer Instanz dieser Klasse geändert wird,

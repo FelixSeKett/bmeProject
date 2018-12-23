@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cards>
     <card id="001">
-        <cardName>CardName</cardName>
-        <cardStrengh>5</cardStrengh>
+        <cardName>FirstCard</cardName>
+        <cardStrengh>1</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
-        <cardIllustrationFilePath>c:</cardIllustrationFilePath>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="002">
+        <cardName>SecondCard</cardName>
+        <cardStrengh>2</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="003">
+        <cardName>ThirdCard</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="004">
+        <cardName>4Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="005">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
         <cardType>BASE</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>

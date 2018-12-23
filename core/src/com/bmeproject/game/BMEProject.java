@@ -2,8 +2,9 @@ package com.bmeproject.game;
 
 import com.badlogic.gdx.Game;
 import com.bmeproject.game.bmeProject.*;
-import com.bmeproject.game.bmeProject.dataAccess.XMLReader;
+import com.bmeproject.game.bmeProject.cardGenerator.CardGenerator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -25,6 +26,7 @@ public class BMEProject extends Game
 	private TestScreen              testScreen;
 	private Profile                 profile;
 	private HashMap<String, Entity> entities;
+	public static ArrayList<Entity> Cards;
 
 	// ===================================
 	// METHODS
@@ -51,13 +53,11 @@ public class BMEProject extends Game
 		profile = new Profile(this);
 		entities = new HashMap();
 
-		//Einfache Test-Initialisierung -- muss im weiteren Verlauf entfernt werden (bezieht aktuellen Pfad um CardsXML.xml einlesen zu können)
-        String cwd = System.getProperty("user.dir");
-		XMLReader reader =  new XMLReader(cwd + "/core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
-		reader.initCards();
+
+		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
+		Cards = cardgen.getCardList();
 
 		setScreen(titleScreen);
-
 	}
 
 	public void activateTitleScreen()

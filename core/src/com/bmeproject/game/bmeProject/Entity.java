@@ -1,8 +1,17 @@
 package com.bmeproject.game.bmeProject;
 
 import com.bmeproject.game.bmeProject.battleScreen.player.BattleCard;
+import com.bmeproject.game.bmeProject.cardGenerator.CardGenerator;
 import com.bmeproject.game.bmeProject.entity.Background;
 import com.bmeproject.game.bmeProject.entity.Type;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.ArrayList;
+
+
 
 /**
  * Daten-Container für Karteninhalte. Enthält alle Attribute einer Karte in Form primitiver Datentypen, die nichts
@@ -21,6 +30,8 @@ public class Entity {
     private String illustrationFilePath;
     private Type type;
     private Background background;
+
+    private ArrayList<Entity> Cards;
 
     // ===================================
     // CONTRUCTORS
@@ -47,7 +58,8 @@ entsprechenden Enum-Eintrag zu parsen. Die ID der Entität muss nicht hier gespe
 als Key in der HashMap entities der Klasse BMEProject hinterlegt sein - das ist Performance-technisch besser
 (siehe 2. Semester Lano)
  */
-    public void initialize() {
+    public void initialize(int ID)
+    {
 
     }
 
@@ -55,13 +67,13 @@ als Key in der HashMap entities der Klasse BMEProject hinterlegt sein - das ist 
     // FUNCTIONS
     // ===================================
 
+    public String getCardName() { return name; }
+
     public int getStrength() {
         return strength;
     }
 
-    public String getCardName() {
-        return name;
-    }
+    public String getIllustrationFilePath() { return illustrationFilePath; }
 
     public BattleCard createBattleCardOfYourself() {
         return null; // type.createBattleCard(this);

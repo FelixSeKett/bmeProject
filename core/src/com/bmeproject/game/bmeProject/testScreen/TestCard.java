@@ -16,7 +16,7 @@ public class TestCard extends Card
 	// CONSTRUCTORS
 	// ===================================
 
-	public TestCard()
+	public void initialize (String textureFilePath)
 	{
 		super(new Entity("TEST", 10, "TESTILLU","TESTILLUPATH", Type.BASE, Background.GROUND));
 	}
