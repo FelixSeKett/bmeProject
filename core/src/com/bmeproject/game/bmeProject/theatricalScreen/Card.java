@@ -11,10 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.bmeproject.game.BMEProject;
-import com.bmeproject.game.bmeProject.Entity;
-import com.bmeproject.game.bmeProject.cardGenerator.CardGenerator;
-
-import java.util.ArrayList;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
@@ -30,6 +26,7 @@ public class Card extends Actor
 
 	private static final Texture       TEXTURES     = new Texture("core/assets/visuals/texture_atlas.png");
 	private static final TextureRegion TEXTURE_BACK = new TextureRegion(TEXTURES, 0, 0, 204, 300);
+	protected Sprite sprite;
 
 
 	// ===================================

@@ -5,9 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
-import com.bmeproject.game.bmeProject.Entity;
-import com.bmeproject.game.bmeProject.entity.Background;
-import com.bmeproject.game.bmeProject.entity.Type;
 import com.bmeproject.game.bmeProject.theatricalScreen.Card;
 
 public class TestCard extends Card
@@ -18,18 +15,13 @@ public class TestCard extends Card
 
 	public void initialize (String textureFilePath)
 	{
-		super(new Entity("TEST", 10, "TESTILLU","TESTILLUPATH", Type.BASE, Background.GROUND));
+		initializeVisuals();
+		initializeControls();
 	}
 
 	// ===================================
 	// METHODS
 	// ===================================
-
-	public void initialize()
-	{
-		initializeVisuals();
-		initializeControls();
-	}
 
 	private void initializeVisuals()
 	{

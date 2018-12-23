@@ -21,21 +21,21 @@ public enum Type
 			{
 				@Override public BattleCard createBattleCard(Entity entity, Player player)
 				{
-					return new Base(entity, player);
+					return new Base(entity);
 				}
 			},
 	FIGURE(408, 0)
 			{
 				@Override public BattleCard createBattleCard(Entity entity, Player player)
 				{
-					return new Figure(entity, player);
+					return new Figure(entity);
 				}
 			},
 	MANIPULATION(612, 0)
 			{
 				@Override public BattleCard createBattleCard(Entity entity, Player player)
 				{
-					return new Manipulation(entity, player);
+					return new Manipulation(entity);
 				}
 			};
 
