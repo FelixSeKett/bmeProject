@@ -41,7 +41,6 @@ public class BMEProject extends Game
 		initializeScreens();
 		profile = new Profile(this);
 		//initializeEntities();
-		setScreen(titleScreen);
 	}
 
 	private void initializeScreens()
