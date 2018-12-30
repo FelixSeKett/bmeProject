@@ -70,17 +70,18 @@ public class BMEProject extends Game
 
 	//Server wird bei jedem Aufruf geupdatet
 	public void updateServer(float dt) {
-		timer += dt;
-		if(timer >= UPDATE_TIME && player != null && player.hasMoved());
-		JSONObject data = new JSONObject();
-		try {
-			data.put("x", player.getX());
-			data.put("y", player.getY());
-			socket.emit("playerMoved", data);
-		} catch(JSONException e) {
-			Gdx.app.log("SOCKET.IO", "Error sending update data");
-		}
-	}
+        timer += dt;
+        if (timer >= UPDATE_TIME && player != null && player.hasMoved()) {
+            JSONObject data = new JSONObject();
+            try {
+                data.put("x", player.getX());
+                data.put("y", player.getY());
+                socket.emit("playerMoved", data);
+            } catch (JSONException e) {
+                Gdx.app.log("SOCKET.IO", "Error sending update data");
+            }
+        }
+    }
 
 	@Override
 		public void render() {
@@ -89,7 +90,7 @@ public class BMEProject extends Game
 
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			handleInput(Gdx.graphics.getDeltaTime());
-			//updateServer(Gdx.graphics.getDeltaTime());
+			updateServer(Gdx.graphics.getDeltaTime());
 			batch.begin();
 			if(player != null){
 				player.draw(batch);
@@ -100,12 +101,6 @@ public class BMEProject extends Game
 			batch.end();
 		}
 
-	@Override
-	public void dispose() {
-		super.dispose();;
-		playerCard.dispose();
-		friendlyCard.dispose();
-	}
 	/**
 	 * Verrichtet alle Arbeiten, die einmalig beim Erzeugen der Instanz dieser Klasse - sprich: bei Spielstart -
 	 * anfallen. Soll alle komplexe Datentypen initialisieren und einen Screen aufrufen.
@@ -249,6 +244,13 @@ public class BMEProject extends Game
 			public Profile getProfile() {
 				return profile;
 			}
+
+	@Override
+	public void dispose() {
+		super.dispose();;
+		playerCard.dispose();
+		friendlyCard.dispose();
+	}
 
 
 
