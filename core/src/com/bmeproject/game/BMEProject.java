@@ -13,6 +13,7 @@ import com.bmeproject.game.bmeProject.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import com.bmeproject.game.bmeProject.MultiplayerDemo.Server.Networking;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -40,48 +41,18 @@ public class BMEProject extends Game
 	private DeckScreen              deckScreen;
 	private TestScreen              testScreen;
 	private Profile                 profile;
-	private HashMap<String, Entity> entities;
+    private HashMap<String, Entity> entities;
 
 	//Server Variablen
-	private HashMap<String, MovingCard> friendlyPlayers;
-	private Socket socket;
-	String id;
-	private final float UPDATE_TIME = 1/60f;
-	float timer;
-	MovingCard player;
-	Texture playerCard;
-	Texture friendlyCard;
+    private Networking network;
 
 	// ===================================
 	// PROCEDURES
 	// ===================================
 
-	//Key Inputs und dazugehörige Aktionen werden definiert
-	public void handleInput(float dt) {
-		if(player != null){
-			if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-				player.setPosition(player.getX() + (-200 * dt), player.getY());
-			} else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-				player.setPosition(player.getX() + (+200 * dt), player.getY());
-			}
-		}
-	}
 
 
-	//Server wird bei jedem Aufruf geupdatet
-	public void updateServer(float dt) {
-        timer += dt;
-        if (timer >= UPDATE_TIME && player != null && player.hasMoved()) {
-            JSONObject data = new JSONObject();
-            try {
-                data.put("x", player.getX());
-                data.put("y", player.getY());
-                socket.emit("playerMoved", data);
-            } catch (JSONException e) {
-                Gdx.app.log("SOCKET.IO", "Error sending update data");
-            }
-        }
-    }
+
 
 	@Override
 		public void render() {
@@ -89,15 +60,16 @@ public class BMEProject extends Game
 			Gdx.gl.glClearColor(0,0,0,1);
 
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			handleInput(Gdx.graphics.getDeltaTime());
-			updateServer(Gdx.graphics.getDeltaTime());
+			network.handleInput(Gdx.graphics.getDeltaTime());
+			network.updateServer(Gdx.graphics.getDeltaTime());
 			batch.begin();
-			if(player != null){
-				player.draw(batch);
-			}
-			for(HashMap.Entry<String, MovingCard> entry : friendlyPlayers.entrySet()) {
-				entry.getValue().draw(batch);
-			}
+			network.addPlayer(batch);
+			//if(player != null){
+			//	player.draw(batch);
+			//}
+			//for(HashMap.Entry<String, MovingCard> entry : friendlyPlayers.entrySet()) {
+			//	entry.getValue().draw(batch);
+			//}
 			batch.end();
 		}
 
@@ -113,112 +85,15 @@ public class BMEProject extends Game
 		deckScreen = new DeckScreen(this);
 		testScreen = new TestScreen(this);
 		profile = new Profile(this);
-		entities = new HashMap();
+        entities = new HashMap();
 
-		// Spieler Texturen
-		playerCard = new Texture("core/assets/visuals/card.png");
-		friendlyCard = new Texture("core/assets/visuals/card2.jpg");
-		friendlyPlayers = new HashMap<String, MovingCard>();
-
-		connectSocket();
-		configSocketEvents();
+		//Server Methoden
+		network = new Networking();
+		network.playerTextures();
+		network.connectSocket();
+		network.configSocketEvents();
 
 		setScreen(titleScreen);
-	}
-
-	//Verbindet die lokale Socket mit dem Server, hier noch lokaler Server
-	public void connectSocket(){
-		try {
-			socket = IO.socket("http://localhost:8080");
-			socket.connect();
-		} catch(Exception e) {
-			System.out.println(e);
-		}
-	}
-
-
-	// SocketEvents sind die Server-Events, die ausgelöst werden, wenn der Spieler eine Aktion macht
-	public void configSocketEvents () {
-		socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-			@Override
-			public void call(Object... args) {
-				Gdx.app.log("SocketIO", "Connected");
-				player = new MovingCard(playerCard);
-			}
-
-		}).on("socketID", new Emitter.Listener() {
-			@Override
-			public void call(Object... args) {
-				JSONObject data = (JSONObject) args[0];
-				try {
-					String id = data.getString("id");
-					Gdx.app.log("SocketIO", "My ID: " + id);
-
-				} catch (JSONException e) {
-					Gdx.app.log("SocketIO", "Error getting ID");
-				}
-			}
-		}).on("newPlayer", new Emitter.Listener() {
-			public void call(Object... args) {
-				JSONObject data = (JSONObject) args[0];
-				try {
-					String playerId = data.getString("id");
-					Gdx.app.log("SocketIO", "New Player Connected: " + id);
-					friendlyPlayers.put(playerId, new MovingCard((friendlyCard)));
-				} catch (JSONException e) {
-					Gdx.app.log("SocketIO", "Error getting New Player ID");
-				}
-			}
-
-
-
-		}).on("playerDisconnected", new Emitter.Listener() {
-			public void call(Object... args) {
-				JSONObject data = (JSONObject) args[0];
-				try {
-					String id = data.getString("id");
-					friendlyPlayers.remove(id);
-				} catch (JSONException e) {
-					Gdx.app.log("SocketIO", "Error getting New Player ID");
-				}
-			}
-
-
-		}).on("getPlayers", new Emitter.Listener() {
-		public void call(Object... args) {
-		JSONArray objects = (JSONArray) args[0];
-		try {
-		for(int i =0; i < objects.length(); i++) {
-			MovingCard coopPlayer = new MovingCard(friendlyCard);
-			Vector2 position = new Vector2();
-			position.x = ((Double) objects.getJSONObject(i).getDouble("x")).floatValue();
-			position.y = ((Double) objects.getJSONObject(i).getDouble("y")).floatValue();
-			coopPlayer.setPosition(position.x, position.y);
-
-			friendlyPlayers.put(objects.getJSONObject(i).getString("id"), coopPlayer);
-		}
-		} catch (JSONException e) {
-		Gdx.app.log("SocketIO", "Error getting New Player ID");
-		}
-		}
-
-
-
-		}).on("playerMoved", new Emitter.Listener() {
-			public void call(Object... args) {
-				JSONObject data = (JSONObject) args[0];
-				try {
-					String playerId = data.getString("id");
-					Double x = data.getDouble("x");
-					Double y = data.getDouble("y");
-					if (friendlyPlayers.get(playerId) != null) {
-						friendlyPlayers.get(playerId).setPosition(x.floatValue(), y.floatValue());
-					}
-				} catch (JSONException e) {
-					Gdx.app.log("SocketIO", "Error getting New Player ID");
-				}
-			}
-		});
 	}
 
 			public void activateTitleScreen() {
@@ -248,8 +123,6 @@ public class BMEProject extends Game
 	@Override
 	public void dispose() {
 		super.dispose();;
-		playerCard.dispose();
-		friendlyCard.dispose();
 	}
 
 
