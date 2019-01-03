@@ -31,7 +31,7 @@ public class TitleScreen extends TheatricalScreen
 	{
 		//super.show();
 		System.out.println("TITLE SCREEN SHOWN");
-		//BME_PROJECT.activateTitleScreen();
+		//BME_PROJECT.activateTestScreen();
 
 		skin = new Skin (Gdx.files.internal("uiskin.json"));
 		stage = new Stage(new ScreenViewport());
