@@ -2,8 +2,6 @@ package com.bmeproject.game.bmeProject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,16 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bmeproject.game.BMEProject;
+import com.bmeproject.game.bmeProject.entity.Background;
 
-import javax.swing.*;
 
 public class TitleScreen extends TheatricalScreen
 {
-
 	private Skin skin;
 	private Stage stage;
 	private TextButton firstButton;
 	private TextButton secondButton;
+
 
 	// ===================================
 	// CONSTRUCTORS
@@ -40,12 +38,17 @@ public class TitleScreen extends TheatricalScreen
 		super.show();
 		System.out.println("TITLE SCREEN SHOWN");
 
+
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
 
+
 		initButtons();
 	}
+
+
+
 
 	private void initButtons() {
 		firstButton = new TextButton("PlayOne", skin, "default");
@@ -83,9 +86,9 @@ public class TitleScreen extends TheatricalScreen
 
 	@Override
 	public void render(float delta){
+		Gdx.gl.glClearColor(0x52/255.0f,0x9D/255.0f,0xBF/255.0f,0xff/255.0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		stage.draw();
 	}
-
-
-
 }
