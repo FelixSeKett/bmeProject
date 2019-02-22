@@ -63,7 +63,7 @@ public class BMEProject extends Game
 		testScreen = new TestScreen(this);
 		profile = new Profile(this);
 
-//		System.out.println("CardContainer: " + allCards.get(5).toString());
+
 
 		setScreen(testScreen);
 	}

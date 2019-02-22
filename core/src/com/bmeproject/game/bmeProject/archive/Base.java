@@ -1,15 +1,14 @@
 package com.bmeproject.game.bmeProject.archive;
 
-import com.bmeproject.game.bmeProject.dataAccess.CardContainer;
+import com.bmeproject.game.bmeProject.gameObjects.Card;
 
-public class Base extends BattleCard
-{
+public class Base extends Card {
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	public Base(CardContainer cardContainer)
+	public Base()
 	{
-		super(cardContainer);
+		super();
 	}
 }

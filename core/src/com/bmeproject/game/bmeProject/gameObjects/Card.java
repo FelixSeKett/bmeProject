@@ -11,15 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
-import com.bmeproject.game.BMEProject;
-import com.bmeproject.game.bmeProject.archive.Background;
-import com.bmeproject.game.bmeProject.archive.BattleCard;
-import com.bmeproject.game.bmeProject.dataAccess.CardContainer;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
  * Darstellung (Grafik, Akustik) nötig sind. Werden durch
- * {@link BattleCard} und
+
  * {@link DeckCard} für die jeweiligen screens erweitert.
  */
 public class Card extends Actor

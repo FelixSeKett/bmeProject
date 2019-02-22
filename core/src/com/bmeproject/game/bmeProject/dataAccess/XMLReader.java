@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject.dataAccess;
 
-import com.bmeproject.game.bmeProject.archive.Background;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Type;
 import org.w3c.dom.Document;
@@ -16,7 +15,7 @@ import java.util.List;
 
 /**
  * Die Klasse hat den Zweck, aus einem XML-File, dessen Pfad sie übergeben bekommt anhand zu lesen und daraus
- * eine CardContainer zu bauen.
+ * eine Card zu bauen.
  */
 public class XMLReader {
 
@@ -89,20 +88,5 @@ public class XMLReader {
         } else return null;
     }
 
-    // returns background of Card according to given String
-    private Background getBackground(String background) {
-        if (background.equals("OPEN_WATER")) {
-            return Background.OPEN_WATER;
-        } else if (background.equals("WRECK")) {
-            return Background.WRECK;
-        } else if (background.equals("GROUND")) {
-            return Background.GROUND;
-        } else return null;
-    }
 
-    // prints CardName and CardStrengh if read-process was successfull
-    private void printEntity(CardContainer e) {
-        System.out.println(e.getCardName());
-        System.out.println(e.getStrength());
-    }
 }

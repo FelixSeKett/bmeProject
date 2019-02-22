@@ -1,7 +1,5 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
-import com.bmeproject.game.bmeProject.dataAccess.CardContainer;
-
 import java.util.ArrayList;
 
 public class Deck
@@ -10,7 +8,7 @@ public class Deck
 	// ATTRIBUTES
 	// ===================================
 
-	private ArrayList<CardContainer> entities;
+	private ArrayList<Card> entities;
 
 	private int[] deck;
 
@@ -28,7 +26,7 @@ public class Deck
 		return deck;
 	}
 
-	public ArrayList<CardContainer> getEntities()
+	public ArrayList<Card> getEntities()
 	{
 		return entities;
 	}

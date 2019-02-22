@@ -1,9 +1,6 @@
 package com.bmeproject.game.bmeProject.archive;
 
-import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
-import com.bmeproject.game.bmeProject.dataAccess.CardContainer;
-
-import java.util.ArrayList;
+import com.bmeproject.game.bmeProject.screens.BattleScreen;
 
 public class Player
 {
@@ -13,7 +10,7 @@ public class Player
 
 	public final BattleScreen          BATTLE_SCREEN;
 	private      Area                  area;
-	private      ArrayList<BattleCard> battleCards;
+
 	private      Event                 event;
 
 	// ===================================
@@ -32,7 +29,7 @@ public class Player
 	public void initialize()
 	{
 		area = new Area(this);
-		battleCards = transformDeck();
+	//	battleCards = transformDeck();
 	}
 
 	public void startTurn()
@@ -50,12 +47,6 @@ public class Player
 		return event;
 	}
 
-	private ArrayList<BattleCard> transformDeck()
-	{
-		ArrayList<BattleCard> battleCards = new ArrayList<BattleCard>();
+	//private ArrayList<BattleCard> transformDeck()
 
-		ArrayList<CardContainer> entities = BATTLE_SCREEN.BME_PROJECT.getProfile().getDeck().getEntities();
-		for (CardContainer cardContainer : entities) { battleCards.add(cardContainer.createBattleCardOfYourself()); }
-		return battleCards;
-	}
 }

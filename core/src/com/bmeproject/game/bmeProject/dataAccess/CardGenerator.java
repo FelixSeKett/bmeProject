@@ -18,7 +18,6 @@ public class CardGenerator {
 
     public ArrayList<Card> getCardList(){
         cardList = reader.initCards();
-       // System.out.println("CardContainer: " + cardList.get(2).getIllustrationFilePath());
         list = (ArrayList<Card>) cardList;
         return list;
     }
