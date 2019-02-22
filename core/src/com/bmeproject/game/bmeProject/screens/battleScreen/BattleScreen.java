@@ -1,9 +1,10 @@
-package com.bmeproject.game.bmeProject.screens;
+package com.bmeproject.game.bmeProject.screens.battleScreen;
 
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.archive.Player;
+import com.bmeproject.game.bmeProject.screens.AbstractScreen;
 
-public class BattleScreen extends TheatricalScreen
+public class BattleScreen extends AbstractScreen
 {
 	// ===================================
 	// ATTRIBUTES

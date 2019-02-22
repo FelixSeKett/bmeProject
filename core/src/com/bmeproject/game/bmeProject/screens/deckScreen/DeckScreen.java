@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject.screens;
+package com.bmeproject.game.bmeProject.screens.deckScreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,8 +9,9 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.screens.AbstractScreen;
 
-public class DeckScreen extends TheatricalScreen {
+public class DeckScreen extends AbstractScreen {
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================

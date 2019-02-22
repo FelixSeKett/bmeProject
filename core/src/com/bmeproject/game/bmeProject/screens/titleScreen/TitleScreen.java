@@ -1,8 +1,9 @@
-package com.bmeproject.game.bmeProject.screens;
+package com.bmeproject.game.bmeProject.screens.titleScreen;
 
 import com.bmeproject.game.BMEProject;
+import com.bmeproject.game.bmeProject.screens.AbstractScreen;
 
-public class TitleScreen extends TheatricalScreen
+public class TitleScreen extends AbstractScreen
 {
 	// ===================================
 	// CONSTRUCTORS

@@ -7,7 +7,7 @@ import com.bmeproject.game.bmeProject.gameObjects.Card;
 /**
  * Nur für Testzwecke.
  */
-public class TestScreen extends TheatricalScreen
+public class TestScreen extends AbstractScreen
 {
 	// ===================================
 	// ATTRIBUTES

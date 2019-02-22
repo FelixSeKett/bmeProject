@@ -1,6 +1,6 @@
 package com.bmeproject.game.bmeProject.archive;
 
-import com.bmeproject.game.bmeProject.screens.BattleScreen;
+import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
 import com.bmeproject.game.bmeProject.dataAccess.CardContainer;
 
 import java.util.ArrayList;

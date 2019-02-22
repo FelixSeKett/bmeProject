@@ -7,13 +7,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bmeproject.game.BMEProject;
+import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
+import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
 
 /**
  * Elternklasse aller im Spiel verwendeter Screen-Klassen ({@link BattleScreen}, {@link DeckScreen}, etc.), die zur
  * Darstellung von Actors verwendet werden und damit auf eine {@link Stage} inklusive {@link SpriteBatch} angewiesen
  * sind.
  */
-public abstract class TheatricalScreen implements Screen
+public abstract class AbstractScreen implements Screen
 {
 	// ===================================
 	// ATTRIBUTES
@@ -27,7 +29,7 @@ public abstract class TheatricalScreen implements Screen
 	// CONSTRUCTORS
 	// ===================================
 
-	TheatricalScreen(BMEProject bmeProject)
+	public AbstractScreen(BMEProject bmeProject)
 	{
 		BME_PROJECT = bmeProject;
 	}
