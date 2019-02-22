@@ -3,6 +3,7 @@ package com.bmeproject.game.bmeProject.dataAccess;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CardGenerator {
@@ -22,5 +23,17 @@ public class CardGenerator {
         return list;
     }
 
+    public HashMap createAllCards()
+    {
+        ArrayList<Card> cardList = getCardList();
+        HashMap<Integer, Card> allCards = new HashMap<>();
+
+        for(Card card : cardList)
+        {
+            allCards.put(card.getCardId(), card);
+        }
+
+        return allCards;
+    }
 
 }

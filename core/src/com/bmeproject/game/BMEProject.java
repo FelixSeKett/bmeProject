@@ -6,7 +6,6 @@ import com.bmeproject.game.bmeProject.screens.BattleScreen;
 import com.bmeproject.game.bmeProject.screens.DeckScreen;
 import com.bmeproject.game.bmeProject.screens.TestScreen;
 import com.bmeproject.game.bmeProject.screens.TitleScreen;
-import com.bmeproject.game.bmeProject.dataAccess.CardContainer;
 import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
 import com.bmeproject.game.bmeProject.userData.Profile;
 
@@ -31,7 +30,7 @@ public class BMEProject extends Game
 	private DeckScreen deckScreen;
 	private TestScreen testScreen;
 	private Profile profile;
-	public HashMap<Integer, Card> allCards;
+	public static HashMap<Integer, Card> allCards;
 	public static ArrayList<Card> Cards;
 
 	// ===================================
@@ -51,12 +50,7 @@ public class BMEProject extends Game
 
 	private void initObjects(){
 		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
-		Cards = cardgen.getCardList();
-
-		for(Card card : Cards)
-		{
-			allCards.put(card.getCardId(), card);
-		}
+		allCards = cardgen.createAllCards();
 	}
 
 	private void initializeScreens()
