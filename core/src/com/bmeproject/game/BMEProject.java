@@ -1,9 +1,16 @@
 package com.bmeproject.game;
 
 import com.badlogic.gdx.Game;
-import com.bmeproject.game.bmeProject.*;
+import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
+import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
+import com.bmeproject.game.bmeProject.screens.TestScreen;
+import com.bmeproject.game.bmeProject.screens.titleScreen.TitleScreen;
+import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
+import com.bmeproject.game.bmeProject.userData.Profile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Die Wurzel des Code-Stamms und Erweiterung von {@link Game}. Wird das Spiel gestartet, erstellt die jeweilige
@@ -18,14 +25,16 @@ public class BMEProject extends Game
 
 	public static final boolean DEBUG = true;
 
-	private TitleScreen       titleScreen;
-	private BattleScreen      battleScreen;
-	private DeckScreen        deckScreen;
-	private Profile           profile;
-	private ArrayList<Entity> entities;
+	private TitleScreen titleScreen;
+	private BattleScreen battleScreen;
+	private DeckScreen deckScreen;
+	private TestScreen testScreen;
+	private Profile profile;
+	public static HashMap<Integer, Card> allCards;
+	public static ArrayList<Card> Cards;
 
 	// ===================================
-	// PROCEDURES
+	// METHODS
 	// ===================================
 
 	/**
@@ -34,13 +43,29 @@ public class BMEProject extends Game
 	 */
 	@Override public void create()
 	{
+		initializeScreens();
+		profile = new Profile(this);
+		//initializeEntities();
+	}
+
+	private void initObjects(){
+		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
+		allCards = cardgen.createAllCards();
+	}
+
+	private void initializeScreens()
+	{
+		allCards = new HashMap();
+		initObjects();
 		titleScreen = new TitleScreen(this);
 		battleScreen = new BattleScreen(this);
 		deckScreen = new DeckScreen(this);
+		testScreen = new TestScreen(this);
 		profile = new Profile(this);
-		entities = new ArrayList<Entity>();
 
-		setScreen(titleScreen);
+
+
+		setScreen(testScreen);
 	}
 
 	public void activateTitleScreen()
@@ -56,5 +81,15 @@ public class BMEProject extends Game
 	public void activateDeckScreen()
 	{
 		setScreen(deckScreen);
+	}
+
+	public void activateTestScreen()
+	{
+		setScreen(testScreen);
+	}
+
+	public Profile getProfile()
+	{
+		return profile;
 	}
 }
