@@ -1,6 +1,6 @@
-package com.bmeproject.game.bmeProject;
+package com.bmeproject.game.bmeProject.archive;
 
-import com.bmeproject.game.bmeProject.dataAccess.Entity;
+import com.bmeproject.game.bmeProject.dataAccess.CardContainer;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 
 public abstract class BattleCard extends Card
@@ -9,16 +9,16 @@ public abstract class BattleCard extends Card
 	// ATTRIBUTES
 	// ===================================
 
-	private final Entity ENTITY;
+	private final CardContainer CardContainer;
 	private final int    STRENGTH;
 
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	BattleCard(Entity entity)
+	BattleCard(CardContainer cardContainer)
 	{
-		ENTITY = entity;
-		STRENGTH = entity.getStrength();
+		CardContainer = cardContainer;
+		STRENGTH = cardContainer.getStrength();
 	}
 }

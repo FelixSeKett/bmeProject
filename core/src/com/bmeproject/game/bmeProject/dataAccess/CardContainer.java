@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * mit deren formeller Darstellung (Grafik, Akustik) zu tun haben. Wird an
  * {@link Card} und ihre Subklassen bei deren Instanziierung übergeben.
  */
-public class Entity {
+public class CardContainer{
     // ===================================
     // ATTRIBUTES
     // ===================================
@@ -27,13 +27,13 @@ public class Entity {
     private Type type;
     private Background background;
 
-    private ArrayList<Entity> Cards;
+    private ArrayList<CardContainer> Cards;
 
     // ===================================
     // CONTRUCTORS
     // ===================================
 
-    public Entity(String cardName, int cardStrengh, String cardIllustrator, String cardIlluFilePath, Type cType, Background cBackground) {
+    public CardContainer(String cardName, int cardStrengh, String cardIllustrator, String cardIlluFilePath, Type cType, Background cBackground) {
         name = cardName;
         strength = cardStrengh;
         illustrator = cardIllustrator;

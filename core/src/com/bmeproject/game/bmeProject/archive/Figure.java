@@ -1,6 +1,6 @@
-package com.bmeproject.game.bmeProject;
+package com.bmeproject.game.bmeProject.archive;
 
-import com.bmeproject.game.bmeProject.dataAccess.Entity;
+import com.bmeproject.game.bmeProject.dataAccess.CardContainer;
 
 public class Figure extends BattleCard
 {
@@ -8,8 +8,8 @@ public class Figure extends BattleCard
 	// CONSTRUCTORS
 	// ===================================
 
-	public Figure(Entity entity)
+	public Figure(CardContainer cardContainer)
 	{
-		super(entity);
+		super(cardContainer);
 	}
 }

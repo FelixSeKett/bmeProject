@@ -1,26 +1,26 @@
-package com.bmeproject.game.bmeProject.cardGenerator;
+package com.bmeproject.game.bmeProject.dataAccess;
 
-import com.bmeproject.game.bmeProject.Entity;
-import com.bmeproject.game.bmeProject.dataAccess.XMLReader;
+import com.bmeproject.game.bmeProject.gameObjects.Card;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CardGenerator {
-    List<Entity> cardList;
+    List<Card> cardList;
     XMLReader reader;
-    ArrayList<Entity> list;
+    ArrayList<Card> list;
 
     public CardGenerator(String xmlPath){
-         cardList = new ArrayList<Entity>();
+         cardList = new ArrayList<Card>();
          reader =  new XMLReader(xmlPath);
     }
 
-    public ArrayList<Entity> getCardList(){
+    public ArrayList<Card> getCardList(){
         cardList = reader.initCards();
-        System.out.println("Entity: " + cardList.get(2).getIllustrationFilePath());
-        list = (ArrayList<Entity>) cardList;
+       // System.out.println("CardContainer: " + cardList.get(2).getIllustrationFilePath());
+        list = (ArrayList<Card>) cardList;
         return list;
     }
+
+
 }
-// Warum kann ich nicht sofort "cardList" als return benutzen? warum denkt er dass es einfach list ist, obwohl in Zeile 15 haben wir es als ArrayList definiert.

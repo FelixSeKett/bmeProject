@@ -50,17 +50,18 @@ public class Card extends Actor
 	{
 	}
 
-	public void initialize(String cardName, int cardStrengh, String cardIlluFilePath, Type cType)
+	public void initialize(int id, String cardName, int cardStrengh, String cardIlluFilePath, Type cType)
 	{
 		//String path = BMEProject.Cards.get().getIllustrationFilePath();
 		initializeVisuals(cardIlluFilePath);
 		initializeControls();
-		initializeData(cardName, cardStrengh, cType);
+		initializeData(id, cardName, cardStrengh, cType);
 
 	}
 
-	public void initializeData(String cardName, int cardStrengh, Type cType)
+	public void initializeData(int Id, String cardName, int cardStrengh, Type cType)
 	{
+		this.CardId = Id;
 		this.CardName = cardName;
 		this.Strengh = cardStrengh;
 		this.CardType = cType;

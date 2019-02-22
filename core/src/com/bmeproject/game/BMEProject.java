@@ -49,17 +49,7 @@ public class BMEProject extends Game
 		//initializeEntities();
 	}
 
-	private void initializeScreens()
-	{
-		titleScreen = new TitleScreen(this);
-		battleScreen = new BattleScreen(this);
-		deckScreen = new DeckScreen(this);
-		testScreen = new TestScreen(this);
-		profile = new Profile(this);
-		allCards = new HashMap();
-
-//		System.out.println("CardContainer: " + allCards.get(5).toString());
-
+	private void initObjects(){
 		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
 		Cards = cardgen.getCardList();
 
@@ -67,6 +57,19 @@ public class BMEProject extends Game
 		{
 			allCards.put(card.getCardId(), card);
 		}
+	}
+
+	private void initializeScreens()
+	{
+		allCards = new HashMap();
+		initObjects();
+		titleScreen = new TitleScreen(this);
+		battleScreen = new BattleScreen(this);
+		deckScreen = new DeckScreen(this);
+		testScreen = new TestScreen(this);
+		profile = new Profile(this);
+
+//		System.out.println("CardContainer: " + allCards.get(5).toString());
 
 		setScreen(testScreen);
 	}

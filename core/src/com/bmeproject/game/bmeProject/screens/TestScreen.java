@@ -35,7 +35,8 @@ public class TestScreen extends TheatricalScreen
 		super.show();
 		System.out.println("TEST SCREEN SHOWN");
 
-		card = bmeProject.allCards.get(001);
+		card = new Card();
+		card = bmeProject.allCards.get(1);
 		stage.addActor(card);
 
 

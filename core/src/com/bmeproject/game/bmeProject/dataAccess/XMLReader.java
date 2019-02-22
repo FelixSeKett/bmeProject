@@ -63,13 +63,13 @@ public class XMLReader {
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
                 System.out.println("ID: " + eElement.getAttribute("id"));
-                tempCard = new CardContainer(
+                tempCard = new Card();
+                tempCard.initialize(
+                        Integer.parseInt(eElement.getAttribute("id")),
                         eElement.getElementsByTagName("cardName").item(0).getTextContent(),
                         Integer.parseInt(eElement.getElementsByTagName("cardStrengh").item(0).getTextContent()),
-                        eElement.getElementsByTagName("cardIllustrator").item(0).getTextContent(),
                         eElement.getElementsByTagName("cardIllustrationFilePath").item(0).getTextContent(),
-                        getType(eElement.getElementsByTagName("cardType").item(0).getTextContent()),
-                        getBackground(eElement.getElementsByTagName("cardBackground").item(0).getTextContent())
+                        getType(eElement.getElementsByTagName("cardType").item(0).getTextContent())
                         );
 
                 cardList.add(tempCard);

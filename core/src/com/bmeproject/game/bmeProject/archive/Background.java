@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject;
+package com.bmeproject.game.bmeProject.archive;
 
 /**
  * Gibt eine Auswahl aller möglichen Hintergrundtypen, die jeweils Koordinaten für die entsprechende TextureRegion
