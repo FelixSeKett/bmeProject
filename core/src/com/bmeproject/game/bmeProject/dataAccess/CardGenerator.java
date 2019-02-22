@@ -26,7 +26,7 @@ public class CardGenerator {
     public HashMap createAllCards()
     {
         ArrayList<Card> cardList = getCardList();
-        HashMap<Integer, Card> allCards = new HashMap<>();
+        HashMap<Integer, Card> allCards = new HashMap<Integer, Card>();
 
         for(Card card : cardList)
         {
