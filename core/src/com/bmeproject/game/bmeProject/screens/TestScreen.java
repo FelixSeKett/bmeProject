@@ -1,9 +1,8 @@
-package com.bmeproject.game.bmeProject;
+package com.bmeproject.game.bmeProject.screens;
 
 import com.bmeproject.game.BMEProject;
-import com.bmeproject.game.bmeProject.profile.Deck;
-import com.bmeproject.game.bmeProject.testScreen.TestCard;
-import com.bmeproject.game.bmeProject.theatricalScreen.Card;
+import com.bmeproject.game.bmeProject.gameObjects.Deck;
+import com.bmeproject.game.bmeProject.gameObjects.Card;
 
 /**
  * Nur für Testzwecke.
@@ -16,6 +15,7 @@ public class TestScreen extends TheatricalScreen
 
 	private Card card;
 	private Deck deck;
+	private BMEProject bmeProject;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -35,9 +35,11 @@ public class TestScreen extends TheatricalScreen
 		super.show();
 		System.out.println("TEST SCREEN SHOWN");
 
-		card = new Card();
-		card.initialize(2);
+		card = bmeProject.allCards.get(001);
 		stage.addActor(card);
+
+
+
 
 		deck = new Deck();
 		int[] tempDeck =  deck.getDeck();

@@ -1,6 +1,4 @@
-package com.bmeproject.game.bmeProject.battleScreen.player;
-
-import com.bmeproject.game.bmeProject.battleScreen.Player;
+package com.bmeproject.game.bmeProject;
 
 public class Area
 {

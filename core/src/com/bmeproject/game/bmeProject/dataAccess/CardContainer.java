@@ -1,14 +1,10 @@
-package com.bmeproject.game.bmeProject;
+package com.bmeproject.game.bmeProject.dataAccess;
 
-import com.bmeproject.game.bmeProject.battleScreen.player.BattleCard;
-import com.bmeproject.game.bmeProject.cardGenerator.CardGenerator;
-import com.bmeproject.game.bmeProject.entity.Background;
-import com.bmeproject.game.bmeProject.entity.Type;
+import com.bmeproject.game.bmeProject.archive.BattleCard;
+import com.bmeproject.game.bmeProject.archive.Background;
+import com.bmeproject.game.bmeProject.gameObjects.Type;
+import com.bmeproject.game.bmeProject.gameObjects.Card;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.ArrayList;
 
 
@@ -16,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Daten-Container für Karteninhalte. Enthält alle Attribute einer Karte in Form primitiver Datentypen, die nichts
  * mit deren formeller Darstellung (Grafik, Akustik) zu tun haben. Wird an
- * {@link com.bmeproject.game.bmeProject.theatricalScreen.Card} und ihre Subklassen bei deren Instanziierung übergeben.
+ * {@link Card} und ihre Subklassen bei deren Instanziierung übergeben.
  */
 public class Entity {
     // ===================================

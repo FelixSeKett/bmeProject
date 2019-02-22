@@ -1,7 +1,7 @@
-package com.bmeproject.game.bmeProject.battleScreen.player;
+package com.bmeproject.game.bmeProject;
 
-import com.bmeproject.game.bmeProject.Entity;
-import com.bmeproject.game.bmeProject.theatricalScreen.Card;
+import com.bmeproject.game.bmeProject.dataAccess.Entity;
+import com.bmeproject.game.bmeProject.gameObjects.Card;
 
 public abstract class BattleCard extends Card
 {

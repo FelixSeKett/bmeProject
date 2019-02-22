@@ -1,8 +1,8 @@
 package com.bmeproject.game.bmeProject.dataAccess;
 
-import com.bmeproject.game.bmeProject.Entity;
-import com.bmeproject.game.bmeProject.entity.Background;
-import com.bmeproject.game.bmeProject.entity.Type;
+import com.bmeproject.game.bmeProject.archive.Background;
+import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.gameObjects.Type;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Die Klasse hat den Zweck, aus einem XML-File, dessen Pfad sie übergeben bekommt anhand zu lesen und daraus
- * eine Entity zu bauen.
+ * eine CardContainer zu bauen.
  */
 public class XMLReader {
 
@@ -27,7 +27,7 @@ public class XMLReader {
     }
 
     //Initialises process
-    public List<Entity> initCards() {
+    public List<Card> initCards() {
         Document document = readXML();
         return readCardsFromXML(document);
     }
@@ -49,12 +49,12 @@ public class XMLReader {
     }
 
     // reads given Document with specific card-tags
-    private List<Entity> readCardsFromXML(Document doc) {
+    private List<Card> readCardsFromXML(Document doc) {
         System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
         NodeList nList = doc.getElementsByTagName("card");
 
-        List<Entity> entityList = new ArrayList<Entity>();
-        Entity tempEntity;
+        List<Card> cardList = new ArrayList<Card>();
+        Card tempCard;
 
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
@@ -63,7 +63,7 @@ public class XMLReader {
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
                 System.out.println("ID: " + eElement.getAttribute("id"));
-                tempEntity = new Entity(
+                tempCard = new CardContainer(
                         eElement.getElementsByTagName("cardName").item(0).getTextContent(),
                         Integer.parseInt(eElement.getElementsByTagName("cardStrengh").item(0).getTextContent()),
                         eElement.getElementsByTagName("cardIllustrator").item(0).getTextContent(),
@@ -72,10 +72,10 @@ public class XMLReader {
                         getBackground(eElement.getElementsByTagName("cardBackground").item(0).getTextContent())
                         );
 
-                entityList.add(tempEntity);
+                cardList.add(tempCard);
             }
         }
-        return entityList;
+        return cardList;
     }
 
     // returns Type of Card according to given String
@@ -101,7 +101,7 @@ public class XMLReader {
     }
 
     // prints CardName and CardStrengh if read-process was successfull
-    private void printEntity(Entity e) {
+    private void printEntity(CardContainer e) {
         System.out.println(e.getCardName());
         System.out.println(e.getStrength());
     }

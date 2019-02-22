@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject;
+package com.bmeproject.game.bmeProject.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -51,7 +51,7 @@ public abstract class TheatricalScreen implements Screen
 
 	/**
 	 * Wird entsprechend der festgelegten Bildrate mehrmals pro Sekunde aufgerufen und kümmert sich im Zuge dessen um
-	 * inhaltliche und formelle Veränderungen, die zur Laufzeit dieses Screens stattfinden. Setzt so zunächst das Bild
+	 * inhaltliche und formelle Veränderungen, die zur Laufzeit dieses screens stattfinden. Setzt so zunächst das Bild
 	 * zurück und fordert die Stage anschließend auf, mit {@link Stage#act(float)} die Spiellogik (Input, Update von
 	 * Variablen) und mit {@link Stage#draw()} die Visualisierung zu aktualisieren.
 	 *

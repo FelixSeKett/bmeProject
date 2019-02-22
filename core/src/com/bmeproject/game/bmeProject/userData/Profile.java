@@ -1,7 +1,7 @@
-package com.bmeproject.game.bmeProject;
+package com.bmeproject.game.bmeProject.userData;
 
 import com.bmeproject.game.BMEProject;
-import com.bmeproject.game.bmeProject.profile.Deck;
+import com.bmeproject.game.bmeProject.gameObjects.Deck;
 
 public class Profile
 {

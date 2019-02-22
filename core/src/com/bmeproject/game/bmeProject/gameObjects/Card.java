@@ -1,9 +1,10 @@
-package com.bmeproject.game.bmeProject.theatricalScreen;
+package com.bmeproject.game.bmeProject.gameObjects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -11,12 +12,15 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.bmeproject.game.BMEProject;
+import com.bmeproject.game.bmeProject.archive.Background;
+import com.bmeproject.game.bmeProject.archive.BattleCard;
+import com.bmeproject.game.bmeProject.dataAccess.CardContainer;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
  * Darstellung (Grafik, Akustik) nötig sind. Werden durch
- * {@link com.bmeproject.game.bmeProject.battleScreen.player.BattleCard} und
- * {@link com.bmeproject.game.bmeProject.deckScreen.DeckCard} für die jeweiligen Screens erweitert.
+ * {@link BattleCard} und
+ * {@link DeckCard} für die jeweiligen screens erweitert.
  */
 public class Card extends Actor
 {
@@ -27,22 +31,46 @@ public class Card extends Actor
 	private static final Texture       TEXTURES     = new Texture("core/assets/visuals/texture_atlas.png");
 	private static final TextureRegion TEXTURE_BACK = new TextureRegion(TEXTURES, 0, 0, 204, 300);
 	protected Sprite sprite;
+	protected int CardId;
+	protected Vector2 CardPosition;
+	protected Type CardType;
+	protected String CardName;
+	protected int Strengh;
+	protected String Decsription;
+	protected String illustrationFilePath;
+
+
 
 
 	// ===================================
 	// CONSTRUCTOR
 	// ===================================
 
-	public void initialize(int ID)
+	public Card()
 	{
-		String path = BMEProject.Cards.get(ID).getIllustrationFilePath();
-		initializeVisuals(path);
-		initializeControls();
 	}
 
-	private void initializeVisuals(String textureFilePath)
+	public void initialize(String cardName, int cardStrengh, String cardIlluFilePath, Type cType)
 	{
-		sprite = new Sprite(new Texture(textureFilePath));
+		//String path = BMEProject.Cards.get().getIllustrationFilePath();
+		initializeVisuals(cardIlluFilePath);
+		initializeControls();
+		initializeData(cardName, cardStrengh, cType);
+
+	}
+
+	public void initializeData(String cardName, int cardStrengh, Type cType)
+	{
+		this.CardName = cardName;
+		this.Strengh = cardStrengh;
+		this.CardType = cType;
+	}
+
+	private void initializeVisuals(String cardIlluFilePath)
+	{
+		this.illustrationFilePath = cardIlluFilePath;
+
+		sprite = new Sprite(new Texture(illustrationFilePath));
 		setWidth(sprite.getWidth());
 		setHeight(sprite.getHeight());
 		sprite.setOrigin(sprite.getX(), sprite.getY());
@@ -72,6 +100,11 @@ public class Card extends Actor
 			}
 		};
 		addListener(inputListener);
+	}
+
+	public int getCardId()
+	{
+		return this.CardId;
 	}
 
 	/**

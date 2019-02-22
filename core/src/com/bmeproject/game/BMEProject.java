@@ -1,8 +1,14 @@
 package com.bmeproject.game;
 
 import com.badlogic.gdx.Game;
-import com.bmeproject.game.bmeProject.*;
-import com.bmeproject.game.bmeProject.cardGenerator.CardGenerator;
+import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.screens.BattleScreen;
+import com.bmeproject.game.bmeProject.screens.DeckScreen;
+import com.bmeproject.game.bmeProject.screens.TestScreen;
+import com.bmeproject.game.bmeProject.screens.TitleScreen;
+import com.bmeproject.game.bmeProject.dataAccess.CardContainer;
+import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
+import com.bmeproject.game.bmeProject.userData.Profile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,13 +26,13 @@ public class BMEProject extends Game
 
 	public static final boolean DEBUG = true;
 
-	private TitleScreen             titleScreen;
-	private BattleScreen            battleScreen;
-	private DeckScreen              deckScreen;
-	private TestScreen              testScreen;
-	private Profile                 profile;
-	private HashMap<String, Entity> entities;
-	public static ArrayList<Entity> Cards;
+	private TitleScreen titleScreen;
+	private BattleScreen battleScreen;
+	private DeckScreen deckScreen;
+	private TestScreen testScreen;
+	private Profile profile;
+	public HashMap<Integer, Card> allCards;
+	public static ArrayList<Card> Cards;
 
 	// ===================================
 	// METHODS
@@ -50,13 +56,19 @@ public class BMEProject extends Game
 		deckScreen = new DeckScreen(this);
 		testScreen = new TestScreen(this);
 		profile = new Profile(this);
-		entities = new HashMap();
+		allCards = new HashMap();
 
+//		System.out.println("CardContainer: " + allCards.get(5).toString());
 
 		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
 		Cards = cardgen.getCardList();
 
-		setScreen(titleScreen);
+		for(Card card : Cards)
+		{
+			allCards.put(card.getCardId(), card);
+		}
+
+		setScreen(testScreen);
 	}
 
 	public void activateTitleScreen()

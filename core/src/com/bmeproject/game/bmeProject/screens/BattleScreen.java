@@ -1,7 +1,7 @@
-package com.bmeproject.game.bmeProject;
+package com.bmeproject.game.bmeProject.screens;
 
 import com.bmeproject.game.BMEProject;
-import com.bmeproject.game.bmeProject.battleScreen.Player;
+import com.bmeproject.game.bmeProject.archive.Player;
 
 public class BattleScreen extends TheatricalScreen
 {

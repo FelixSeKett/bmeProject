@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject;
+package com.bmeproject.game.bmeProject.screens;
 
 import com.bmeproject.game.BMEProject;
 

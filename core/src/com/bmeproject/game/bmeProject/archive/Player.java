@@ -1,10 +1,7 @@
-package com.bmeproject.game.bmeProject.battleScreen;
+package com.bmeproject.game.bmeProject;
 
-import com.bmeproject.game.bmeProject.BattleScreen;
-import com.bmeproject.game.bmeProject.Entity;
-import com.bmeproject.game.bmeProject.battleScreen.player.Area;
-import com.bmeproject.game.bmeProject.battleScreen.player.BattleCard;
-import com.bmeproject.game.bmeProject.battleScreen.player.Event;
+import com.bmeproject.game.bmeProject.Screens.BattleScreen;
+import com.bmeproject.game.bmeProject.dataAccess.Entity;
 
 import java.util.ArrayList;
 

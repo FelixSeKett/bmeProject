@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject.deckScreen;
+package com.bmeproject.game.bmeProject.gameObjects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
-import com.bmeproject.game.bmeProject.theatricalScreen.Card;
+import com.bmeproject.game.bmeProject.gameObjects.Card;
 
 /*
 Grafische Darstellung von Karte:

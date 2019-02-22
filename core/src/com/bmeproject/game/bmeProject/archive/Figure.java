@@ -1,6 +1,6 @@
-package com.bmeproject.game.bmeProject.battleScreen.player;
+package com.bmeproject.game.bmeProject;
 
-import com.bmeproject.game.bmeProject.Entity;
+import com.bmeproject.game.bmeProject.dataAccess.Entity;
 
 public class Figure extends BattleCard
 {
