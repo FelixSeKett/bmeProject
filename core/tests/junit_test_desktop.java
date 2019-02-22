@@ -1,6 +1,3 @@
-import com.bmeproject.game.bmeProject.Entity;
-import com.bmeproject.game.bmeProject.entity.Background;
-import com.bmeproject.game.bmeProject.entity.Type;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -25,14 +22,6 @@ public class junit_test_desktop {
     }
 
     //Test 001: Class entity / Methode getStrengh /
-    @Test
-    public void entity_getStrengh_int() {
-        // Setup
-        int testStrengh = 10;
-        Entity e = new Entity("TEST", testStrengh, "TESTIllu", "TestilluPath", Type.BASE, Background.GROUND);
 
-        // Test
-        Assert.assertEquals(testStrengh, e.getStrength());
-    }
 
 }
