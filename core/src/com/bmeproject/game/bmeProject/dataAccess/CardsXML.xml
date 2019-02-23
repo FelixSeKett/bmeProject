@@ -4,7 +4,7 @@
         <cardName>FirstCard</cardName>
         <cardStrengh>1</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
-        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardIllustrationFilePath>core/assets/visuals/card.png</cardIllustrationFilePath>
         <cardType>BASE</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>
@@ -20,7 +20,7 @@
         <cardName>ThirdCard</cardName>
         <cardStrengh>3</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
-        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardIllustrationFilePath>core/assets/visuals/card2.jpg</cardIllustrationFilePath>
         <cardType>BASE</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>
