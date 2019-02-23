@@ -52,11 +52,6 @@ public class TestScreen extends AbstractScreen {
 		paused = false;
 	}
 
-//	@Override
-//	public void create() {
-//
-//	}
-
 	// ===================================
 	// METHODS
 	// ===================================

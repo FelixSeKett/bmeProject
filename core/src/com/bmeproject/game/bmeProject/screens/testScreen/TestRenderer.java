@@ -31,10 +31,8 @@ public class TestRenderer implements Disposable {
     private void renderTestObjects(){
         testController.cameraHelper.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
+
         batch.begin();
-//        for(int key : testController.allCards.keySet()){
-//            testController.allCards.get(key).getSprite().draw(batch);
-//        }
         for(Sprite sprite : testController.testSprites){
             sprite.draw(batch);
         }
@@ -48,6 +46,6 @@ public class TestRenderer implements Disposable {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
     }
 }
