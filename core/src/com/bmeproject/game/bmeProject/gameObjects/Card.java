@@ -63,6 +63,14 @@ public class Card extends Actor
 		this.CardType = cType;
 	}
 
+	public static TextureRegion getTextureBack() {
+		return TEXTURE_BACK;
+	}
+
+	public Sprite getSprite() {
+		return sprite;
+	}
+
 	private void initializeVisuals(String cardIlluFilePath)
 	{
 		this.illustrationFilePath = cardIlluFilePath;

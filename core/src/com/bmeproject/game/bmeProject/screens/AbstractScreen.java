@@ -23,7 +23,7 @@ public abstract class AbstractScreen implements Screen
 
 	public final BMEProject  BME_PROJECT;
 	private      SpriteBatch spriteBatch;
-	Stage stage;
+	public Stage stage;
 
 	// ===================================
 	// CONSTRUCTORS
