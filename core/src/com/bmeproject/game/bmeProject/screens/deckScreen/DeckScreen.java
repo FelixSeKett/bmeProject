@@ -70,7 +70,7 @@ public class DeckScreen extends AbstractScreen {
 
 
 
-		/*
+/*
 
 		Table table = new Table(skin);
 		table.setFillParent(true);
@@ -81,8 +81,13 @@ public class DeckScreen extends AbstractScreen {
 
 		table.setPosition(0, Gdx.graphics.getHeight());
 
+
+		Card card = BMEProject.allCards.get(1);
+		stage.addActor(card);
+
+
 		Card card1 = new Card();
-		//card1.initialize(2);
+		card1.initialize(2);
 
 		Card card2 = new Card();
 		//card2.initialize(3);
@@ -96,8 +101,8 @@ public class DeckScreen extends AbstractScreen {
 		table.add(btn).padBottom(30);
 		table.row();
 		table.add(str2);
-		*/
 
+*/
 
 	}
 
