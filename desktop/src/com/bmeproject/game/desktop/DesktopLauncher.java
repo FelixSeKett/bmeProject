@@ -10,5 +10,7 @@ public class DesktopLauncher
 	{
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new BMEProject(), config);
+		config.width = 1350;
+		config.height = 1000;
 	}
 }
