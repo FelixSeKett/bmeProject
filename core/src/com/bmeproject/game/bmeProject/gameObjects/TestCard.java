@@ -12,6 +12,10 @@ public class TestCard extends Card
 	// CONSTRUCTORS
 	// ===================================
 
+	public TestCard(int id, String name, String illustrationFilePath, Type type, int effect, String description) {
+		super(id, name, illustrationFilePath, type, effect, description);
+	}
+
 	public void initialize (String textureFilePath)
 	{
 		initializeVisuals();

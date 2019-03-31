@@ -39,12 +39,6 @@ public class DeckScreen extends AbstractScreen {
 
 		table.setPosition(0, Gdx.graphics.getHeight());
 
-		Card card1 = new Card();
-		//card1.initialize(2);
-
-		Card card2 = new Card();
-		//card2.initialize(3);
-
 		TextButton btn = new TextButton("Click me!", skin, "default");
 
 		String str1 = "LALALA";

@@ -31,36 +31,31 @@ public class Card extends Actor
 	protected Vector2 CardPosition;
 	protected Type CardType;
 	protected String CardName;
-	protected int Strengh;
-	protected String Decsription;
+	protected int Strength;
+	protected String decsription;
 	protected String illustrationFilePath;
-
-
+	protected int effect;
 
 
 	// ===================================
 	// CONSTRUCTOR
 	// ===================================
 
-	public Card()
+	public Card(int id, String name, String illustrationFilePath, Type type, int effect, String description)
 	{
+		this.CardId = id;
+		this.CardName = name;
+		this.CardType = type;
+		this.effect = effect;
+		this.decsription = description;
+		this.illustrationFilePath = illustrationFilePath;
 	}
 
-	public void initialize(int id, String cardName, int cardStrengh, String cardIlluFilePath, Type cType)
+	public void initialize()
 	{
 		//String path = BMEProject.Cards.get().getIllustrationFilePath();
-		initializeVisuals(cardIlluFilePath);
+		initializeVisuals(this.illustrationFilePath);
 		initializeControls();
-		initializeData(id, cardName, cardStrengh, cType);
-
-	}
-
-	public void initializeData(int Id, String cardName, int cardStrengh, Type cType)
-	{
-		this.CardId = Id;
-		this.CardName = cardName;
-		this.Strengh = cardStrengh;
-		this.CardType = cType;
 	}
 
 	private void initializeVisuals(String cardIlluFilePath)

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<effects>
+    <effect id="001">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="002">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="003">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="004">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="005">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="006">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="007">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="008">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="009">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="010">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="011">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="012">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="013">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="014">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="015">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="016">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="017">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="018">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="019">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+    <effect id="020">
+        <effectName>EffectName</effectName>
+        <effectDescription>Dieser Effekt ....</effectDescription>
+    </effect>
+</effects>
