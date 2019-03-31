@@ -10,10 +10,9 @@ public enum Type
 	// ENTRIES
 	// ===================================
 
-	BASE(204, 0),
-	FIGURE(408, 0),
-	MANIPULATION(612, 0);
-
+	QUARTIER(204, 0),
+	KREATUR(408, 0),
+	PHAENOMEN(612, 0);
 
 	// ===================================
 	// ATTRIBUTES

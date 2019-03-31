@@ -19,8 +19,9 @@ public class DeckCard extends Card
     // PROCEDURES
     // ===================================
 
-    public DeckCard(int id, String name, String illustrationFilePath, Type type, int effect, String description, String cardId) {
-        super(id, name, illustrationFilePath, type, effect, description);
+
+    public DeckCard(int id, String name, Type type, int effect1, int effect2, int effect3, String description, String cardId) {
+        super(id, name, type, effect1, effect2, effect3, description);
         CardId = cardId;
     }
 

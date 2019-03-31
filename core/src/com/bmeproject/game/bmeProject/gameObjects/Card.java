@@ -33,36 +33,80 @@ public class Card extends Actor
 	protected String CardName;
 	protected int Strength;
 	protected String decsription;
-	protected String illustrationFilePath;
-	protected int effect;
+	protected String illustrationFilePathLarge;
+	protected String illustrationFilePathSmall;
+	protected int effect1;
+	protected int effect2;
+	protected int effect3;
+
+	public int getEffect1() {
+		return effect1;
+	}
+
+	public int getEffect2() {
+		return effect2;
+	}
+
+	public int getEffect3() {
+		return effect3;
+	}
 
 
-	// ===================================
+// ===================================
 	// CONSTRUCTOR
 	// ===================================
 
-	public Card(int id, String name, String illustrationFilePath, Type type, int effect, String description)
+	public Card(int id, String name, Type type, int effect1,int effect2,int effect3, String description)
 	{
 		this.CardId = id;
 		this.CardName = name;
 		this.CardType = type;
-		this.effect = effect;
+		this.effect1 = effect1;
+		this.effect2 = effect2;
+		this.effect3 = effect3;
 		this.decsription = description;
-		this.illustrationFilePath = illustrationFilePath;
+		String Path = "core/assets/cards";
+		String PathLarge = Path.concat("/large/card_id_");
+		String PathSmall = Path.concat("/small/card_id_");
+		this.illustrationFilePathLarge = PathLarge.concat( Integer.toString(id)).concat(".png");
+		this.illustrationFilePathSmall = PathSmall.concat( Integer.toString(id)).concat(".png");
 	}
 
 	public void initialize()
 	{
 		//String path = BMEProject.Cards.get().getIllustrationFilePath();
-		initializeVisuals(this.illustrationFilePath);
-		initializeControls();
+		initializeVisuals();
+		//initializeControls();
+		showDetails();
 	}
 
-	private void initializeVisuals(String cardIlluFilePath)
-	{
-		this.illustrationFilePath = cardIlluFilePath;
+	private void showDetails() {
+		//BitmapFont font = new BitmapFont();
+		InputListener inputListener = new InputListener()
+		{
+			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
+				sprite = new Sprite(new Texture(illustrationFilePathLarge));
+				setWidth(sprite.getWidth());
+				setHeight(sprite.getHeight());
+				sprite.setOrigin(sprite.getX(), sprite.getY());
+				System.out.println("Name: "+ CardName);
+				System.out.println("Type: "+ CardType);
+				System.out.println("Effekt 1: "+ effect1);
+				System.out.println("Effekt 2: "+ effect2);
+				System.out.println("Effekt 3: "+ effect3);
+				System.out.println("Beschreibung: "+ decsription);
 
-		sprite = new Sprite(new Texture(illustrationFilePath));
+				return true;
+			}
+		};
+		addListener(inputListener);
+	}
+
+	private void initializeVisuals()
+	{
+
+		sprite = new Sprite(new Texture(this.illustrationFilePathSmall));
 		setWidth(sprite.getWidth());
 		setHeight(sprite.getHeight());
 		sprite.setOrigin(sprite.getX(), sprite.getY());

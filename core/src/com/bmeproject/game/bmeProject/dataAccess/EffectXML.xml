@@ -1,83 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <effects>
-    <effect id="001">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+    <effect id="1">
+        <effectDescription>Das ist Effekt 1</effectDescription>
     </effect>
     <effect id="002">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 2</effectDescription>
     </effect>
     <effect id="003">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 3</effectDescription>
     </effect>
     <effect id="004">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 4</effectDescription>
     </effect>
     <effect id="005">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 5</effectDescription>
     </effect>
     <effect id="006">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 6</effectDescription>
     </effect>
     <effect id="007">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 7</effectDescription>
     </effect>
     <effect id="008">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 8</effectDescription>
     </effect>
     <effect id="009">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 9</effectDescription>
     </effect>
     <effect id="010">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 10</effectDescription>
     </effect>
     <effect id="011">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 11</effectDescription>
     </effect>
     <effect id="012">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 12</effectDescription>
     </effect>
     <effect id="013">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 13</effectDescription>
     </effect>
     <effect id="014">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 14</effectDescription>
     </effect>
     <effect id="015">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 15</effectDescription>
     </effect>
     <effect id="016">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 16</effectDescription>
     </effect>
     <effect id="017">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 17</effectDescription>
     </effect>
     <effect id="018">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 18</effectDescription>
     </effect>
     <effect id="019">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 19</effectDescription>
     </effect>
     <effect id="020">
-        <effectName>EffectName</effectName>
-        <effectDescription>Dieser Effekt ....</effectDescription>
+        <effectDescription>Das ist Effekt 20</effectDescription>
     </effect>
 </effects>
