@@ -20,7 +20,7 @@ public class DeckCard extends Card
     // ===================================
 
 
-    public DeckCard(int id, String name, Type type, int effect1, int effect2, int effect3, String description, String cardId) {
+    public DeckCard(int id, String name, Type type, Effect effect1, Effect effect2, Effect effect3, String description, String cardId) {
         super(id, name, type, effect1, effect2, effect3, description);
         CardId = cardId;
     }

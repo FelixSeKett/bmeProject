@@ -36,28 +36,17 @@ public class Card extends Actor
 	protected String decsription;
 	protected String illustrationFilePathLarge;
 	protected String illustrationFilePathSmall;
-	protected int effect1;
-	protected int effect2;
-	protected int effect3;
+	protected Effect effect1;
+	protected Effect effect2;
+	protected Effect effect3;
 
-	public int getEffect1() {
-		return effect1;
-	}
-
-	public int getEffect2() {
-		return effect2;
-	}
-
-	public int getEffect3() {
-		return effect3;
-	}
 
 
 // ===================================
 	// CONSTRUCTOR
 	// ===================================
 
-	public Card(int id, String name, Type type, int effect1,int effect2,int effect3, String description)
+	public Card(int id, String name, Type type, Effect effect1,Effect effect2,Effect effect3, String description)
 	{
 		this.CardId = id;
 		this.CardName = name;
@@ -87,6 +76,7 @@ public class Card extends Actor
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				initializeVisuals();
+				showDetails();
 				return true;
 			}
 		};
@@ -107,9 +97,9 @@ public class Card extends Actor
 				//font.draw(batch, "Beschreibung: "+ decsription,10,10);
 				System.out.println("Name: "+ CardName);
 				System.out.println("Type: "+ CardType);
-				System.out.println("Effekt 1: "+ effect1);
-				System.out.println("Effekt 2: "+ effect2);
-				System.out.println("Effekt 3: "+ effect3);
+				System.out.println("Effekt 1: "+ effect1.getEffectDescription());
+				System.out.println("Effekt 2: "+ effect2.getEffectDescription());
+				System.out.println("Effekt 3: "+ effect3.getEffectDescription());
 				System.out.println("Beschreibung: "+ decsription);
 				hideDetails();
 

@@ -1,6 +1,7 @@
 package com.bmeproject.game.bmeProject.dataAccess;
 
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.gameObjects.Effect;
 import com.bmeproject.game.bmeProject.gameObjects.Type;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -78,20 +79,36 @@ public class XMLReader {
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
                 System.out.println("ID: " + eElement.getAttribute("id"));
+
+                int effect1=Integer.parseInt(eElement.getElementsByTagName("cardEffect1").item(0).getTextContent());
+                int effect2=Integer.parseInt(eElement.getElementsByTagName("cardEffect2").item(0).getTextContent());
+                int effect3=Integer.parseInt(eElement.getElementsByTagName("cardEffect3").item(0).getTextContent());
+
                 tempCard = new Card(
                         Integer.parseInt(eElement.getAttribute("id")),
                         eElement.getElementsByTagName("cardName").item(0).getTextContent(),
                         getType(eElement.getElementsByTagName("cardType").item(0).getTextContent()),
-                        Integer.parseInt(eElement.getElementsByTagName("cardEffect1").item(0).getTextContent()),
-                        Integer.parseInt(eElement.getElementsByTagName("cardEffect2").item(0).getTextContent()),
-                        Integer.parseInt(eElement.getElementsByTagName("cardEffect3").item(0).getTextContent()),
+                        new Effect(
+                                effect1,
+                                nodeListEffect.item(effect1 - 1).getTextContent()
+                        ),
+                        new Effect (
+                                effect2,
+                                nodeListEffect.item(effect2 - 1).getTextContent()
+
+                        ),
+                        new Effect (
+                                effect3,
+                                nodeListEffect.item(effect3 - 1).getTextContent()
+
+                        ),
                         eElement.getElementsByTagName("cardDescription").item(0).getTextContent()
                         );
                 tempCard.initialize();
 
                 cardList.add(tempCard);
                 //Der Effekt wird ausgegeben, den die Karte benutzt jedoch nicht nach ID sondern nach Reihenfolge
-                System.out.println(nodeListEffect.item(tempCard.getEffect1() - 1).getTextContent());
+                //System.out.println(nodeListEffect.item(tempCard.getEffect1() - 1).getTextContent());
             }
         }
         return cardList;
