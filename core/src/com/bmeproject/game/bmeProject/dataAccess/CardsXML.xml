@@ -2,7 +2,7 @@
 <root>
 <cards>
     <card id="001">
-        <cardName>Name</cardName>
+        <cardName>Mystisches Lichtfass</cardName>
         <cardType>Quartier</cardType>
         <cardEffect1>1</cardEffect1>
         <cardEffect2>2</cardEffect2>

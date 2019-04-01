@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
@@ -80,22 +81,37 @@ public class Card extends Actor
 		showDetails();
 	}
 
-	private void showDetails() {
-		//BitmapFont font = new BitmapFont();
+	private void hideDetails() {
 		InputListener inputListener = new InputListener()
 		{
+			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
+				initializeVisuals();
+				return true;
+			}
+		};
+		addListener(inputListener);
+	}
+
+	private void showDetails() {
+		final BitmapFont font = new BitmapFont();
+		InputListener inputListener = new InputListener()
+		{
+
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				sprite = new Sprite(new Texture(illustrationFilePathLarge));
 				setWidth(sprite.getWidth());
 				setHeight(sprite.getHeight());
 				sprite.setOrigin(sprite.getX(), sprite.getY());
+				//font.draw(batch, "Beschreibung: "+ decsription,10,10);
 				System.out.println("Name: "+ CardName);
 				System.out.println("Type: "+ CardType);
 				System.out.println("Effekt 1: "+ effect1);
 				System.out.println("Effekt 2: "+ effect2);
 				System.out.println("Effekt 3: "+ effect3);
 				System.out.println("Beschreibung: "+ decsription);
+				hideDetails();
 
 				return true;
 			}
@@ -106,7 +122,7 @@ public class Card extends Actor
 	private void initializeVisuals()
 	{
 
-		sprite = new Sprite(new Texture(this.illustrationFilePathSmall));
+		sprite = new Sprite(new Texture(illustrationFilePathSmall));
 		setWidth(sprite.getWidth());
 		setHeight(sprite.getHeight());
 		sprite.setOrigin(sprite.getX(), sprite.getY());
