@@ -6,9 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bmeproject.game.BMEProject;
 
@@ -32,11 +31,18 @@ public class TitleScreen extends TheatricalScreen
 	private Texture buttonSettings;
 	private Texture loadAnimation;
 
+	private TextButton firstButton;
+	private TextButton secondButton;
+
 
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
+
+
+	//Hier habe ich die jeweiligen Dateien, welche auf der Startseite zu sehen sind eingefügt.
+	//(Buttons, Logo)
 	public TitleScreen(BMEProject bmeProject)
 	{
 		super(bmeProject);
@@ -61,48 +67,61 @@ public class TitleScreen extends TheatricalScreen
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
 
-
 		initButtons();
 	}
 
-
+    //Hier habe ich einen Button implementiert
 	private void initButtons() {
-	//	firstButton = new TextButton("PlayOne", skin, "default");
-	//	firstButton.setPosition( stage.getHeight()/2,stage.getWidth()/2);
-	//	firstButton.setSize(280,60);
+		firstButton = new TextButton("Play", skin, "default");
+		firstButton.setPosition( stage.getWidth()/positionX,stage.getHeight()/positionYDeck);
+		firstButton.setSize(buttonDuel.getWidth(),buttonDuel.getHeight());
+		firstButton.setColor(1,1,1,0);
 
-	/*	secondButton = new TextButton("Exit", skin, "default");
+		secondButton = new TextButton("Exit", skin, "default");
 		secondButton.setPosition(stage.getHeight()/2,stage.getWidth()/2-100);
-		secondButton.setSize(280,60);*/
+		secondButton.setSize(280,60);
 
-		clickButton(buttonDeck);
-	//	exitButton(buttonDuel);
-
-	//	stage.addActor(firstButton);
+		stage.addActor(firstButton);
 	//	stage.addActor(secondButton);
+
+		clickButton(firstButton);
+	//	exitButton(secondButton);
+
 	}
 
-	private void exitButton(TextButton btn){
-		btn.addListener(new ClickListener(){
+	//falls wir später mal einen exit button brauchen werden, habe ich diesen auch schonmal programmiet
+	/*private void exitButton(TextButton btn){
+		btn.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y){
 				Gdx.app.exit();
 			}
 		});
-	}
+	}*/
 
-	private void clickButton(Texture btnClick){
-		//BME_PROJECT.activateTestScreen();
-
-
-		/*btnClick.addListener(new ClickListener(){
+	// hier habe ich die clikButton Methode geschrieben,
+	// hierfür gibt es 2 Möglichkeiten, die erste habe ich auskommentiert
+	private void clickButton(TextButton btnClick){
+	/*	btnClick.addListener(new ClickListener(){
 			@Override
 			public void clicked (InputEvent event, float x, float y){
 				BME_PROJECT.activateTestScreen();
 			}
 		});*/
+
+		btnClick.addListener(new ActorGestureListener(){
+			@Override
+			public void tap(InputEvent event, float x, float y, int count,
+			int button) {
+				super.tap(event, x, y, count, button);
+				BME_PROJECT.activateTestScreen();
+				dispose();
+			}
+		});
 	}
 
+	//Hier habe ich alle Bilddateien richtig positioniert und die Hintergrundfarbe angepasst,
+	// sodass die Titelseite genauso wie unser Prototyp ausschaut
 	@Override
 	public void render(float delta){
 		Gdx.gl.glClearColor(0x52/255.0f,0x9D/255.0f,0xBF/255.0f,0xff/255.0f);
