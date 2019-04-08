@@ -29,7 +29,7 @@
         <cardStrengh>3</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
         <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>BASE</cardType>
+        <cardType>FIGURE</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>
     <card id="005">
@@ -37,7 +37,7 @@
         <cardStrengh>3</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
         <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>BASE</cardType>
+        <cardType>MANIPULATION</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>
 </cards>
