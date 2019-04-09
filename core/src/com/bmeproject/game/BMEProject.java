@@ -49,7 +49,6 @@ public class BMEProject extends Game
 	}
 
 	private void initObjects(){
-
 		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
 		allCards = cardgen.createAllCards();
 	}
@@ -63,7 +62,6 @@ public class BMEProject extends Game
 		deckScreen = new DeckScreen(this);
 		testScreen = new TestScreen(this);
 		profile = new Profile(this);
-
 
 		setScreen(titleScreen);
 		//setScreen(testScreen);

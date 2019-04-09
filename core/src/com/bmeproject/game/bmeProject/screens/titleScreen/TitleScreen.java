@@ -39,11 +39,8 @@ public class TitleScreen extends AbstractScreen
 		stage = new Stage(new ScreenViewport());
 		Gdx.input.setInputProcessor(stage);
 
-
 		initButtons();
-
 	}
-
 
 	private void initButtons() {
 		textButton = new TextButton("PlayOne", skin, "default");
