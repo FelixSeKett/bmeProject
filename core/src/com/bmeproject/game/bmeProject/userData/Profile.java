@@ -13,7 +13,7 @@ public class Profile
 
 	private final BMEProject BME_PROJECT;
 	private       String     name;
-	private HashMap<Integer, Deck> myDecks = new HashMap<Integer, Deck>();
+	private HashMap<String, Deck> myDecks = new HashMap<String, Deck>(); // Deckname, Deck
 
 	// ===================================
 	// CONSTRUCTOR

@@ -43,7 +43,6 @@ public class TestScreen extends AbstractScreen
 		System.out.println("CardType = " + card.getCardType().toString());
 
 
-
 		deck = new Deck();
 		System.out.println("Deck besteht aus " + deck.getSize() + " Karten");
 		deck.addCardToDeck(5);
