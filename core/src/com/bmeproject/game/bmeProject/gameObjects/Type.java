@@ -14,13 +14,12 @@ public enum Type
 	FIGURE(408, 0),
 	MANIPULATION(612, 0);
 
-
 	// ===================================
 	// ATTRIBUTES
 	// ===================================
 
-	public final int X;
-	public final int Y;
+	public int X ;
+	public int Y;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -31,6 +30,7 @@ public enum Type
 		X = x;
 		Y = y;
 	}
+
 
 	// ===================================
 	// METHODS

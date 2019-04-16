@@ -15,15 +15,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bmeproject.game.BMEProject;
+import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
 import com.bmeproject.game.bmeProject.dataAccess.XMLReader;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Deck;
+import com.bmeproject.game.bmeProject.gameObjects.Type;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
 
 import java.awt.*;
-import java.awt.Button;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class DeckScreen extends AbstractScreen {
 
@@ -36,26 +38,32 @@ public class DeckScreen extends AbstractScreen {
 	private Stage stage;
 	private Skin skin;
 	private Deck savedDeck;
+	private Card savedCard;
 	ShapeRenderer shape;
+	public static HashMap<Integer, Card> allCards;
+
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
 	public DeckScreen(BMEProject bmeProject) {
 		super(bmeProject);
+		//build all cards
+
+
+		//generate new Deck
 		savedDeck = new Deck();
-		//dr = new DeckRenderer(this);
 	}
 
 	@Override
 	public void show() {
 		super.show();
-
+		//some UI stuff
 		batch = new SpriteBatch();
 		stage = new Stage(new ScreenViewport());
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
 		shape = new ShapeRenderer();
-
+		//generate my deck information with generated Deck
 		buildDeckArea(savedDeck);
 
 		/*
@@ -90,10 +98,30 @@ public class DeckScreen extends AbstractScreen {
 
 	public void buildDeckArea(Deck savedDeck){
 
+		//save card ids from generated deck into int array
 		int[] getDeck = savedDeck.getDeck();
 		String cardIDs = Arrays.toString(getDeck);
-
 		int cardAmount = getDeck.length;
+
+		//card array with information based on their card id
+		Card[] myCardsInMyDeck = new Card[getDeck.length];
+		String[] myCardsInMyDeckTypes = new String[getDeck.length];
+
+		for (int i = 0; i < getDeck.length; i++){
+			int CardID = getDeck[i];
+			myCardsInMyDeck[i] = allCards.get(CardID);
+
+			myCardsInMyDeckTypes[i] = myCardsInMyDeck[i].getCardType().toString();
+		}
+		//System.out.println(myCardsInMyDeckTypes[0]);
+
+		ArrayList<String> cardsOfTypeBase = new ArrayList<String>();
+		for (int i = 0; i<myCardsInMyDeck.length; i++){
+			if (myCardsInMyDeck[i].getCardType().toString() == "BASE"){
+				cardsOfTypeBase.add(myCardsInMyDeck[i].toString());
+			}
+		}
+		//System.out.println(cardsOfTypeBase.size());
 
 		Label LCardIDs = new Label("Deck Karten:  " + cardIDs, skin);
 		LCardIDs.setPosition(100, 200);
@@ -103,12 +131,20 @@ public class DeckScreen extends AbstractScreen {
 		LCardAmount.setPosition(100, 170);
 		stage.addActor(LCardAmount);
 
+		Label LTypeBaseAmount = new Label("Anzahl Basen:  " + cardsOfTypeBase.size(), skin);
+		LTypeBaseAmount.setPosition(100, 140);
+		stage.addActor(LTypeBaseAmount);
+
 		TextButton transparentButton = new TextButton("bla", skin);
 		transparentButton.setPosition(80, 70);
 		transparentButton.setColor(1, 1, 1, 0);
 		transparentButton.setHeight(200);
 		transparentButton.setWidth(200);
 		stage.addActor(transparentButton);
+
+		//XMLReader xmlReader = new XMLReader("/Users/Manu/bmeProject/core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
+		//System.out.println(xmlReader.initCards());
+
 
 		Gdx.input.setInputProcessor(stage);
 
