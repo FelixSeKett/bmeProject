@@ -1,9 +1,8 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,9 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.bmeproject.game.BMEProject;
+import com.bmeproject.game.bmeProject.util.Constants;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,6 +45,7 @@ public class Card extends Actor
 	protected Effect effect1;
 	protected Effect effect2;
 	protected Effect effect3;
+	private Skin skinLibgdx;
 
 	protected HashMap<Integer, Effect> effectList  = new HashMap<Integer, Effect>();
 	protected  BMEProject project;
@@ -122,9 +125,14 @@ public class Card extends Actor
 				System.out.println("Effekt 2: "+ effect2.getEffectDescription());
 				System.out.println("Effekt 3: "+ effect3.getEffectDescription());
 				System.out.println("Beschreibung: "+ decsription);
-
-				//.draw(batch, "Hello World!", 10, 10);
-				hideDetails();
+				skinLibgdx = new Skin(Gdx.files.internal(Constants.SKIN_LIBGDX_UI),
+						new TextureAtlas(Constants.TEXTURE_ATLAS_LIBGDX_UI));
+				Table tbl = new Table();
+				tbl.pad(10, 10, 0, 10);
+				//tbl.add(new Label("Audio", skinLibgdx, "default-font",Color.ORANGE)).colspan(3);
+				tbl.row();
+				tbl.columnDefaults(0).padRight(10);
+				tbl.columnDefaults(1).padRight(10);				hideDetails();
 
 				return true;
 			}
