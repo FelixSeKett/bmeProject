@@ -55,10 +55,10 @@ public class BMEProject extends Game
 	}
 
 	private void initObjects(){
-		XMLReader= new XMLReader("core/src/com/bmeproject/game/bmeProject/dataAccess/EffectsXML.xml");
-		allEffects = XMLReader.initEffects(this);
+		XMLReader= new XMLReader("core/src/com/bmeproject/game/bmeProject/dataAccess/EffectsXML.xml", this);
+		allEffects = XMLReader.initEffects();
 
-		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
+		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml", this);
 		allCards = cardgen.createAllCards();
 
 	}
@@ -76,8 +76,6 @@ public class BMEProject extends Game
 		deckScreen = new DeckScreen(this);
 		testScreen = new TestScreen(this);
 		profile = new Profile(this);
-
-
 
 		setScreen(testScreen);
 	}

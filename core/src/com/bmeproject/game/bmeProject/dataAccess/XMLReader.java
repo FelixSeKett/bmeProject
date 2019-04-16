@@ -23,10 +23,11 @@ import java.util.List;
 public class XMLReader {
 
     String path;
-    BMEProject bmeproject;
+    BMEProject bmeProject;
 
-    public XMLReader(String filepath) {
+    public XMLReader(String filepath, BMEProject bmeProject) {
         path = filepath;
+        this.bmeProject = bmeProject;
     }
 
     //Initialises process
@@ -35,9 +36,8 @@ public class XMLReader {
         return readCardsFromXML(document);
     }
 
-    public HashMap initEffects(BMEProject bmeproject) {
+    public HashMap initEffects() {
         Document document = readXML();
-       bmeproject=bmeproject;
         return readEffectsFromXML(document) ;
 
     }
@@ -89,15 +89,11 @@ public class XMLReader {
                 Element eElement = (Element) nNode;
                 System.out.println("Effekt ID: " + eElement.getAttribute("id"));
 
-
-
                 tempEffect= new Effect(
                         Integer.parseInt(eElement.getAttribute("id")),
                         eElement.getElementsByTagName("effectDescription").item(0).getTextContent()
 
                         );
-
-
 
                 EffectList.put(temp, tempEffect);
                 //Der Effekt wird ausgegeben, den die Karte benutzt jedoch nicht nach ID sondern nach Reihenfolge
@@ -129,7 +125,7 @@ public class XMLReader {
                         getType(eElement.getElementsByTagName("cardType").item(0).getTextContent()),
                         eElement.getElementsByTagName("cardEffect").item(0).getTextContent(),
                         eElement.getElementsByTagName("cardDescription").item(0).getTextContent(),
-                        bmeproject
+                        bmeProject
                         );
                 tempCard.initialize();
 

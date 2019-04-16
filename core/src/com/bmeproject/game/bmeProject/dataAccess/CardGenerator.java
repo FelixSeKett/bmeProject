@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.dataAccess;
 
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 
 import java.util.ArrayList;
@@ -10,10 +11,12 @@ public class CardGenerator {
     List<Card> cardList;
     XMLReader reader;
     ArrayList<Card> list;
+    BMEProject bmeProject;
 
-    public CardGenerator(String xmlPath){
+    public CardGenerator(String xmlPath, BMEProject bmeProject){
+        this.bmeProject = bmeProject;
          cardList = new ArrayList<Card>();
-         reader =  new XMLReader(xmlPath);
+         reader =  new XMLReader(xmlPath, bmeProject);
     }
 
     public ArrayList<Card> getCardList(){

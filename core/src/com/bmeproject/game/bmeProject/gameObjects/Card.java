@@ -2,6 +2,7 @@ package com.bmeproject.game.bmeProject.gameObjects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -11,11 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bmeproject.game.BMEProject;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
@@ -65,7 +64,6 @@ public class Card extends Actor
 		this.illustrationFilePathLarge = PathLarge.concat( Integer.toString(id)).concat(".png");
 		this.illustrationFilePathSmall = PathSmall.concat( Integer.toString(id)).concat(".png");
 		buildEffect(Effect);
-
 	}
 
 	private void buildEffect(String Effect){
