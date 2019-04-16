@@ -42,7 +42,6 @@ public class TestScreen extends AbstractScreen {
 	{
 		super(bmeProject);
 		this.bmeProject = bmeProject;
-		init();
 	}
 
 	public void init(){
@@ -56,7 +55,9 @@ public class TestScreen extends AbstractScreen {
 	// METHODS
 	// ===================================
 
-	@Override public void show(){}
+	@Override public void show(){
+		init();
+	}
 
 	@Override public void resize(int width, int height){
 		testRenderer.resize(width, height);
