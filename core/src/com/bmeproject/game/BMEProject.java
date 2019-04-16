@@ -40,9 +40,8 @@ public class BMEProject extends Game
 	 */
 	@Override public void create()
 	{
-		initializeScreens();
 		user = new User(this, "TestUser");
-		//initializeEntities();
+		initializeScreens();
 	}
 
 	private void initObjects(){
@@ -50,7 +49,7 @@ public class BMEProject extends Game
 		allCards = cardgen.createAllCards();
 
 		Deck testDeck;
-		for(int i = 0; i >= user.getDecks().size(); i++){
+		for(int i = 0; i <= user.getDecks().size(); i++){
 			testDeck = user.getDeck(i);
 		}
 	}
