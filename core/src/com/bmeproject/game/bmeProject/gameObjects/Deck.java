@@ -9,9 +9,7 @@ public class Deck
 	// ===================================
 
 	private ArrayList<Card> entities;
-
 	private int[] deck;
-
 	public Deck()
 	{
 		deck = new int[]{1, 4, 5};

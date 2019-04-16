@@ -1,13 +1,14 @@
 package com.bmeproject.game;
 
 import com.badlogic.gdx.Game;
+import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.gameObjects.Deck;
+import com.bmeproject.game.bmeProject.screens.TestScreen;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
 import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
-import com.bmeproject.game.bmeProject.screens.TestScreen;
 import com.bmeproject.game.bmeProject.screens.titleScreen.TitleScreen;
-import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
-import com.bmeproject.game.bmeProject.userData.Profile;
+import com.bmeproject.game.bmeProject.userData.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +30,7 @@ public class BMEProject extends Game
 	private BattleScreen battleScreen;
 	private DeckScreen deckScreen;
 	private TestScreen testScreen;
-	private Profile profile;
+	public User user;
 	public static HashMap<Integer, Card> allCards;
 	public static ArrayList<Card> Cards;
 
@@ -44,13 +45,18 @@ public class BMEProject extends Game
 	@Override public void create()
 	{
 		initializeScreens();
-		profile = new Profile(this);
+		user = new User(this, "TestUser");
 		//initializeEntities();
 	}
 
 	private void initObjects(){
 		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
 		allCards = cardgen.createAllCards();
+
+		Deck testDeck;
+		for(int i = 0; i >= user.getDecks().size(); i++){
+			testDeck = user.getDeck(i);
+		}
 	}
 
 	private void initializeScreens()
@@ -61,9 +67,6 @@ public class BMEProject extends Game
 		battleScreen = new BattleScreen(this);
 		deckScreen = new DeckScreen(this);
 		testScreen = new TestScreen(this);
-		profile = new Profile(this);
-
-
 
 		setScreen(testScreen);
 	}
@@ -86,10 +89,5 @@ public class BMEProject extends Game
 	public void activateTestScreen()
 	{
 		setScreen(testScreen);
-	}
-
-	public Profile getProfile()
-	{
-		return profile;
 	}
 }
