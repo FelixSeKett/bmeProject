@@ -104,6 +104,10 @@ public class Card extends Actor
 		return this.CardId;
 	}
 
+	public Type getCardType() {
+		return CardType;
+	}
+
 	/**
 	 * Wird jedes Mal aufgerufen, wenn die Position (x- / y-Koordinaten) einer Instanz dieser Klasse geändert wird,
 	 * indem die dafür vorgesehene, gleichnamige Methode der Superklasse überschrieben wird. Gleicht dann die Position
