@@ -34,10 +34,6 @@ public class BMEProject extends Game
 	public static HashMap<Integer, Card> allCards;
 	public static ArrayList<Card> Cards;
 
-	// ===================================
-	// METHODS
-	// ===================================
-
 	/**
 	 * Verrichtet alle Arbeiten, die einmalig beim Erzeugen der Instanz dieser Klasse - sprich: bei Spielstart -
 	 * anfallen. Soll alle komplexe Datentypen initialisieren und einen Screen aufrufen.

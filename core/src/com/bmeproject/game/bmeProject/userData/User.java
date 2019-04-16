@@ -22,19 +22,15 @@ public class User
 	}
 
 	private void addTestObjects(){
-	    Deck deck = new Deck();
-	    Deck deck2 = new Deck();
 
+		Deck deck = new Deck();
+		Deck deck2 = new Deck();
 	    addDeck(deck);
 	    addDeck(deck2);
     }
 
-	// ===================================
-	// FUNCTIONS
-	// ===================================
-
 	public Deck getDeck(int deckId)	{
-	    return deckList.get(deckId);
+		return deckList.get(deckId);
 }
 
 	public String getName(){
