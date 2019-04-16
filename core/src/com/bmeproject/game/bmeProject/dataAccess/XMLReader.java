@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.dataAccess;
 
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Effect;
 import com.bmeproject.game.bmeProject.gameObjects.Type;
@@ -12,6 +13,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,6 +23,7 @@ import java.util.List;
 public class XMLReader {
 
     String path;
+    BMEProject bmeproject;
 
     public XMLReader(String filepath) {
         path = filepath;
@@ -31,6 +34,14 @@ public class XMLReader {
         Document document = readXML();
         return readCardsFromXML(document);
     }
+
+    public HashMap initEffects(BMEProject bmeproject) {
+        Document document = readXML();
+       bmeproject=bmeproject;
+        return readEffectsFromXML(document) ;
+
+    }
+
 
     private Document readEffectsXML() {
         try {
@@ -63,46 +74,62 @@ public class XMLReader {
         }
     }
 
+    public HashMap readEffectsFromXML(Document doc){
+        System.out.println(doc.getDocumentURI());
+        System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
+        NodeList nodeListEffect = doc.getElementsByTagName("effect");
+        HashMap<Integer, Effect> EffectList = new HashMap<Integer, Effect>();
+        Effect tempEffect;
+
+
+        for (int temp = 0; temp < nodeListEffect.getLength(); temp++) {
+            Node nNode = nodeListEffect.item(temp);
+            System.out.println("\nCurrent Element: " + nNode.getNodeName());
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) nNode;
+                System.out.println("Effekt ID: " + eElement.getAttribute("id"));
+
+
+
+                tempEffect= new Effect(
+                        Integer.parseInt(eElement.getAttribute("id")),
+                        eElement.getElementsByTagName("effectDescription").item(0).getTextContent()
+
+                        );
+
+
+
+                EffectList.put(temp, tempEffect);
+                //Der Effekt wird ausgegeben, den die Karte benutzt jedoch nicht nach ID sondern nach Reihenfolge
+                //System.out.println(nodeListEffect.item(tempCard.getEffect1() - 1).getTextContent());
+            }
+        }
+        return EffectList;
+
+    }
     // reads given Document with specific card-tags
     private List<Card> readCardsFromXML(Document doc) {
         System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
         NodeList nodeListCards = doc.getElementsByTagName("card");
-        NodeList nodeListEffect = doc.getElementsByTagName("effect");
         List<Card> cardList = new ArrayList<Card>();
         Card tempCard;
 
 
-        System.out.println(doc.getElementById("asdf"));
         for (int temp = 0; temp < nodeListCards.getLength(); temp++) {
             Node nNode = nodeListCards.item(temp);
             System.out.println("\nCurrent Element: " + nNode.getNodeName());
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                System.out.println("ID: " + eElement.getAttribute("id"));
+                System.out.println("Card ID: " + eElement.getAttribute("id"));
 
-                int effect1=Integer.parseInt(eElement.getElementsByTagName("cardEffect1").item(0).getTextContent());
-                int effect2=Integer.parseInt(eElement.getElementsByTagName("cardEffect2").item(0).getTextContent());
-                int effect3=Integer.parseInt(eElement.getElementsByTagName("cardEffect3").item(0).getTextContent());
 
                 tempCard = new Card(
                         Integer.parseInt(eElement.getAttribute("id")),
                         eElement.getElementsByTagName("cardName").item(0).getTextContent(),
                         getType(eElement.getElementsByTagName("cardType").item(0).getTextContent()),
-                        new Effect(
-                                effect1,
-                                nodeListEffect.item(effect1 - 1).getTextContent()
-                        ),
-                        new Effect (
-                                effect2,
-                                nodeListEffect.item(effect2 - 1).getTextContent()
-
-                        ),
-                        new Effect (
-                                effect3,
-                                nodeListEffect.item(effect3 - 1).getTextContent()
-
-                        ),
-                        eElement.getElementsByTagName("cardDescription").item(0).getTextContent()
+                        eElement.getElementsByTagName("cardEffect").item(0).getTextContent(),
+                        eElement.getElementsByTagName("cardDescription").item(0).getTextContent(),
+                        bmeproject
                         );
                 tempCard.initialize();
 

@@ -1,7 +1,9 @@
 package com.bmeproject.game;
 
 import com.badlogic.gdx.Game;
+import com.bmeproject.game.bmeProject.dataAccess.XMLReader;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.gameObjects.Effect;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
 import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
 import com.bmeproject.game.bmeProject.screens.TestScreen;
@@ -30,7 +32,9 @@ public class BMEProject extends Game
 	private DeckScreen deckScreen;
 	private TestScreen testScreen;
 	private Profile profile;
+	private XMLReader XMLReader;
 	public static HashMap<Integer, Card> allCards;
+	public static HashMap <Integer, Effect> allEffects;
 	public static ArrayList<Card> Cards;
 
 	// ===================================
@@ -45,12 +49,22 @@ public class BMEProject extends Game
 	{
 		initializeScreens();
 		profile = new Profile(this);
+		initObjects();
 		//initializeEntities();
+
 	}
 
 	private void initObjects(){
+		XMLReader= new XMLReader("core/src/com/bmeproject/game/bmeProject/dataAccess/EffectsXML.xml");
+		allEffects = XMLReader.initEffects(this);
+
 		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
 		allCards = cardgen.createAllCards();
+
+	}
+
+	public Effect getEffectFromAllEffects(int effectId){
+		return allEffects.get(effectId);
 	}
 
 	private void initializeScreens()

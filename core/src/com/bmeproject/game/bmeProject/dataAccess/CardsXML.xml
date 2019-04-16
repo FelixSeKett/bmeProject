@@ -4,45 +4,35 @@
     <card id="001">
         <cardName>Mystisches Lichtfass</cardName>
         <cardType>Quartier</cardType>
-        <cardEffect1>1</cardEffect1>
-        <cardEffect2>2</cardEffect2>
-        <cardEffect3>3</cardEffect3>
+        <cardEffect>1,2,3</cardEffect>
         <cardDescription>Beschreibung</cardDescription>
         <cardIllustrationFilePath>core/assets/cards/small/card_id_1.png</cardIllustrationFilePath>
     </card>
     <card id="002">
         <cardName>Name</cardName>
         <cardType>Typ</cardType>
-        <cardEffect1>1</cardEffect1>
-        <cardEffect2>1</cardEffect2>
-        <cardEffect3>1</cardEffect3>
+        <cardEffect>1,2,3</cardEffect>
         <cardDescription>Beschreibung</cardDescription>
         <cardIllustrationFilePath>core/assets/cards/small/card_id_2.png</cardIllustrationFilePath>
     </card>
     <card id="003">
         <cardName>Name</cardName>
         <cardType>Typ</cardType>
-        <cardEffect1>1</cardEffect1>
-        <cardEffect2>1</cardEffect2>
-        <cardEffect3>1</cardEffect3>
+        <cardEffect>1,2,3</cardEffect>
         <cardDescription>Beschreibung</cardDescription>
         <cardIllustrationFilePath>core/assets/cards/small/card_id_3.png</cardIllustrationFilePath>
     </card>
     <card id="004">
         <cardName>Name</cardName>
         <cardType>Typ</cardType>
-        <cardEffect1>1</cardEffect1>
-        <cardEffect2>1</cardEffect2>
-        <cardEffect3>1</cardEffect3>
+        <cardEffect>1,2,3</cardEffect>
         <cardDescription>Beschreibung</cardDescription>
         <cardIllustrationFilePath>core/assets/cards/small/card_id_4.png</cardIllustrationFilePath>
     </card>
     <card id="005">
         <cardName>Name</cardName>
         <cardType>Typ</cardType>
-        <cardEffect1>1</cardEffect1>
-        <cardEffect2>1</cardEffect2>
-        <cardEffect3>1</cardEffect3>
+        <cardEffect>1,2,3</cardEffect>
         <cardDescription>Beschreibung</cardDescription>
         <cardIllustrationFilePath>core/assets/cards/small/card_id_5.png</cardIllustrationFilePath>
     </card>
@@ -58,66 +48,5 @@
     </card>
 </cards>
 
-<effects>
-<effect id="001">
-    <effectDescription>Das ist Effekt 1</effectDescription>
-</effect>
-<effect id="002">
-    <effectDescription>Das ist Effekt 2</effectDescription>
-</effect>
-<effect id="003">
-    <effectDescription>Das ist Effekt 3</effectDescription>
-</effect>
-<effect id="004">
-    <effectDescription>Das ist Effekt 4</effectDescription>
-</effect>
-<effect id="005">
-    <effectDescription>Das ist Effekt 5</effectDescription>
-</effect>
-<effect id="006">
-    <effectDescription>Das ist Effekt 6</effectDescription>
-</effect>
-<effect id="007">
-    <effectDescription>Das ist Effekt 7</effectDescription>
-</effect>
-<effect id="008">
-    <effectDescription>Das ist Effekt 8</effectDescription>
-</effect>
-<effect id="009">
-    <effectDescription>Das ist Effekt 9</effectDescription>
-</effect>
-<effect id="010">
-    <effectDescription>Das ist Effekt 10</effectDescription>
-</effect>
-<effect id="011">
-    <effectDescription>Das ist Effekt 11</effectDescription>
-</effect>
-<effect id="012">
-    <effectDescription>Das ist Effekt 12</effectDescription>
-</effect>
-<effect id="013">
-    <effectDescription>Das ist Effekt 13</effectDescription>
-</effect>
-<effect id="014">
-    <effectDescription>Das ist Effekt 14</effectDescription>
-</effect>
-<effect id="015">
-    <effectDescription>Das ist Effekt 15</effectDescription>
-</effect>
-<effect id="016">
-    <effectDescription>Das ist Effekt 16</effectDescription>
-</effect>
-<effect id="017">
-    <effectDescription>Das ist Effekt 17</effectDescription>
-</effect>
-<effect id="018">
-    <effectDescription>Das ist Effekt 18</effectDescription>
-</effect>
-<effect id="019">
-    <effectDescription>Das ist Effekt 19</effectDescription>
-</effect>
-<effect id="020">
-    <effectDescription>Das ist Effekt 20</effectDescription>
-</effect>
-</effects>
+
 </root>

@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 
 /*
@@ -18,14 +19,14 @@ public class DeckCard extends Card
     // ===================================
     // PROCEDURES
     // ===================================
+    public int CardId;
 
 
-    public DeckCard(int id, String name, Type type, Effect effect1, Effect effect2, Effect effect3, String description, String cardId) {
-        super(id, name, type, effect1, effect2, effect3, description);
-        CardId = cardId;
+    public DeckCard (int id, String name, Type type, String Effect, String description, BMEProject bmeProject) {
+    super(id, name, type, description, Effect, bmeProject);
+        CardId = id;
     }
 
-    public String CardId;
 
     public void initialize(String CardId)
     {

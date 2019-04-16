@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.bmeproject.game.BMEProject;
 
 public class TestCard extends Card
 {
@@ -13,8 +14,8 @@ public class TestCard extends Card
 	// ===================================
 
 
-	public TestCard(int id, String name, Type type, Effect effect1, Effect effect2, Effect effect3, String description) {
-		super(id, name, type, effect1, effect2, effect3, description);
+	public TestCard(int id, String name, Type type, String Effect, String description, BMEProject bmeProject) {
+		super(id, name, type, description, Effect, bmeProject);
 	}
 
 	public void initialize (String textureFilePath)

@@ -12,6 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.bmeproject.game.BMEProject;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
@@ -40,26 +44,43 @@ public class Card extends Actor
 	protected Effect effect2;
 	protected Effect effect3;
 
+	protected HashMap<Integer, Effect> effectList  = new HashMap<Integer, Effect>();
+	protected  BMEProject project;
 
 
 // ===================================
 	// CONSTRUCTOR
 	// ===================================
 
-	public Card(int id, String name, Type type, Effect effect1,Effect effect2,Effect effect3, String description)
+	public Card(int id, String name, Type type, String Effect, String description, BMEProject bmeProject)
 	{
 		this.CardId = id;
 		this.CardName = name;
 		this.CardType = type;
-		this.effect1 = effect1;
-		this.effect2 = effect2;
-		this.effect3 = effect3;
+		project = bmeProject;
 		this.decsription = description;
 		String Path = "core/assets/cards";
 		String PathLarge = Path.concat("/large/card_id_");
 		String PathSmall = Path.concat("/small/card_id_");
 		this.illustrationFilePathLarge = PathLarge.concat( Integer.toString(id)).concat(".png");
 		this.illustrationFilePathSmall = PathSmall.concat( Integer.toString(id)).concat(".png");
+		buildEffect(Effect);
+
+	}
+
+	private void buildEffect(String Effect){
+		String[] effectID = Effect.split(",");
+		int counter= 0;
+
+		for (String id: effectID) {
+			effectList.put(counter, project.getEffectFromAllEffects(Integer.parseInt(id)));
+			counter++;
+		}
+
+	}
+
+	public HashMap<Integer,Effect> getAllCardEffects(){
+		return effectList;
 	}
 
 	public void initialize()
@@ -101,6 +122,8 @@ public class Card extends Actor
 				System.out.println("Effekt 2: "+ effect2.getEffectDescription());
 				System.out.println("Effekt 3: "+ effect3.getEffectDescription());
 				System.out.println("Beschreibung: "+ decsription);
+
+				//.draw(batch, "Hello World!", 10, 10);
 				hideDetails();
 
 				return true;
