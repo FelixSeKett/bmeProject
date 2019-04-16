@@ -9,6 +9,7 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
 import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
 import com.bmeproject.game.bmeProject.screens.titleScreen.TitleScreen;
 import com.bmeproject.game.bmeProject.userData.User;
+import com.bmeproject.game.bmeProject.util.SaveGameHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +53,10 @@ public class BMEProject extends Game
 		for(int i = 0; i <= user.getDecks().size(); i++){
 			testDeck = user.getDeck(i);
 		}
+
+		SaveGameHandler sg = new SaveGameHandler(this);
+		sg.saveGame(user);
+		user = sg.loadGame(user);
 	}
 
 	private void initializeScreens()
