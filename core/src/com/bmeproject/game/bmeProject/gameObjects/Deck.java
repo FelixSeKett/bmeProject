@@ -7,14 +7,7 @@ import java.util.Collections;
 
 public class Deck
 {
-	// ===================================
-	// ATTRIBUTES
-	// ===================================
-
-
 	private ArrayList<Integer> deck = new ArrayList<Integer>();
-
-
 
 	public Deck()
 	{
@@ -26,11 +19,6 @@ public class Deck
 
 		Collections.sort(deck);
 	}
-
-	// ===================================
-	// FUNCTIONS
-	// ===================================
-
 
 	public ArrayList<Integer> getDeck()
 	{
@@ -45,7 +33,6 @@ public class Deck
 	public void removeCardFromDeck(int id)
 	{
 		deck.remove(id);
-
 	}
 
 	public int getSize()
@@ -53,18 +40,16 @@ public class Deck
 		return deck.size();
 	}
 
-	public int getCardIdFromDeck(int id)
+	public int getCardIdFromDeck(int index)
 	{
-		return deck.get(id);
+		return deck.get(index);
 	}
 
 	public Card getCardFromDeck(int id)
 	{
+		//hier muss noch eine Prüfung hin, ob deck überhaupt id contained
 		Card card = BMEProject.allCards.get(id);
 		return card;
 	}
-
-
 	// Note for ArrayLists: contains(), set(), indexOf(), clear()
-
 }

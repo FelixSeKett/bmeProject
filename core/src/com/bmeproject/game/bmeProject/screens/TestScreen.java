@@ -48,9 +48,8 @@ public class TestScreen extends AbstractScreen
 		deck.addCardToDeck(5);
 
 
-		for (int i = 0; i < deck.getSize(); i++  )
+		for (int i = 0; i < deck.getSize(); i++)
 		{
-
 			int id = deck.getCardIdFromDeck(i);
 			System.out.println("ID = " + deck.getCardIdFromDeck(i));
 
