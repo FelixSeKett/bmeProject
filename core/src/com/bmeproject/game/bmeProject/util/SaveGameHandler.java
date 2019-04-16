@@ -51,29 +51,40 @@ public class SaveGameHandler {
     public User loadGame(User user){
         String[] saveGameFromFile;
         //if file exists
-        try{
-            FileReader fileReader = new FileReader("SaveGames/savegame.txt");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        File tmp = new File("SaveGames/savegame.txt");
+        if(tmp.exists()) {
+            try {
+                FileReader fileReader = new FileReader("SaveGames/savegame.txt");
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+                while (true) {
+                    String textFromFile = bufferedReader.readLine();
+                    System.out.println(textFromFile);
+                    if (textFromFile == null) {
+                        break;
+                    }
+                    saveGameFromFile = textFromFile.split(";");
+                    Deck deck = new Deck();
+                    String[] ids;
+                    for (int i = 1; i <= saveGameFromFile.length - 1; i++) {
+                        ids = saveGameFromFile[i].split(",");
 
-            while(true){
-                String textFromFile = bufferedReader.readLine();
-                System.out.println(textFromFile);
-                if(textFromFile == null){
-                    System.out.println("izz emptyyys");
-                    break;
+                        for (int j = 0; j <= ids.length - 1; j++) {
+                            deck.addCardToDeck(Integer.parseInt(ids[j]));
+                        }
+                    }
+                    System.out.println("///////////// Cards im Deck");
+                    for (int h = 0; h <= deck.getSize(); h++) {
+                        System.out.println("Card in Deck:" + deck.getCardIdFromDeck(h));
+                    }
                 }
-                saveGameFromFile = textFromFile.split(";");
-                Deck deck = new Deck();
-                for (int i = 1; i<= saveGameFromFile.length; i++){
-                    deck.addCardToDeck(saveGameFromFile[i]);
-                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-        } catch(Exception e){
-            System.out.println(e.getMessage());
+        } else {
+            System.out.println("////////////File not found! User will not be changed!");
         }
-
-        return null;
+        return user;
     }
 
 }

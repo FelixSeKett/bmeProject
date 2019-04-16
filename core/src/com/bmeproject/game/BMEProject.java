@@ -55,7 +55,8 @@ public class BMEProject extends Game
 		}
 
 		SaveGameHandler sg = new SaveGameHandler(this);
-		sg.saveGame(user);
+
+		//sg.saveGame(user);
 		user = sg.loadGame(user);
 	}
 
