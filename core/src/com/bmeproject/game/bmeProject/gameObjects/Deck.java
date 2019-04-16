@@ -18,6 +18,7 @@ public class Deck
 
 	public Deck()
 	{
+		//Hard gecodet
 		deck.add(1);
 		deck.add(3);
 		deck.add(4);
