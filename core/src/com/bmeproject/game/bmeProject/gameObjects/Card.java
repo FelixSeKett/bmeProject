@@ -38,12 +38,9 @@ public class Card extends Actor
 	protected Type CardType;
 	protected String CardName;
 	protected int Strength;
-	protected String decsription;
+	protected String description;
 	protected String illustrationFilePathLarge;
 	protected String illustrationFilePathSmall;
-	protected Effect effect1;
-	protected Effect effect2;
-	protected Effect effect3;
 	private Skin skinLibgdx;
 
 	protected HashMap<Integer, Effect> effectList  = new HashMap<Integer, Effect>();
@@ -60,13 +57,21 @@ public class Card extends Actor
 		this.CardName = name;
 		this.CardType = type;
 		project = bmeProject;
-		this.decsription = description;
+		this.description = description;
 		String Path = "core/assets/cards";
 		String PathLarge = Path.concat("/large/card_id_");
 		String PathSmall = Path.concat("/small/card_id_");
 		this.illustrationFilePathLarge = PathLarge.concat( Integer.toString(id)).concat(".png");
 		this.illustrationFilePathSmall = PathSmall.concat( Integer.toString(id)).concat(".png");
 		buildEffect(Effect);
+		getCardEffects();
+
+	}
+
+	public void getCardEffects(){
+		for (int i=0; i<=effectList.size()-1; i++){
+			System.out.println(effectList.get(i).getEffectDescription());
+		}
 	}
 
 	private void buildEffect(String Effect){
@@ -119,10 +124,7 @@ public class Card extends Actor
 				//font.draw(batch, "Beschreibung: "+ decsription,10,10);
 				System.out.println("Name: "+ CardName);
 				System.out.println("Type: "+ CardType);
-				System.out.println("Effekt 1: "+ effect1.getEffectDescription());
-				System.out.println("Effekt 2: "+ effect2.getEffectDescription());
-				System.out.println("Effekt 3: "+ effect3.getEffectDescription());
-				System.out.println("Beschreibung: "+ decsription);
+				System.out.println("Beschreibung: "+ description);
 				skinLibgdx = new Skin(Gdx.files.internal(Constants.SKIN_LIBGDX_UI),
 						new TextureAtlas(Constants.TEXTURE_ATLAS_LIBGDX_UI));
 				Table tbl = new Table();

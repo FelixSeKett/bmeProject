@@ -88,6 +88,7 @@ public class XMLReader {
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
                 System.out.println("Effekt ID: " + eElement.getAttribute("id"));
+                System.out.println(eElement.getElementsByTagName("effectDescription").item(0).getTextContent());
 
                 tempEffect= new Effect(
                         Integer.parseInt(eElement.getAttribute("id")),
