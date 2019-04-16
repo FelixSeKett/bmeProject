@@ -1,12 +1,12 @@
 package com.bmeproject.game.bmeProject.screens.deckScreen;
 
-import com.badlogic.gdx.InputAdapter;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Area;
+import com.bmeproject.game.bmeProject.screens.Controller;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
-public class DeckController extends InputAdapter
+public class DeckController extends Controller
 {
 	// ===================================
 	// ATTRIBUTES
@@ -19,15 +19,21 @@ public class DeckController extends InputAdapter
 	// METHODS
 	// ===================================
 
-	private void init()
+	@Override public void init()
 	{
 		createDeckArea();
 		createCollectionArea();
 	}
 
+	@Override public void update(float delta)
+	{
+		deckArea.update();
+		collectionArea.update();
+	}
+
 	private void createDeckArea()
 	{
-		LinkedList<Card> testList = new LinkedList<>();
+		ArrayList<Card> testList = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			testList.add(new Card());
 		}
@@ -37,7 +43,7 @@ public class DeckController extends InputAdapter
 
 	private void createCollectionArea()
 	{
-		LinkedList<Card> testList = new LinkedList<>();
+		ArrayList<Card> testList = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			testList.add(new Card());
 		}
@@ -45,11 +51,6 @@ public class DeckController extends InputAdapter
 		collectionArea.update();
 	}
 
-	public void update(float DeltaTime)
-	{
-		deckArea.update();
-		collectionArea.update();
-	}
-
 	//initObjects + updateObjects + Controls
+
 }
