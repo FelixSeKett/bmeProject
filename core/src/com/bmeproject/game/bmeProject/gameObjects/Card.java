@@ -15,8 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.util.Constants;
 
-import java.awt.*;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
@@ -43,7 +42,7 @@ public class Card extends Actor
 	protected String illustrationFilePathSmall;
 	private Skin skinLibgdx;
 
-	protected HashMap<Integer, Effect> effectList  = new HashMap<Integer, Effect>();
+	protected ArrayList<Effect> effectList;
 	protected  BMEProject project;
 
 
@@ -58,6 +57,7 @@ public class Card extends Actor
 		this.CardType = type;
 		project = bmeProject;
 		this.description = description;
+		effectList = new ArrayList<com.bmeproject.game.bmeProject.gameObjects.Effect>();
 		String Path = "core/assets/cards";
 		String PathLarge = Path.concat("/large/card_id_");
 		String PathSmall = Path.concat("/small/card_id_");
@@ -76,16 +76,14 @@ public class Card extends Actor
 
 	private void buildEffect(String Effect){
 		String[] effectID = Effect.split(",");
-		int counter= 0;
 
 		for (String id: effectID) {
-			effectList.put(counter, project.getEffectFromAllEffects(Integer.parseInt(id)));
-			counter++;
+			effectList.add(project.getEffectFromAllEffects(Integer.parseInt(id)));
 		}
 
 	}
 
-	public HashMap<Integer,Effect> getAllCardEffects(){
+	public ArrayList<Effect> getAllCardEffects(){
 		return effectList;
 	}
 

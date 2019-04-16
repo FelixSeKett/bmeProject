@@ -1,4 +1,7 @@
 <effects>
+    <effect id="000">
+        <effectDescription>Das ist Effekt 0</effectDescription>
+    </effect>
     <effect id="001">
         <effectDescription>Das ist Effekt 1</effectDescription>
     </effect>
