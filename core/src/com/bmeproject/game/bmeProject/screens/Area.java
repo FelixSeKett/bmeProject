@@ -11,6 +11,24 @@ public class Area extends Actor
 	// ATTRIBUTES
 	// ===================================
 
+	/**
+	 * Eine Area ist immer eine rechteckige Fläche mit einem Ursprung (x, y), einer Breite (width) und einer Höhe
+	 * (height). Diese vier Attribute hält die Superklasse Actor.
+	 * <p>
+	 * Eine Area muss alle enthaltenen Karten in mindestens einem "Häufchen" (Pile) organisieren. Alle Piles haben
+	 * Ursprungs- ({@param PILE_X}, {@param PILE_Y}) und Versatzangaben ({@param PILE_OFFSET_X},
+	 * {@param PILE_OFFSET_Y}).
+	 *
+	 * @param PILE_X
+	 * @param PILE_Y
+	 * @param PILE_OFFSET_X
+	 * @param PILE_OFFSET_Y
+	 * @param CARD_OFFSET_X
+	 * @param CARD_OFFSET_Y
+	 * @param CARD
+	 * @param CARDS_PER_PILE
+	 */
+
 	private final float            PILE_X;
 	private final float            PILE_Y;
 	private final float            PILE_OFFSET_X;
@@ -44,10 +62,8 @@ public class Area extends Actor
 
 	public void update()
 	{
-		for (int i = 0, j = 0; i < CARDS.size(); i++)
-		{
-			if (i % CARDS_PER_PILE == 0)
-			{
+		for (int i = 0, j = 0; i < CARDS.size(); i++) {
+			if (i % CARDS_PER_PILE == 0) {
 				j++;
 			}
 			float x = PILE_X + i * CARD_OFFSET_X + (j - 1) * PILE_OFFSET_X;
