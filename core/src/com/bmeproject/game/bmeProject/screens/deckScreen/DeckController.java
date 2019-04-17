@@ -36,7 +36,7 @@ public class DeckController extends Controller
 
 	private void createDeckArea()
 	{
-		ArrayList<Card> testList = new ArrayList<>();
+		ArrayList<Card> testList = new ArrayList();
 		for (int i = 0; i < 10; i++) {
 			testList.add(new Card());
 		}
@@ -46,7 +46,7 @@ public class DeckController extends Controller
 
 	private void createCollectionArea()
 	{
-		ArrayList<Card> testList = new ArrayList<>();
+		ArrayList<Card> testList = new ArrayList();
 		for (int i = 0; i < 10; i++) {
 			testList.add(new Card());
 		}

@@ -3,10 +3,9 @@ package com.bmeproject.game;
 import com.badlogic.gdx.Game;
 import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.gameObjects.Deck;
-import com.bmeproject.game.bmeProject.screens.testScreen.TestScreen;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
 import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
+import com.bmeproject.game.bmeProject.screens.testScreen.TestScreen;
 import com.bmeproject.game.bmeProject.screens.titleScreen.TitleScreen;
 import com.bmeproject.game.bmeProject.userData.User;
 
@@ -41,6 +40,7 @@ public class BMEProject extends Game
 	@Override public void create()
 	{
 		user = new User(this, "TestUser");
+		initObjects();
 		initializeScreens();
 	}
 
@@ -48,16 +48,10 @@ public class BMEProject extends Game
 		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
 		allCards = cardgen.createAllCards();
 
-		Deck testDeck;
-		for(int i = 0; i <= user.getDecks().size(); i++){
-			testDeck = user.getDeck(i);
-		}
 	}
 
 	private void initializeScreens()
 	{
-		allCards = new HashMap();
-		initObjects();
 		titleScreen = new TitleScreen(this);
 		battleScreen = new BattleScreen(this);
 		deckScreen = new DeckScreen(this);
