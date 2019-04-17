@@ -76,7 +76,7 @@ public class XMLReader {
 
     public HashMap readEffectsFromXML(Document doc){
         System.out.println(doc.getDocumentURI());
-        System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
+        //System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
         NodeList nodeListEffect = doc.getElementsByTagName("effect");
         HashMap<Integer, Effect> EffectList = new HashMap<Integer, Effect>();
         Effect tempEffect;
@@ -84,11 +84,11 @@ public class XMLReader {
 
         for (int temp = 0; temp < nodeListEffect.getLength(); temp++) {
             Node nNode = nodeListEffect.item(temp);
-            System.out.println("\nCurrent Element: " + nNode.getNodeName());
+            //System.out.println("\nCurrent Element: " + nNode.getNodeName());
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                System.out.println("Effekt ID: " + eElement.getAttribute("id"));
-                System.out.println(eElement.getElementsByTagName("effectDescription").item(0).getTextContent());
+                //System.out.println("Effekt ID: " + eElement.getAttribute("id"));
+                //System.out.println(eElement.getElementsByTagName("effectDescription").item(0).getTextContent());
 
                 tempEffect= new Effect(
                         Integer.parseInt(eElement.getAttribute("id")),
@@ -106,7 +106,7 @@ public class XMLReader {
     }
     // reads given Document with specific card-tags
     private List<Card> readCardsFromXML(Document doc) {
-        System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
+        //System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
         NodeList nodeListCards = doc.getElementsByTagName("card");
         List<Card> cardList = new ArrayList<Card>();
         Card tempCard;
@@ -114,10 +114,10 @@ public class XMLReader {
 
         for (int temp = 0; temp < nodeListCards.getLength(); temp++) {
             Node nNode = nodeListCards.item(temp);
-            System.out.println("\nCurrent Element: " + nNode.getNodeName());
+            //System.out.println("\nCurrent Element: " + nNode.getNodeName());
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                System.out.println("Card ID: " + eElement.getAttribute("id"));
+                //System.out.println("Card ID: " + eElement.getAttribute("id"));
 
 
                 tempCard = new Card(

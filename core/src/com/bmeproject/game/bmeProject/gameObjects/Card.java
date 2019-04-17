@@ -1,6 +1,7 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
@@ -10,11 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.util.Constants;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -33,17 +36,20 @@ public class Card extends Actor
 	private static final TextureRegion TEXTURE_BACK = new TextureRegion(TEXTURES, 0, 0, 204, 300);
 	protected Sprite sprite;
 	protected int CardId;
-	protected Vector2 CardPosition;
 	protected Type CardType;
 	protected String CardName;
-	protected int Strength;
 	protected String description;
+
+	protected int Strength;
+	protected Vector2 CardPosition;
+
 	protected String illustrationFilePathLarge;
 	protected String illustrationFilePathSmall;
-	private Skin skinLibgdx;
 
 	protected ArrayList<Effect> effectList;
-	protected  BMEProject project;
+	protected BMEProject project;
+	protected Label.LabelStyle labelStyle;
+	protected Label cardDetails;
 
 
 // ===================================
@@ -58,16 +64,24 @@ public class Card extends Actor
 		project = bmeProject;
 		this.description = description;
 		effectList = new ArrayList<com.bmeproject.game.bmeProject.gameObjects.Effect>();
+
+		labelStyle= new Label.LabelStyle();
+		labelStyle.fontColor= Color.BLACK;
+		labelStyle.font= new BitmapFont();
+
+		cardDetails= new Label("bla",labelStyle);
+		cardDetails.setVisible(false);
+
 		String Path = "core/assets/cards";
 		String PathLarge = Path.concat("/large/card_id_");
 		String PathSmall = Path.concat("/small/card_id_");
 		this.illustrationFilePathLarge = PathLarge.concat( Integer.toString(id)).concat(".png");
 		this.illustrationFilePathSmall = PathSmall.concat( Integer.toString(id)).concat(".png");
 		buildEffect(Effect);
-		getCardEffects();
 
 	}
 
+	//gibt
 	public void getCardEffects(){
 		for (int i=0; i<=effectList.size()-1; i++){
 			System.out.println(effectList.get(i).getEffectDescription());
@@ -95,6 +109,7 @@ public class Card extends Actor
 		showDetails();
 	}
 
+	//die Details werden nach einem Click ausgeblendet und das Bild verkleinert
 	private void hideDetails() {
 		InputListener inputListener = new InputListener()
 		{
@@ -108,29 +123,30 @@ public class Card extends Actor
 		addListener(inputListener);
 	}
 
+	//zeigt die Karte nach Click im Großformat an und gibt die Details aus
 	private void showDetails() {
-		final BitmapFont font = new BitmapFont();
+
 		InputListener inputListener = new InputListener()
 		{
 
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
+				//zeigt die Karte in Groß an
 				sprite = new Sprite(new Texture(illustrationFilePathLarge));
 				setWidth(sprite.getWidth());
 				setHeight(sprite.getHeight());
 				sprite.setOrigin(sprite.getX(), sprite.getY());
-				//font.draw(batch, "Beschreibung: "+ decsription,10,10);
+
+				//gibt die Werte der Karte in der Console aus
 				System.out.println("Name: "+ CardName);
 				System.out.println("Type: "+ CardType);
 				System.out.println("Beschreibung: "+ description);
-				skinLibgdx = new Skin(Gdx.files.internal(Constants.SKIN_LIBGDX_UI),
-						new TextureAtlas(Constants.TEXTURE_ATLAS_LIBGDX_UI));
-				Table tbl = new Table();
-				tbl.pad(10, 10, 0, 10);
-				//tbl.add(new Label("Audio", skinLibgdx, "default-font",Color.ORANGE)).colspan(3);
-				tbl.row();
-				tbl.columnDefaults(0).padRight(10);
-				tbl.columnDefaults(1).padRight(10);				hideDetails();
+				getCardEffects();
+
+
+
+
+				hideDetails();
 
 				return true;
 			}
@@ -210,5 +226,7 @@ public class Card extends Actor
 	{
 		super.draw(batch, parentAlpha);
 		sprite.draw(batch);
+
+		cardDetails.draw(batch, parentAlpha);
 	}
 }
