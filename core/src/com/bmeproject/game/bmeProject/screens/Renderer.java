@@ -15,7 +15,7 @@ public class Renderer
 
 	private final Controller  CONTROLLER;
 	private       SpriteBatch spriteBatch;
-	private       Stage       stage;
+	public        Stage       stage;
 
 	// ===================================
 	// CONSTRUCTORS

@@ -3,6 +3,7 @@ package com.bmeproject.game.bmeProject.screens.battleScreen;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.archive.Player;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
+import com.bmeproject.game.bmeProject.screens.Controller;
 
 public class BattleScreen extends AbstractScreen
 {
@@ -23,7 +24,7 @@ public class BattleScreen extends AbstractScreen
 	}
 
 	// ===================================
-	// PROCEDURES
+	// METHODS
 	// ===================================
 
 	@Override public void show()
@@ -37,6 +38,11 @@ public class BattleScreen extends AbstractScreen
 	{
 		super.render(delta);
 		getActivePlayer().manageEvent();
+	}
+
+	@Override protected Controller createController()
+	{
+		return new BattleController();
 	}
 
 	private void initializePlayers()
@@ -54,7 +60,10 @@ public class BattleScreen extends AbstractScreen
 
 	private Player getActivePlayer()
 	{
-		if (player1.getEvent() != null) { return player1; }
-		else { return player2; }
+		if (player1.getEvent() != null) {
+			return player1;
+		} else {
+			return player2;
+		}
 	}
 }

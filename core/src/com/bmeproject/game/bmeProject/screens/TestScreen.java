@@ -16,10 +16,10 @@ public class TestScreen extends AbstractScreen
 	// ATTRIBUTES
 	// ===================================
 
-	private Card card;
-	private Deck deck;
+	private Card       card;
+	private Deck       deck;
 	private BMEProject bmeProject;
-	private Batch batch;
+	private Batch      batch;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -40,7 +40,7 @@ public class TestScreen extends AbstractScreen
 		System.out.println("TEST SCREEN SHOWN");
 
 		card = BMEProject.allCards.get(1);
-		stage.addActor(card);
+		renderer.stage.addActor(card);
 		System.out.println("CardType = " + card.getCardType().toString());
 
 
@@ -49,8 +49,7 @@ public class TestScreen extends AbstractScreen
 		deck.addCardToDeck(5);
 
 
-		for (int i = 0; i < deck.getSize(); i++)
-		{
+		for (int i = 0; i < deck.getSize(); i++) {
 			int id = deck.getCardIdFromDeck(i);
 			System.out.println("ID = " + deck.getCardIdFromDeck(i));
 
@@ -61,11 +60,26 @@ public class TestScreen extends AbstractScreen
 		deck.removeCardFromDeck(1);
 		System.out.println("Deck besteht aus " + deck.getSize() + " Karten");
 
-		for (int i = 0; i < deck.getSize(); i++  )
-		{
+		for (int i = 0; i < deck.getSize(); i++) {
 			int id = deck.getCardIdFromDeck(i);
 			System.out.println("ID = " + deck.getCardIdFromDeck(i));
 
 		}
+	}
+
+	@Override protected Controller createController()
+	{
+		return new Controller()
+		{
+			@Override public void init()
+			{
+
+			}
+
+			@Override public void update(float delta)
+			{
+
+			}
+		};
 	}
 }

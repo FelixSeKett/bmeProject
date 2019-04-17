@@ -20,7 +20,7 @@ public abstract class AbstractScreen implements Screen
 
 	protected final BMEProject BME_PROJECT;
 	protected       Controller controller;
-	private         Renderer   renderer;
+	protected       Renderer   renderer;
 
 	// ===================================
 	// CONSTRUCTORS
