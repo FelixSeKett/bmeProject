@@ -18,7 +18,7 @@ public class SaveGameHandler {
         this.bmeProject = bmeProject;
     }
     public void saveGame(User user){
-        File file = new File("SaveGames/savegame.txt");
+        File file = new File("savegame.txt");
         String cardIds = getCardIds(user);
 
         try{
@@ -51,10 +51,10 @@ public class SaveGameHandler {
     public User loadGame(User user){
         String[] saveGameFromFile;
         //if file exists
-        File tmp = new File("SaveGames/savegame.txt");
+        File tmp = new File("savegame.txt");
         if(tmp.exists()) {
             try {
-                FileReader fileReader = new FileReader("SaveGames/savegame.txt");
+                FileReader fileReader = new FileReader("savegame.txt");
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
 
                 while (true) {
