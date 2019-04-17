@@ -33,7 +33,7 @@ public class TestScreen extends AbstractScreen
 	@Override public void show()
 	{
 		super.show();
-		System.out.println("TEST SCREEN SHOWN");
+		//System.out.println("TEST SCREEN SHOWN");
 
 
 		card = BMEProject.allCards.get(1);
@@ -44,10 +44,10 @@ public class TestScreen extends AbstractScreen
 
 		deck = new Deck();
 		int[] tempDeck =  deck.getDeck();
-		System.out.println("Deck besteht aus " + tempDeck.length + " Karten");
+		//System.out.println("Deck besteht aus " + tempDeck.length + " Karten");
 		for (int i = 0; i < tempDeck.length; i++  )
 		{
-			System.out.println("ID = " + tempDeck[i]);
+			//System.out.println("ID = " + tempDeck[i]);
 		}
 	}
 }
