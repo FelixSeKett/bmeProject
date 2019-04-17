@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.bmeproject.game.BMEProject;
-import com.bmeproject.game.bmeProject.gameObjects.Card;
 
 /*
 Grafische Darstellung von Karte:
@@ -23,7 +22,7 @@ public class DeckCard extends Card
 
 
     public DeckCard (int id, String name, Type type, String Effect, String description, BMEProject bmeProject) {
-    super(id, name, type, description, Effect, bmeProject);
+    super(id, name, type, description, Effect);
         CardId = id;
     }
 

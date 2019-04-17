@@ -1,9 +1,11 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -12,12 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.bmeproject.game.BMEProject;
-import com.bmeproject.game.bmeProject.util.Constants;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -47,23 +44,22 @@ public class Card extends Actor
 	protected String illustrationFilePathSmall;
 
 	protected ArrayList<Effect> effectList;
-	protected BMEProject project;
 	protected Label.LabelStyle labelStyle;
 	protected Label cardDetails;
+	protected String[] effect;
 
 
 // ===================================
 	// CONSTRUCTOR
 	// ===================================
 
-	public Card(int id, String name, Type type, String Effect, String description, BMEProject bmeProject)
+	public Card(int id, String name, Type type, String effect, String description)
 	{
 		this.CardId = id;
 		this.CardName = name;
 		this.CardType = type;
-		project = bmeProject;
 		this.description = description;
-		effectList = new ArrayList<com.bmeproject.game.bmeProject.gameObjects.Effect>();
+		effectList = new ArrayList<Effect>();
 
 		labelStyle= new Label.LabelStyle();
 		labelStyle.fontColor= Color.BLACK;
@@ -77,8 +73,12 @@ public class Card extends Actor
 		String PathSmall = Path.concat("/small/card_id_");
 		this.illustrationFilePathLarge = PathLarge.concat( Integer.toString(id)).concat(".png");
 		this.illustrationFilePathSmall = PathSmall.concat( Integer.toString(id)).concat(".png");
-		buildEffect(Effect);
+		this.effect = effect.split(",");
+		effectList = new ArrayList<Effect>();
+	}
 
+	public String[] getEffectIdsFromCard(){
+		return effect;
 	}
 
 	//gibt
@@ -88,17 +88,12 @@ public class Card extends Actor
 		}
 	}
 
-	private void buildEffect(String Effect){
-		String[] effectID = Effect.split(",");
-
-		for (String id: effectID) {
-			effectList.add(project.getEffectFromAllEffects(Integer.parseInt(id)));
-		}
-
-	}
-
 	public ArrayList<Effect> getAllCardEffects(){
 		return effectList;
+	}
+
+	public void setAllCardEffects(ArrayList cardEffects){
+		effectList = cardEffects;
 	}
 
 	public void initialize()
@@ -122,6 +117,8 @@ public class Card extends Actor
 		};
 		addListener(inputListener);
 	}
+
+
 
 	//zeigt die Karte nach Click im Großformat an und gibt die Details aus
 	private void showDetails() {
@@ -156,7 +153,6 @@ public class Card extends Actor
 
 	private void initializeVisuals()
 	{
-
 		sprite = new Sprite(new Texture(illustrationFilePathSmall));
 		setWidth(sprite.getWidth());
 		setHeight(sprite.getHeight());

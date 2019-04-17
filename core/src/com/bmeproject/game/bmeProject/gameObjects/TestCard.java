@@ -14,8 +14,8 @@ public class TestCard extends Card
 	// ===================================
 
 
-	public TestCard(int id, String name, Type type, String Effect, String description, BMEProject bmeProject) {
-		super(id, name, type, description, Effect, bmeProject);
+	public TestCard(int id, String name, Type type, String effect, String description, BMEProject bmeProject) {
+		super(id, name, type, description, effect);
 	}
 
 	public void initialize (String textureFilePath)

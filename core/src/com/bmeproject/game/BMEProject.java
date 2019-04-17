@@ -47,30 +47,19 @@ public class BMEProject extends Game
 	 */
 	@Override public void create()
 	{
-		initializeScreens();
 		profile = new Profile(this);
 		initObjects();
-		//initializeEntities();
-
+        initializeScreens();
 	}
 
 	private void initObjects(){
-		XMLReader= new XMLReader("core/src/com/bmeproject/game/bmeProject/dataAccess/EffectsXML.xml", this);
-		allEffects = XMLReader.initEffects();
-
 		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml", this);
 		allCards = cardgen.createAllCards();
 
 	}
 
-	public Effect getEffectFromAllEffects(int effectId){
-		return allEffects.get(effectId);
-	}
-
 	private void initializeScreens()
 	{
-		allCards = new HashMap();
-		initObjects();
 		titleScreen = new TitleScreen(this);
 		battleScreen = new BattleScreen(this);
 		deckScreen = new DeckScreen(this);

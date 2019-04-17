@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject.dataAccess;
 
-import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Effect;
 import com.bmeproject.game.bmeProject.gameObjects.Type;
@@ -23,26 +22,22 @@ import java.util.List;
 public class XMLReader {
 
     String path;
-    BMEProject bmeProject;
 
-    public XMLReader(String filepath, BMEProject bmeProject) {
+    public XMLReader(String filepath) {
         path = filepath;
-        this.bmeProject = bmeProject;
     }
 
-    //Initialises process
     public List<Card> initCards() {
-        Document document = readXML();
+        Document document = generateDocFromXML();
         return readCardsFromXML(document);
     }
 
     public HashMap initEffects() {
-        Document document = readXML();
+        Document document = generateDocFromXML();
         return readEffectsFromXML(document) ;
 
     }
-
-
+    
     private Document readEffectsXML() {
         try {
             File xmlFile = new File("core/src/com/bmeproject/game/bmeProject/dataAccess/EffectsXML.xml");
@@ -59,7 +54,7 @@ public class XMLReader {
     }
 
     //Builds document from XML and returns it
-    private Document readXML() {
+    private Document generateDocFromXML() {
         try {
             File xmlFile = new File(path);
 
@@ -84,11 +79,8 @@ public class XMLReader {
 
         for (int temp = 0; temp < nodeListEffect.getLength(); temp++) {
             Node nNode = nodeListEffect.item(temp);
-            //System.out.println("\nCurrent Element: " + nNode.getNodeName());
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                //System.out.println("Effekt ID: " + eElement.getAttribute("id"));
-                //System.out.println(eElement.getElementsByTagName("effectDescription").item(0).getTextContent());
 
                 tempEffect= new Effect(
                         Integer.parseInt(eElement.getAttribute("id")),
@@ -97,16 +89,13 @@ public class XMLReader {
                         );
 
                 EffectList.put(temp, tempEffect);
-                //Der Effekt wird ausgegeben, den die Karte benutzt jedoch nicht nach ID sondern nach Reihenfolge
-                //System.out.println(nodeListEffect.item(tempCard.getEffect1() - 1).getTextContent());
             }
         }
         return EffectList;
 
     }
-    // reads given Document with specific card-tags
+
     private List<Card> readCardsFromXML(Document doc) {
-        //System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
         NodeList nodeListCards = doc.getElementsByTagName("card");
         List<Card> cardList = new ArrayList<Card>();
         Card tempCard;
@@ -114,31 +103,22 @@ public class XMLReader {
 
         for (int temp = 0; temp < nodeListCards.getLength(); temp++) {
             Node nNode = nodeListCards.item(temp);
-            //System.out.println("\nCurrent Element: " + nNode.getNodeName());
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                //System.out.println("Card ID: " + eElement.getAttribute("id"));
-
 
                 tempCard = new Card(
                         Integer.parseInt(eElement.getAttribute("id")),
                         eElement.getElementsByTagName("cardName").item(0).getTextContent(),
                         getType(eElement.getElementsByTagName("cardType").item(0).getTextContent()),
                         eElement.getElementsByTagName("cardEffect").item(0).getTextContent(),
-                        eElement.getElementsByTagName("cardDescription").item(0).getTextContent(),
-                        bmeProject
+                        eElement.getElementsByTagName("cardDescription").item(0).getTextContent()
                         );
-                tempCard.initialize();
-
                 cardList.add(tempCard);
-                //Der Effekt wird ausgegeben, den die Karte benutzt jedoch nicht nach ID sondern nach Reihenfolge
-                //System.out.println(nodeListEffect.item(tempCard.getEffect1() - 1).getTextContent());
             }
         }
         return cardList;
     }
 
-    // returns Type of Card according to given String
     private Type getType(String type) {
         if (type.equals("Quartier")) {
             return Type.QUARTIER;
