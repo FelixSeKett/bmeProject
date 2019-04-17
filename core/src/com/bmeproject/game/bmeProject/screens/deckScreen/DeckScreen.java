@@ -2,6 +2,7 @@ package com.bmeproject.game.bmeProject.screens.deckScreen;
 
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
+import com.bmeproject.game.bmeProject.screens.Controller;
 
 public class DeckScreen extends AbstractScreen
 {
@@ -20,7 +21,6 @@ public class DeckScreen extends AbstractScreen
 
 	@Override public void show()
 	{
-		controller = new DeckController();
 		super.show();
 
 		//		Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -51,5 +51,10 @@ public class DeckScreen extends AbstractScreen
 		//		table.add(btn).padBottom(30);
 		//		table.row();
 		//		table.add(str2);
+	}
+
+	@Override protected Controller createController()
+	{
+		return new DeckController();
 	}
 }

@@ -39,13 +39,10 @@ public abstract class AbstractScreen implements Screen
 	 * Wird aufgerufen, sobald der Screen in {@link BMEProject} per {@link BMEProject#setScreen(Screen)} zum aktiven
 	 * Screen gewählt wird und verrichtet alle einmaligen Arbeiten, die im Zuge dessen anfallen. Initialisiert so
 	 * unter anderem die Instanzvariablen.
-	 * <p>
-	 * Jede Klasse, die von AbstractScreen erbt, MUSS in ihrer eigenen Show-Methode den Controller instanziieren,
-	 * bevor sie die Show-Methode ihrer Superklasse - also diese hier - aufruft und der Renderer bei seiner
-	 * Instanziierung einen Controller bekommt.
 	 */
 	@Override public void show()
 	{
+		controller = createController();
 		renderer = new Renderer(controller);
 		controller.init();
 		renderer.init();
@@ -90,4 +87,6 @@ public abstract class AbstractScreen implements Screen
 	@Override public void hide()
 	{
 	}
+
+	protected abstract Controller createController();
 }
