@@ -1,11 +1,13 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen;
 
+import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.archive.Player;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
 
 public class BattleScreen extends AbstractScreen
 {
+	private static final String TAG = BattleScreen.class.getName();
 	// ===================================
 	// ATTRIBUTES
 	// ===================================
@@ -20,6 +22,7 @@ public class BattleScreen extends AbstractScreen
 	public BattleScreen(BMEProject bmeProject)
 	{
 		super(bmeProject);
+		Gdx.app.debug(TAG, "Screen initialized");
 	}
 
 	// ===================================
@@ -29,7 +32,6 @@ public class BattleScreen extends AbstractScreen
 	@Override public void show()
 	{
 		super.show();
-		System.out.println("BATTLE SCREEN SHOWN");
 		initializePlayers();
 	}
 

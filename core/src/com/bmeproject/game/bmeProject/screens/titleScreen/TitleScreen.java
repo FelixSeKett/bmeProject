@@ -1,17 +1,17 @@
 package com.bmeproject.game.bmeProject.screens.titleScreen;
 
+import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
 
 public class TitleScreen extends AbstractScreen
 {
-	// ===================================
-	// CONSTRUCTORS
-	// ===================================
+	private static final String TAG = TitleScreen.class.getName();
 
 	public TitleScreen(BMEProject bmeProject)
 	{
 		super(bmeProject);
+		Gdx.app.debug(TAG, "Screen initialized");
 	}
 
 	// ===================================
@@ -21,7 +21,6 @@ public class TitleScreen extends AbstractScreen
 	@Override public void show()
 	{
 		super.show();
-		System.out.println("TITLE SCREEN SHOWN");
 		BME_PROJECT.activateTestScreen();
 	}
 }

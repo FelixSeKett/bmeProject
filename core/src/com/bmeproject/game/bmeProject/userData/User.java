@@ -10,6 +10,7 @@ public class User
 	private final BMEProject BME_PROJECT;
 	private String name;
 	private HashMap<Integer, Deck> deckList;
+	private static final String TAG = User.class.getName();
 
 	public User(BMEProject bmeProject, String userName)
 	{

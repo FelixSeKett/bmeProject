@@ -1,6 +1,8 @@
 package com.bmeproject.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Deck;
@@ -21,10 +23,6 @@ import java.util.HashMap;
  */
 public class BMEProject extends Game
 {
-	// ===================================
-	// ATTRIBUTES
-	// ===================================
-
 	public static final boolean DEBUG = true;
 
 	private TitleScreen titleScreen;
@@ -34,6 +32,7 @@ public class BMEProject extends Game
 	public User user;
 	public static HashMap<Integer, Card> allCards;
 	public static ArrayList<Card> Cards;
+	private static final String TAG = BMEProject.class.getName();
 
 	/**
 	 * Verrichtet alle Arbeiten, die einmalig beim Erzeugen der Instanz dieser Klasse - sprich: bei Spielstart -
@@ -41,6 +40,8 @@ public class BMEProject extends Game
 	 */
 	@Override public void create()
 	{
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		Gdx.app.debug(TAG, "CREATE() called");
 		user = new User(this, "TestUser");
 		initializeScreens();
 	}

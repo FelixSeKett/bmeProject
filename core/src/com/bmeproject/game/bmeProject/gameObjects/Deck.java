@@ -8,7 +8,7 @@ import java.util.Collections;
 public class Deck
 {
 	private ArrayList<Integer> deck = new ArrayList<Integer>();
-
+	private static final String TAG = Deck.class.getName();
 	public Deck()
 	{
 		//Hard gecodet

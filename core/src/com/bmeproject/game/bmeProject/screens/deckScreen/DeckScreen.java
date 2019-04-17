@@ -12,15 +12,11 @@ import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
 
 public class DeckScreen extends AbstractScreen {
-	// ===================================
-	// CONSTRUCTORS
-	// ===================================
+	private static final String TAG = DeckScreen.class.getName();
 
 	public DeckScreen(BMEProject bmeProject) {
-
 		super(bmeProject);
-
-
+		Gdx.app.debug(TAG, "Screen initialized");
 	}
 
 	@Override

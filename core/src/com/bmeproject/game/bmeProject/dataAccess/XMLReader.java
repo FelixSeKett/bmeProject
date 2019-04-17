@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.dataAccess;
 
+import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Type;
 import org.w3c.dom.Document;
@@ -18,7 +19,7 @@ import java.util.List;
  * eine Card zu bauen.
  */
 public class XMLReader {
-
+    private static final String TAG = XMLReader.class.getName();
     String path;
 
     public XMLReader(String filepath) {
@@ -27,6 +28,7 @@ public class XMLReader {
 
     //Initialises process
     public List<Card> initCards() {
+        Gdx.app.debug(TAG, "initCards() called");
         Document document = readXML();
         return readCardsFromXML(document);
     }
@@ -49,7 +51,7 @@ public class XMLReader {
 
     // reads given Document with specific card-tags
     private List<Card> readCardsFromXML(Document doc) {
-        System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
+        Gdx.app.debug(TAG, "Root element:" + doc.getDocumentElement().getNodeName());
         NodeList nList = doc.getElementsByTagName("card");
 
         List<Card> cardList = new ArrayList<Card>();
@@ -57,11 +59,11 @@ public class XMLReader {
 
         for (int temp = 0; temp < nList.getLength(); temp++) {
             Node nNode = nList.item(temp);
-            System.out.println("\nCurrent Element: " + nNode.getNodeName());
+            Gdx.app.debug(TAG, "\nCurrent Element: " + nNode.getNodeName());
 
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
-                System.out.println("ID: " + eElement.getAttribute("id"));
+                Gdx.app.debug(TAG,"ID: " + eElement.getAttribute("id"));
                 tempCard = new Card();
                 tempCard.initialize(
                         Integer.parseInt(eElement.getAttribute("id")),

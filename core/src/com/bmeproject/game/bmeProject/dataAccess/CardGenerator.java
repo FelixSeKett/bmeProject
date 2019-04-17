@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.dataAccess;
 
+import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 
 import java.util.ArrayList;
@@ -10,8 +11,10 @@ public class CardGenerator {
     List<Card> cardList;
     XMLReader reader;
     ArrayList<Card> list;
+    private static final String TAG = CardGenerator.class.getName();
 
     public CardGenerator(String xmlPath){
+        Gdx.app.debug(TAG, "CardGenerator constructed");
          cardList = new ArrayList<Card>();
          reader =  new XMLReader(xmlPath);
     }

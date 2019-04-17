@@ -27,7 +27,7 @@ public class DeckController extends InputAdapter
 
 	private void createDeckArea()
 	{
-		LinkedList<Card> testList = new LinkedList<>();
+		LinkedList<Card> testList = new LinkedList<Card>();
 		for (int i = 0; i < 10; i++) {
 			testList.add(new Card());
 		}
@@ -37,7 +37,7 @@ public class DeckController extends InputAdapter
 
 	private void createCollectionArea()
 	{
-		LinkedList<Card> testList = new LinkedList<>();
+		LinkedList<Card> testList = new LinkedList<Card>();
 		for (int i = 0; i < 10; i++) {
 			testList.add(new Card());
 		}

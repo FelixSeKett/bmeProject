@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 public class Area extends Actor
 {
+	private static final String TAG = Area.class.getName();
 	// ===================================
 	// ATTRIBUTES
 	// ===================================

@@ -34,6 +34,7 @@ public class Card extends Actor
 	protected int Strengh;
 	protected String Decsription;
 	protected String illustrationFilePath;
+	private static final String TAG = Card.class.getName();
 
 
 

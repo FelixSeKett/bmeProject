@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.util;
 
+import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Deck;
 import com.bmeproject.game.bmeProject.userData.User;
@@ -13,12 +14,14 @@ import java.util.HashMap;
 public class SaveGameHandler {
 
     BMEProject bmeProject;
+    String filepath = "savegame.txt";
+    private static final String TAG = SaveGameHandler.class.getName();
 
     public SaveGameHandler(BMEProject bmeProject){
         this.bmeProject = bmeProject;
     }
     public void saveGame(User user){
-        File file = new File("savegame.txt");
+        File file = new File(filepath);
         String cardIds = getCardIds(user);
 
         try{
@@ -30,7 +33,7 @@ public class SaveGameHandler {
             writer.flush();
             writer.close();
         } catch (Exception e){
-            System.out.println(e.getMessage());
+            Gdx.app.debug(TAG, e.getMessage());
         }
     }
 
@@ -51,15 +54,14 @@ public class SaveGameHandler {
     public User loadGame(User user){
         String[] saveGameFromFile;
         //if file exists
-        File tmp = new File("savegame.txt");
+        File tmp = new File(filepath);
         if(tmp.exists()) {
             try {
-                FileReader fileReader = new FileReader("savegame.txt");
+                FileReader fileReader = new FileReader(filepath);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
 
                 while (true) {
                     String textFromFile = bufferedReader.readLine();
-                    System.out.println(textFromFile);
                     if (textFromFile == null) {
                         break;
                     }
@@ -73,16 +75,12 @@ public class SaveGameHandler {
                             deck.addCardToDeck(Integer.parseInt(ids[j]));
                         }
                     }
-                    System.out.println("///////////// Cards im Deck");
-                    for (int h = 0; h <= deck.getSize(); h++) {
-                        System.out.println("Card in Deck:" + deck.getCardIdFromDeck(h));
-                    }
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                Gdx.app.debug(TAG, e.getMessage());
             }
         } else {
-            System.out.println("////////////File not found! User will not be changed!");
+            Gdx.app.debug(TAG, "File not found!");
         }
         return user;
     }
