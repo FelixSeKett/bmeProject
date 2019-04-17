@@ -8,11 +8,8 @@ public class TitleController extends Controller
 	// METHODS
 	// ===================================
 
-	@Override public void init()
+	@Override public void update(float delta)
 	{
-	}
-
-	@Override public void update(float DeltaTime)
-	{
+		super.update(delta);
 	}
 }

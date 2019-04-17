@@ -1,8 +1,37 @@
 package com.bmeproject.game.bmeProject.screens;
 
-public abstract class Controller
-{
-	public abstract void init();
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.bmeproject.game.BMEProject;
 
-	public abstract void update(float delta);
+public class Controller
+{
+	// ===================================
+	// ATTRIBUTES
+	// ===================================
+
+	Stage stage;
+
+	// ===================================
+	// METHODS
+	// ===================================
+
+	protected void init(SpriteBatch spriteBatch)
+	{
+		stage = new Stage(new ScreenViewport(), spriteBatch);
+		stage.setDebugAll(BMEProject.DEBUG);
+		Gdx.input.setInputProcessor(stage);
+	}
+
+	public void update(float delta)
+	{
+		stage.act(delta);
+	}
+
+	void dispose()
+	{
+		stage.dispose();
+	}
 }

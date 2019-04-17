@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Deck;
-import com.bmeproject.game.bmeProject.screens.TestScreen;
+import com.bmeproject.game.bmeProject.screens.testScreen.TestScreen;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
 import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
 import com.bmeproject.game.bmeProject.screens.titleScreen.TitleScreen;

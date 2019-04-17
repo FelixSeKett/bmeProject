@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.screens.deckScreen;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Area;
 import com.bmeproject.game.bmeProject.screens.Controller;
@@ -19,14 +20,16 @@ public class DeckController extends Controller
 	// METHODS
 	// ===================================
 
-	@Override public void init()
+	@Override public void init(SpriteBatch spriteBatch)
 	{
+		super.init(spriteBatch);
 		createDeckArea();
 		createCollectionArea();
 	}
 
 	@Override public void update(float delta)
 	{
+		super.update(delta);
 		deckArea.update();
 		collectionArea.update();
 	}
@@ -50,7 +53,4 @@ public class DeckController extends Controller
 		collectionArea = new Area(300f, 100f, 0f, 0f, 20f, 200f, 0f, -100f, 50f, 0, testList, 3);
 		collectionArea.update();
 	}
-
-	//initObjects + updateObjects + Controls
-
 }

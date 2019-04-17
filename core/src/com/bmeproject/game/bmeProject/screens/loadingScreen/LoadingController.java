@@ -4,15 +4,8 @@ import com.bmeproject.game.bmeProject.screens.Controller;
 
 public class LoadingController extends Controller
 {
-	// ===================================
-	// METHODS
-	// ===================================
-
-	@Override public void init()
+	@Override public void update(float delta)
 	{
-	}
-
-	@Override public void update(float DeltaTime)
-	{
+		super.update(delta);
 	}
 }

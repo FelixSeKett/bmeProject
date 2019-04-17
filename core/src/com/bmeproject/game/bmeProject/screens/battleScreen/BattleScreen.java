@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.archive.Player;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;

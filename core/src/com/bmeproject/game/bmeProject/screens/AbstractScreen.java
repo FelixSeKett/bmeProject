@@ -8,9 +8,9 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
 import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
 
 /**
- * Elternklasse aller im Spiel verwendeter Screen-Klassen ({@link BattleScreen}, {@link DeckScreen}, etc.), die zur
- * Darstellung von Actors verwendet werden und damit auf eine {@link Stage} inklusive {@link SpriteBatch} angewiesen
- * sind.
+ * Elternklasse aller im Spiel verwendeten Screen-Klassen ({@link BattleScreen}, {@link DeckScreen}, etc.), die zur
+ * Aktualisierung und Darstellung von Actors verwendet wird und daher auf einen {@link Controller} inklusive
+ * {@link Stage} und einen {@link Renderer} inklusive {@link SpriteBatch} angewiesen ist.
  */
 public abstract class AbstractScreen implements Screen
 {
@@ -20,7 +20,7 @@ public abstract class AbstractScreen implements Screen
 
 	protected final BMEProject BME_PROJECT;
 	protected       Controller controller;
-	protected       Renderer   renderer;
+	private         Renderer   renderer;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -42,10 +42,10 @@ public abstract class AbstractScreen implements Screen
 	 */
 	@Override public void show()
 	{
+		SpriteBatch spriteBatch = new SpriteBatch();
 		controller = createController();
-		renderer = new Renderer(controller);
-		controller.init();
-		renderer.init();
+		controller.init(spriteBatch);
+		renderer = new Renderer(spriteBatch);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public abstract class AbstractScreen implements Screen
 	@Override public void render(float delta)
 	{
 		controller.update(delta);
-		renderer.render(delta);
+		renderer.render(controller.stage);
 	}
 
 	/**
@@ -69,6 +69,7 @@ public abstract class AbstractScreen implements Screen
 	 */
 	@Override public void dispose()
 	{
+		controller.dispose();
 		renderer.dispose();
 	}
 

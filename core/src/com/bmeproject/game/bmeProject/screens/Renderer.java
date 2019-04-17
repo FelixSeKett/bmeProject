@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.bmeproject.game.BMEProject;
 
 public class Renderer
 {
@@ -13,36 +11,25 @@ public class Renderer
 	// ATTRIBUTES
 	// ===================================
 
-	private final Controller  CONTROLLER;
-	private       SpriteBatch spriteBatch;
-	public        Stage       stage;
+	private final SpriteBatch SPRITE_BATCH;
 
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	Renderer(Controller controller)
+	Renderer(SpriteBatch spriteBatch)
 	{
-		CONTROLLER = controller;
+		SPRITE_BATCH = spriteBatch;
 	}
 
 	// ===================================
 	// METHODS
 	// ===================================
 
-	public void init()
-	{
-		spriteBatch = new SpriteBatch();
-		stage = new Stage(new ScreenViewport(), spriteBatch);
-		stage.setDebugAll(BMEProject.DEBUG);
-		Gdx.input.setInputProcessor(stage);
-	}
-
-	void render(float delta)
+	void render(Stage stage)
 	{
 		Gdx.gl.glClearColor(1f, 1f, 1f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(delta);
 		stage.draw();
 	}
 
@@ -52,7 +39,6 @@ public class Renderer
 
 	void dispose()
 	{
-		spriteBatch.dispose();
-		stage.dispose();
+		SPRITE_BATCH.dispose();
 	}
 }
