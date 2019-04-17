@@ -63,7 +63,7 @@ public class BMEProject extends Game
 		deckScreen = new DeckScreen(this);
 		testScreen = new TestScreen(this);
 
-		setScreen(testScreen);
+		setScreen(titleScreen);
 	}
 
 	public void activateTitleScreen()
