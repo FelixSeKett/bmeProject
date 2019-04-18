@@ -47,6 +47,7 @@ public class Card extends Actor
 	protected Label.LabelStyle labelStyle;
 	protected Label cardDetails;
 	protected String[] effect;
+	protected boolean isShown = false;
 
 
 // ===================================
@@ -65,8 +66,11 @@ public class Card extends Actor
 		labelStyle.fontColor= Color.BLACK;
 		labelStyle.font= new BitmapFont();
 
-		cardDetails= new Label("bla",labelStyle);
+
+		cardDetails= new Label(("Name: "+ CardName + "Type: "+ CardType + " Beschreibung: "+ description + effectList),labelStyle);
 		cardDetails.setVisible(false);
+
+
 
 		String Path = "core/assets/cards";
 		String PathLarge = Path.concat("/large/card_id_");
@@ -111,6 +115,7 @@ public class Card extends Actor
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				initializeVisuals();
+				isShown=false;
 				showDetails();
 				return true;
 			}
@@ -128,6 +133,8 @@ public class Card extends Actor
 
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
+				isShown=true;
+
 				//zeigt die Karte in Groß an
 				sprite = new Sprite(new Texture(illustrationFilePathLarge));
 				setWidth(sprite.getWidth());
@@ -153,6 +160,7 @@ public class Card extends Actor
 
 	private void initializeVisuals()
 	{
+
 		sprite = new Sprite(new Texture(illustrationFilePathSmall));
 		setWidth(sprite.getWidth());
 		setHeight(sprite.getHeight());
@@ -223,6 +231,8 @@ public class Card extends Actor
 		super.draw(batch, parentAlpha);
 		sprite.draw(batch);
 
-		cardDetails.draw(batch, parentAlpha);
+		if (isShown){
+			cardDetails.draw(batch, parentAlpha);
+		}
 	}
 }
