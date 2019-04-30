@@ -21,7 +21,7 @@ public class TitleScreen extends AbstractScreen
 	@Override public void show()
 	{
 		super.show();
-		System.out.println("TITLE SCREEN SHOWN");
+		//System.out.println("TITLE SCREEN SHOWN");
 		BME_PROJECT.activateTestScreen();
 	}
 }

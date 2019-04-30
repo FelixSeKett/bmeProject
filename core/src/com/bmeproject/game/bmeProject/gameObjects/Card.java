@@ -36,6 +36,10 @@ public class Card extends Actor
 	protected Type CardType;
 	protected String CardName;
 	protected String description;
+	ArrayList <String> cardEffects = new ArrayList<String>();
+	String cardEffectsLabel;
+
+
 
 	protected int Strength;
 	protected Vector2 CardPosition;
@@ -48,6 +52,7 @@ public class Card extends Actor
 	protected Label cardDetails;
 	protected String[] effect;
 	protected boolean isShown = false;
+	protected int textWidth = 200;
 
 
 // ===================================
@@ -62,15 +67,25 @@ public class Card extends Actor
 		this.description = description;
 		effectList = new ArrayList<Effect>();
 
+		getCardEffects();
+
 		labelStyle= new Label.LabelStyle();
 		labelStyle.fontColor= Color.BLACK;
 		labelStyle.font= new BitmapFont();
-
-
-		cardDetails= new Label(("Name: "+ CardName + "Type: "+ CardType + " Beschreibung: "+ description + effectList),labelStyle);
+		cardDetails= new Label(("Name: "+ CardName + "Type: "+ CardType + " Beschreibung: "+ description + " Effekte: " + cardEffectsLabel),labelStyle);
 		cardDetails.setVisible(false);
+		cardDetails.setWrap(true);
+		cardDetails.pack();
+		// Ändert die Größe des Labels
+		cardDetails.setWidth(textWidth);
+		cardDetails.pack();
+		cardDetails.setWidth(textWidth);
+		cardDetails.setPosition(50,50 );
 
-
+		//gibt die Werte der Karte in der Console aus
+		System.out.println("Name: "+ CardName);
+		System.out.println("Type: "+ CardType);
+		System.out.println("Beschreibung: "+ description);
 
 		String Path = "core/assets/cards";
 		String PathLarge = Path.concat("/large/card_id_");
@@ -78,18 +93,28 @@ public class Card extends Actor
 		this.illustrationFilePathLarge = PathLarge.concat( Integer.toString(id)).concat(".png");
 		this.illustrationFilePathSmall = PathSmall.concat( Integer.toString(id)).concat(".png");
 		this.effect = effect.split(",");
-		effectList = new ArrayList<Effect>();
+
+
 	}
 
 	public String[] getEffectIdsFromCard(){
 		return effect;
 	}
 
-	//gibt
+	//gibt treffende Effekte zur angeklickten Karte aus
 	public void getCardEffects(){
+
+
 		for (int i=0; i<=effectList.size()-1; i++){
-			System.out.println(effectList.get(i).getEffectDescription());
+			 cardEffects.add(effectList.get(i).getEffectDescription());
 		}
+		cardEffectsLabel = String.join(", ", cardEffects);
+
+		System.out.println(cardEffects);
+		System.out.println(cardEffectsLabel);
+
+
+
 	}
 
 	public ArrayList<Effect> getAllCardEffects(){
@@ -133,7 +158,6 @@ public class Card extends Actor
 
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				isShown=true;
 
 				//zeigt die Karte in Groß an
 				sprite = new Sprite(new Texture(illustrationFilePathLarge));
@@ -141,17 +165,14 @@ public class Card extends Actor
 				setHeight(sprite.getHeight());
 				sprite.setOrigin(sprite.getX(), sprite.getY());
 
-				//gibt die Werte der Karte in der Console aus
-				System.out.println("Name: "+ CardName);
-				System.out.println("Type: "+ CardType);
-				System.out.println("Beschreibung: "+ description);
-				getCardEffects();
 
+
+				//zeigt Label zu den Kartendetails an
+				isShown=true;
 
 
 
 				hideDetails();
-
 				return true;
 			}
 		};

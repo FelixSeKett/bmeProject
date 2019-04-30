@@ -70,7 +70,7 @@ public class XMLReader {
     }
 
     public HashMap readEffectsFromXML(Document doc){
-        System.out.println(doc.getDocumentURI());
+        //System.out.println(doc.getDocumentURI());
         //System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
         NodeList nodeListEffect = doc.getElementsByTagName("effect");
         HashMap<Integer, Effect> EffectList = new HashMap<Integer, Effect>();

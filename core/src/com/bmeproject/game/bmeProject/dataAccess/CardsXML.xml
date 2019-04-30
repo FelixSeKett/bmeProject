@@ -4,7 +4,7 @@
     <card id="001">
         <cardName>Mystisches Lichtfass</cardName>
         <cardType>Quartier</cardType>
-        <cardEffect>1,2,3</cardEffect>
+        <cardEffect>12,15,16</cardEffect>
         <cardDescription>Beschreibung</cardDescription>
         <cardIllustrationFilePath>core/assets/cards/small/card_id_1.png</cardIllustrationFilePath>
     </card>

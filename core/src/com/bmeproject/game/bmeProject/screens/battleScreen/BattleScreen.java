@@ -29,7 +29,7 @@ public class BattleScreen extends AbstractScreen
 	@Override public void show()
 	{
 		super.show();
-		System.out.println("BATTLE SCREEN SHOWN");
+		//System.out.println("BATTLE SCREEN SHOWN");
 		initializePlayers();
 	}
 
