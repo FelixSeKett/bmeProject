@@ -51,5 +51,9 @@ public class Deck
 		Card card = BMEProject.allCards.get(id);
 		return card;
 	}
+
+	public ArrayList getAllCardsFromDeck(){
+		return deck;
+	}
 	// Note for ArrayLists: contains(), set(), indexOf(), clear()
 }
