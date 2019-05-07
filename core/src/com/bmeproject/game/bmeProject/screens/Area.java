@@ -65,6 +65,11 @@ public class Area extends Actor
 		CARDS_PER_PILE = cardsPerPile;
 	}
 
+	public Area(float x, float y)
+	{
+		this(x, y, 28, 40, 0, 0, 0, 0, 0, 0, new ArrayList<Card>(), 1);
+	}
+
 	// ===================================
 	// METHODS
 	// ===================================
