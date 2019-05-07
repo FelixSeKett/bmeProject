@@ -1,12 +1,14 @@
 package com.bmeproject.game.bmeProject.screens.deckScreen;
 
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Area;
+import com.bmeproject.game.bmeProject.screens.Controller;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
-public class DeckController extends InputAdapter
+public class DeckController extends Controller
 {
 	// ===================================
 	// ATTRIBUTES
@@ -19,37 +21,48 @@ public class DeckController extends InputAdapter
 	// METHODS
 	// ===================================
 
-	private void init()
+	@Override public void init(SpriteBatch spriteBatch)
 	{
+		super.init(spriteBatch);
 		createDeckArea();
 		createCollectionArea();
 	}
 
+	@Override public void update(float delta)
+	{
+		super.update(delta);
+		deckArea.update();
+		collectionArea.update();
+	}
+
 	private void createDeckArea()
 	{
-		LinkedList<Card> testList = new LinkedList<>();
-		for (int i = 0; i < 10; i++) {
-			testList.add(new Card());
+		// Testzweck Anfang
+		ArrayList<Card> testList = new ArrayList<>();
+		for (int i = 0; i < 2; i++) {
+			Card card = BMEProject.allCards.get(i + 1);
+			stage.addActor(card);
+			testList.add(card);
 		}
-		deckArea = new Area(100f, 100f, 0f, 0f, 20f, 200f, 0f, -100f, 50f, 0, testList, 6);
+		// Testzweck Ende
+
+		deckArea = new Area(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 5f, 5f, testList, 10);
+		System.out.println(testList);
 		deckArea.update();
 	}
 
 	private void createCollectionArea()
 	{
-		LinkedList<Card> testList = new LinkedList<>();
-		for (int i = 0; i < 10; i++) {
-			testList.add(new Card());
+		// Testzweck Anfang
+		ArrayList<Card> testList = new ArrayList<>();
+		for (int i = 0; i < 2; i++) {
+			Card card = BMEProject.allCards.get(i + 3);
+			stage.addActor(card);
+			testList.add(card);
 		}
-		collectionArea = new Area(300f, 100f, 0f, 0f, 20f, 200f, 0f, -100f, 50f, 0, testList, 3);
+		// Testzweck Ende
+
+		collectionArea = new Area(300f, 0f, 0f, 0f, 0f, 0f, 100f, 0f, 20f, 0f, testList, 2);
 		collectionArea.update();
 	}
-
-	public void update(float DeltaTime)
-	{
-		deckArea.update();
-		collectionArea.update();
-	}
-
-	//initObjects + updateObjects + Controls
 }

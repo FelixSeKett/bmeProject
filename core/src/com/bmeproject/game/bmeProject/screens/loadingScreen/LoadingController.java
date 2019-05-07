@@ -1,14 +1,11 @@
 package com.bmeproject.game.bmeProject.screens.loadingScreen;
 
-import com.badlogic.gdx.InputAdapter;
+import com.bmeproject.game.bmeProject.screens.Controller;
 
-public class LoadingController extends InputAdapter {
-
-    public LoadingController(){}
-
-    private void init(){}
-
-    public void update(float DeltaTime){}
-
-    //initObjects + updateObjects + Controls
+public class LoadingController extends Controller
+{
+	@Override public void update(float delta)
+	{
+		super.update(delta);
+	}
 }

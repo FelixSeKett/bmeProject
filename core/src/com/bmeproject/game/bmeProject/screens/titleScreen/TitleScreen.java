@@ -2,6 +2,7 @@ package com.bmeproject.game.bmeProject.screens.titleScreen;
 
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
+import com.bmeproject.game.bmeProject.screens.Controller;
 
 public class TitleScreen extends AbstractScreen
 {
@@ -22,6 +23,11 @@ public class TitleScreen extends AbstractScreen
 	{
 		super.show();
 		System.out.println("TITLE SCREEN SHOWN");
-		BME_PROJECT.activateTestScreen();
+		BME_PROJECT.activateDeckScreen();
+	}
+
+	@Override protected Controller createController()
+	{
+		return new TitleController();
 	}
 }

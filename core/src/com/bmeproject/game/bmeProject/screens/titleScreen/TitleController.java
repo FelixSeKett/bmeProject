@@ -1,14 +1,15 @@
 package com.bmeproject.game.bmeProject.screens.titleScreen;
 
-import com.badlogic.gdx.InputAdapter;
+import com.bmeproject.game.bmeProject.screens.Controller;
 
-public class TitleController extends InputAdapter {
+public class TitleController extends Controller
+{
+	// ===================================
+	// METHODS
+	// ===================================
 
-    public TitleController(){}
-
-    private void init(){}
-
-    public void update(float DeltaTime){}
-
-    //initObjects + updateObjects + Controls
+	@Override public void update(float delta)
+	{
+		super.update(delta);
+	}
 }

@@ -1,14 +1,22 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen;
 
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.bmeproject.game.bmeProject.screens.Controller;
 
-public class BattleController extends InputAdapter {
+public class BattleController extends Controller
+{
+	// ===================================
+	// ATTRIBUTES
+	// ===================================
 
-    public BattleController() {}
+	private Image backgroundImage;
 
-    private void init(){}
+	// ===================================
+	// METHODS
+	// ===================================
 
-    public void update(float DeltaTime){}
-
-    //initObjects + updateObjects + Controls
+	@Override public void update(float delta)
+	{
+		super.update(delta);
+	}
 }
