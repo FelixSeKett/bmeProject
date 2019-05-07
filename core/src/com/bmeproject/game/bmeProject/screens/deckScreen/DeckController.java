@@ -1,6 +1,7 @@
 package com.bmeproject.game.bmeProject.screens.deckScreen;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Area;
 import com.bmeproject.game.bmeProject.screens.Controller;
@@ -36,21 +37,32 @@ public class DeckController extends Controller
 
 	private void createDeckArea()
 	{
+		// Testzweck Anfang
 		ArrayList<Card> testList = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			testList.add(new Card());
+		for (int i = 0; i < 2; i++) {
+			Card card = BMEProject.allCards.get(i + 1);
+			stage.addActor(card);
+			testList.add(card);
 		}
-		deckArea = new Area(100f, 100f, 0f, 0f, 20f, 200f, 0f, -100f, 50f, 0, testList, 6);
+		// Testzweck Ende
+
+		deckArea = new Area(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 5f, 5f, testList, 10);
+		System.out.println(testList);
 		deckArea.update();
 	}
 
 	private void createCollectionArea()
 	{
+		// Testzweck Anfang
 		ArrayList<Card> testList = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			testList.add(new Card());
+		for (int i = 0; i < 2; i++) {
+			Card card = BMEProject.allCards.get(i + 3);
+			stage.addActor(card);
+			testList.add(card);
 		}
-		collectionArea = new Area(300f, 100f, 0f, 0f, 20f, 200f, 0f, -100f, 50f, 0, testList, 3);
+		// Testzweck Ende
+
+		collectionArea = new Area(300f, 0f, 0f, 0f, 0f, 0f, 100f, 0f, 20f, 0f, testList, 2);
 		collectionArea.update();
 	}
 }

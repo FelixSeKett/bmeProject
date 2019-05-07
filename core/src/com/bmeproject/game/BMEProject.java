@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Deck;
-import com.bmeproject.game.bmeProject.screens.testScreen.TestScreen;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
 import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
 import com.bmeproject.game.bmeProject.screens.titleScreen.TitleScreen;
@@ -26,13 +25,12 @@ public class BMEProject extends Game
 
 	public static final boolean DEBUG = true;
 
-	private TitleScreen titleScreen;
-	private BattleScreen battleScreen;
-	private DeckScreen deckScreen;
-	private TestScreen testScreen;
-	public User user;
+	private       TitleScreen            titleScreen;
+	private       BattleScreen           battleScreen;
+	private       DeckScreen             deckScreen;
+	public        User                   user;
 	public static HashMap<Integer, Card> allCards;
-	public static ArrayList<Card> Cards;
+	public static ArrayList<Card>        Cards;
 
 	/**
 	 * Verrichtet alle Arbeiten, die einmalig beim Erzeugen der Instanz dieser Klasse - sprich: bei Spielstart -
@@ -44,12 +42,13 @@ public class BMEProject extends Game
 		initializeScreens();
 	}
 
-	private void initObjects(){
+	private void initObjects()
+	{
 		CardGenerator cardgen = new CardGenerator("core/src/com/bmeproject/game/bmeProject/dataAccess/CardsXML.xml");
 		allCards = cardgen.createAllCards();
 
 		Deck testDeck;
-		for(int i = 0; i <= user.getDecks().size(); i++){
+		for (int i = 0; i <= user.getDecks().size(); i++) {
 			testDeck = user.getDeck(i);
 		}
 	}
@@ -61,9 +60,8 @@ public class BMEProject extends Game
 		titleScreen = new TitleScreen(this);
 		battleScreen = new BattleScreen(this);
 		deckScreen = new DeckScreen(this);
-		testScreen = new TestScreen(this);
 
-		setScreen(testScreen);
+		setScreen(titleScreen);
 	}
 
 	public void activateTitleScreen()
@@ -78,11 +76,6 @@ public class BMEProject extends Game
 
 	public void activateDeckScreen()
 	{
-		setScreen(deckScreen);
-	}
-
-	public void activateTestScreen()
-	{
-		setScreen(testScreen);
+		setScreen(battleScreen);
 	}
 }

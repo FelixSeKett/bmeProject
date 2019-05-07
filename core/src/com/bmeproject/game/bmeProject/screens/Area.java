@@ -75,8 +75,8 @@ public class Area extends Actor
 			if (i % CARDS_PER_PILE == 0) {
 				j++;
 			}
-			float x = PILE_X + i * CARD_OFFSET_X + (j - 1) * PILE_OFFSET_X;
-			float y = PILE_Y + i * CARD_OFFSET_Y + (j - 1) * PILE_OFFSET_Y;
+			float x = getX() + PILE_X + i * CARD_OFFSET_X + (j - 1) * PILE_OFFSET_X;
+			float y = getY() + PILE_Y + i * CARD_OFFSET_Y + (j - 1) * PILE_OFFSET_Y;
 			CARDS.get(i).setPosition(x, y);
 		}
 	}

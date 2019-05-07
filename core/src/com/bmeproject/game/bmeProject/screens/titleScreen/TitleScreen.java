@@ -23,7 +23,7 @@ public class TitleScreen extends AbstractScreen
 	{
 		super.show();
 		System.out.println("TITLE SCREEN SHOWN");
-		BME_PROJECT.activateTestScreen();
+		BME_PROJECT.activateDeckScreen();
 	}
 
 	@Override protected Controller createController()
