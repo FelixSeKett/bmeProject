@@ -10,6 +10,8 @@ public class User
 	private final BMEProject BME_PROJECT;
 	private String name;
 	private HashMap<Integer, Deck> deckList;
+	public Deck deck;
+	public Deck deck2;
 
 	public User(BMEProject bmeProject, String userName)
 	{
@@ -18,15 +20,11 @@ public class User
 
 		BME_PROJECT = bmeProject;
 
-        addTestObjects();
+        //addTestObjects();
 	}
 
-	private void addTestObjects(){
-
-		Deck deck = new Deck();
-		Deck deck2 = new Deck();
-	    addDeck(deck);
-	    addDeck(deck2);
+	public void addTestObjects(){
+		addDeck(deck2);
     }
 
 	public Deck getDeck(int deckId)	{

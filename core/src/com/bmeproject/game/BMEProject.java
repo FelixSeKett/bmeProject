@@ -6,7 +6,7 @@ import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Deck;
 import com.bmeproject.game.bmeProject.screens.TestScreen;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
-import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
+import com.bmeproject.game.bmeProject.screens.deckOverviewScreen.DeckOverviewScreen;
 import com.bmeproject.game.bmeProject.screens.titleScreen.TitleScreen;
 import com.bmeproject.game.bmeProject.userData.User;
 
@@ -28,9 +28,9 @@ public class BMEProject extends Game
 
 	private TitleScreen titleScreen;
 	private BattleScreen battleScreen;
-	private DeckScreen deckScreen;
+	private DeckOverviewScreen deckOverviewScreen;
 	private TestScreen testScreen;
-	public User user;
+	public static User user;
 	public static HashMap<Integer, Card> allCards;
 	public static ArrayList<Card> Cards;
 
@@ -60,10 +60,10 @@ public class BMEProject extends Game
 		initObjects();
 		titleScreen = new TitleScreen(this);
 		battleScreen = new BattleScreen(this);
-		deckScreen = new DeckScreen(this);
+		deckOverviewScreen = new DeckOverviewScreen(this);
 		testScreen = new TestScreen(this);
 
-		setScreen(testScreen);
+		setScreen(deckOverviewScreen);
 	}
 
 	public void activateTitleScreen()
@@ -78,11 +78,17 @@ public class BMEProject extends Game
 
 	public void activateDeckScreen()
 	{
-		setScreen(deckScreen);
+		setScreen(deckOverviewScreen);
 	}
 
 	public void activateTestScreen()
 	{
 		setScreen(testScreen);
 	}
+
+
+
+	/* why not working?
+	//public User getUser() {return user;}
+	*/
 }

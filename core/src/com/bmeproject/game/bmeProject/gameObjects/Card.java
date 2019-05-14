@@ -104,6 +104,11 @@ public class Card extends Actor
 		return this.CardId;
 	}
 
+	public String getCardName()
+	{
+		return this.CardName;
+	}
+
 	public Type getCardType() {
 		return CardType;
 	}

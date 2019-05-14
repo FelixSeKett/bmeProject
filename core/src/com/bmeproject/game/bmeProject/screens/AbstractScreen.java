@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
-import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
+import com.bmeproject.game.bmeProject.screens.deckOverviewScreen.DeckOverviewScreen;
 
 /**
- * Elternklasse aller im Spiel verwendeter Screen-Klassen ({@link BattleScreen}, {@link DeckScreen}, etc.), die zur
+ * Elternklasse aller im Spiel verwendeter Screen-Klassen ({@link BattleScreen}, {@link DeckOverviewScreen}, etc.), die zur
  * Darstellung von Actors verwendet werden und damit auf eine {@link Stage} inklusive {@link SpriteBatch} angewiesen
  * sind.
  */

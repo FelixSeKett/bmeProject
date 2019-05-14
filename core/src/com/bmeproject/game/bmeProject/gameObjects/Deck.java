@@ -11,17 +11,12 @@ public class Deck
 
 	public Deck()
 	{
-		//Hard gecodet
-		deck.add(1);
-		deck.add(3);
-		deck.add(4);
-		deck.add(1);
 
-		Collections.sort(deck);
 	}
 
 	public ArrayList<Integer> getDeck()
 	{
+		Collections.sort(deck);
 		return deck;
 	}
 
@@ -51,5 +46,6 @@ public class Deck
 		Card card = BMEProject.allCards.get(id);
 		return card;
 	}
+
 	// Note for ArrayLists: contains(), set(), indexOf(), clear()
 }
