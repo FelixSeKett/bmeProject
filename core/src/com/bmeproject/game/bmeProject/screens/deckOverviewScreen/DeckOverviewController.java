@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject.screens.deckScreen;
+package com.bmeproject.game.bmeProject.screens.deckOverviewScreen;
 
 import com.badlogic.gdx.InputAdapter;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
@@ -6,7 +6,7 @@ import com.bmeproject.game.bmeProject.screens.Area;
 
 import java.util.LinkedList;
 
-public class DeckController extends InputAdapter
+public class DeckOverviewController extends InputAdapter
 {
 	// ===================================
 	// ATTRIBUTES
