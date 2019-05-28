@@ -3,7 +3,7 @@ package com.bmeproject.game.bmeProject.screens.deckScreen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.screens.Area;
+import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.Controller;
 
 import java.util.ArrayList;
@@ -14,8 +14,8 @@ public class DeckController extends Controller
 	// ATTRIBUTES
 	// ===================================
 
-	private Area deckArea;
-	private Area collectionArea;
+	private Field deckField;
+	private Field collectionField;
 
 	// ===================================
 	// METHODS
@@ -31,8 +31,8 @@ public class DeckController extends Controller
 	@Override public void update(float delta)
 	{
 		super.update(delta);
-		deckArea.update();
-		collectionArea.update();
+		deckField.update();
+		collectionField.update();
 	}
 
 	private void createDeckArea()
@@ -46,9 +46,9 @@ public class DeckController extends Controller
 		}
 		// Testzweck Ende
 
-		deckArea = new Area(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 5f, 5f, testList, 10);
+		deckField = new Field(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 5f, 5f, testList, 10);
 		System.out.println(testList);
-		deckArea.update();
+		deckField.update();
 	}
 
 	private void createCollectionArea()
@@ -62,7 +62,7 @@ public class DeckController extends Controller
 		}
 		// Testzweck Ende
 
-		collectionArea = new Area(300f, 0f, 0f, 0f, 0f, 0f, 100f, 0f, 20f, 0f, testList, 2);
-		collectionArea.update();
+		collectionField = new Field(300f, 0f, 0f, 0f, 0f, 0f, 100f, 0f, 20f, 0f, testList, 2);
+		collectionField.update();
 	}
 }
