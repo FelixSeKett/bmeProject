@@ -12,9 +12,10 @@ public class BattleController extends Controller
 	// ATTRIBUTES
 	// ===================================
 
-	private Player  player1;
-	private Player  player2;
-	private Compass compass;
+	private Player      player1;
+	private Player      player2;
+	private Battlefield battlefield;
+	private Compass     compass;
 
 	// ===================================
 	// CONTRUCTORS
@@ -39,8 +40,9 @@ public class BattleController extends Controller
 		super.init(spriteBatch);
 		Image backgroundImage = new Image(new Texture("core/assets/visuals/spielbrettSmall.png"));
 		stage.addActor(backgroundImage);
-		player1 = new Player(this, 0f);
-		player2 = new Player(this, 180f);
+		player1 = new Player(this, Party.ALLY);
+		player2 = new Player(this, Party.ENEMY);
+		battlefield = new Battlefield(this);
 		//compass = new Compass();
 	}
 

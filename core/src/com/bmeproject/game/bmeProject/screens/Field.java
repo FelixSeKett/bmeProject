@@ -3,7 +3,7 @@ package com.bmeproject.game.bmeProject.screens;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.screens.battleScreen.iFieldable;
+import com.bmeproject.game.bmeProject.screens.battleScreen.IFieldable;
 
 import java.util.ArrayList;
 
@@ -66,9 +66,9 @@ public class Field extends Actor
 		PILE_LIMIT = pileLimit;
 	}
 
-	public Field(iFieldable fieldable, float x, float y)
+	public Field(IFieldable fieldable, float x, float y)
 	{
-		this(x, y, 28, 42, 0, 0, 0, 0, 0, 0, new ArrayList<Card>(), 1);
+		this(x, y, 30, 44, 0, 0, 0, 0, 0, 0, new ArrayList<Card>(), 1);
 		Stage stage = fieldable.giveStage();
 		setOrigin(stage.getWidth() / 2 - x, stage.getHeight() / 2 - y);
 		setRotation(fieldable.giveRotation());

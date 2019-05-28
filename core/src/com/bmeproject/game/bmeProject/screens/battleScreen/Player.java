@@ -1,39 +1,44 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.bmeproject.game.bmeProject.screens.Field;
 
-public class Player
+public class Player implements IFieldable
 {
 	// ===================================
 	// ATTRIBUTES
 	// ===================================
 
 	private final BattleController BATTLE_CONTROLLER;
-	private final float            ROTATION;
-	private final Area             AREA;
+	private final Party            PARTY;
+	private final Field            SUPPLY;
+	private final Field            GRAVEYARD;
+	private final Field            HAND;
 
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	public Player(BattleController battleController, float rotation)
+	public Player(BattleController battleController, Party party)
 	{
 		BATTLE_CONTROLLER = battleController;
-		ROTATION = rotation;
-		AREA = new Area(this);
+		PARTY = party;
+		SUPPLY = new Field(this, 542, 41);
+		GRAVEYARD = new Field(this, 230, 41);
+		HAND = new Field(this, 280, 0);
 	}
 
 	// ===================================
 	// METHODS
 	// ===================================
 
-	public Stage giveStage()
+	@Override public Stage giveStage()
 	{
 		return BATTLE_CONTROLLER.giveStage();
 	}
 
-	public float giveRotation()
+	@Override public float giveRotation()
 	{
-		return ROTATION;
+		return PARTY.giveRotation();
 	}
 }
