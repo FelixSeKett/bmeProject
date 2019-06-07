@@ -3,6 +3,8 @@ package com.bmeproject.game.bmeProject.screens.battleScreen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
+
 
 public class Player implements IFieldable
 {
@@ -43,9 +45,17 @@ public class Player implements IFieldable
 		return PARTY.giveRotation();
 	}
 
+
 	public void drawCardFromSupply()
 	{
 		Card card = SUPPLY.pullTopCard();
 		HAND.addCard(card);
 	}
+
+	public void endTurn()
+	{
+		BATTLE_CONTROLLER.changeActivePlayer();
+	}
+
+
 }
