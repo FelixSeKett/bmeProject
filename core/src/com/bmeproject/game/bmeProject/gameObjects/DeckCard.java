@@ -37,6 +37,13 @@ public class DeckCard extends Card
         sprite.setOrigin(sprite.getX(), sprite.getY());
     }
 
+    // ===================================
+    // METHODS
+    // ===================================
+
+    @Override
+    public void activate() { }
+
     private void initializeEffects(String CardId)
     {
 
