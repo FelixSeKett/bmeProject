@@ -17,7 +17,7 @@ public abstract class BattleCard extends Actor
         commander = owner;
 
     }
-    
+
     public void setCommander(Player commander)
     {
         this.commander = commander;
