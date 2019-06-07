@@ -17,7 +17,7 @@ public class Sector implements IFieldable
 	private final Field       QUARTER_SPOT;
 
 	// ===================================
-	// ATTRIBUTES
+	// CONSTRUCTORS
 	// ===================================
 
 	public Sector(Battlefield battlefield, Vector2 spot1, Vector2 spot2, Vector2 spot3, Vector2 quarterSpot)

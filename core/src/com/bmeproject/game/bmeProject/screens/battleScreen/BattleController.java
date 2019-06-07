@@ -16,6 +16,7 @@ public class BattleController extends Controller
 	private Player      player2;
 	private Battlefield battlefield;
 	private Compass     compass;
+	private Player      activePlayer;
 
 	// ===================================
 	// CONTRUCTORS

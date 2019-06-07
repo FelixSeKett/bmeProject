@@ -98,9 +98,21 @@ public class Field extends Actor
 		update();
 	}
 
-	public void removeCard(Card cardToRemove)
+	private void removeCard(Card cardToRemove)
 	{
 		CARDS.remove(cardToRemove);
 		update();
+	}
+
+	public Card pullCard(int index)
+	{
+		Card card = CARDS.get(index);
+		removeCard(card);
+		return card;
+	}
+
+	public Card pullTopCard()
+	{
+		return pullCard(CARDS.size() - 1);
 	}
 }

@@ -1,6 +1,7 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Field;
 
 public class Player implements IFieldable
@@ -40,5 +41,11 @@ public class Player implements IFieldable
 	@Override public float giveRotation()
 	{
 		return PARTY.giveRotation();
+	}
+
+	public void drawCardFromSupply()
+	{
+		Card card = SUPPLY.pullTopCard();
+		HAND.addCard(card);
 	}
 }
