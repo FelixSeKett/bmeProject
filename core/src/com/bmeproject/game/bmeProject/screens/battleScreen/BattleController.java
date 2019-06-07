@@ -12,8 +12,8 @@ public class BattleController extends Controller
 	// ATTRIBUTES
 	// ===================================
 
-	private Player      player1;
-	private Player      player2;
+	private Player player1;
+	private Player player2;
 
 	private Battlefield battlefield;
 	private Compass     compass;
@@ -37,14 +37,14 @@ public class BattleController extends Controller
 		super.update(delta);
 	}
 
-	public void changeActivePlayer() {
+	public void changeActivePlayer()
+	{
 
-		if(activePlayer == player1) {
+		if (activePlayer == player1) {
 			activePlayer = player2;
 		} else {
 			activePlayer = player1;
 		}
-
 	}
 
 	@Override protected void init(SpriteBatch spriteBatch)
