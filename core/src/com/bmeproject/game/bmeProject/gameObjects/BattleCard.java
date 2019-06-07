@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
-
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.bmeproject.game.bmeProject.screens.battleScreen.Player;
 
@@ -23,4 +22,6 @@ public abstract class BattleCard extends Actor
     {
         this.commander = commander;
     }
+
+    public abstract void activate();
 }

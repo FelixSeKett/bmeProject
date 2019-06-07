@@ -66,7 +66,6 @@ public class BattleController extends Controller
 		return stage;
 	}
 
-
 	private void reset(){
 		this.red = false;
 		this.green = false;
@@ -80,15 +79,9 @@ public class BattleController extends Controller
 		{
 			if(!zone.isActivated())
 			{
-
 				System.out.println("Zone activated!!!!");
-
 				zone.activate();
-
 			}
 		}
-
-
 	}
-
 }
