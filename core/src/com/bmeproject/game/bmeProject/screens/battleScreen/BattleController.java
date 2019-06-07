@@ -73,4 +73,22 @@ public class BattleController extends Controller
 		this.blue = false;
 		this.started = false;
 	}
+
+	private void activate(Zone zone, Player player)
+	{
+		if (player == activePlayer)
+		{
+			if(!zone.isActivated())
+			{
+
+				System.out.println("Zone activated!!!!");
+
+				zone.activate();
+
+			}
+		}
+
+
+	}
+
 }
