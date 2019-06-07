@@ -11,14 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Player;
 
 /**
  * Basis aller auf einem Screen darstellbaren Karten. Stellt alle Attribute und Funktionen bereit, die zur formellen
  * Darstellung (Grafik, Akustik) nötig sind. Werden durch
-
+ * <p>
  * {@link DeckCard} für die jeweiligen screens erweitert.
  */
-public class Card extends Actor
+abstract public class Card extends Actor
 {
 	// ===================================
 	// ATTRIBUTES
@@ -26,17 +27,15 @@ public class Card extends Actor
 
 	private static final Texture       TEXTURES     = new Texture("core/assets/visuals/texture_atlas.png");
 	private static final TextureRegion TEXTURE_BACK = new TextureRegion(TEXTURES, 0, 0, 204, 300);
-	protected Sprite sprite;
-	protected int CardId;
-	protected Vector2 CardPosition;
-	protected Type CardType;
-	protected String CardName;
-	protected int Strengh;
-	protected String Decsription;
-	protected String illustrationFilePath;
+	protected            Sprite        sprite;
+	protected            int           cardId;
+	protected            Type          cardType;
+	protected            String        cardName;
+	protected            int           strength;
+	protected            String        illustrationFilePath;
 
-
-
+	private Player owner;
+	private Player commander;
 
 	// ===================================
 	// CONSTRUCTOR
@@ -45,6 +44,9 @@ public class Card extends Actor
 	public Card()
 	{
 	}
+
+	/* To be implemented by specific card categories... */
+	abstract public void activate();
 
 	public void initialize(int id, String cardName, int cardStrengh, String cardIlluFilePath, Type cType)
 	{
@@ -57,10 +59,10 @@ public class Card extends Actor
 
 	public void initializeData(int Id, String cardName, int cardStrengh, Type cType)
 	{
-		this.CardId = Id;
-		this.CardName = cardName;
-		this.Strengh = cardStrengh;
-		this.CardType = cType;
+		this.cardId = Id;
+		this.cardName = cardName;
+		this.strength = cardStrengh;
+		this.cardType = cType;
 	}
 
 	private void initializeVisuals(String cardIlluFilePath)
@@ -101,11 +103,12 @@ public class Card extends Actor
 
 	public int getCardId()
 	{
-		return this.CardId;
+		return this.cardId;
 	}
 
-	public Type getCardType() {
-		return CardType;
+	public Type getCardType()
+	{
+		return cardType;
 	}
 
 	/**
@@ -140,5 +143,15 @@ public class Card extends Actor
 	{
 		super.draw(batch, parentAlpha);
 		sprite.draw(batch);
+	}
+
+	public void setOwner(Player owner)
+	{
+		this.owner = owner;
+	}
+
+	public void setCommander(Player commander)
+	{
+		this.commander = commander;
 	}
 }

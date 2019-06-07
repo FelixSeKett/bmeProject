@@ -38,7 +38,7 @@ public class DeckController extends Controller
 	private void createDeckArea()
 	{
 		// Testzweck Anfang
-		ArrayList<Card> testList = new ArrayList<>();
+		ArrayList<Card> testList = new ArrayList<Card>();
 		for (int i = 0; i < 2; i++) {
 			Card card = BMEProject.allCards.get(i + 1);
 			stage.addActor(card);
@@ -54,7 +54,7 @@ public class DeckController extends Controller
 	private void createCollectionArea()
 	{
 		// Testzweck Anfang
-		ArrayList<Card> testList = new ArrayList<>();
+		ArrayList<Card> testList = new ArrayList<Card>();
 		for (int i = 0; i < 2; i++) {
 			Card card = BMEProject.allCards.get(i + 3);
 			stage.addActor(card);

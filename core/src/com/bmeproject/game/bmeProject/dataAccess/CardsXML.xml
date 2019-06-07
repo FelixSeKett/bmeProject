@@ -40,4 +40,285 @@
         <cardType>MANIPULATION</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>
+    <card id="006">
+        <cardName>FirstCard</cardName>
+        <cardStrengh>1</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="007">
+        <cardName>SecondCard</cardName>
+        <cardStrengh>2</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="008">
+        <cardName>ThirdCard</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="009">
+        <cardName>4Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>FIGURE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="010">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="011">
+        <cardName>FirstCard</cardName>
+        <cardStrengh>1</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="012">
+        <cardName>SecondCard</cardName>
+        <cardStrengh>2</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="013">
+        <cardName>ThirdCard</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="014">
+        <cardName>4Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>FIGURE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="015">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="016">
+        <cardName>FirstCard</cardName>
+        <cardStrengh>1</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="017">
+        <cardName>SecondCard</cardName>
+        <cardStrengh>2</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="018">
+        <cardName>ThirdCard</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="019">
+        <cardName>4Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>FIGURE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="020">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="021">
+        <cardName>FirstCard</cardName>
+        <cardStrengh>1</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="022">
+        <cardName>SecondCard</cardName>
+        <cardStrengh>2</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="023">
+        <cardName>ThirdCard</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>BASE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="024">
+        <cardName>4Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>FIGURE</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="025">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="026">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="027">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="028">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="029">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="030">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="031">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="032">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="033">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="034">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="035">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="036">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="037">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="038">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="039">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+    <card id="040">
+        <cardName>5Card</cardName>
+        <cardStrengh>3</cardStrengh>
+        <cardIllustrator>A</cardIllustrator>
+        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardType>MANIPULATION</cardType>
+        <cardBackground>OPEN_WATER</cardBackground>
+    </card>
+
 </cards>
