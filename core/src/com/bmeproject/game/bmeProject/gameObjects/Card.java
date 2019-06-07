@@ -34,8 +34,7 @@ abstract public class Card extends Actor
 	protected            int           strength;
 	protected            String        illustrationFilePath;
 
-	private Player owner;
-	private Player commander;
+
 
 	// ===================================
 	// CONSTRUCTOR
@@ -145,13 +144,5 @@ abstract public class Card extends Actor
 		sprite.draw(batch);
 	}
 
-	public void setOwner(Player owner)
-	{
-		this.owner = owner;
-	}
 
-	public void setCommander(Player commander)
-	{
-		this.commander = commander;
-	}
 }
