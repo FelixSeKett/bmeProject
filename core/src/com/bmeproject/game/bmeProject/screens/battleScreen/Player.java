@@ -22,8 +22,7 @@ public class Player implements IFieldable
 	// CONSTRUCTORS
 	// ===================================
 
-	public Player(BattleController battleController, Party party)
-	{
+	public Player(BattleController battleController, Party party) {
 		BATTLE_CONTROLLER = battleController;
 		PARTY = party;
 		SUPPLY = new Field(this, 542, 41);
@@ -45,8 +44,18 @@ public class Player implements IFieldable
 		return PARTY.giveRotation();
 	}
 
+	public void beginTurn() {
+		drawTopCard();
+		preparation();
+	}
 
-	public void drawCardFromSupply()
+	/* The decision if the Player want to change the direction of the compass. or if the Player want
+	*  to draw a second card. */
+	private void preparation() {
+
+	}
+
+	public void drawTopCard()
 	{
 		Card card = SUPPLY.pullTopCard();
 		HAND.addCard(card);
@@ -56,6 +65,4 @@ public class Player implements IFieldable
 	{
 		BATTLE_CONTROLLER.changeActivePlayer();
 	}
-
-
 }
