@@ -14,6 +14,7 @@ public class BattleController extends Controller
 
 	private Player      player1;
 	private Player      player2;
+
 	private Battlefield battlefield;
 	private Compass     compass;
 	private Player      activePlayer;
@@ -36,7 +37,19 @@ public class BattleController extends Controller
 		super.update(delta);
 	}
 
+	public void changeActivePlayer() {
+
+		if(activePlayer == 1) {
+			activePlayer == 2;
+		} else {
+			activePlayer == 1;
+		}
+
+	}
+
 	@Override protected void init(SpriteBatch spriteBatch)
+
+
 	{
 		super.init(spriteBatch);
 		Image backgroundImage = new Image(new Texture("core/assets/visuals/spielbrettSmall.png"));
