@@ -25,7 +25,7 @@ public class BattleController extends Controller
 
 	public BattleController()
 	{
-
+		activePlayer = player1;
 	}
 
 	// ===================================
@@ -39,10 +39,10 @@ public class BattleController extends Controller
 
 	public void changeActivePlayer() {
 
-		if(activePlayer == 1) {
-			activePlayer == 2;
+		if(activePlayer == player1) {
+			activePlayer = player2;
 		} else {
-			activePlayer == 1;
+			activePlayer = player1;
 		}
 
 	}

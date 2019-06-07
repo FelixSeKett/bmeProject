@@ -45,17 +45,17 @@ public class Player implements IFieldable
 		return PARTY.giveRotation();
 	}
 
-<<<<<<< Updated upstream
+
 	public void drawCardFromSupply()
 	{
 		Card card = SUPPLY.pullTopCard();
 		HAND.addCard(card);
 	}
-=======
+
 	public void endTurn()
 	{
-		changeActivePlayer();
+		BATTLE_CONTROLLER.changeActivePlayer();
 	}
 
->>>>>>> Stashed changes
+
 }
