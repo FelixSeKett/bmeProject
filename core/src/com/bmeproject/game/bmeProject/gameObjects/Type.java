@@ -10,9 +10,25 @@ public enum Type
 	// ENTRIES
 	// ===================================
 
-	BASE(204, 0),
-	FIGURE(408, 0),
-	MANIPULATION(612, 0);
+	BASE(204, 0) {
+
+		@Override
+		public Card createCard(){
+			return new QuarterCard();
+		}
+	},
+	FIGURE(408, 0) {
+		@Override
+		public Card createCard(){
+			return new CreatureCard();
+		}
+	},
+	MANIPULATION(612, 0) {
+		@Override
+		public Card createCard(){
+			return new PhenomenonCard();
+		}
+	};
 
 
 	// ===================================
@@ -32,9 +48,9 @@ public enum Type
 		Y = y;
 	}
 
-	// ===================================
+    // ===================================
 	// METHODS
 	// ===================================
 
-
+	abstract public Card createCard();
 }
