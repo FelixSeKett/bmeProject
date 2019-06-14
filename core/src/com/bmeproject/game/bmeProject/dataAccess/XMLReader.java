@@ -62,7 +62,6 @@ public class XMLReader {
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) nNode;
 
-
                 Type type =  getType(eElement.getElementsByTagName("cardType").item(0).getTextContent());
 
                 System.out.println("ID: " + eElement.getAttribute("id"));
