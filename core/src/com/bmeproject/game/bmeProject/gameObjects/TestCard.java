@@ -29,8 +29,6 @@ public class TestCard extends Card
 		sprite.setOrigin(sprite.getX(), sprite.getY());
 	}
 
-	@Override
-	public void activate() { }
 
 	private void initializeControls()
 	{

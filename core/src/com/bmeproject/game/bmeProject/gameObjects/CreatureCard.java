@@ -1,12 +1,18 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
-public class CreatureCard extends Card {
+import com.bmeproject.game.bmeProject.screens.battleScreen.Player;
 
-    // default constructor
-    public CreatureCard() {}
+public class CreatureCard extends BattleCard
+{
 
-    @Override
-    public void activate() {
-        System.out.println("Ich bin eine Kreatur und greife an!");
-    }
+	// default constructor
+	public CreatureCard(Player owner, Card card)
+	{
+		super(owner, card);
+	}
+
+	@Override public void activate()
+	{
+		System.out.println("Ich bin eine Kreatur und greife an!");
+	}
 }

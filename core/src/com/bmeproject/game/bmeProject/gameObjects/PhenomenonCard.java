@@ -1,9 +1,14 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
-public class PhenomenonCard extends Card {
+import com.bmeproject.game.bmeProject.screens.battleScreen.Player;
+
+public class PhenomenonCard extends BattleCard {
 
     // default constructor
-    public PhenomenonCard() {}
+    public PhenomenonCard(Player owner, Card card)
+    {
+        super(owner, card);
+    }
 
     @Override
     public void activate() {

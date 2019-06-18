@@ -1,12 +1,17 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
-public class QuarterCard extends Card {
+import com.bmeproject.game.bmeProject.screens.battleScreen.Player;
 
-    // default constructor
-    public QuarterCard() {}
+public class QuarterCard extends BattleCard
+{
+	// default constructor
+	public QuarterCard(Player owner, Card card)
+	{
+		super(owner, card);
+	}
 
-    @Override
-    public void activate() {
-        System.out.println("Ich bin ein Quatier und dürfte garnicht reden können!");
-    }
+	@Override public void activate()
+	{
+		System.out.println("Ich bin ein Quatier und dürfte garnicht reden können!");
+	}
 }

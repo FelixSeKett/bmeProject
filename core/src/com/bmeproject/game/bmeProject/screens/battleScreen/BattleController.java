@@ -19,6 +19,11 @@ public class BattleController extends Controller
 	private Compass     compass;
 	private Player      activePlayer;
 
+	private boolean red;
+	private boolean blue;
+	private boolean green;
+	private boolean started;
+
 	// ===================================
 	// CONTRUCTORS
 	// ===================================
@@ -37,8 +42,7 @@ public class BattleController extends Controller
 		super.update(delta);
 	}
 
-	public void changeActivePlayer()
-	{
+	public void changeActivePlayer() {
 
 		if (activePlayer == player1) {
 			activePlayer = player2;
@@ -47,10 +51,7 @@ public class BattleController extends Controller
 		}
 	}
 
-	@Override protected void init(SpriteBatch spriteBatch)
-
-
-	{
+	@Override protected void init(SpriteBatch spriteBatch) {
 		super.init(spriteBatch);
 		Image backgroundImage = new Image(new Texture("core/assets/visuals/spielbrettSmall.png"));
 		stage.addActor(backgroundImage);
@@ -63,5 +64,24 @@ public class BattleController extends Controller
 	public Stage giveStage()
 	{
 		return stage;
+	}
+
+	private void reset(){
+		this.red = false;
+		this.green = false;
+		this.blue = false;
+		this.started = false;
+	}
+
+	private void activate(Zone zone, Player player)
+	{
+		if (player == activePlayer)
+		{
+			if(!zone.isActivated())
+			{
+				System.out.println("Zone activated!!!!");
+				zone.activate();
+			}
+		}
 	}
 }

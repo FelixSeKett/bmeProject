@@ -41,8 +41,6 @@ public class DeckCard extends Card
     // METHODS
     // ===================================
 
-    @Override
-    public void activate() { }
 
     private void initializeEffects(String CardId)
     {
