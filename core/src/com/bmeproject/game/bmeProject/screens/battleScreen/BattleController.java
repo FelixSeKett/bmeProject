@@ -66,11 +66,22 @@ public class BattleController extends Controller
 		return stage;
 	}
 
-
 	private void reset(){
 		this.red = false;
 		this.green = false;
 		this.blue = false;
 		this.started = false;
+	}
+
+	private void activate(Zone zone, Player player)
+	{
+		if (player == activePlayer)
+		{
+			if(!zone.isActivated())
+			{
+				System.out.println("Zone activated!!!!");
+				zone.activate();
+			}
+		}
 	}
 }

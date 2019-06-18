@@ -1,19 +1,27 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Player;
 
-import org.w3c.dom.Element;
-
-public class BattleCard {
+public abstract class BattleCard extends Actor
+{
     // encapsulated abstract card
-    private Card card;
+    private final Card CARD;
+    private final Player OWNER;
+    private Player commander;
 
-    public BattleCard() {
-        this.card = new Card() {
+    public BattleCard(Player owner, Card card)
+    {
+        CARD = card;
+        OWNER = owner;
+        commander = owner;
 
-            @Override
-            public void activate() {
-                // parse card here...
-            }
-        };
     }
+
+    public void setCommander(Player commander)
+    {
+        this.commander = commander;
+    }
+
+    public abstract void activate();
 }

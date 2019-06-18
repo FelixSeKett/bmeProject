@@ -1,9 +1,15 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.bmeproject.game.BMEProject;
+import com.bmeproject.game.bmeProject.gameObjects.BattleCard;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.gameObjects.Type;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 
 public class Player implements IFieldable
@@ -18,6 +24,8 @@ public class Player implements IFieldable
 	private final Field            GRAVEYARD;
 	private final Field            HAND;
 
+	private final ArrayList<BattleCard> CARDS;
+
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
@@ -28,6 +36,17 @@ public class Player implements IFieldable
 		SUPPLY = new Field(this, 542, 41);
 		GRAVEYARD = new Field(this, 230, 41);
 		HAND = new Field(this, 280, 0);
+		CARDS = new ArrayList<>();
+
+		for (Card e: BMEProject.allCards.values())
+		{
+			Type type = e.getCardType();
+			for (int i = 0; i < 8; i++)
+			{
+				BattleCard bCard = type.createCard(this, e);
+				CARDS.add(bCard);
+			}
+		}
 	}
 
 	// ===================================

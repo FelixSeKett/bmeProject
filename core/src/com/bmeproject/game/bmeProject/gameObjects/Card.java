@@ -19,7 +19,8 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.Player;
  * <p>
  * {@link DeckCard} für die jeweiligen screens erweitert.
  */
-abstract public class Card extends Actor
+
+public class Card extends Actor
 {
 	// ===================================
 	// ATTRIBUTES
@@ -34,8 +35,6 @@ abstract public class Card extends Actor
 	protected            int           strength;
 	protected            String        illustrationFilePath;
 
-	private Player owner;
-	private Player commander;
 
 	// ===================================
 	// CONSTRUCTOR
@@ -44,9 +43,6 @@ abstract public class Card extends Actor
 	public Card()
 	{
 	}
-
-	/* To be implemented by specific card categories... */
-	abstract public void activate();
 
 	public void initialize(int id, String cardName, int cardStrengh, String cardIlluFilePath, Type cType)
 	{
@@ -145,13 +141,5 @@ abstract public class Card extends Actor
 		sprite.draw(batch);
 	}
 
-	public void setOwner(Player owner)
-	{
-		this.owner = owner;
-	}
 
-	public void setCommander(Player commander)
-	{
-		this.commander = commander;
-	}
 }
