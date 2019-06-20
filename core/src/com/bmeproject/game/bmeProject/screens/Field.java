@@ -1,9 +1,9 @@
 package com.bmeproject.game.bmeProject.screens;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.screens.battleScreen.IFieldable;
+import com.bmeproject.game.bmeProject.screens.battleScreen.BattleCard;
 
 import java.util.ArrayList;
 
@@ -24,14 +24,14 @@ public class Field extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	private final float           PILE_X;
-	private final float           PILE_Y;
-	private final float           PILE_OFFSET_X;
-	private final float           PILE_OFFSET_Y;
-	private final float           CARD_OFFSET_X;
-	private final float           CARD_OFFSET_Y;
-	private final ArrayList<Card> CARDS;
-	private final int             PILE_LIMIT;
+	private final float                 PILE_X;
+	private final float                 PILE_Y;
+	private final float                 PILE_OFFSET_X;
+	private final float                 PILE_OFFSET_Y;
+	private final float                 CARD_OFFSET_X;
+	private final float                 CARD_OFFSET_Y;
+	private final ArrayList<BattleCard> CARDS;
+	private final int                   PILE_LIMIT;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -52,8 +52,8 @@ public class Field extends Actor
 	 * @param pileLimit   Limit für Karten in einem Pile und damit Indikatorwert für Gruppierung nachfolgender
 	 *                    Karten in einem weiteren Pile.
 	 */
-	public Field(float x, float y, float width, float height, float pileX, float pileY, float pileOffsetX,
-			float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<Card> cards, int pileLimit)
+	private Field(float x, float y, float width, float height, float pileX, float pileY, float pileOffsetX,
+			float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<BattleCard> cards, int pileLimit)
 	{
 		setBounds(x, y, width, height);
 		PILE_X = pileX;
@@ -66,12 +66,11 @@ public class Field extends Actor
 		PILE_LIMIT = pileLimit;
 	}
 
-	public Field(IFieldable fieldable, float x, float y)
+	public Field(Stage stage, Vector2 position)
 	{
-		this(x, y, 30, 44, 0, 0, 0, 0, 0, 0, new ArrayList<Card>(), 1);
-		Stage stage = fieldable.giveStage();
-		setOrigin(stage.getWidth() / 2 - x, stage.getHeight() / 2 - y);
-		setRotation(fieldable.giveRotation());
+		this(position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 2, 2,
+				new ArrayList<BattleCard>(),
+				1);
 		stage.addActor(this);
 	}
 
@@ -85,34 +84,40 @@ public class Field extends Actor
 			if (i % PILE_LIMIT == 0) {
 				j++;
 			}
-			float x = getX() + PILE_X + i * CARD_OFFSET_X + (j - 1) * PILE_OFFSET_X;
-			float y = getY() + PILE_Y + i * CARD_OFFSET_Y + (j - 1) * PILE_OFFSET_Y;
-			CARDS.get(i).setPosition(x, y);
-			// TODO: Rotation setzen
+			float      x    = getX() + PILE_X + i * CARD_OFFSET_X + (j - 1) * PILE_OFFSET_X;
+			float      y    = getY() + PILE_Y + i * CARD_OFFSET_Y + (j - 1) * PILE_OFFSET_Y;
+			BattleCard card = CARDS.get(i);
+			card.setPosition(x, y);
+			card.takeRotation();
 		}
 	}
 
-	public void addCard(Card cardToAdd)
+	public void addCard(BattleCard cardToAdd)
 	{
 		CARDS.add(cardToAdd);
 		update();
 	}
 
-	private void removeCard(Card cardToRemove)
+	private void removeCard(BattleCard cardToRemove)
 	{
 		CARDS.remove(cardToRemove);
 		update();
 	}
 
-	public Card pullCard(int index)
+	public BattleCard pullCard(int index)
 	{
-		Card card = CARDS.get(index);
+		BattleCard card = CARDS.get(index);
 		removeCard(card);
 		return card;
 	}
 
-	public Card pullTopCard()
+	public BattleCard pullTopCard()
 	{
 		return pullCard(CARDS.size() - 1);
+	}
+
+	public ArrayList<BattleCard> giveCards()
+	{
+		return CARDS;
 	}
 }

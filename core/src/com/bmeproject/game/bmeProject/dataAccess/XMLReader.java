@@ -55,26 +55,19 @@ public class XMLReader
 	// reads given Document with specific card-tags
 	private List<Card> readCardsFromXML(Document doc)
 	{
-		System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
-		NodeList nList = doc.getElementsByTagName("card");
-
+		NodeList   nList    = doc.getElementsByTagName("card");
 		List<Card> cardList = new ArrayList<Card>();
 		Card       tempCard;
-
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
-			System.out.println("\nCurrent Element: " + nNode.getNodeName());
-
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element)nNode;
-				System.out.println("ID: " + eElement.getAttribute("id"));
-				tempCard = new Card();
-				tempCard.initialize(Integer.parseInt(eElement.getAttribute("id")), eElement.getElementsByTagName(
-						"cardName").item(0).getTextContent(), Integer.parseInt(eElement.getElementsByTagName(
-						"cardStrengh").item(0).getTextContent()), eElement.getElementsByTagName(
-						"cardIllustrationFilePath").item(0).getTextContent(), getType(eElement.getElementsByTagName(
-						"cardType").item(0).getTextContent()));
-
+				int     id       = Integer.parseInt(eElement.getAttribute("id"));
+				String  name     = eElement.getElementsByTagName("cardName").item(0).getTextContent();
+				String illustrationFilePath = eElement.getElementsByTagName("cardIllustrationFilePath").item(0)
+						.getTextContent();
+				Type type = getType(eElement.getElementsByTagName("cardType").item(0).getTextContent());
+				tempCard = new Card(id, name, illustrationFilePath, type);
 				cardList.add(tempCard);
 			}
 		}
@@ -84,12 +77,12 @@ public class XMLReader
 	// returns Type of Card according to given String
 	private Type getType(String type)
 	{
-		if (type.equals("BASE")) {
-			return Type.BASE;
-		} else if (type.equals("FIGURE")) {
-			return Type.FIGURE;
-		} else if (type.equals("MANIPULATION")) {
-			return Type.MANIPULATION;
+		if (type.equals("QUARTER")) {
+			return Type.QUARTER;
+		} else if (type.equals("CREATURE")) {
+			return Type.CREATURE;
+		} else if (type.equals("PHENOMENON")) {
+			return Type.PHENOMENON;
 		} else {
 			return null;
 		}

@@ -1,6 +1,6 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
-import com.bmeproject.game.bmeProject.screens.battleScreen.Player;
+import com.bmeproject.game.bmeProject.screens.battleScreen.*;
 
 /**
  * Gibt eine Auswahl aller drei möglichen Kartentypen, die jeweils Koordinaten für die entsprechende TextureRegion
@@ -12,27 +12,25 @@ public enum Type
 	// ENTRIES
 	// ===================================
 
-	BASE(204, 0) {
-
-		@Override
-		public BattleCard createCard(Player owner, Card card){
-			return new QuarterCard(owner, card);
+	QUARTER(204, 0) {
+		@Override public BattleCard createCard(Player owner, Card card)
+		{
+			return new Quarter(owner, card);
 		}
 	},
-	FIGURE(408, 0) {
-		@Override
-		public BattleCard createCard(Player owner, Card card){
-			return new CreatureCard(owner, card);
+	CREATURE(408, 0) {
+		@Override public BattleCard createCard(Player owner, Card card)
+		{
+			return new Creature(owner, card);
 		}
 	},
-	MANIPULATION(612, 0) {
-		@Override
-		public BattleCard createCard(Player owner, Card card){
-			return new PhenomenonCard(owner, card);
+	PHENOMENON(612, 0) {
+		@Override public BattleCard createCard(Player owner, Card card)
+		{
+			return new Phenomenon(owner, card);
 		}
 	};
-
-
+	
 	// ===================================
 	// ATTRIBUTES
 	// ===================================
@@ -50,7 +48,7 @@ public enum Type
 		Y = y;
 	}
 
-    // ===================================
+	// ===================================
 	// METHODS
 	// ===================================
 

@@ -5,7 +5,7 @@
         <cardStrengh>1</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
         <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>BASE</cardType>
+        <cardType>QUARTER</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>
     <card id="002">
@@ -13,7 +13,7 @@
         <cardStrengh>2</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
         <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>BASE</cardType>
+        <cardType>QUARTER</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>
     <card id="003">
@@ -21,7 +21,7 @@
         <cardStrengh>3</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
         <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>BASE</cardType>
+        <cardType>QUARTER</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>
     <card id="004">
@@ -29,7 +29,7 @@
         <cardStrengh>3</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
         <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>FIGURE</cardType>
+        <cardType>CREATURE</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>
     <card id="005">
@@ -37,7 +37,7 @@
         <cardStrengh>3</cardStrengh>
         <cardIllustrator>A</cardIllustrator>
         <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>MANIPULATION</cardType>
+        <cardType>PHENOMENON</cardType>
         <cardBackground>OPEN_WATER</cardBackground>
     </card>
 
