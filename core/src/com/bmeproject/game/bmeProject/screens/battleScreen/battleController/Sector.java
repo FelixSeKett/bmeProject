@@ -16,6 +16,7 @@ public class Sector
 	private final Field       SPOT_3;
 	private final Field       QUARTER_SPOT;
 
+
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================

@@ -8,6 +8,8 @@ import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
+import java.util.ArrayList;
+
 public class BattleController extends Controller
 {
 	// ===================================
@@ -25,6 +27,10 @@ public class BattleController extends Controller
 	private boolean green;
 	private boolean started;
 
+	private ArrayList<Sector> sectors;
+
+
+
 	// ===================================
 	// METHODS
 	// ===================================
@@ -37,7 +43,7 @@ public class BattleController extends Controller
 		player1 = new Player(this, Party.ALLY);
 		player2 = new Player(this, Party.ENEMY);
 		battlefield = new Battlefield(this);
-		compass = new Compass();
+		compass = new Compass(this);
 		activePlayer = player1;
 	}
 
@@ -57,10 +63,84 @@ public class BattleController extends Controller
 	private void activate(Zone zone, Player player)
 	{
 		if (player == activePlayer) {
-			if (!zone.isActivated()) {
+			if (!zone.isActivated())
+			{
 				Gdx.app.log(toString(), "Zone activated!!!!");
 				zone.activate();
+
+				//Activate Sectors
+				ArrayList<Sector> activeSectors = getZone(zone);
 			}
 		}
 	}
+
+	//
+	private int spinColorSector()
+	{
+		sectors = battlefield.getSectors();
+		Sector first = compass.getFirstSector();
+		int index = sectors.indexOf(first);
+		if(compass.getCurrentStream() == Stream.COUNTERCLOCKWISE)
+		{
+			index++;
+			if(index >= 6)
+			{
+				index = index - 6;
+			}
+		}
+		else
+		{
+			index--;
+			if(index < 0)
+			{
+				index = index + 6;
+			}
+		}
+		//TODO: Farbrad dreht sich um ein Sector visuel
+		compass.setFirstSector(sectors.get(index));
+		return index;
+	}
+
+
+	private ArrayList<Sector> getZone(Zone zone)
+	{
+		sectors = battlefield.getSectors();
+		Sector first = compass.getFirstSector();
+		int index = sectors.indexOf(first);
+		int distanz = zone.getColorIndex();
+		int targetSector;
+		if(compass.getCurrentStream() == Stream.COUNTERCLOCKWISE)
+		{
+			targetSector = (index + distanz);
+			if(targetSector >= 6)
+			{
+				targetSector = targetSector - 6;
+			}
+		}
+		else
+		{
+			targetSector = (index - distanz);
+			if(targetSector < 0)
+			{
+				targetSector = targetSector + 6;
+			}
+		}
+		ArrayList<Sector> dist = new ArrayList<Sector>();
+		dist.add(sectors.get(targetSector));
+		targetSector ++;
+		if(targetSector >= 6)
+		{
+			targetSector = targetSector - 6;
+		}
+		dist.add(sectors.get(targetSector));
+		return dist;
+
+	}
+
+	public Sector getFirstSector()
+	{
+		sectors = battlefield.getSectors();
+		return sectors.get(0);
+	}
+
 }
