@@ -76,8 +76,5 @@ public class Battlefield
 	{
 		return sectors;
 	}
-<<<<<<< refs/remotes/origin/playerReset
-=======
 
->>>>>>> spinColor
 }

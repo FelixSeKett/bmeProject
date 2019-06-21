@@ -151,10 +151,7 @@ public class BattleController extends Controller
 		return sectors.get(0);
 	}
 
-<<<<<<< refs/remotes/origin/playerReset
-=======
 
->>>>>>> spinColor
 	@Override
 	public void update(float delta)
 	{
@@ -181,8 +178,4 @@ public class BattleController extends Controller
 	}
 
 
-<<<<<<< refs/remotes/origin/playerReset
-
-=======
->>>>>>> spinColor
 }
