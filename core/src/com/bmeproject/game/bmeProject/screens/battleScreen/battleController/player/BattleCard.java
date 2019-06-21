@@ -39,7 +39,8 @@ public abstract class BattleCard extends Actor
 
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				System.out.println("You clicked it");
+				//ToDo Player CARDS save index of clicked card in Buffer and add card to clicked field
+				System.out.println("Card clicked");
 				return true;
 			}
 
