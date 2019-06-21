@@ -103,6 +103,9 @@ public class BattleController extends Controller
 		}
 		//TODO: Farbrad dreht sich um ein Sector visuel
 		compass.setFirstSector(sectors.get(index));
+
+		System.out.println("index von Sector in ArrayList ist = " + index);
+
 		return index;
 	}
 
@@ -148,6 +151,10 @@ public class BattleController extends Controller
 		return sectors.get(0);
 	}
 
+<<<<<<< refs/remotes/origin/playerReset
+=======
+
+>>>>>>> spinColor
 	@Override
 	public void update(float delta)
 	{
@@ -155,6 +162,10 @@ public class BattleController extends Controller
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			activePlayer.drawTopCard();
+
+
+			//Zum Testen
+			//spinColorSector();
 		}
 		/*
 		battlefield.giveSectorOne().giveQuarterField().addListener(new InputListener(){
@@ -170,5 +181,8 @@ public class BattleController extends Controller
 	}
 
 
+<<<<<<< refs/remotes/origin/playerReset
 
+=======
+>>>>>>> spinColor
 }
