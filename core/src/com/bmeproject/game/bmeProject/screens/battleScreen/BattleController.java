@@ -1,9 +1,13 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
@@ -39,6 +43,7 @@ public class BattleController extends Controller
 		battlefield = new Battlefield(this);
 		compass = new Compass();
 		activePlayer = player1;
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	public void changeActivePlayer()
@@ -63,4 +68,26 @@ public class BattleController extends Controller
 			}
 		}
 	}
+
+	@Override
+	public void update(float delta)
+	{
+		super.update(delta);
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			activePlayer.drawTopCard();
+		}
+		/*
+		battlefield.giveSectorOne().giveQuarterField().addListener(new InputListener(){
+
+			@Override
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				System.out.println("You clicked it");
+				return false;
+			}
+
+		});
+		*/
+	}
+
 }

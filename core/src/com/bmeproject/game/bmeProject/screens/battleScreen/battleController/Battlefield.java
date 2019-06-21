@@ -1,6 +1,8 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 
@@ -52,4 +54,11 @@ public class Battlefield
 	{
 		return 0;
 	}
+
+	//methods for debug
+	public Sector giveSectorOne(){
+		return SECTOR_1;
+	}
+
+
 }

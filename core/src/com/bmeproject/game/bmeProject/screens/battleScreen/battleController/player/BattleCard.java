@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
 
@@ -32,6 +34,16 @@ public abstract class BattleCard extends Actor
 		SPRITE = new Sprite(new Texture(CARD.ILLUSTRATION_FILE_PATH));
 		setBounds(0, 0, 30, 44);
 		setOrigin(getWidth() / 2, getHeight() / 2);
+
+		addListener(new InputListener(){
+
+			@Override
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				System.out.println("You clicked it");
+				return true;
+			}
+
+		});
 	}
 
 	// ===================================

@@ -36,7 +36,7 @@ public class Player
 		SUPPLY = new Field(stage, PARTY.giveSupplyVector());
 		GRAVEYARD = new Field(stage, PARTY.giveGraveyardVector());
 		HAND = new Field(stage, PARTY.giveHandVector());
-		CARDS = new ArrayList<>();
+		CARDS = new ArrayList<BattleCard>();
 
 		for (Card card : BMEProject.allCards.values()) {
 			Type type = card.TYPE;
@@ -72,6 +72,7 @@ public class Player
 		BattleCard card = SUPPLY.pullTopCard();
 		HAND.addCard(card);
 	}
+
 
 	public void endTurn()
 	{

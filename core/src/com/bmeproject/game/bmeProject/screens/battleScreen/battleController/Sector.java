@@ -29,4 +29,9 @@ public class Sector
 		SPOT_3 = new Field(stage, spot3);
 		QUARTER_SPOT = new Field(stage, quarterSpot);
 	}
+
+	//method for debug
+	public Field giveQuarterField(){
+		return QUARTER_SPOT;
+	}
 }
