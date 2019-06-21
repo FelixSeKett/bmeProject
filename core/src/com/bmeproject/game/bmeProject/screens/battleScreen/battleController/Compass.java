@@ -1,19 +1,38 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-public class Compass {
+import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 
-    private Stream currentStream;
+public class Compass
+{
 
-    public Compass(){
+    private Stream                 currentStream;
+    private Sector                 firstSector;
+    private final BattleController BATTLECONTROLLER;
+
+
+    public Compass(BattleController battleController){
+
         currentStream = Stream.CLOCKWISE;
+        BATTLECONTROLLER = battleController;
+        firstSector = battleController.getFirstSector();
     }
 
-    private Stream getCurrentStream(){
+    public Stream getCurrentStream(){
         return currentStream;
     }
 
     private void changeStreamRotation(){
         currentStream = currentStream.giveOppositeStream();
+    }
+
+    public Sector getFirstSector()
+    {
+        return firstSector;
+    }
+
+    public void setFirstSector(Sector sector)
+    {
+        firstSector = sector;
     }
 
 }

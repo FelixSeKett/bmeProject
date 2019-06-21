@@ -6,6 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 
+import java.util.ArrayList;
+
 public class Battlefield
 {
 	// ===================================
@@ -19,6 +21,7 @@ public class Battlefield
 	private final Sector           SECTOR_4;
 	private final Sector           SECTOR_5;
 	private final Sector           SECTOR_6;
+	ArrayList<Sector> sectors = new ArrayList<Sector>();
 
 	// ===================================
 	// CONSTRUCTORS
@@ -39,6 +42,12 @@ public class Battlefield
 				new Vector2(385f, 261f));
 		SECTOR_6 = new Sector(this, new Vector2(294f, 290f), new Vector2(294f, 241f), new Vector2(258f, 241f),
 				new Vector2(336f, 232f));
+		sectors.add(SECTOR_1);
+		sectors.add(SECTOR_2);
+		sectors.add(SECTOR_3);
+		sectors.add(SECTOR_4);
+		sectors.add(SECTOR_5);
+		sectors.add(SECTOR_6);
 	}
 
 	// ===================================
@@ -55,10 +64,17 @@ public class Battlefield
 		return 0;
 	}
 
+<<<<<<< HEAD
 	//methods for debug
 	public Sector giveSectorOne(){
 		return SECTOR_1;
 	}
 
 
+=======
+	public ArrayList<Sector> getSectors()
+	{
+		return sectors;
+	}
+>>>>>>> 7084451c331b36d18a72e0f47f216ec32b337e9d
 }
