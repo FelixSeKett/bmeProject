@@ -29,7 +29,7 @@ public class CardGenerator {
 
         for(Card card : cardList)
         {
-            allCards.put(card.getCardId(), card);
+            allCards.put(card.ID, card);
         }
 
         return allCards;

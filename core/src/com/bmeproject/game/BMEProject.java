@@ -82,6 +82,6 @@ public class BMEProject extends Game
 
 	public void activateDeckScreen()
 	{
-		setScreen(battleScreen);
+		setScreen(deckScreen);
 	}
 }
