@@ -148,7 +148,6 @@ public class BattleController extends Controller
 		return sectors.get(0);
 	}
 
-<<<<<<< HEAD
 	@Override
 	public void update(float delta)
 	{
@@ -170,6 +169,6 @@ public class BattleController extends Controller
 		*/
 	}
 
-=======
->>>>>>> 7084451c331b36d18a72e0f47f216ec32b337e9d
+
+
 }

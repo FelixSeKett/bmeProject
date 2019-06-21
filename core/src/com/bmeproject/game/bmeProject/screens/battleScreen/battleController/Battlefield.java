@@ -64,17 +64,16 @@ public class Battlefield
 		return 0;
 	}
 
-<<<<<<< HEAD
+
 	//methods for debug
 	public Sector giveSectorOne(){
 		return SECTOR_1;
 	}
 
 
-=======
+
 	public ArrayList<Sector> getSectors()
 	{
 		return sectors;
 	}
->>>>>>> 7084451c331b36d18a72e0f47f216ec32b337e9d
 }
