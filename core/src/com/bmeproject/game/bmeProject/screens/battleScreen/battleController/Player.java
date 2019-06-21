@@ -1,10 +1,13 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Type;
 import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 import java.util.ArrayList;
 
@@ -38,7 +41,7 @@ public class Player
 		for (Card card : BMEProject.allCards.values()) {
 			Type type = card.TYPE;
 			for (int i = 0; i < 2; i++) {
-				BattleCard battleCard = type.createCard(this, card);
+				BattleCard battleCard = type.createBattleCard(this, card);
 				CARDS.add(battleCard);
 				stage.addActor(battleCard);
 			}

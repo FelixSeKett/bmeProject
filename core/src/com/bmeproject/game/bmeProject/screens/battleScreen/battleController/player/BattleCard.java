@@ -1,10 +1,11 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
 
 public abstract class BattleCard extends Actor
 {

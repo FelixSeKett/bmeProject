@@ -1,7 +1,8 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
 
 import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
 
 public class Quarter extends BattleCard
 {

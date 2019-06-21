@@ -1,15 +1,16 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
 
 import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
 
-public class Creature extends BattleCard
+public class Phenomenon extends BattleCard
 {
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	public Creature(Player owner, Card card)
+	public Phenomenon(Player owner, Card card)
 	{
 		super(owner, card);
 	}
@@ -20,6 +21,6 @@ public class Creature extends BattleCard
 
 	@Override public void activate()
 	{
-		Gdx.app.log(toString(), "Ich bin eine Kreatur und greife an!");
+		Gdx.app.log(toString(), "Ich bin ein Phänomen und gehöre zu den coolen Kids!");
 	}
 }

@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
 
 import com.badlogic.gdx.math.Vector2;
 

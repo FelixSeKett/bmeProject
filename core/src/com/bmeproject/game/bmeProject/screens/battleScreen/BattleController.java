@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.bmeproject.game.bmeProject.screens.Controller;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 public class BattleController extends Controller
 {

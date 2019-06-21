@@ -1,10 +1,13 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
-import com.bmeproject.game.bmeProject.screens.battleScreen.*;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Creature;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Phenomenon;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Quarter;
 
 /**
- * Gibt eine Auswahl aller drei möglichen Kartentypen, die jeweils Koordinaten für die entsprechende TextureRegion
- * der obersten visuellen Ebene einer dargestellten Karte mitliefern.
+ * Gibt eine Auswahl aller drei möglichen Kartentypen.
  */
 public enum Type
 {
@@ -12,45 +15,28 @@ public enum Type
 	// ENTRIES
 	// ===================================
 
-	QUARTER(204, 0) {
-		@Override public BattleCard createCard(Player owner, Card card)
+	QUARTER {
+		@Override public BattleCard createBattleCard(Player owner, Card card)
 		{
 			return new Quarter(owner, card);
 		}
 	},
-	CREATURE(408, 0) {
-		@Override public BattleCard createCard(Player owner, Card card)
+	CREATURE {
+		@Override public BattleCard createBattleCard(Player owner, Card card)
 		{
 			return new Creature(owner, card);
 		}
 	},
-	PHENOMENON(612, 0) {
-		@Override public BattleCard createCard(Player owner, Card card)
+	PHENOMENON {
+		@Override public BattleCard createBattleCard(Player owner, Card card)
 		{
 			return new Phenomenon(owner, card);
 		}
 	};
-	
-	// ===================================
-	// ATTRIBUTES
-	// ===================================
-
-	public final int X;
-	public final int Y;
-
-	// ===================================
-	// CONSTRUCTORS
-	// ===================================
-
-	Type(int x, int y)
-	{
-		X = x;
-		Y = y;
-	}
 
 	// ===================================
 	// METHODS
 	// ===================================
 
-	abstract public BattleCard createCard(Player owner, Card card);
+	abstract public BattleCard createBattleCard(Player owner, Card card);
 }

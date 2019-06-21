@@ -3,7 +3,7 @@ package com.bmeproject.game.bmeProject.screens;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.bmeproject.game.bmeProject.screens.battleScreen.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 
 import java.util.ArrayList;
 
@@ -88,6 +88,9 @@ public class Field extends Actor
 			float      y    = getY() + PILE_Y + i * CARD_OFFSET_Y + (j - 1) * PILE_OFFSET_Y;
 			BattleCard card = CARDS.get(i);
 			card.setPosition(x, y);
+
+
+
 			card.takeRotation();
 		}
 	}

@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 public class Compass {
 
