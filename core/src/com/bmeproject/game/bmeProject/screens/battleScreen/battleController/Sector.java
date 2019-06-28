@@ -32,7 +32,7 @@ public class Sector implements iFieldable
 	{
 		BATTLEFIELD = battlefield;
 		Stage stage = battlefield.giveStage();
-		FIELDS = new ArrayList<>();
+		FIELDS = new ArrayList<Field>();
 		FIELDS.add(new Field(this, stage, quarterFieldVector, false));
 		FIELDS.add(new Field(this, stage, field1Vector, false));
 		FIELDS.add(new Field(this, stage, field2Vector, true));
@@ -67,7 +67,7 @@ public class Sector implements iFieldable
 	// TODO: Liste ist noch nicht nach Strömungsregeln
 	public ArrayList<BattleCard> giveSortedOuterBattleCards()
 	{
-		ArrayList<BattleCard> battleCards = new ArrayList<>();
+		ArrayList<BattleCard> battleCards = new ArrayList<BattleCard>();
 		for (Field field : FIELDS) {
 			battleCards.addAll(field.giveCards());
 		}

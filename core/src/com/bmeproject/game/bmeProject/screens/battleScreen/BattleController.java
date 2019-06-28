@@ -70,7 +70,7 @@ public class BattleController extends Controller
 				ArrayList<Sector> activeSectors = getZone(zone);
 
 				// Erstelle eine nach Strömungsregeln sortierte ArrayList aus Karten aus der Sektoren-Liste
-				ArrayList<BattleCard> battleCardsToActivate = new ArrayList<>();
+				ArrayList<BattleCard> battleCardsToActivate = new ArrayList<BattleCard>();
 				for (Sector sector : activeSectors) {
 					for (BattleCard battleCard : sector.giveSortedOuterBattleCards()) {
 						if (battleCard.giveActivatingZones().contains(zone)) {
