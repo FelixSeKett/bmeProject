@@ -78,4 +78,5 @@ public class Battlefield
 		return BATTLE_CONTROLLER.giveLastClickedBattleCard();
 
 	}
+
 }

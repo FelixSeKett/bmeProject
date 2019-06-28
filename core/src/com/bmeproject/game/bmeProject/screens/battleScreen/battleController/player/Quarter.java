@@ -12,7 +12,7 @@ public class Quarter extends BattleCard
 
 	public Quarter(Player owner, Card card)
 	{
-		super(owner, card);
+		super(owner, card, 3);
 	}
 
 	// ===================================

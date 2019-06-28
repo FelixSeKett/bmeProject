@@ -12,7 +12,7 @@ public class Creature extends BattleCard
 
 	public Creature(Player owner, Card card)
 	{
-		super(owner, card);
+		super(owner, card, 2);
 	}
 
 	// ===================================

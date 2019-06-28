@@ -6,6 +6,8 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.play
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Phenomenon;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Quarter;
 
+import java.util.ArrayList;
+
 /**
  * Gibt eine Auswahl aller drei möglichen Kartentypen.
  */
@@ -20,11 +22,26 @@ public enum Type
 		{
 			return new Quarter(owner, card);
 		}
+
+		@Override public ArrayList<Zone> giveActivatingZones()
+		{
+			ArrayList<Zone> activatingZones = new ArrayList<>();
+			activatingZones.add(Zone.GREEN);
+			return activatingZones;
+		}
 	},
 	CREATURE {
 		@Override public BattleCard createBattleCard(Player owner, Card card)
 		{
 			return new Creature(owner, card);
+		}
+
+		@Override public ArrayList<Zone> giveActivatingZones()
+		{
+			ArrayList<Zone> activatingZones = new ArrayList<>();
+			activatingZones.add(Zone.RED);
+			activatingZones.add(Zone.BLUE);
+			return activatingZones;
 		}
 	},
 	PHENOMENON {
@@ -32,11 +49,22 @@ public enum Type
 		{
 			return new Phenomenon(owner, card);
 		}
+
+		@Override public ArrayList<Zone> giveActivatingZones()
+		{
+			ArrayList<Zone> activatingZones = new ArrayList<>();
+			activatingZones.add(Zone.RED);
+			activatingZones.add(Zone.GREEN);
+			activatingZones.add(Zone.BLUE);
+			return activatingZones;
+		}
 	};
 
 	// ===================================
 	// METHODS
 	// ===================================
 
-	abstract public BattleCard createBattleCard(Player owner, Card card);
+	public abstract BattleCard createBattleCard(Player owner, Card card);
+
+	public abstract ArrayList<Zone> giveActivatingZones();
 }

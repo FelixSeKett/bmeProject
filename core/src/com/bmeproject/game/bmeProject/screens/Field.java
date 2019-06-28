@@ -118,7 +118,6 @@ public class Field extends Actor
 			card.setPosition(x, y);
 
 
-
 			card.takeRotation();
 		}
 	}
@@ -147,9 +146,12 @@ public class Field extends Actor
 		return pullCard(CARDS.size() - 1);
 	}
 
+	// TODO: Methode umbenennen: Die Originale ArrayList darf nicht nach außen gelangen, sonst kann sie manipuliert
+	//  werden. Daher darf nur eine Kopie dieser Liste nach außen gegeben werden. Das sollte sich auch im Namen
+	//  wiederspiegeln.
 	public ArrayList<BattleCard> giveCards()
 	{
-		return CARDS;
+		return new ArrayList<>(CARDS);
 	}
 
 	public void setLastClickedBattleCard (BattleCard battleCard){

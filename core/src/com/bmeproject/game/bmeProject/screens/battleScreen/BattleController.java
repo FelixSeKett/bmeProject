@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
@@ -28,14 +25,10 @@ public class BattleController extends Controller
 	private BattleCard lastClickedBattleCard;
 
 	private Player  activePlayer;
-	private boolean red;
-	private boolean blue;
-	private boolean green;
 	private boolean started;
 
+	// TODO: Das hier muss weg - refactor mit Philadelphia
 	private ArrayList<Sector> sectors;
-
-
 
 	// ===================================
 	// METHODS
@@ -56,9 +49,9 @@ public class BattleController extends Controller
 
 	public void changeActivePlayer()
 	{
-		red = false;
-		green = false;
-		blue = false;
+		Zone.RED.deactivate();
+		Zone.GREEN.deactivate();
+		Zone.BLUE.deactivate();
 		started = false;
 		if (activePlayer == player1) {
 			activePlayer = player2;
@@ -70,73 +63,85 @@ public class BattleController extends Controller
 	private void activate(Zone zone, Player player)
 	{
 		if (player == activePlayer) {
-			if (!zone.isActivated())
-			{
-				Gdx.app.log(toString(), "Zone activated!!!!");
-				zone.activate();
+			if (!zone.isActivated()) {
 
-				//Activate Sectors
+				// Erstelle eine nach Strömungsregeln sortierte ArrayList mit Sektoren, die zur aktivierten Zone
+				// gehören
 				ArrayList<Sector> activeSectors = getZone(zone);
+
+				// Erstelle eine nach Strömungsregeln sortierte ArrayList aus Karten aus der Sektoren-Liste
+				ArrayList<BattleCard> battleCardsToActivate = new ArrayList<>();
+				for (Sector sector : activeSectors) {
+					for (BattleCard battleCard : sector.giveSortedOuterBattleCards()) {
+						if (battleCard.giveActivatingZones().contains(zone)) {
+							battleCardsToActivate.add(battleCard);
+						}
+					}
+				}
+				for (Sector sector : activeSectors) {
+					battleCardsToActivate.add(sector.giveQuarter());
+				}
+
+				// aktiviere jede Karte der zuvor erstellen Liste nach Listenreihenfolge
+				for (BattleCard battleCard : battleCardsToActivate) {
+					if (battleCard.isOnBattlefield()) { // TODO
+						battleCard.activate();
+					}
+				}
+
+				// Setze die Zone als aktiviert
+				zone.activate();
 			}
 		}
 	}
 
-	//
 	private int spinColorSector()
 	{
 		sectors = battlefield.getSectors();
 		Sector first = compass.getFirstSector();
-		int index = sectors.indexOf(first);
-		if(compass.getCurrentStream() == Stream.COUNTERCLOCKWISE)
-		{
+		int    index = sectors.indexOf(first);
+		if (compass.getCurrentStream() == Stream.COUNTERCLOCKWISE) {
 			index++;
-			if(index >= 6)
-			{
+			if (index >= 6) {
 				index = index - 6;
 			}
-		}
-		else
-		{
+		} else {
 			index--;
-			if(index < 0)
-			{
+			if (index < 0) {
 				index = index + 6;
 			}
 		}
 		//TODO: Farbrad dreht sich um ein Sector visuel
 		compass.setFirstSector(sectors.get(index));
+
+		System.out.println("index von Sector in ArrayList ist = " + index);
+
 		return index;
 	}
 
-
+	// TODO: Die Reihenfolge der Einträge der zurückgegebenen ArrayList soll entsprechend der Strömung sortiert sein
 	private ArrayList<Sector> getZone(Zone zone)
 	{
 		sectors = battlefield.getSectors();
-		Sector first = compass.getFirstSector();
-		int index = sectors.indexOf(first);
-		int distanz = zone.getColorIndex();
-		int targetSector;
-		if(compass.getCurrentStream() == Stream.COUNTERCLOCKWISE)
-		{
+		Sector first   = compass.getFirstSector();
+		int    index   = sectors.indexOf(first);
+		int    distanz = zone.getColorIndex();
+		int    targetSector;
+		if (compass.getCurrentStream() == Stream.COUNTERCLOCKWISE) {
 			targetSector = (index + distanz);
-			if(targetSector >= 6)
-			{
+			if (targetSector >= 6) {
 				targetSector = targetSector - 6;
 			}
-		}
-		else
-		{
+		} else {
 			targetSector = (index - distanz);
-			if(targetSector < 0)
-			{
+			if (targetSector < 0) {
 				targetSector = targetSector + 6;
 			}
 		}
 		ArrayList<Sector> dist = new ArrayList<Sector>();
 		dist.add(sectors.get(targetSector));
-		targetSector ++;
-		if(targetSector >= 6)
-		{
+		targetSector++;
+		if (targetSector >= 6) {
 			targetSector = targetSector - 6;
 		}
 		dist.add(sectors.get(targetSector));
@@ -178,7 +183,4 @@ public class BattleController extends Controller
 		});
 		*/
 	}
-
-
-
 }

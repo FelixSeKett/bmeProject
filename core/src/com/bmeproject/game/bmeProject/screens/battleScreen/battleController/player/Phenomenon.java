@@ -12,7 +12,7 @@ public class Phenomenon extends BattleCard
 
 	public Phenomenon(Player owner, Card card)
 	{
-		super(owner, card);
+		super(owner, card, 1);
 	}
 
 	// ===================================
