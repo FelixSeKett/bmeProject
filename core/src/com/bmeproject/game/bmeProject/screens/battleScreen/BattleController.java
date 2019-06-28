@@ -11,6 +11,7 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.play
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class BattleController extends Controller
 {
@@ -22,6 +23,7 @@ public class BattleController extends Controller
 	private Player      player2;
 	private Battlefield battlefield;
 	private Compass     compass;
+	private Random random;
 
 	private Player  activePlayer;
 	private boolean started;
@@ -69,9 +71,9 @@ public class BattleController extends Controller
 				ArrayList<Sector> activeSectors = getZone(zone);
 
 				// Erstelle eine nach Strömungsregeln sortierte ArrayList aus Karten aus der Sektoren-Liste
-				ArrayList<BattleCard> battleCardsToActivate = new ArrayList<>();
+				ArrayList<BattleCard> battleCardsToActivate = new ArrayList<BattleCard>();
 				for (Sector sector : activeSectors) {
-					for (BattleCard battleCard : sector.giveSortedOuterBattleCards()) {
+					for (BattleCard battleCard : sector.giveSortedOuterBattleCards(compass)) {
 						if (battleCard.giveActivatingZones().contains(zone)) {
 							battleCardsToActivate.add(battleCard);
 						}
@@ -139,6 +141,7 @@ public class BattleController extends Controller
 		}
 		ArrayList<Sector> dist = new ArrayList<Sector>();
 		dist.add(sectors.get(targetSector));
+		// TODO DODODO ASKING QUESTION: Warum hier incrementiert .. OBOB?
 		targetSector++;
 		if (targetSector >= 6) {
 			targetSector = targetSector - 6;
@@ -148,10 +151,17 @@ public class BattleController extends Controller
 
 	}
 
+	/** Starting Sector is implemented here.
+	 * "Starting" means, that this is the first entry of the underlying ArrayList.
+	 **/
 	public Sector getFirstSector()
 	{
+		random = new Random();
 		sectors = battlefield.getSectors();
-		return sectors.get(0);
+		int randomStartingPoint = random.nextInt(6);
+		//System.out.println("H(P)immel: " + randomStartingPoint);
+
+		return sectors.get(randomStartingPoint);
 	}
 
 

@@ -123,6 +123,6 @@ public class Field extends Actor
 	//  wiederspiegeln.
 	public ArrayList<BattleCard> giveCards()
 	{
-		return new ArrayList<>(CARDS);
+		return new ArrayList<BattleCard>(CARDS);
 	}
 }
