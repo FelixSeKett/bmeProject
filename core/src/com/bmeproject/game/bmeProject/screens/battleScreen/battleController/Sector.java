@@ -33,10 +33,10 @@ public class Sector implements iFieldable
 		BATTLEFIELD = battlefield;
 		Stage stage = battlefield.giveStage();
 		FIELDS = new ArrayList<>();
-		FIELDS.add(new Field(this, stage, quarterFieldVector, false);
+		FIELDS.add(new Field(this, stage, quarterFieldVector, false));
 		FIELDS.add(new Field(this, stage, field1Vector, false));
-		FIELDS.add(new Field(this, stage, field2Vector, true);
-		FIELDS.add(new Field(this, stage, field3Vector, false);
+		FIELDS.add(new Field(this, stage, field2Vector, true));
+		FIELDS.add(new Field(this, stage, field3Vector, false));
 	}
 
 	public void setLastClickedBattleCard(BattleCard battleCard){
