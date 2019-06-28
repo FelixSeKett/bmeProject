@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class BattleController extends Controller
 	private Player      player2;
 	private Battlefield battlefield;
 	private Compass     compass;
+	private BattleCard lastClickedBattleCard;
 
 	private Player  activePlayer;
 	private boolean red;
@@ -146,6 +148,14 @@ public class BattleController extends Controller
 	{
 		sectors = battlefield.getSectors();
 		return sectors.get(0);
+	}
+
+	public void setLastClickedBattleCard(BattleCard battleCard){
+		lastClickedBattleCard = battleCard;
+	}
+
+	public BattleCard giveLastClickedBattleCard(){
+		return lastClickedBattleCard;
 	}
 
 	@Override

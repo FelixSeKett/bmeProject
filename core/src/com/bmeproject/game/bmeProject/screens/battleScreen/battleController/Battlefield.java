@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 
 import java.util.ArrayList;
 
@@ -64,16 +65,17 @@ public class Battlefield
 		return 0;
 	}
 
-
-	//methods for debug
-	public Sector giveSectorOne(){
-		return SECTOR_1;
-	}
-
-
-
 	public ArrayList<Sector> getSectors()
 	{
 		return sectors;
+	}
+
+	public BattleController getBATTLE_CONTROLLER() {
+		return BATTLE_CONTROLLER;
+	}
+
+	public BattleCard giveLastClickedBattleCard(){
+		return BATTLE_CONTROLLER.giveLastClickedBattleCard();
+
 	}
 }

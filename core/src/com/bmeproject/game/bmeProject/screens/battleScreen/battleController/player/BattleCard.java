@@ -40,7 +40,7 @@ public abstract class BattleCard extends Actor
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				//ToDo Player CARDS save index of clicked card in Buffer and add card to clicked field
-				System.out.println("Card clicked");
+				OWNER.setLastClickedBattleCard(BattleCard.this);
 				return true;
 			}
 
@@ -113,4 +113,5 @@ public abstract class BattleCard extends Actor
 	{
 		setRotation(commander.giveRotation());
 	}
+
 }
