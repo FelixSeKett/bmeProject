@@ -23,6 +23,7 @@ public class BattleController extends Controller
 	private Player      player2;
 	private Battlefield battlefield;
 	private Compass     compass;
+	private BattleCard lastClickedBattleCard;
 	private Random random;
 
 	private Player  activePlayer;
@@ -164,8 +165,16 @@ public class BattleController extends Controller
 		return sectors.get(randomStartingPoint);
 	}
 
+	public void setLastClickedBattleCard(BattleCard battleCard){
+		lastClickedBattleCard = battleCard;
+	}
 
-	@Override public void update(float delta)
+	public BattleCard giveLastClickedBattleCard(){
+		return lastClickedBattleCard;
+	}
+
+	@Override
+	public void update(float delta)
 	{
 		super.update(delta);
 
