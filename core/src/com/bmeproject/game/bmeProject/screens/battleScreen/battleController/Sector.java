@@ -8,6 +8,7 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.play
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Achtung: von den insgesamt 4 Fields, die diese Klasse beinhaltet, ist das erste immer das QuarterField.
@@ -65,13 +66,25 @@ public class Sector implements iFieldable
 	}
 
 	// TODO: Liste ist noch nicht nach Strömungsregeln
-	public ArrayList<BattleCard> giveSortedOuterBattleCards()
+	public ArrayList<BattleCard> giveSortedOuterBattleCards(Compass compass)
 	{
 		ArrayList<BattleCard> battleCards = new ArrayList<BattleCard>();
 		for (Field field : FIELDS) {
-			battleCards.addAll(field.giveCards());
+			// Implementierte Strömungsregel:
+
+			if(compass.getCurrentStream() == Stream.COUNTERCLOCKWISE) {
+				battleCards.addAll(field.giveCards());
+			} else {
+				battleCards.addAll(reverseCardOrder(field.giveCards()));
+			}
 		}
 		return battleCards;
+	}
+
+	// Methode, um die Karten in einer Liste basierend auf der Strömungsrichtung vorwärts oder rückwärts anzuordnen.
+	private ArrayList<BattleCard> reverseCardOrder(ArrayList<BattleCard> list) {
+		Collections.reverse(list);
+		return list;
 	}
 
 	public BattleCard giveQuarter()
