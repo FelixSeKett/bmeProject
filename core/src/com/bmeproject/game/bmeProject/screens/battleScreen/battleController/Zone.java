@@ -1,47 +1,63 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-public enum Zone {
+public enum Zone
+{
+	// ===================================
+	// ENTRIES
+	// ===================================
 
-    RED{
-        @Override
-        public int getColorIndex()
-        {
-            return 0;
-        }
-    },
-    GREEN
-            {
-                @Override
-                public int getColorIndex() {
-                    return 2;
-                }
-            },
-    BLUE
-            {
-                @Override
-                public int getColorIndex() {
-                    return 4;
-                }
-            };
+	RED {
+		@Override public int getColorIndex()
+		{
+			return 0;
+		}
+	},
+	GREEN {
+		@Override public int getColorIndex()
+		{
+			return 2;
+		}
+	},
+	BLUE {
+		@Override public int getColorIndex()
+		{
+			return 4;
+		}
+	};
 
-    private boolean activated;
+	// ===================================
+	// ATTRIBUTES
+	// ===================================
 
-    Zone()
-    {
-        activated = false;
-    }
+	private boolean activated;
 
-    public boolean isActivated(){
-        return activated;
-    }
+	// ===================================
+	// CONSTRUCTORS
+	// ===================================
 
-    public void activate(){
-        activated = true;
-    }
+	Zone()
+	{
+		activated = false;
+	}
 
-    public void reset() {
-        activated = false;
-    }
+	// ===================================
+	// ATTRIBUTES
+	// ===================================
 
-    public abstract int getColorIndex();
+	public abstract int getColorIndex();
+
+	public boolean isActivated()
+	{
+		return activated;
+	}
+
+	public void activate()
+	{
+		activated = true;
+	}
+
+	public void deactivate()
+	{
+		activated = false;
+	}
 }

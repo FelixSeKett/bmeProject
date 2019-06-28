@@ -8,6 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Zone;
+
+import java.util.ArrayList;
 
 public abstract class BattleCard extends Actor
 {
@@ -17,28 +20,33 @@ public abstract class BattleCard extends Actor
 
 	public static final int    WIDTH  = 30;
 	public static final int    HEIGHT = 44;
+	private final       Player PLAYER;
 	private final       Card   CARD;
-	private final       Player OWNER;
+	private final       int    DEFAULT_HIT_POINTS;
 	private final       Sprite SPRITE;
 	private             Player commander;
+	private             int    currentHitPoints;
 
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	public BattleCard(Player owner, Card card)
+	public BattleCard(Player player, Card card, int defaultHitPoints)
 	{
+		PLAYER = player;
 		CARD = card;
-		OWNER = owner;
-		commander = owner;
+		DEFAULT_HIT_POINTS = defaultHitPoints;
+		commander = PLAYER;
+		currentHitPoints = DEFAULT_HIT_POINTS;
 		SPRITE = new Sprite(new Texture(CARD.ILLUSTRATION_FILE_PATH));
 		setBounds(0, 0, 30, 44);
 		setOrigin(getWidth() / 2, getHeight() / 2);
 
-		addListener(new InputListener(){
+		addListener(new InputListener()
+		{
 
-			@Override
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
 				System.out.println("You clicked it");
 				return true;
 			}
@@ -111,5 +119,30 @@ public abstract class BattleCard extends Actor
 	public void takeRotation()
 	{
 		setRotation(commander.giveRotation());
+	}
+
+	public void resetHitPoints()
+	{
+		currentHitPoints = DEFAULT_HIT_POINTS;
+	}
+
+	public void takeDamage()
+	{
+		currentHitPoints -= 1;
+		if (currentHitPoints <= 0) {
+			// TODO: Gabriels Methode getDestroyed() aufrufen!
+		}
+	}
+
+	// TODO: Hier prüfen: Ist das gegenwärtige Feld ein Feld des Battlefields? Die Ausgabe des gegenwärtigen Felds
+	//  schreibt Gabriel
+	public boolean isOnBattlefield()
+	{
+		return true;
+	}
+
+	public ArrayList<Zone> giveActivatingZones()
+	{
+		return CARD.TYPE.giveActivatingZones();
 	}
 }
