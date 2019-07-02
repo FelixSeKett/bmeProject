@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
@@ -8,6 +7,7 @@ import com.bmeproject.game.bmeProject.gameObjects.Type;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Creature;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class Player implements iFieldable
 	private final Field                 GRAVEYARD;
 	private final Field                 HAND;
 	private final ArrayList<BattleCard> CARDS;
+	private final ArrayList<Field> FIELDS;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -39,6 +40,12 @@ public class Player implements iFieldable
 		HAND = new Field(this, stage, PARTY.giveHandVector(), 35);
 
 		CARDS = new ArrayList<BattleCard>();
+
+		FIELDS = new ArrayList<Field>();
+
+		FIELDS.add(SUPPLY);
+		FIELDS.add(HAND);
+		FIELDS.add(GRAVEYARD);
 
 		for (Card card : BMEProject.allCards.values()) {
 			Type type = card.TYPE;
@@ -83,6 +90,23 @@ public class Player implements iFieldable
 		BATTLE_CONTROLLER.changeActivePlayer();
 	}
 
+
+	public Player getOppositePlayer() {
+		return BATTLE_CONTROLLER.giveOppositePlayerOf(this);
+	}
+
+	public Field giveGraveyard() {
+		return GRAVEYARD;
+	}
+
+	public Field giveFieldOf(Creature creature) {
+		return SUPPLY;
+	}
+
+	public void setCommander() {
+
+	}
+
 	public void setLastClickedBattleCard(BattleCard battleCard){
 		BATTLE_CONTROLLER.setLastClickedBattleCard(battleCard);
 	}
@@ -102,4 +126,15 @@ public class Player implements iFieldable
 
 	}
 
+	@Override public BattleController giveBattleController()
+	{
+		return BATTLE_CONTROLLER;
+	}
+
+
+	public ArrayList<Field> getFIELDS() {
+		return FIELDS;
+	}
 }
+
+

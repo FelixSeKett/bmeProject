@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Zone;
 
@@ -49,6 +50,7 @@ public abstract class BattleCard extends Actor
 				PLAYER.setLastClickedBattleCard(BattleCard.this);
 				return true;
 			}
+
 		});
 	}
 
@@ -143,4 +145,8 @@ public abstract class BattleCard extends Actor
 	{
 		return CARD.TYPE.giveActivatingZones();
 	}
+
+	public abstract void getDestroyed();
+
+
 }
