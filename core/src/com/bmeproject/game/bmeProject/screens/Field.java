@@ -96,11 +96,14 @@ public class Field extends Actor
 
 	public void addCard(BattleCard cardToAdd)
 	{
+		Field currentField = ;
+
 		CARDS.add(cardToAdd);
+
 		update();
 	}
 
-	private void removeCard(BattleCard cardToRemove)
+	public void removeCard(BattleCard cardToRemove)
 	{
 		CARDS.remove(cardToRemove);
 		update();

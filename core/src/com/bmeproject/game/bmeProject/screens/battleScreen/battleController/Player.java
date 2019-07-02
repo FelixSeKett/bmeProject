@@ -7,6 +7,7 @@ import com.bmeproject.game.bmeProject.gameObjects.Type;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Creature;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 import java.util.ArrayList;
@@ -77,5 +78,21 @@ public class Player
 	public void endTurn()
 	{
 		BATTLE_CONTROLLER.changeActivePlayer();
+	}
+
+	public void getOppositePlayer() {
+		BATTLE_CONTROLLER.getOppositePlayer(this);
+	}
+
+	public Field giveGraveyard() {
+		return GRAVEYARD;
+	}
+
+	public Field giveFieldOf(Creature creature) {
+		return SUPPLY;
+	}
+
+	public void setCommander() {
+
 	}
 }

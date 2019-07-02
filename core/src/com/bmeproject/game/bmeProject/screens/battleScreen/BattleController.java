@@ -174,4 +174,10 @@ public class BattleController extends Controller
 		});
 		*/
 	}
+
+	public Player getOppositePlayer(Player player) {
+		if(player == player1){
+			return player2;
+		} else return player1;
+	}
 }
