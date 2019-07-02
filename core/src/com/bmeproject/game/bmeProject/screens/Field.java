@@ -124,7 +124,12 @@ public class Field extends Actor
 
 	public void addCard(BattleCard cardToAdd)
 	{
-		Field currentField = ;
+
+		Field currentField = FIELDABLE.giveBattleController().giveCurrentFieldOf(cardToAdd);
+
+		if(currentField!=null) {
+			currentField.removeCard(cardToAdd);
+		}
 
 		CARDS.add(cardToAdd);
 

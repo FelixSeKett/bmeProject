@@ -15,14 +15,14 @@ public class Battlefield
 	// ATTRIBUTES
 	// ===================================
 
-	private final BattleController BATTLE_CONTROLLER;
+	public final BattleController BATTLE_CONTROLLER;
 	private final Sector           SECTOR_1;
 	private final Sector           SECTOR_2;
 	private final Sector           SECTOR_3;
 	private final Sector           SECTOR_4;
 	private final Sector           SECTOR_5;
 	private final Sector           SECTOR_6;
-	ArrayList<Sector> sectors = new ArrayList<Sector>();
+	private final ArrayList<Sector> sectors = new ArrayList<Sector>();
 
 	// ===================================
 	// CONSTRUCTORS

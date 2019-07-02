@@ -25,13 +25,16 @@ public class Quarter extends BattleCard
 	{
 		Gdx.app.log(toString(), "Ich bin ein Quatier und dürfte garnicht reden können!");
 	}
+
+
+@Override public void getDestroyed() {
+	commander = commander.getOppositePlayer();
+
 }
 
-@Override public Player getDestroyed() {
-	PLAYER.setCommander();
-	return PLAYER.commander = PLAYER.commander.getOppositePlayer();
-
 }
+
+
 
 
 

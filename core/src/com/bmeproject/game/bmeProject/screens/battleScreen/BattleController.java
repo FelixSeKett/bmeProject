@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.bmeproject.game.bmeProject.screens.Controller;
+import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
@@ -194,9 +195,43 @@ public class BattleController extends Controller
 		*/
 	}
 
-	public Player getOppositePlayer(Player player) {
+	public Player giveOppositePlayerOf(Player player) {
 		if(player == player1){
 			return player2;
 		} else return player1;
+	}
+
+	public Field giveCurrentFieldOf(BattleCard cardToAdd) {
+
+		if(battlefield != null) {
+			for (Sector sector : battlefield.getSectors()) {
+				for (Field field : sector.getFields()) {
+					if (field.giveCards().contains(cardToAdd)) {
+						return field;
+					}
+
+				}
+			}
+		}
+
+		if(player1 != null) {
+			for (Field field : player1.getFIELDS()) {
+				if (field.giveCards().contains(cardToAdd)) {
+					return field;
+				}
+			}
+		}
+
+		if(player2 != null) {
+			for (Field field : player2.getFIELDS()) {
+				if (field.giveCards().contains(cardToAdd)) {
+					return field;
+				}
+			}
+		}
+
+
+		return null;
+
 	}
 }

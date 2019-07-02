@@ -3,6 +3,7 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Quarter;
 
@@ -90,5 +91,13 @@ public class Sector implements iFieldable
 	public BattleCard giveQuarter()
 	{
 		return FIELDS.get(0).giveCards().get(0);
+	}
+
+	public BattleController giveBattleController() {
+		return BATTLEFIELD.BATTLE_CONTROLLER;
+	}
+
+	public ArrayList<Field> getFields() {
+		return  FIELDS;
 	}
 }

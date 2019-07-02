@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
@@ -25,6 +24,7 @@ public class Player implements iFieldable
 	private final Field                 GRAVEYARD;
 	private final Field                 HAND;
 	private final ArrayList<BattleCard> CARDS;
+	private final ArrayList<Field> FIELDS;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -40,6 +40,12 @@ public class Player implements iFieldable
 		HAND = new Field(this, stage, PARTY.giveHandVector(), 35);
 
 		CARDS = new ArrayList<BattleCard>();
+
+		FIELDS = new ArrayList<Field>();
+
+		FIELDS.add(SUPPLY);
+		FIELDS.add(HAND);
+		FIELDS.add(GRAVEYARD);
 
 		for (Card card : BMEProject.allCards.values()) {
 			Type type = card.TYPE;
@@ -84,9 +90,9 @@ public class Player implements iFieldable
 		BATTLE_CONTROLLER.changeActivePlayer();
 	}
 
-<<<<<<< HEAD
-	public void getOppositePlayer() {
-		BATTLE_CONTROLLER.getOppositePlayer(this);
+
+	public Player getOppositePlayer() {
+		return BATTLE_CONTROLLER.giveOppositePlayerOf(this);
 	}
 
 	public Field giveGraveyard() {
@@ -100,7 +106,7 @@ public class Player implements iFieldable
 	public void setCommander() {
 
 	}
-=======
+
 	public void setLastClickedBattleCard(BattleCard battleCard){
 		BATTLE_CONTROLLER.setLastClickedBattleCard(battleCard);
 	}
@@ -120,5 +126,15 @@ public class Player implements iFieldable
 
 	}
 
->>>>>>> playerReset
+	@Override public BattleController giveBattleController()
+	{
+		return BATTLE_CONTROLLER;
+	}
+
+
+	public ArrayList<Field> getFIELDS() {
+		return FIELDS;
+	}
 }
+
+
