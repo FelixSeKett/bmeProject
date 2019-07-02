@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
@@ -12,7 +13,7 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.play
 
 import java.util.ArrayList;
 
-public class Player
+public class Player implements iFieldable
 {
 	// ===================================
 	// ATTRIBUTES
@@ -34,9 +35,10 @@ public class Player
 		BATTLE_CONTROLLER = battleController;
 		PARTY = party;
 		Stage stage = BATTLE_CONTROLLER.giveStage();
-		SUPPLY = new Field(stage, PARTY.giveSupplyVector());
-		GRAVEYARD = new Field(stage, PARTY.giveGraveyardVector());
-		HAND = new Field(stage, PARTY.giveHandVector());
+		SUPPLY = new Field(this, stage, PARTY.giveSupplyVector(), false);
+		GRAVEYARD = new Field(this, stage, PARTY.giveGraveyardVector(), false);
+		HAND = new Field(this, stage, PARTY.giveHandVector(), 35);
+
 		CARDS = new ArrayList<BattleCard>();
 
 		for (Card card : BMEProject.allCards.values()) {
@@ -50,6 +52,8 @@ public class Player
 		for (BattleCard battleCard : CARDS) {
 			SUPPLY.addCard(battleCard);
 		}
+
+
 	}
 
 	// ===================================
@@ -80,6 +84,7 @@ public class Player
 		BATTLE_CONTROLLER.changeActivePlayer();
 	}
 
+<<<<<<< HEAD
 	public void getOppositePlayer() {
 		BATTLE_CONTROLLER.getOppositePlayer(this);
 	}
@@ -95,4 +100,25 @@ public class Player
 	public void setCommander() {
 
 	}
+=======
+	public void setLastClickedBattleCard(BattleCard battleCard){
+		BATTLE_CONTROLLER.setLastClickedBattleCard(battleCard);
+	}
+
+	@Override
+	public BattleCard giveLastClickedBattleCard(){
+		return BATTLE_CONTROLLER.giveLastClickedBattleCard();
+
+	}
+
+	@Override
+	public boolean hasSelectedACard(boolean selected){
+		return selected;
+	}
+
+	public void drawCardToField(){
+
+	}
+
+>>>>>>> playerReset
 }

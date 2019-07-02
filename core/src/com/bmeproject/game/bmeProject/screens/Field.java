@@ -2,7 +2,11 @@ package com.bmeproject.game.bmeProject.screens;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Sector;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.iFieldable;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 
 import java.util.ArrayList;
@@ -24,6 +28,7 @@ public class Field extends Actor
 	// ATTRIBUTES
 	// ===================================
 
+	private final iFieldable FIELDABLE;
 	private final float                 PILE_X;
 	private final float                 PILE_Y;
 	private final float                 PILE_OFFSET_X;
@@ -32,6 +37,7 @@ public class Field extends Actor
 	private final float                 CARD_OFFSET_Y;
 	private final ArrayList<BattleCard> CARDS;
 	private final int                   PILE_LIMIT;
+	private BattleCard lastClickedBattleCard;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -52,9 +58,10 @@ public class Field extends Actor
 	 * @param pileLimit   Limit für Karten in einem Pile und damit Indikatorwert für Gruppierung nachfolgender
 	 *                    Karten in einem weiteren Pile.
 	 */
-	private Field(float x, float y, float width, float height, float pileX, float pileY, float pileOffsetX,
-			float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<BattleCard> cards, int pileLimit)
+	private Field(iFieldable iFieldable, float x, float y, float width, float height, float pileX, float pileY, float pileOffsetX,
+				  float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<BattleCard> cards, int pileLimit)
 	{
+		FIELDABLE = iFieldable;
 		setBounds(x, y, width, height);
 		PILE_X = pileX;
 		PILE_Y = pileY;
@@ -66,9 +73,30 @@ public class Field extends Actor
 		PILE_LIMIT = pileLimit;
 	}
 
-	public Field(Stage stage, Vector2 position)
+	public Field(final iFieldable fieldable, Stage stage, final Vector2 position, boolean clickable)
 	{
-		this(position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 2, 2,
+		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 2, 2,
+				new ArrayList<BattleCard>(),
+				1);
+		stage.addActor(this);
+
+		if (clickable){
+			addListener(new InputListener(){
+				@Override
+				public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+					System.out.println("last clicked Card: " + FIELDABLE.giveLastClickedBattleCard().giveName());
+					//Field.this.addCard(FIELDABLE.giveLastClickedBattleCard());
+					return true;
+				}
+
+			});
+		}
+	}
+
+	//HAND layout
+	public Field(iFieldable fieldable, Stage stage, Vector2 position, float cardOffSetX)
+	{
+		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, cardOffSetX, 0,
 				new ArrayList<BattleCard>(),
 				1);
 		stage.addActor(this);
@@ -126,6 +154,12 @@ public class Field extends Actor
 	//  wiederspiegeln.
 	public ArrayList<BattleCard> giveCards()
 	{
-		return new ArrayList<>(CARDS);
+		return new ArrayList<BattleCard>(CARDS);
 	}
+
+	public void setLastClickedBattleCard (BattleCard battleCard){
+		lastClickedBattleCard = battleCard;
+	}
+
+
 }

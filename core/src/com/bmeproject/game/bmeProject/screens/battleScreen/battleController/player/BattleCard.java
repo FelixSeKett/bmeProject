@@ -45,8 +45,14 @@ public abstract class BattleCard extends Actor {
 		addListener(new InputListener() {
 
 			@Override
+<<<<<<< HEAD
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				System.out.println("You clicked it");
+=======
+			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				//ToDo Player CARDS save index of clicked card in Buffer and add card to clicked field
+				PLAYER.setLastClickedBattleCard(BattleCard.this);
+>>>>>>> playerReset
 				return true;
 			}
 

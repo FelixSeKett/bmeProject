@@ -25,7 +25,7 @@ public enum Type
 
 		@Override public ArrayList<Zone> giveActivatingZones()
 		{
-			ArrayList<Zone> activatingZones = new ArrayList<>();
+			ArrayList<Zone> activatingZones = new ArrayList<Zone>();
 			activatingZones.add(Zone.GREEN);
 			return activatingZones;
 		}
@@ -38,7 +38,7 @@ public enum Type
 
 		@Override public ArrayList<Zone> giveActivatingZones()
 		{
-			ArrayList<Zone> activatingZones = new ArrayList<>();
+			ArrayList<Zone> activatingZones = new ArrayList<Zone>();
 			activatingZones.add(Zone.RED);
 			activatingZones.add(Zone.BLUE);
 			return activatingZones;
@@ -52,7 +52,7 @@ public enum Type
 
 		@Override public ArrayList<Zone> giveActivatingZones()
 		{
-			ArrayList<Zone> activatingZones = new ArrayList<>();
+			ArrayList<Zone> activatingZones = new ArrayList<Zone>();
 			activatingZones.add(Zone.RED);
 			activatingZones.add(Zone.GREEN);
 			activatingZones.add(Zone.BLUE);

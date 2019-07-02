@@ -6,12 +6,14 @@ import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Quarter;
 
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Achtung: von den insgesamt 4 Fields, die diese Klasse beinhaltet, ist das erste immer das QuarterField.
  */
-public class Sector
+public class Sector implements iFieldable
 {
 	// ===================================
 	// ATTRIBUTES
@@ -31,11 +33,30 @@ public class Sector
 	{
 		BATTLEFIELD = battlefield;
 		Stage stage = battlefield.giveStage();
-		FIELDS = new ArrayList<>();
-		FIELDS.add(new Field(stage, quarterFieldVector));
-		FIELDS.add(new Field(stage, field1Vector));
-		FIELDS.add(new Field(stage, field2Vector));
-		FIELDS.add(new Field(stage, field3Vector));
+		FIELDS = new ArrayList<Field>();
+		FIELDS.add(new Field(this, stage, quarterFieldVector, false));
+		FIELDS.add(new Field(this, stage, field1Vector, false));
+		FIELDS.add(new Field(this, stage, field2Vector, true));
+		FIELDS.add(new Field(this, stage, field3Vector, false));
+	}
+
+	public void setLastClickedBattleCard(BattleCard battleCard){
+		BATTLEFIELD.giveLastClickedBattleCard();
+	}
+
+	@Override
+	public boolean hasSelectedACard(boolean selected) {
+		return false;
+	}
+
+	@Override
+	public BattleCard giveLastClickedBattleCard(){
+		return BATTLEFIELD.giveLastClickedBattleCard();
+	}
+
+	@Override
+	public void drawCardToField(){
+
 	}
 
 	//method for debug
@@ -45,13 +66,25 @@ public class Sector
 	}
 
 	// TODO: Liste ist noch nicht nach Strömungsregeln
-	public ArrayList<BattleCard> giveSortedOuterBattleCards()
+	public ArrayList<BattleCard> giveSortedOuterBattleCards(Compass compass)
 	{
-		ArrayList<BattleCard> battleCards = new ArrayList<>();
+		ArrayList<BattleCard> battleCards = new ArrayList<BattleCard>();
 		for (Field field : FIELDS) {
-			battleCards.addAll(field.giveCards());
+			// Implementierte Strömungsregel:
+
+			if(compass.getCurrentStream() == Stream.COUNTERCLOCKWISE) {
+				battleCards.addAll(field.giveCards());
+			} else {
+				battleCards.addAll(reverseCardOrder(field.giveCards()));
+			}
 		}
 		return battleCards;
+	}
+
+	// Methode, um die Karten in einer Liste basierend auf der Strömungsrichtung vorwärts oder rückwärts anzuordnen.
+	private ArrayList<BattleCard> reverseCardOrder(ArrayList<BattleCard> list) {
+		Collections.reverse(list);
+		return list;
 	}
 
 	public BattleCard giveQuarter()
