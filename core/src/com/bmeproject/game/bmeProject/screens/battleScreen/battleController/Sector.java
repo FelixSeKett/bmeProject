@@ -4,8 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Quarter;
-
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,9 +17,7 @@ public class Sector implements iFieldable
 	// ATTRIBUTES
 	// ===================================
 
-	private final Battlefield BATTLEFIELD;
-
-	// Für Merge-Prozess: die Fields sollen in der ArrayList organisiert sein - nicht separat!
+	private final Battlefield      BATTLEFIELD;
 	private final ArrayList<Field> FIELDS;
 
 	// ===================================
@@ -40,29 +36,19 @@ public class Sector implements iFieldable
 		FIELDS.add(new Field(this, stage, field3Vector, false));
 	}
 
-	public void setLastClickedBattleCard(BattleCard battleCard){
-		BATTLEFIELD.giveLastClickedBattleCard();
-	}
-
-	@Override
-	public boolean hasSelectedACard(boolean selected) {
+	@Override public boolean hasSelectedACard(boolean selected)
+	{
 		return false;
 	}
 
-	@Override
-	public BattleCard giveLastClickedBattleCard(){
+	@Override public BattleCard giveLastClickedBattleCard()
+	{
 		return BATTLEFIELD.giveLastClickedBattleCard();
 	}
 
-	@Override
-	public void drawCardToField(){
-
-	}
-
-	//method for debug
-	public Field giveQuarterField()
+	@Override public void drawCardToField()
 	{
-		return FIELDS.get(0);
+
 	}
 
 	// TODO: Liste ist noch nicht nach Strömungsregeln
@@ -72,7 +58,7 @@ public class Sector implements iFieldable
 		for (Field field : FIELDS) {
 			// Implementierte Strömungsregel:
 
-			if(compass.getCurrentStream() == Stream.COUNTERCLOCKWISE) {
+			if (compass.getCurrentStream() == Stream.COUNTERCLOCKWISE) {
 				battleCards.addAll(field.giveCards());
 			} else {
 				battleCards.addAll(reverseCardOrder(field.giveCards()));
@@ -82,7 +68,8 @@ public class Sector implements iFieldable
 	}
 
 	// Methode, um die Karten in einer Liste basierend auf der Strömungsrichtung vorwärts oder rückwärts anzuordnen.
-	private ArrayList<BattleCard> reverseCardOrder(ArrayList<BattleCard> list) {
+	private ArrayList<BattleCard> reverseCardOrder(ArrayList<BattleCard> list)
+	{
 		Collections.reverse(list);
 		return list;
 	}

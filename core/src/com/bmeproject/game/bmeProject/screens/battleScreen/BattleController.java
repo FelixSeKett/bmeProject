@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
@@ -23,11 +24,18 @@ public class BattleController extends Controller
 	private Player      player2;
 	private Battlefield battlefield;
 	private Compass     compass;
-	private BattleCard lastClickedBattleCard;
-	private Random random;
+	private BattleCard  lastClickedBattleCard;
+	private Random      random;
 
 	private Player  activePlayer;
 	private boolean started;
+
+	private ImageButton zoneButton;
+	private ImageButton streamButton;
+	private ImageButton greenButton;
+	private ImageButton redButton;
+	private ImageButton blueButton;
+	private ImageButton finishButton;
 
 	// TODO: Das hier muss weg - refactor mit Philadelphia
 	private ArrayList<Sector> sectors;
@@ -152,7 +160,8 @@ public class BattleController extends Controller
 
 	}
 
-	/** Starting Sector is implemented here.
+	/**
+	 * Starting Sector is implemented here.
 	 * "Starting" means, that this is the first entry of the underlying ArrayList.
 	 **/
 	public Sector getFirstSector()
@@ -165,16 +174,17 @@ public class BattleController extends Controller
 		return sectors.get(randomStartingPoint);
 	}
 
-	public void setLastClickedBattleCard(BattleCard battleCard){
+	public void setLastClickedBattleCard(BattleCard battleCard)
+	{
 		lastClickedBattleCard = battleCard;
 	}
 
-	public BattleCard giveLastClickedBattleCard(){
+	public BattleCard giveLastClickedBattleCard()
+	{
 		return lastClickedBattleCard;
 	}
 
-	@Override
-	public void update(float delta)
+	@Override public void update(float delta)
 	{
 		super.update(delta);
 
