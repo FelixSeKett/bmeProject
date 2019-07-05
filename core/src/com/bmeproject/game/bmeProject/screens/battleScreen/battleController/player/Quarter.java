@@ -27,11 +27,10 @@ public class Quarter extends BattleCard
 	}
 
 
-@Override public void getDestroyed() {
-	commander = commander.getOppositePlayer();
-
-}
-
+	@Override public void getDestroyed()
+	{
+		commander = commander.getOppositePlayer();
+	}
 }
 
 

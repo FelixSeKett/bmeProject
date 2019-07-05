@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Zone;
 
@@ -21,11 +20,11 @@ public abstract class BattleCard extends Actor
 
 	public static final int    WIDTH  = 30;
 	public static final int    HEIGHT = 44;
-	private final       Player PLAYER;
+	protected final     Player PLAYER;
 	private final       Card   CARD;
 	private final       int    DEFAULT_HIT_POINTS;
 	private final       Sprite SPRITE;
-	private             Player commander;
+	protected           Player commander;
 	private             int    currentHitPoints;
 
 	// ===================================

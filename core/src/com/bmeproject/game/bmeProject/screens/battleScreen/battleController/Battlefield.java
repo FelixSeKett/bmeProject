@@ -15,7 +15,7 @@ public class Battlefield
 	// ATTRIBUTES
 	// ===================================
 
-	private final BattleController  BATTLE_CONTROLLER;
+	public final  BattleController  BATTLE_CONTROLLER;
 	private final ArrayList<Sector> SECTORS = new ArrayList<Sector>();
 
 	// ===================================
