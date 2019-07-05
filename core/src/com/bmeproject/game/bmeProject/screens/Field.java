@@ -4,8 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.iFieldable;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 
@@ -28,16 +26,15 @@ public class Field extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	private final iFieldable FIELDABLE;
+	private final iFieldable            FIELDABLE;
 	private final float                 PILE_X;
 	private final float                 PILE_Y;
 	private final float                 PILE_OFFSET_X;
 	private final float                 PILE_OFFSET_Y;
 	private final float                 CARD_OFFSET_X;
 	private final float                 CARD_OFFSET_Y;
-	private final ArrayList<BattleCard> CARDS;
+	private final ArrayList<BattleCard> CARDS; // Muss aus Kapselungsgründen private bleiben!
 	private final int                   PILE_LIMIT;
-	private BattleCard lastClickedBattleCard;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -58,8 +55,9 @@ public class Field extends Actor
 	 * @param pileLimit   Limit für Karten in einem Pile und damit Indikatorwert für Gruppierung nachfolgender
 	 *                    Karten in einem weiteren Pile.
 	 */
-	private Field(iFieldable iFieldable, float x, float y, float width, float height, float pileX, float pileY, float pileOffsetX,
-				  float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<BattleCard> cards, int pileLimit)
+	private Field(iFieldable iFieldable, float x, float y, float width, float height, float pileX, float pileY,
+			float pileOffsetX, float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<BattleCard> cards,
+			int pileLimit)
 	{
 		FIELDABLE = iFieldable;
 		setBounds(x, y, width, height);
@@ -73,18 +71,19 @@ public class Field extends Actor
 		PILE_LIMIT = pileLimit;
 	}
 
-	public Field(final iFieldable fieldable, Stage stage, final Vector2 position, boolean clickable)
+	public Field(final iFieldable fieldable, final Vector2 position, boolean clickable)
 	{
 		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 2, 2,
-				new ArrayList<BattleCard>(),
-				1);
-		stage.addActor(this);
+				new ArrayList<BattleCard>(), 1);
+		fieldable.giveBattleController().giveStage().addActor(this);
 
-		if (clickable){
-			addListener(new InputListener(){
-				@Override
-				public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-					System.out.println("last clicked Card: " + FIELDABLE.giveLastClickedBattleCard().giveName());
+		if (clickable) {
+			addListener(new InputListener()
+			{
+				@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+				{
+					System.out.println("last clicked Card: " +
+							FIELDABLE.giveBattleController().giveLastClickedBattleCard().giveName());
 					//Field.this.addCard(FIELDABLE.giveLastClickedBattleCard());
 					return true;
 				}
@@ -94,12 +93,11 @@ public class Field extends Actor
 	}
 
 	//HAND layout
-	public Field(iFieldable fieldable, Stage stage, Vector2 position, float cardOffSetX)
+	public Field(iFieldable fieldable, Vector2 position, float cardOffSetX)
 	{
 		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, cardOffSetX, 0,
-				new ArrayList<BattleCard>(),
-				1);
-		stage.addActor(this);
+				new ArrayList<BattleCard>(), 1);
+		fieldable.giveBattleController().giveStage().addActor(this);
 	}
 
 	// ===================================
@@ -125,9 +123,9 @@ public class Field extends Actor
 	public void addCard(BattleCard cardToAdd)
 	{
 
-		Field currentField = FIELDABLE.giveBattleController().giveCurrentFieldOf(cardToAdd);
+		Field currentField = FIELDABLE.giveBattleController().giveCurrentFieldOfBattleCard(cardToAdd);
 
-		if(currentField!=null) {
+		if (currentField != null) {
 			currentField.removeCard(cardToAdd);
 		}
 
@@ -136,7 +134,7 @@ public class Field extends Actor
 		update();
 	}
 
-	public void removeCard(BattleCard cardToRemove)
+	private void removeCard(BattleCard cardToRemove)
 	{
 		CARDS.remove(cardToRemove);
 		update();
@@ -154,17 +152,12 @@ public class Field extends Actor
 		return pullCard(CARDS.size() - 1);
 	}
 
-	// TODO: Methode umbenennen: Die Originale ArrayList darf nicht nach außen gelangen, sonst kann sie manipuliert
-	//  werden. Daher darf nur eine Kopie dieser Liste nach außen gegeben werden. Das sollte sich auch im Namen
-	//  wiederspiegeln.
+	/*
+	Gibt aus Kapselungsgründen nicht die originale ArrayList, sondern eine Kopie von ihr zurück. Bedenke: Wenn die
+	originale ArrayList nach außen gelangt, kann sie von außen manipuliert werden. Das darf nicht passieren!
+ */
 	public ArrayList<BattleCard> giveCards()
 	{
 		return new ArrayList<BattleCard>(CARDS);
 	}
-
-	public void setLastClickedBattleCard (BattleCard battleCard){
-		lastClickedBattleCard = battleCard;
-	}
-
-
 }

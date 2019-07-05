@@ -1,30 +1,41 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-public enum Stream {
+public enum Stream
+{
+	// ===================================
+	// ENTRIES
+	// ===================================
 
-    CLOCKWISE{
-        @Override public int giveFieldModifier()
-        {
-            return -1;
-        }
-        @Override public Stream giveOppositeStream()
-        {
-            return Stream.COUNTERCLOCKWISE;
-        }
-    },
+	CLOCKWISE {
+		@Override public int giveDirection()
+		{
+			return -1;
+		}
 
-    COUNTERCLOCKWISE{
-        @Override public int giveFieldModifier()
-        {
-            return 1;
-        }
-        @Override public Stream giveOppositeStream()
-        {
-            return Stream.CLOCKWISE;
-        }
-    };
+		@Override public Stream giveOppositeStream()
+		{
+			return Stream.COUNTERCLOCKWISE;
+		}
+	},
 
-    public abstract int giveFieldModifier();
-    public abstract Stream giveOppositeStream();
+	COUNTERCLOCKWISE {
+		@Override public int giveDirection()
+		{
+			return 1;
+		}
+
+		@Override public Stream giveOppositeStream()
+		{
+			return Stream.CLOCKWISE;
+		}
+	};
+
+	// ===================================
+	// METHODS
+	// ===================================
+
+	public abstract int giveDirection();
+
+	public abstract Stream giveOppositeStream();
 
 }

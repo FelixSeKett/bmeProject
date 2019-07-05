@@ -17,14 +17,23 @@ public class Controller
 	protected Stage stage;
 
 	// ===================================
+	// CONSTRUCTORS
+	// ===================================
+
+	public Controller(SpriteBatch spriteBatch)
+	{
+		stage = new Stage(new ScreenViewport(), spriteBatch);
+		stage.setDebugAll(BMEProject.DEBUG);
+		Gdx.input.setInputProcessor(stage);
+	}
+
+	// ===================================
 	// METHODS
 	// ===================================
 
 	protected void init(SpriteBatch spriteBatch)
 	{
-		stage = new Stage(new ScreenViewport(), spriteBatch);
-		stage.setDebugAll(BMEProject.DEBUG);
-		Gdx.input.setInputProcessor(stage);
+
 	}
 
 	public void update(float delta)

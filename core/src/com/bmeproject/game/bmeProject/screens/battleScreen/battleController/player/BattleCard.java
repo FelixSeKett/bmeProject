@@ -18,14 +18,16 @@ public abstract class BattleCard extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	public static final int    WIDTH  = 30;
-	public static final int    HEIGHT = 44;
-	protected final     Player PLAYER;
-	private final       Card   CARD;
-	private final       int    DEFAULT_HIT_POINTS;
-	private final       Sprite SPRITE;
-	protected           Player commander;
-	private             int    currentHitPoints;
+	public static final int WIDTH  = 30;
+	public static final int HEIGHT = 44;
+
+	protected final Player PLAYER;
+	private final   Card   CARD;
+	private final   int    DEFAULT_HIT_POINTS;
+	private final   Sprite SPRITE;
+
+	protected Player commander;
+	protected int    currentHitPoints;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -46,10 +48,9 @@ public abstract class BattleCard extends Actor
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				PLAYER.setLastClickedBattleCard(BattleCard.this);
+				PLAYER.BATTLE_CONTROLLER.takeLastClickedBattleCard(BattleCard.this);
 				return true;
 			}
-
 		});
 	}
 
@@ -105,11 +106,6 @@ public abstract class BattleCard extends Actor
 
 	public abstract void activate();
 
-	public void setCommander(Player commander)
-	{
-		this.commander = commander;
-	}
-
 	public String giveName()
 	{
 		return CARD.NAME;
@@ -117,7 +113,7 @@ public abstract class BattleCard extends Actor
 
 	public void takeRotation()
 	{
-		setRotation(commander.giveRotation());
+		setRotation(commander.PARTY.giveRotation());
 	}
 
 	public void resetHitPoints()
@@ -129,15 +125,13 @@ public abstract class BattleCard extends Actor
 	{
 		currentHitPoints -= 1;
 		if (currentHitPoints <= 0) {
-			// TODO: Gabriels Methode getDestroyed() aufrufen!
+			getDestroyed();
 		}
 	}
 
-	// TODO: Hier prüfen: Ist das gegenwärtige Feld ein Feld des Battlefields? Die Ausgabe des gegenwärtigen Felds
-	//  schreibt Gabriel
 	public boolean isOnBattlefield()
 	{
-		return true;
+		return PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveCurrentFieldOfBattleCard(this) != null;
 	}
 
 	public ArrayList<Zone> giveActivatingZones()

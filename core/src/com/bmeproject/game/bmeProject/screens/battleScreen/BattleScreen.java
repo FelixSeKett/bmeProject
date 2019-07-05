@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
 import com.bmeproject.game.bmeProject.screens.Controller;
@@ -30,9 +31,9 @@ public class BattleScreen extends AbstractScreen
 		super.render(delta);
 	}
 
-	@Override protected Controller createController()
+	@Override protected Controller createController(SpriteBatch spriteBatch)
 	{
-		return new BattleController();
+		return new BattleController(spriteBatch);
 	}
 
 

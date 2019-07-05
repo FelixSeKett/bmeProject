@@ -15,13 +15,13 @@ public enum Zone
 	GREEN {
 		@Override public int getColorIndex()
 		{
-			return 2;
+			return 1;
 		}
 	},
 	BLUE {
 		@Override public int getColorIndex()
 		{
-			return 4;
+			return 2;
 		}
 	};
 

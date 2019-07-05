@@ -7,7 +7,6 @@ import com.bmeproject.game.bmeProject.gameObjects.Type;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Creature;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 import java.util.ArrayList;
@@ -18,13 +17,10 @@ public class Player implements iFieldable
 	// ATTRIBUTES
 	// ===================================
 
-	private final BattleController      BATTLE_CONTROLLER;
-	private final Party                 PARTY;
-	private final Field                 SUPPLY;
-	private final Field                 GRAVEYARD;
-	private final Field                 HAND;
-	private final ArrayList<BattleCard> CARDS;
-	private final ArrayList<Field> FIELDS;
+	public final  BattleController      BATTLE_CONTROLLER;
+	public final  Party                 PARTY;
+	private final ArrayList<Field>      FIELDS; // Muss aus Kapselungsgründen private bleiben!
+	private final ArrayList<BattleCard> BATTLE_CARDS; // Muss aus Kapselungsgründen private bleiben!
 
 	// ===================================
 	// CONSTRUCTORS
@@ -34,106 +30,81 @@ public class Player implements iFieldable
 	{
 		BATTLE_CONTROLLER = battleController;
 		PARTY = party;
-		Stage stage = BATTLE_CONTROLLER.giveStage();
-		SUPPLY = new Field(this, stage, PARTY.giveSupplyVector(), false);
-		GRAVEYARD = new Field(this, stage, PARTY.giveGraveyardVector(), false);
-		HAND = new Field(this, stage, PARTY.giveHandVector(), 35);
 
-		CARDS = new ArrayList<BattleCard>();
-
+		// Alle Fields instanziieren
 		FIELDS = new ArrayList<Field>();
+		FIELDS.add(new Field(this, PARTY.giveSupplyVector(), false));
+		FIELDS.add(new Field(this, PARTY.giveHandVector(), 35));
+		FIELDS.add(new Field(this, PARTY.giveGraveyardVector(), false));
 
-		FIELDS.add(SUPPLY);
-		FIELDS.add(HAND);
-		FIELDS.add(GRAVEYARD);
-
+		// Alle Cards als BattleCards instanziieren
+		BATTLE_CARDS = new ArrayList<BattleCard>();
+		Stage stage = BATTLE_CONTROLLER.giveStage();
 		for (Card card : BMEProject.allCards.values()) {
 			Type type = card.TYPE;
 			for (int i = 0; i < 2; i++) {
 				BattleCard battleCard = type.createBattleCard(this, card);
-				CARDS.add(battleCard);
+				BATTLE_CARDS.add(battleCard);
 				stage.addActor(battleCard);
 			}
 		}
-		for (BattleCard battleCard : CARDS) {
-			SUPPLY.addCard(battleCard);
+
+		// Alle Cards in den eigenen Supply verschieben
+		for (BattleCard battleCard : BATTLE_CARDS) {
+			giveSupply().addCard(battleCard);
 		}
-
-
 	}
 
 	// ===================================
 	// METHODS
 	// ===================================
 
-	public float giveRotation()
-	{
-		return PARTY.giveRotation();
-	}
-
-	public void beginTurn()
-	{
-		drawTopCard();
-		/* The decision if the Player want to change the direction of the compass. or if the Player want
-		 *  to draw a second card. */
-	}
-
-	public void drawTopCard()
-	{
-		BattleCard card = SUPPLY.pullTopCard();
-		HAND.addCard(card);
-	}
-
-
-	public void endTurn()
-	{
-		BATTLE_CONTROLLER.changeActivePlayer();
-	}
-
-
-	public Player getOppositePlayer() {
-		return BATTLE_CONTROLLER.giveOppositePlayerOf(this);
-	}
-
-	public Field giveGraveyard() {
-		return GRAVEYARD;
-	}
-
-	public Field giveFieldOf(Creature creature) {
-		return SUPPLY;
-	}
-
-	public void setCommander() {
-
-	}
-
-	public void setLastClickedBattleCard(BattleCard battleCard){
-		BATTLE_CONTROLLER.setLastClickedBattleCard(battleCard);
-	}
-
-	@Override
-	public BattleCard giveLastClickedBattleCard(){
-		return BATTLE_CONTROLLER.giveLastClickedBattleCard();
-
-	}
-
-	@Override
-	public boolean hasSelectedACard(boolean selected){
-		return selected;
-	}
-
-	public void drawCardToField(){
-
-	}
-
 	@Override public BattleController giveBattleController()
 	{
 		return BATTLE_CONTROLLER;
 	}
 
+	@Override public Field giveCurrentFieldOfBattleCard(BattleCard battleCard)
+	{
+		for (Field field : FIELDS) {
+			if (field.giveCards().contains(battleCard)) {
+				return field;
+			}
+		}
+		return null;
+	}
 
-	public ArrayList<Field> getFIELDS() {
-		return FIELDS;
+	public Field giveSupply()
+	{
+		return FIELDS.get(0);
+	}
+
+	public Field giveHand()
+	{
+		return FIELDS.get(1);
+	}
+
+	public Field giveGraveyard()
+	{
+		return FIELDS.get(2);
+	}
+
+	// TODO
+	public void beginTurn()
+	{
+		drawTopCard();
+	}
+
+	// TODO
+	public void endTurn()
+	{
+		BATTLE_CONTROLLER.changeActivePlayer();
+	}
+
+	public void drawTopCard()
+	{
+		BattleCard card = giveSupply().pullTopCard();
+		giveHand().addCard(card);
 	}
 }
 

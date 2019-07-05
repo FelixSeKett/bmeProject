@@ -1,7 +1,6 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
@@ -19,7 +18,7 @@ public class Sector implements iFieldable
 	// ===================================
 
 	private final Battlefield      BATTLEFIELD;
-	private final ArrayList<Field> FIELDS;
+	private final ArrayList<Field> FIELDS; // Muss aus Kapselungsgründen private bleiben!
 
 	// ===================================
 	// CONSTRUCTORS
@@ -29,27 +28,30 @@ public class Sector implements iFieldable
 			Vector2 quarterFieldVector)
 	{
 		BATTLEFIELD = battlefield;
-		Stage stage = battlefield.giveStage();
 		FIELDS = new ArrayList<Field>();
-		FIELDS.add(new Field(this, stage, quarterFieldVector, false));
-		FIELDS.add(new Field(this, stage, field1Vector, false));
-		FIELDS.add(new Field(this, stage, field2Vector, true));
-		FIELDS.add(new Field(this, stage, field3Vector, false));
+		FIELDS.add(new Field(this, quarterFieldVector, false));
+		FIELDS.add(new Field(this, field1Vector, false));
+		FIELDS.add(new Field(this, field2Vector, true));
+		FIELDS.add(new Field(this, field3Vector, false));
 	}
 
-	@Override public boolean hasSelectedACard(boolean selected)
+	// ===================================
+	// METHODS
+	// ===================================
+
+	@Override public BattleController giveBattleController()
 	{
-		return false;
+		return BATTLEFIELD.BATTLE_CONTROLLER;
 	}
 
-	@Override public BattleCard giveLastClickedBattleCard()
+	@Override public Field giveCurrentFieldOfBattleCard(BattleCard battleCard)
 	{
-		return BATTLEFIELD.giveLastClickedBattleCard();
-	}
-
-	@Override public void drawCardToField()
-	{
-
+		for (Field field : FIELDS) {
+			if (field.giveCards().contains(battleCard)) {
+				return field;
+			}
+		}
+		return null;
 	}
 
 	// TODO: Liste ist noch nicht nach Strömungsregeln
@@ -59,7 +61,7 @@ public class Sector implements iFieldable
 		for (Field field : FIELDS) {
 			// Implementierte Strömungsregel:
 
-			if (compass.getCurrentStream() == Stream.COUNTERCLOCKWISE) {
+			if (compass.giveCurrentStream() == Stream.COUNTERCLOCKWISE) {
 				battleCards.addAll(field.giveCards());
 			} else {
 				battleCards.addAll(reverseCardOrder(field.giveCards()));
@@ -78,13 +80,5 @@ public class Sector implements iFieldable
 	public BattleCard giveQuarter()
 	{
 		return FIELDS.get(0).giveCards().get(0);
-	}
-
-	public BattleController giveBattleController() {
-		return BATTLEFIELD.BATTLE_CONTROLLER;
-	}
-
-	public ArrayList<Field> getFields() {
-		return  FIELDS;
 	}
 }

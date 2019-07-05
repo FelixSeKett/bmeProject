@@ -1,15 +1,12 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
+import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 
-public interface iFieldable {
+public interface iFieldable
+{
+	BattleController giveBattleController();
 
-    public boolean hasSelectedACard(boolean selected);
-
-    public BattleCard giveLastClickedBattleCard();
-
-    public void drawCardToField();
-
-    BattleController giveBattleController();
+	Field giveCurrentFieldOfBattleCard(BattleCard battleCard);
 }

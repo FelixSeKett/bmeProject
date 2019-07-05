@@ -1,38 +1,66 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
+import java.util.Random;
 
 public class Compass
 {
+	// ===================================
+	// ATTRIBUTES
+	// ===================================
 
-    private Stream                 currentStream;
-    private Sector                 firstSector;
-    private final BattleController BATTLECONTROLLER;
+	private final Battlefield BATTLEFIELD;
+	private       Stream      currentStream;
+	private       Sector      startSector;
 
+	// ===================================
+	// CONSTRUCTORS
+	// ===================================
 
-    public Compass(BattleController battleController){
+	public Compass(Battlefield battlefield)
+	{
+		BATTLEFIELD = battlefield;
+		currentStream = Stream.CLOCKWISE;
+		/*
+		 Starting Sector is implemented here.
+		 "Starting" means, that this is the first entry of the underlying ArrayList.
+		 TODO: Prüfen: sind die folgenden Ints vereinbar mit den Ints der ArrayList aus dem Battlefield? (Startwert:
+		  0 oder 1?)
+		 */
+		Random random              = new Random();
+		int    randomStartingPoint = random.nextInt(6);
+		startSector = BATTLEFIELD.giveSectorOfIndex(randomStartingPoint);
+	}
 
-        currentStream = Stream.CLOCKWISE;
-        BATTLECONTROLLER = battleController;
-        firstSector = battleController.getFirstSector();
-    }
+	// ===================================
+	// METHODS
+	// ===================================
 
-    public Stream getCurrentStream(){
-        return currentStream;
-    }
+	public Stream giveCurrentStream()
+	{
+		return currentStream;
+	}
 
-    private void changeStreamRotation(){
-        currentStream = currentStream.giveOppositeStream();
-    }
+	public Sector giveStartSector()
+	{
+		return startSector;
+	}
 
-    public Sector getFirstSector()
-    {
-        return firstSector;
-    }
+	public void takeStartSector(Sector startSectorToTake)
+	{
+		startSector = startSectorToTake;
+	}
 
-    public void setFirstSector(Sector sector)
-    {
-        firstSector = sector;
-    }
+	private void changeCurrentStream()
+	{
+		currentStream = currentStream.giveOppositeStream();
+	}
 
+	private void changeStartSector()
+	{
+		int index = BATTLEFIELD.giveIndexOfSector(startSector) - 1;
+		if (index < 0) {
+			index += 6;
+		}
+		startSector = BATTLEFIELD.giveSectorOfIndex(index);
+	}
 }
