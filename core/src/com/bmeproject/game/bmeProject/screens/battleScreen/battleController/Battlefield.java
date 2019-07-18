@@ -46,6 +46,7 @@ public class Battlefield
 
 	public int giveIndexOfSector(Sector sector)
 	{
+		System.out.println("index" + SECTORS.indexOf(sector));
 		return SECTORS.indexOf(sector);
 	}
 

@@ -21,12 +21,13 @@ public class EntryField extends Field
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				BattleController battleController = FIELDABLE.giveBattleController();
-				BattleCard       selectedCard     = battleController.giveLastClickedBattleCard();
+				BattleCard  selectedCard     = battleController.giveLastClickedBattleCard();
+
 				if (selectedCard != null) {
-					if (selectedCard.giveCommander() == FIELDABLE.giveCommander()) {
+					//if (selectedCard.giveCommander() == FIELDABLE.giveCommander()) {  //to_do
 						addCard(selectedCard);
 						battleController.resetLastClickedBattleCard();
-					}
+					//}
 				}
 				return true;
 			}
