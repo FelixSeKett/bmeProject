@@ -75,6 +75,7 @@ public abstract class AbstractScreen implements Screen
 
 	@Override public void resize(int width, int height)
 	{
+		renderer.resize(width, height);
 	}
 
 	@Override public void pause()
