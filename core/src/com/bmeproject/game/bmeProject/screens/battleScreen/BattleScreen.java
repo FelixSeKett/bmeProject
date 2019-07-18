@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
 import com.bmeproject.game.bmeProject.screens.Controller;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 
 public class BattleScreen extends AbstractScreen
 {
