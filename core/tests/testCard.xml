@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <cards>
+        <card id="001">
+            <cardName>TEST</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1</cardEffect>
+            <cardDescription>TEST</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_1.png</cardIllustrationFilePath>
+        </card>
+    </cards>
+</root>
