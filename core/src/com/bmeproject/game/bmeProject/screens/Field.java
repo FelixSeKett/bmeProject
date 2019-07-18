@@ -115,7 +115,9 @@ public class Field extends Actor
 			currentField.removeCard(cardToAdd);
 		}
 
-		CARDS.add(cardToAdd);
+		if(cardToAdd != null){
+			CARDS.add(cardToAdd);
+		}
 
 		update();
 	}
@@ -126,16 +128,17 @@ public class Field extends Actor
 		update();
 	}
 
-	public BattleCard pullCard(int index)
-	{
-		BattleCard card = CARDS.get(index);
-		removeCard(card);
-		return card;
+	public BattleCard pullCard(int index) {
+		if(CARDS.size() > 0 && CARDS.size() >= index && index >= 0){
+			BattleCard card = CARDS.get(index);
+			removeCard(card);
+			return card;
+		} else return null;
 	}
 
 	public BattleCard pullTopCard()
 	{
-		return pullCard(CARDS.size() - 1);
+		return pullCard(CARDS.size()-1);
 	}
 
 	/*

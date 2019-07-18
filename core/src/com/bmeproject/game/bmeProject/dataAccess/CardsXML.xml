@@ -1,45 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<root>
 <cards>
     <card id="001">
-        <cardName>FirstCard</cardName>
-        <cardStrengh>1</cardStrengh>
-        <cardIllustrator>A</cardIllustrator>
-        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>QUARTER</cardType>
-        <cardBackground>OPEN_WATER</cardBackground>
+        <cardName>Mystisches Lichtfass</cardName>
+        <cardType>CREATURE</cardType>
+        <cardEffect>12,15,16</cardEffect>
+        <cardDescription>Beschreibung</cardDescription>
+        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_1.png</cardIllustrationFilePath>
     </card>
     <card id="002">
-        <cardName>SecondCard</cardName>
-        <cardStrengh>2</cardStrengh>
-        <cardIllustrator>A</cardIllustrator>
-        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>QUARTER</cardType>
-        <cardBackground>OPEN_WATER</cardBackground>
+        <cardName>Name</cardName>
+        <cardType>CREATURE</cardType>
+        <cardEffect>1,2,3</cardEffect>
+        <cardDescription>Beschreibung</cardDescription>
+        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_2.png</cardIllustrationFilePath>
     </card>
     <card id="003">
-        <cardName>ThirdCard</cardName>
-        <cardStrengh>3</cardStrengh>
-        <cardIllustrator>A</cardIllustrator>
-        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>QUARTER</cardType>
-        <cardBackground>OPEN_WATER</cardBackground>
+        <cardName>Name</cardName>
+        <cardType>CREATURE</cardType>
+        <cardEffect>1,2,3</cardEffect>
+        <cardDescription>Beschreibung</cardDescription>
+        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_3.png</cardIllustrationFilePath>
     </card>
     <card id="004">
-        <cardName>4Card</cardName>
-        <cardStrengh>3</cardStrengh>
-        <cardIllustrator>A</cardIllustrator>
-        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
+        <cardName>Name</cardName>
         <cardType>CREATURE</cardType>
-        <cardBackground>OPEN_WATER</cardBackground>
+        <cardEffect>1,2,3</cardEffect>
+        <cardDescription>Beschreibung</cardDescription>
+        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_4.png</cardIllustrationFilePath>
     </card>
     <card id="005">
-        <cardName>5Card</cardName>
-        <cardStrengh>3</cardStrengh>
-        <cardIllustrator>A</cardIllustrator>
-        <cardIllustrationFilePath>core/assets/visuals/card1.png</cardIllustrationFilePath>
-        <cardType>PHENOMENON</cardType>
-        <cardBackground>OPEN_WATER</cardBackground>
+        <cardName>Name</cardName>
+        <cardType>CREATURE</cardType>
+        <cardEffect>1,2,3</cardEffect>
+        <cardDescription>Beschreibung</cardDescription>
+        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_5.png</cardIllustrationFilePath>
     </card>
-
-
+    <card id="006">
+        <cardName>Name</cardName>
+        <cardType>CREATURE</cardType>
+        <cardEffect>1,2,3</cardEffect>
+        <cardDescription>Beschreibung</cardDescription>
+        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
+    </card>
 </cards>
+</root>
