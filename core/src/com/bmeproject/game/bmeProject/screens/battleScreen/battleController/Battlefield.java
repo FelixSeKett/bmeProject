@@ -14,7 +14,7 @@ public class Battlefield
 	// ===================================
 
 	public final  BattleController  BATTLE_CONTROLLER;
-	private final Compass           COMPASS;
+	public final  Compass           COMPASS;
 	private final ArrayList<Sector> SECTORS; // Muss aus Kapselungsgründen private bleiben!
 
 	// ===================================
@@ -54,12 +54,34 @@ public class Battlefield
 		return SECTORS.get(index);
 	}
 
+	public Zone giveZoneOfSector(Sector sectorToGiveZoneOf)
+	{
+		int index = giveIndexOfSector(COMPASS.giveStartSector());
+		for (int i = 0; i < SECTORS.size(); i++) {
+			int colorIndex = index + i;
+			if (SECTORS.get(colorIndex) == sectorToGiveZoneOf) {
+				return Zone.giveZoneByColorIndex(colorIndex);
+			}
+		}
+		return null;
+	}
+
 	public Field giveCurrentFieldOfBattleCard(BattleCard battleCard)
 	{
 		for (Sector sector : SECTORS) {
 			Field field = sector.giveCurrentFieldOfBattleCard(battleCard);
 			if (field != null) {
 				return field;
+			}
+		}
+		return null;
+	}
+
+	public Sector giveCurrentSectorOfBattleCard(BattleCard battleCard)
+	{
+		for (Sector sector : SECTORS) {
+			if (sector.hasBattleCard(battleCard)) {
+				return sector;
 			}
 		}
 		return null;
@@ -112,7 +134,7 @@ public class Battlefield
 	}
 
 	// TODO: Die Reihenfolge der Einträge der zurückgegebenen ArrayList soll entsprechend der Strömung sortiert sein
-	private ArrayList<Sector> giveZonedSectors(Zone zone)
+	public ArrayList<Sector> giveZonedSectors(Zone zone)
 	{
 		// Bereitet eine Liste mit Sektoren vor, die zurückgegeben werden soll
 		ArrayList<Sector> zonedSectors = new ArrayList<Sector>();
@@ -122,7 +144,7 @@ public class Battlefield
 
 		// Fügt den Sektor hinzu, dessen Index der Differenz aus dem Startsektor und dem ColorIndex der gesuchten
 		// Zone entspricht
-		index -= zone.getColorIndex() * 2;
+		index -= zone.ordinal() * 2;
 		if (index < 0) {
 			index += 6;
 		}

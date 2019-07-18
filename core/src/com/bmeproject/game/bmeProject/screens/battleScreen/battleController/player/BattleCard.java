@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Zone;
 
 import java.util.ArrayList;
@@ -130,6 +131,11 @@ public abstract class BattleCard extends Actor
 	public Player giveCommander()
 	{
 		return commander;
+	}
+
+	public Sector giveCurrentSector()
+	{
+		return PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveCurrentSectorOfBattleCard(this);
 	}
 
 	public boolean isOnHand()

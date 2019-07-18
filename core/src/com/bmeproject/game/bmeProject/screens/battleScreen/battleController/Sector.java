@@ -59,6 +59,21 @@ public class Sector implements iFieldable
 		return giveQuarter().giveCommander();
 	}
 
+	public Zone giveCurrentZone()
+	{
+		return BATTLEFIELD.giveZoneOfSector(this);
+	}
+
+	public boolean hasBattleCard(BattleCard battleCardToHave)
+	{
+		for (Field field : FIELDS) {
+			if (field.giveCards().contains(battleCardToHave)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// TODO: Liste ist noch nicht nach Strömungsregeln sortiert
 	public ArrayList<BattleCard> giveSortedOuterBattleCards(Stream stream)
 	{
