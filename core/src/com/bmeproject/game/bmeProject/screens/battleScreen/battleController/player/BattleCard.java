@@ -23,9 +23,9 @@ public abstract class BattleCard extends Actor
 	public static final int HEIGHT = 44;
 
 	protected final Player PLAYER;
-	private final   Card   CARD;
+	public final    Card   CARD;
 	private final   int    DEFAULT_HIT_POINTS;
-	private final   Sprite SPRITE;
+	public final    Sprite SPRITE;
 
 	protected Player commander;
 	protected int    currentHitPoints;
@@ -56,6 +56,16 @@ public abstract class BattleCard extends Actor
 					}
 				}
 				return true;
+			}
+
+			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
+			{
+				if (PLAYER.isActive()) {
+					if (BattleCard.this.isOnBattlefield() || BattleCard.this.isOnHand() ||
+							BattleCard.this.isOnGraveyard()) {
+						PLAYER.BATTLE_CONTROLLER.DETAIL_VIEW.update(BattleCard.this);
+					}
+				}
 			}
 		});
 	}
@@ -125,6 +135,11 @@ public abstract class BattleCard extends Actor
 	public boolean isOnHand()
 	{
 		return PLAYER.giveHand().giveCards().contains(this);
+	}
+
+	public boolean isOnGraveyard()
+	{
+		return PLAYER.giveGraveyard().giveCards().contains(this);
 	}
 
 	public void takeRotation()
