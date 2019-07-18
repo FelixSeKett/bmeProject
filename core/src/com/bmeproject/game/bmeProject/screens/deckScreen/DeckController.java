@@ -18,6 +18,15 @@ public class DeckController extends Controller
 	private Field collectionField;
 
 	// ===================================
+	// CONSTRUCTORS
+	// ===================================
+
+	public DeckController(SpriteBatch spriteBatch)
+	{
+		super(spriteBatch);
+	}
+
+	// ===================================
 	// METHODS
 	// ===================================
 
@@ -38,17 +47,17 @@ public class DeckController extends Controller
 	private void createDeckArea()
 	{
 		// Testzweck Anfang
-		ArrayList<Card> testList = new ArrayList<Card>();
-		for (int i = 0; i < 2; i++) {
-			Card card = BMEProject.allCards.get(i + 1);
-			stage.addActor(card);
-			testList.add(card);
-		}
+		//		ArrayList<BattleCard> testList = new ArrayList<BattleCard>();
+		//		for (int i = 0; i < 2; i++) {
+		//			Card card = BMEProject.allCards.get(i + 1);
+		//			stage.addActor(card);
+		//			testList.add(card);
+		//		}
 		// Testzweck Ende
 
-		deckField = new Field(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 5f, 5f, testList, 10);
-		System.out.println(testList);
-		deckField.update();
+		//		deckField = new Field(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 5f, 5f, testList, 10);
+		//		System.out.println(testList);
+		//		deckField.update();
 	}
 
 	private void createCollectionArea()
@@ -57,12 +66,12 @@ public class DeckController extends Controller
 		ArrayList<Card> testList = new ArrayList<Card>();
 		for (int i = 0; i < 2; i++) {
 			Card card = BMEProject.allCards.get(i + 3);
-			stage.addActor(card);
+			//			stage.addActor(card);
 			testList.add(card);
 		}
 		// Testzweck Ende
 
-		collectionField = new Field(300f, 0f, 0f, 0f, 0f, 0f, 100f, 0f, 20f, 0f, testList, 2);
+		//		collectionField = new Field(300f, 0f, 0f, 0f, 0f, 0f, 100f, 0f, 20f, 0f, testList, 2);
 		collectionField.update();
 	}
 }

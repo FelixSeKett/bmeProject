@@ -1,8 +1,15 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Creature;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Phenomenon;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Quarter;
+
+import java.util.ArrayList;
+
 /**
- * Gibt eine Auswahl aller drei möglichen Kartentypen, die jeweils Koordinaten für die entsprechende TextureRegion
- * der obersten visuellen Ebene einer dargestellten Karte mitliefern.
+ * Gibt eine Auswahl aller drei möglichen Kartentypen.
  */
 public enum Type
 {
@@ -10,47 +17,54 @@ public enum Type
 	// ENTRIES
 	// ===================================
 
-	BASE(204, 0) {
+	QUARTER {
+		@Override public BattleCard createBattleCard(Player owner, Card card)
+		{
+			return new Quarter(owner, card);
+		}
 
-		@Override
-		public Card createCard(){
-			return new QuarterCard();
+		@Override public ArrayList<Zone> giveActivatingZones()
+		{
+			ArrayList<Zone> activatingZones = new ArrayList<Zone>();
+			activatingZones.add(Zone.GREEN);
+			return activatingZones;
 		}
 	},
-	FIGURE(408, 0) {
-		@Override
-		public Card createCard(){
-			return new CreatureCard();
+	CREATURE {
+		@Override public BattleCard createBattleCard(Player owner, Card card)
+		{
+			return new Creature(owner, card);
+		}
+
+		@Override public ArrayList<Zone> giveActivatingZones()
+		{
+			ArrayList<Zone> activatingZones = new ArrayList<Zone>();
+			activatingZones.add(Zone.RED);
+			activatingZones.add(Zone.BLUE);
+			return activatingZones;
 		}
 	},
-	MANIPULATION(612, 0) {
-		@Override
-		public Card createCard(){
-			return new PhenomenonCard();
+	PHENOMENON {
+		@Override public BattleCard createBattleCard(Player owner, Card card)
+		{
+			return new Phenomenon(owner, card);
+		}
+
+		@Override public ArrayList<Zone> giveActivatingZones()
+		{
+			ArrayList<Zone> activatingZones = new ArrayList<Zone>();
+			activatingZones.add(Zone.RED);
+			activatingZones.add(Zone.GREEN);
+			activatingZones.add(Zone.BLUE);
+			return activatingZones;
 		}
 	};
 
-
 	// ===================================
-	// ATTRIBUTES
-	// ===================================
-
-	public final int X;
-	public final int Y;
-
-	// ===================================
-	// CONSTRUCTORS
-	// ===================================
-
-	Type(int x, int y)
-	{
-		X = x;
-		Y = y;
-	}
-
-    // ===================================
 	// METHODS
 	// ===================================
 
-	abstract public Card createCard();
+	public abstract BattleCard createBattleCard(Player owner, Card card);
+
+	public abstract ArrayList<Zone> giveActivatingZones();
 }

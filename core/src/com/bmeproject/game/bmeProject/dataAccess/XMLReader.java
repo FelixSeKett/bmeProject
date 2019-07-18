@@ -17,80 +17,76 @@ import java.util.List;
  * Die Klasse hat den Zweck, aus einem XML-File, dessen Pfad sie übergeben bekommt anhand zu lesen und daraus
  * eine Card zu bauen.
  */
-public class XMLReader {
+public class XMLReader
+{
 
-    String path;
+	String path;
 
-    public XMLReader(String filepath) {
-        path = filepath;
-    }
+	public XMLReader(String filepath)
+	{
+		path = filepath;
+	}
 
-    //Initialises process
-    public List<Card> initCards() {
-        Document document = readXML();
-        return readCardsFromXML(document);
-    }
+	//Initialises process
+	public List<Card> initCards()
+	{
+		Document document = readXML();
+		return readCardsFromXML(document);
+	}
 
-    //Builds document from XML and returns it
-    private Document readXML() {
-        try {
-            File xmlFile = new File(path);
+	//Builds document from XML and returns it
+	private Document readXML()
+	{
+		try {
+			File xmlFile = new File(path);
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(xmlFile);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder        dBuilder  = dbFactory.newDocumentBuilder();
+			Document               doc       = dBuilder.parse(xmlFile);
 
-            return doc;
-        } catch (Exception e) {
-            e.getStackTrace();
-            return null;
-        }
-    }
+			return doc;
+		}
+		catch (Exception e) {
+			e.getStackTrace();
+			return null;
+		}
+	}
 
-    // reads given Document with specific card-tags
-    private List<Card> readCardsFromXML(Document doc) {
-        System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
-        NodeList nList = doc.getElementsByTagName("card");
+	// reads given Document with specific card-tags
+	private List<Card> readCardsFromXML(Document doc)
+	{
+		NodeList   nList    = doc.getElementsByTagName("card");
+		List<Card> cardList = new ArrayList<Card>();
+		Card       tempCard;
+		for (int temp = 0; temp < nList.getLength(); temp++) {
+			Node nNode = nList.item(temp);
+			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+				Element eElement = (Element)nNode;
+				int     id       = Integer.parseInt(eElement.getAttribute("id"));
+				String  name     = eElement.getElementsByTagName("cardName").item(0).getTextContent();
+				String illustrationFilePath = eElement.getElementsByTagName("cardIllustrationFilePath").item(0)
+						.getTextContent();
+				Type type = getType(eElement.getElementsByTagName("cardType").item(0).getTextContent());
+				tempCard = new Card(id, name, illustrationFilePath, type);
+				cardList.add(tempCard);
+			}
+		}
+		return cardList;
+	}
 
-        List<Card> cardList = new ArrayList<Card>();
-        Card tempCard;
-
-        for (int temp = 0; temp < nList.getLength(); temp++) {
-            Node nNode = nList.item(temp);
-            System.out.println("\nCurrent Element: " + nNode.getNodeName());
-
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) nNode;
-
-
-                Type type =  getType(eElement.getElementsByTagName("cardType").item(0).getTextContent());
-
-                System.out.println("ID: " + eElement.getAttribute("id"));
-                tempCard = type.createCard();
-                tempCard.initialize(
-                        Integer.parseInt(eElement.getAttribute("id")),
-                        eElement.getElementsByTagName("cardName").item(0).getTextContent(),
-                        Integer.parseInt(eElement.getElementsByTagName("cardStrengh").item(0).getTextContent()),
-                        eElement.getElementsByTagName("cardIllustrationFilePath").item(0).getTextContent(),
-                        type
-                        );
-
-                cardList.add(tempCard);
-            }
-        }
-        return cardList;
-    }
-
-    // returns Type of Card according to given String
-    private Type getType(String type) {
-        if (type.equals("BASE")) {
-            return Type.BASE;
-        } else if (type.equals("FIGURE")) {
-            return Type.FIGURE;
-        } else if (type.equals("MANIPULATION")) {
-            return Type.MANIPULATION;
-        } else return null;
-    }
+	// returns Type of Card according to given String
+	private Type getType(String type)
+	{
+		if (type.equals("QUARTER")) {
+			return Type.QUARTER;
+		} else if (type.equals("CREATURE")) {
+			return Type.CREATURE;
+		} else if (type.equals("PHENOMENON")) {
+			return Type.PHENOMENON;
+		} else {
+			return null;
+		}
+	}
 
 
 }

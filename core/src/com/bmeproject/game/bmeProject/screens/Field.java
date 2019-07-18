@@ -1,9 +1,11 @@
 package com.bmeproject.game.bmeProject.screens;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.screens.battleScreen.IFieldable;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.iFieldable;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 
 import java.util.ArrayList;
 
@@ -24,14 +26,15 @@ public class Field extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	private final float           PILE_X;
-	private final float           PILE_Y;
-	private final float           PILE_OFFSET_X;
-	private final float           PILE_OFFSET_Y;
-	private final float           CARD_OFFSET_X;
-	private final float           CARD_OFFSET_Y;
-	private final ArrayList<Card> CARDS;
-	private final int             PILE_LIMIT;
+	protected final iFieldable            FIELDABLE;
+	private final   float                 PILE_X;
+	private final   float                 PILE_Y;
+	private final   float                 PILE_OFFSET_X;
+	private final   float                 PILE_OFFSET_Y;
+	private final   float                 CARD_OFFSET_X;
+	private final   float                 CARD_OFFSET_Y;
+	private final   ArrayList<BattleCard> CARDS; // Muss aus Kapselungsgründen private bleiben!
+	private final   int                   PILE_LIMIT;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -52,9 +55,11 @@ public class Field extends Actor
 	 * @param pileLimit   Limit für Karten in einem Pile und damit Indikatorwert für Gruppierung nachfolgender
 	 *                    Karten in einem weiteren Pile.
 	 */
-	public Field(float x, float y, float width, float height, float pileX, float pileY, float pileOffsetX,
-			float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<Card> cards, int pileLimit)
+	private Field(iFieldable iFieldable, float x, float y, float width, float height, float pileX, float pileY,
+			float pileOffsetX, float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<BattleCard> cards,
+			int pileLimit)
 	{
+		FIELDABLE = iFieldable;
 		setBounds(x, y, width, height);
 		PILE_X = pileX;
 		PILE_Y = pileY;
@@ -66,13 +71,19 @@ public class Field extends Actor
 		PILE_LIMIT = pileLimit;
 	}
 
-	public Field(IFieldable fieldable, float x, float y)
+	public Field(final iFieldable fieldable, final Vector2 position)
 	{
-		this(x, y, 30, 44, 0, 0, 0, 0, 0, 0, new ArrayList<Card>(), 1);
-		Stage stage = fieldable.giveStage();
-		setOrigin(stage.getWidth() / 2 - x, stage.getHeight() / 2 - y);
-		setRotation(fieldable.giveRotation());
-		stage.addActor(this);
+		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 2, 2,
+				new ArrayList<BattleCard>(), 1);
+		fieldable.giveBattleController().giveStage().addActor(this);
+	}
+
+	//HAND layout
+	public Field(iFieldable fieldable, Vector2 position, float cardOffSetX)
+	{
+		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, cardOffSetX, 0,
+				new ArrayList<BattleCard>(), 1);
+		fieldable.giveBattleController().giveStage().addActor(this);
 	}
 
 	// ===================================
@@ -85,34 +96,57 @@ public class Field extends Actor
 			if (i % PILE_LIMIT == 0) {
 				j++;
 			}
-			float x = getX() + PILE_X + i * CARD_OFFSET_X + (j - 1) * PILE_OFFSET_X;
-			float y = getY() + PILE_Y + i * CARD_OFFSET_Y + (j - 1) * PILE_OFFSET_Y;
-			CARDS.get(i).setPosition(x, y);
-			// TODO: Rotation setzen
+			float      x    = getX() + PILE_X + i * CARD_OFFSET_X + (j - 1) * PILE_OFFSET_X;
+			float      y    = getY() + PILE_Y + i * CARD_OFFSET_Y + (j - 1) * PILE_OFFSET_Y;
+			BattleCard card = CARDS.get(i);
+			card.setPosition(x, y);
+
+
+			card.takeRotation();
 		}
 	}
 
-	public void addCard(Card cardToAdd)
+	public void addCard(BattleCard cardToAdd)
 	{
-		CARDS.add(cardToAdd);
+
+		Field currentField = FIELDABLE.giveBattleController().giveCurrentFieldOfBattleCard(cardToAdd);
+
+		if (currentField != null) {
+			currentField.removeCard(cardToAdd);
+		}
+
+		if(cardToAdd != null){
+			CARDS.add(cardToAdd);
+		}
+
 		update();
 	}
 
-	private void removeCard(Card cardToRemove)
+	private void removeCard(BattleCard cardToRemove)
 	{
 		CARDS.remove(cardToRemove);
 		update();
 	}
 
-	public Card pullCard(int index)
-	{
-		Card card = CARDS.get(index);
-		removeCard(card);
-		return card;
+	public BattleCard pullCard(int index) {
+		if(CARDS.size() > 0 && CARDS.size() >= index && index >= 0){
+			BattleCard card = CARDS.get(index);
+			removeCard(card);
+			return card;
+		} else return null;
 	}
 
-	public Card pullTopCard()
+	public BattleCard pullTopCard()
 	{
-		return pullCard(CARDS.size() - 1);
+		return pullCard(CARDS.size()-1);
+	}
+
+	/*
+	Gibt aus Kapselungsgründen nicht die originale ArrayList, sondern eine Kopie von ihr zurück. Bedenke: Wenn die
+	originale ArrayList nach außen gelangt, kann sie von außen manipuliert werden. Das darf nicht passieren!
+ */
+	public ArrayList<BattleCard> giveCards()
+	{
+		return new ArrayList<BattleCard>(CARDS);
 	}
 }

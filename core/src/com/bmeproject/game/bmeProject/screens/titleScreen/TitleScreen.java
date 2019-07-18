@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.screens.titleScreen;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
 import com.bmeproject.game.bmeProject.screens.Controller;
@@ -22,12 +23,11 @@ public class TitleScreen extends AbstractScreen
 	@Override public void show()
 	{
 		super.show();
-		System.out.println("TITLE SCREEN SHOWN");
-		BME_PROJECT.activateDeckScreen();
+		BME_PROJECT.activateBattleScreen();
 	}
 
-	@Override protected Controller createController()
+	@Override protected Controller createController(SpriteBatch spriteBatch)
 	{
-		return new TitleController();
+		return new TitleController(spriteBatch);
 	}
 }
