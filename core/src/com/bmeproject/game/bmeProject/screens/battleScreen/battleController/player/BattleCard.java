@@ -53,7 +53,6 @@ public abstract class BattleCard extends Actor
 					if (BattleCard.this.isOnHand()) {
 						PLAYER.BATTLE_CONTROLLER.takeLastClickedBattleCard(BattleCard.this);
 						Gdx.app.log(toString(), giveName() + " selected");
-						System.out.println("click card with mouse");
 					}
 				}
 				return true;
@@ -65,7 +64,6 @@ public abstract class BattleCard extends Actor
 					if (BattleCard.this.isOnBattlefield() || BattleCard.this.isOnHand() ||
 							BattleCard.this.isOnGraveyard()) {
 						PLAYER.BATTLE_CONTROLLER.DETAIL_VIEW.update(BattleCard.this);
-						System.out.println("time to hover over my hand ");
 					}
 				}
 			}

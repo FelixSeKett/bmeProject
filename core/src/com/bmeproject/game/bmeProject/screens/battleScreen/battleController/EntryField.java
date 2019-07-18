@@ -24,10 +24,10 @@ public class EntryField extends Field
 				BattleCard  selectedCard     = battleController.giveLastClickedBattleCard();
 
 				if (selectedCard != null) {
-					//if (selectedCard.giveCommander() == FIELDABLE.giveCommander()) {  //to_do
+					if (selectedCard.giveCommander() == FIELDABLE.giveCommander()) {  //to_do
 						addCard(selectedCard);
 						battleController.resetLastClickedBattleCard();
-					//}
+					}
 				}
 				return true;
 			}
