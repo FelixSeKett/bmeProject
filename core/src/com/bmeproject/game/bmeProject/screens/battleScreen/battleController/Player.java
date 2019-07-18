@@ -111,9 +111,9 @@ public class Player implements iFieldable
 		BATTLE_CONTROLLER.changeActivePlayer();
 	}
 
-	public void drawTopCard()
-	{
+	public void drawTopCard() {
 		BattleCard card = giveSupply().pullTopCard();
+
 		giveHand().addCard(card);
 	}
 }
