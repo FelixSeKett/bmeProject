@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -48,7 +49,12 @@ public abstract class BattleCard extends Actor
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				PLAYER.BATTLE_CONTROLLER.takeLastClickedBattleCard(BattleCard.this);
+				if (PLAYER.isActive()) {
+					if (BattleCard.this.isOnHand()) {
+						PLAYER.BATTLE_CONTROLLER.takeLastClickedBattleCard(BattleCard.this);
+						Gdx.app.log(toString(), giveName() + " selected");
+					}
+				}
 				return true;
 			}
 		});
@@ -111,6 +117,16 @@ public abstract class BattleCard extends Actor
 		return CARD.NAME;
 	}
 
+	public Player giveCommander()
+	{
+		return commander;
+	}
+
+	public boolean isOnHand()
+	{
+		return PLAYER.giveHand().giveCards().contains(this);
+	}
+
 	public void takeRotation()
 	{
 		setRotation(commander.PARTY.giveRotation());
@@ -125,6 +141,7 @@ public abstract class BattleCard extends Actor
 	{
 		currentHitPoints -= 1;
 		if (currentHitPoints <= 0) {
+			currentHitPoints = 0;
 			getDestroyed();
 		}
 	}

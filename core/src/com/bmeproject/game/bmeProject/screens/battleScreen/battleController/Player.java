@@ -33,9 +33,9 @@ public class Player implements iFieldable
 
 		// Alle Fields instanziieren
 		FIELDS = new ArrayList<Field>();
-		FIELDS.add(new Field(this, PARTY.giveSupplyVector(), false));
+		FIELDS.add(new Field(this, PARTY.giveSupplyVector()));
 		FIELDS.add(new Field(this, PARTY.giveHandVector(), 35));
-		FIELDS.add(new Field(this, PARTY.giveGraveyardVector(), false));
+		FIELDS.add(new Field(this, PARTY.giveGraveyardVector()));
 
 		// Alle Cards als BattleCards instanziieren
 		BATTLE_CARDS = new ArrayList<BattleCard>();
@@ -74,6 +74,11 @@ public class Player implements iFieldable
 		return null;
 	}
 
+	@Override public Player giveCommander()
+	{
+		return this;
+	}
+
 	public Field giveSupply()
 	{
 		return FIELDS.get(0);
@@ -87,6 +92,11 @@ public class Player implements iFieldable
 	public Field giveGraveyard()
 	{
 		return FIELDS.get(2);
+	}
+
+	public boolean isActive()
+	{
+		return BATTLE_CONTROLLER.giveActivePlayer() == this;
 	}
 
 	// TODO

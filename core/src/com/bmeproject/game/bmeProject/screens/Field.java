@@ -26,15 +26,15 @@ public class Field extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	private final iFieldable            FIELDABLE;
-	private final float                 PILE_X;
-	private final float                 PILE_Y;
-	private final float                 PILE_OFFSET_X;
-	private final float                 PILE_OFFSET_Y;
-	private final float                 CARD_OFFSET_X;
-	private final float                 CARD_OFFSET_Y;
-	private final ArrayList<BattleCard> CARDS; // Muss aus Kapselungsgründen private bleiben!
-	private final int                   PILE_LIMIT;
+	protected final iFieldable            FIELDABLE;
+	private final   float                 PILE_X;
+	private final   float                 PILE_Y;
+	private final   float                 PILE_OFFSET_X;
+	private final   float                 PILE_OFFSET_Y;
+	private final   float                 CARD_OFFSET_X;
+	private final   float                 CARD_OFFSET_Y;
+	private final   ArrayList<BattleCard> CARDS; // Muss aus Kapselungsgründen private bleiben!
+	private final   int                   PILE_LIMIT;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -71,25 +71,11 @@ public class Field extends Actor
 		PILE_LIMIT = pileLimit;
 	}
 
-	public Field(final iFieldable fieldable, final Vector2 position, boolean clickable)
+	public Field(final iFieldable fieldable, final Vector2 position)
 	{
 		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 2, 2,
 				new ArrayList<BattleCard>(), 1);
 		fieldable.giveBattleController().giveStage().addActor(this);
-
-		if (clickable) {
-			addListener(new InputListener()
-			{
-				@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
-				{
-					System.out.println("last clicked Card: " +
-							FIELDABLE.giveBattleController().giveLastClickedBattleCard().giveName());
-					//Field.this.addCard(FIELDABLE.giveLastClickedBattleCard());
-					return true;
-				}
-
-			});
-		}
 	}
 
 	//HAND layout

@@ -66,36 +66,46 @@ public class Battlefield
 	}
 
 	/*
-	TODO: Vor dem Aufruf dieser Methode muss gecheckt werden, ob die Zone aktiviert werden kann (nicht, wenn sie im
-	 gleichen Spielzug schon einmal aktiviert wurde) und ob der aktivierende Spieler auch der aktive Spieler ist
+	TODO: Vor dem Aufruf dieser Methode (Button-Klick) muss gecheckt werden, ob die Zone aktiviert werden kann (nicht,
+	 wenn sie im gleichen Spielzug schon einmal aktiviert wurde) und ob der aktivierende Spieler auch der aktive
+	 Spieler ist
 	*/
 	private void activateZone(Zone zoneToActivate)
 	{
-		// Erstelle eine nach Strömungsregeln sortierte ArrayList mit Sektoren, die zur aktivierten Zone
-		// gehören
+		// Erstelle eine nach Strömungsregeln sortierte ArrayList mit Sektoren, die zur aktivierten Zone gehören
 		ArrayList<Sector> activeSectors = giveZonedSectors(zoneToActivate);
 
-		// Erstelle eine nach Strömungsregeln sortierte ArrayList aus Karten aus der Sektoren-Liste
+		// Erstelle eine nach Strömungsregeln sortierte ArrayList aus zu aktivierenden Karten aus der Sektoren-Liste,
+		// wobei die äußeren Felder mit Kreaturen und Phänomenen zuerst abgearbeitet werden...
 		ArrayList<BattleCard> battleCardsToActivate = new ArrayList<BattleCard>();
 		for (Sector sector : activeSectors) {
-			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS)) {
+			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveCurrentStream())) {
 				if (battleCard.giveActivatingZones().contains(zoneToActivate)) {
 					battleCardsToActivate.add(battleCard);
 				}
 			}
 		}
+		// ... und anschließend die inneren Felder mit Quartieren
 		for (Sector sector : activeSectors) {
 			battleCardsToActivate.add(sector.giveQuarter());
 		}
 
 		// aktiviere jede Karte der zuvor erstellen Liste nach Listenreihenfolge
 		for (BattleCard battleCard : battleCardsToActivate) {
-			if (battleCard.isOnBattlefield()) { // TODO
+			if (battleCard.isOnBattlefield()) {
 				battleCard.activate();
 			}
 		}
 
-		// TODO: Setzt die HitPoints der BattleCards in dieser Zone zurück
+		// setze die HitPoints der BattleCards in dieser Zone zurück
+		for (Sector sector : activeSectors) {
+			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveCurrentStream())) {
+				battleCard.resetHitPoints();
+			}
+		}
+		for (Sector sector : activeSectors) {
+			sector.giveQuarter().resetHitPoints();
+		}
 
 		// Setze die Zone als aktiviert
 		zoneToActivate.activate();

@@ -20,10 +20,9 @@ public class BattleController extends Controller
 
 	private static final Texture BACKGROUND = new Texture("core/assets/visuals/spielbrettSmall.png");
 
-	// TODO: Das hier können Konstanten sein - ändern sich während des Spieles nicht
-	private      Player      player1;
-	private      Player      player2;
-	public final Battlefield BATTLEFIELD;
+	private final Player      PLAYER_1;
+	private final Player      PLAYER_2;
+	public final  Battlefield BATTLEFIELD;
 
 	private Player     activePlayer;
 	private boolean    started;
@@ -44,25 +43,18 @@ public class BattleController extends Controller
 	public BattleController(SpriteBatch spriteBatch)
 	{
 		super(spriteBatch);
-		// TODO: Alles, was aus der init-Methode hierhin ausgelagert werden kann hierhin auslagern
 		Image backgroundImage = new Image(BACKGROUND);
 		stage.addActor(backgroundImage);
 		BATTLEFIELD = new Battlefield(this);
-		player1 = new Player(this, Party.ALLY);
-		player2 = new Player(this, Party.ENEMY);
-		activePlayer = player1;
+		PLAYER_1 = new Player(this, Party.ALLY);
+		PLAYER_2 = new Player(this, Party.ENEMY);
+		activePlayer = PLAYER_1;
 		Gdx.input.setInputProcessor(stage);
 	}
 
 	// ===================================
 	// METHODS
 	// ===================================
-
-	@Override protected void init(SpriteBatch spriteBatch)
-	{
-		super.init(spriteBatch);
-
-	}
 
 	@Override public void update(float delta)
 	{
@@ -72,6 +64,11 @@ public class BattleController extends Controller
 		}
 	}
 
+	public Player giveActivePlayer()
+	{
+		return activePlayer;
+	}
+
 	public BattleCard giveLastClickedBattleCard()
 	{
 		return lastClickedBattleCard;
@@ -79,10 +76,10 @@ public class BattleController extends Controller
 
 	public Player giveOppositePlayerOf(Player player)
 	{
-		if (player == player1) {
-			return player2;
+		if (player == PLAYER_1) {
+			return PLAYER_2;
 		} else {
-			return player1;
+			return PLAYER_1;
 		}
 	}
 
@@ -97,14 +94,14 @@ public class BattleController extends Controller
 		// Wenn die BattleCard auf keinem der soeben gecheckten Fields liegt, dann...
 		if (field == null) {
 			// ... checke die Fields vom ersten Spieler nach der BattleCard!
-			if (player1 != null) {
-				field = player1.giveCurrentFieldOfBattleCard(battleCard);
+			if (PLAYER_1 != null) {
+				field = PLAYER_1.giveCurrentFieldOfBattleCard(battleCard);
 			}
 			// Wenn die BattleCard auf keinem der soeben gecheckten Fields liegt, dann...
 			if (field == null) {
 				// Checke die Fields vom zweiten Spieler nach der BattleCard!
-				if (player2 != null) {
-					field = player2.giveCurrentFieldOfBattleCard(battleCard);
+				if (PLAYER_2 != null) {
+					field = PLAYER_2.giveCurrentFieldOfBattleCard(battleCard);
 				}
 			}
 		}
@@ -118,8 +115,14 @@ public class BattleController extends Controller
 		lastClickedBattleCard = battleCard;
 	}
 
+	public void resetLastClickedBattleCard()
+	{
+		lastClickedBattleCard = null;
+	}
+
 	public void changeActivePlayer()
 	{
+		resetLastClickedBattleCard();
 		Zone.RED.deactivate();
 		Zone.GREEN.deactivate();
 		Zone.BLUE.deactivate();

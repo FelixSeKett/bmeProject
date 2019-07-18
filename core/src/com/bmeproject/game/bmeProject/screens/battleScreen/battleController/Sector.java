@@ -29,10 +29,10 @@ public class Sector implements iFieldable
 	{
 		BATTLEFIELD = battlefield;
 		FIELDS = new ArrayList<Field>();
-		FIELDS.add(new Field(this, quarterFieldVector, false));
-		FIELDS.add(new Field(this, field1Vector, false));
-		FIELDS.add(new Field(this, field2Vector, true));
-		FIELDS.add(new Field(this, field3Vector, false));
+		FIELDS.add(new Field(this, quarterFieldVector));
+		FIELDS.add(new Field(this, field1Vector));
+		FIELDS.add(new EntryField(this, field2Vector));
+		FIELDS.add(new Field(this, field3Vector));
 	}
 
 	// ===================================
@@ -54,14 +54,19 @@ public class Sector implements iFieldable
 		return null;
 	}
 
-	// TODO: Liste ist noch nicht nach Strömungsregeln
-	public ArrayList<BattleCard> giveSortedOuterBattleCards(Compass compass)
+	@Override public Player giveCommander()
+	{
+		return giveQuarter().giveCommander();
+	}
+
+	// TODO: Liste ist noch nicht nach Strömungsregeln sortiert
+	public ArrayList<BattleCard> giveSortedOuterBattleCards(Stream stream)
 	{
 		ArrayList<BattleCard> battleCards = new ArrayList<BattleCard>();
 		for (Field field : FIELDS) {
 			// Implementierte Strömungsregel:
 
-			if (compass.giveCurrentStream() == Stream.COUNTERCLOCKWISE) {
+			if (stream == Stream.COUNTERCLOCKWISE) {
 				battleCards.addAll(field.giveCards());
 			} else {
 				battleCards.addAll(reverseCardOrder(field.giveCards()));

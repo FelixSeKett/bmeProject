@@ -9,4 +9,6 @@ public interface iFieldable
 	BattleController giveBattleController();
 
 	Field giveCurrentFieldOfBattleCard(BattleCard battleCard);
+
+	Player giveCommander();
 }
