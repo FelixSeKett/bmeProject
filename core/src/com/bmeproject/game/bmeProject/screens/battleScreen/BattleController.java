@@ -4,12 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
@@ -23,12 +19,6 @@ public class BattleController extends Controller
 	// ===================================
 
 	private static final Texture BACKGROUND = new Texture("core/assets/visuals/spielbrettSmall.png");
-	private static final Texture BUTTON_BLUE = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
-	private static final Texture BUTTON_GREEN = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
-	private static final Texture BUTTON_RED = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
-	private static final Texture BUTTON_ZONE = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
-	private static final Texture BUTTON_STREAM = new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall.png");
-	private static final Texture BUTTON_FINISH = new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png");
 
 	public final  DetailView  DETAIL_VIEW;
 	private final Player      PLAYER_1;
@@ -56,7 +46,6 @@ public class BattleController extends Controller
 		super(spriteBatch);
 		Image backgroundImage = new Image(BACKGROUND);
 		stage.addActor(backgroundImage);
-		buttons();
 		DETAIL_VIEW = new DetailView(stage);
 		BATTLEFIELD = new Battlefield(this);
 		PLAYER_1 = new Player(this, Party.ALLY);
@@ -142,45 +131,4 @@ public class BattleController extends Controller
 		started = false;
 		activePlayer = giveOppositePlayerOf(activePlayer);
 	}
-
-	public void buttons(){
-		zoneButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
-		zoneButton.setPosition(620,380);
-		stage.addActor(zoneButton);
-
-		streamButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_STREAM)));
-		streamButton.setPosition(620,330);
-		stage.addActor(streamButton);
-
-		greenButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
-		greenButton.setPosition(620,230);
-		stage.addActor(greenButton);
-
-
-		redButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
-		redButton.setPosition(620,180);
-		stage.addActor(redButton);
-
-		blueButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)));
-		blueButton.setPosition(620,130);
-		stage.addActor(blueButton);
-
-		finishButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH)));
-		finishButton.setPosition(620,20);
-		stage.addActor(finishButton);
-
-
-		clickedImageButton(zoneButton);
-	}
-
-	public void clickedImageButton(ImageButton btn){
-
-		btn.addListener(new ActorGestureListener(){
-			@Override public void tap (InputEvent event, float x, float y, int count, int button){
-				System.out.println("Zone successfully clicked");
-			}
-		});
-
-	}
-
 }
