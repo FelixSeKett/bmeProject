@@ -19,7 +19,7 @@ public abstract class AbstractScreen implements Screen
 	// ===================================
 
 	protected final BMEProject BME_PROJECT;
-	protected       Controller controller;
+	private         Controller controller;
 	private         Renderer   renderer;
 
 	// ===================================
@@ -43,7 +43,7 @@ public abstract class AbstractScreen implements Screen
 	@Override public void show()
 	{
 		SpriteBatch spriteBatch = new SpriteBatch();
-		controller = createController();
+		controller = createController(spriteBatch);
 		controller.init(spriteBatch);
 		renderer = new Renderer(spriteBatch);
 	}
@@ -89,5 +89,5 @@ public abstract class AbstractScreen implements Screen
 	{
 	}
 
-	protected abstract Controller createController();
+	protected abstract Controller createController(SpriteBatch spriteBatch);
 }

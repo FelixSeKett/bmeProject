@@ -1,10 +1,17 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Zone;
+
+import java.util.ArrayList;
 
 public abstract class BattleCard extends Actor
 {
@@ -12,25 +19,45 @@ public abstract class BattleCard extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	public static final int    WIDTH  = 30;
-	public static final int    HEIGHT = 44;
-	private final       Card   CARD;
-	private final       Player OWNER;
-	private final       Sprite SPRITE;
-	private             Player commander;
+	public static final int WIDTH  = 30;
+	public static final int HEIGHT = 44;
+
+	protected final Player PLAYER;
+	private final   Card   CARD;
+	private final   int    DEFAULT_HIT_POINTS;
+	private final   Sprite SPRITE;
+
+	protected Player commander;
+	protected int    currentHitPoints;
 
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	public BattleCard(Player owner, Card card)
+	public BattleCard(Player player, Card card, int defaultHitPoints)
 	{
+		PLAYER = player;
 		CARD = card;
-		OWNER = owner;
-		commander = owner;
+		DEFAULT_HIT_POINTS = defaultHitPoints;
+		commander = PLAYER;
+		currentHitPoints = DEFAULT_HIT_POINTS;
 		SPRITE = new Sprite(new Texture(CARD.ILLUSTRATION_FILE_PATH));
 		setBounds(0, 0, 30, 44);
 		setOrigin(getWidth() / 2, getHeight() / 2);
+
+		addListener(new InputListener()
+		{
+			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
+				if (PLAYER.isActive()) {
+					if (BattleCard.this.isOnHand()) {
+						PLAYER.BATTLE_CONTROLLER.takeLastClickedBattleCard(BattleCard.this);
+						Gdx.app.log(toString(), giveName() + " selected");
+					}
+				}
+				return true;
+			}
+		});
 	}
 
 	// ===================================
@@ -85,18 +112,51 @@ public abstract class BattleCard extends Actor
 
 	public abstract void activate();
 
-	public void setCommander(Player commander)
-	{
-		this.commander = commander;
-	}
-
 	public String giveName()
 	{
 		return CARD.NAME;
 	}
 
+	public Player giveCommander()
+	{
+		return commander;
+	}
+
+	public boolean isOnHand()
+	{
+		return PLAYER.giveHand().giveCards().contains(this);
+	}
+
 	public void takeRotation()
 	{
-		setRotation(commander.giveRotation());
+		setRotation(commander.PARTY.giveRotation());
 	}
+
+	public void resetHitPoints()
+	{
+		currentHitPoints = DEFAULT_HIT_POINTS;
+	}
+
+	public void takeDamage()
+	{
+		currentHitPoints -= 1;
+		if (currentHitPoints <= 0) {
+			currentHitPoints = 0;
+			getDestroyed();
+		}
+	}
+
+	public boolean isOnBattlefield()
+	{
+		return PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveCurrentFieldOfBattleCard(this) != null;
+	}
+
+	public ArrayList<Zone> giveActivatingZones()
+	{
+		return CARD.TYPE.giveActivatingZones();
+	}
+
+	public abstract void getDestroyed();
+
+
 }

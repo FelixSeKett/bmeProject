@@ -18,6 +18,15 @@ public class DeckController extends Controller
 	private Field collectionField;
 
 	// ===================================
+	// CONSTRUCTORS
+	// ===================================
+
+	public DeckController(SpriteBatch spriteBatch)
+	{
+		super(spriteBatch);
+	}
+
+	// ===================================
 	// METHODS
 	// ===================================
 

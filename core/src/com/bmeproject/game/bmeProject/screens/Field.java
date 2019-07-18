@@ -2,8 +2,10 @@ package com.bmeproject.game.bmeProject.screens;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.bmeproject.game.bmeProject.screens.battleScreen.BattleCard;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.iFieldable;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 
 import java.util.ArrayList;
 
@@ -24,14 +26,15 @@ public class Field extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	private final float                 PILE_X;
-	private final float                 PILE_Y;
-	private final float                 PILE_OFFSET_X;
-	private final float                 PILE_OFFSET_Y;
-	private final float                 CARD_OFFSET_X;
-	private final float                 CARD_OFFSET_Y;
-	private final ArrayList<BattleCard> CARDS;
-	private final int                   PILE_LIMIT;
+	protected final iFieldable            FIELDABLE;
+	private final   float                 PILE_X;
+	private final   float                 PILE_Y;
+	private final   float                 PILE_OFFSET_X;
+	private final   float                 PILE_OFFSET_Y;
+	private final   float                 CARD_OFFSET_X;
+	private final   float                 CARD_OFFSET_Y;
+	private final   ArrayList<BattleCard> CARDS; // Muss aus Kapselungsgründen private bleiben!
+	private final   int                   PILE_LIMIT;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -52,9 +55,11 @@ public class Field extends Actor
 	 * @param pileLimit   Limit für Karten in einem Pile und damit Indikatorwert für Gruppierung nachfolgender
 	 *                    Karten in einem weiteren Pile.
 	 */
-	private Field(float x, float y, float width, float height, float pileX, float pileY, float pileOffsetX,
-			float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<BattleCard> cards, int pileLimit)
+	private Field(iFieldable iFieldable, float x, float y, float width, float height, float pileX, float pileY,
+			float pileOffsetX, float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<BattleCard> cards,
+			int pileLimit)
 	{
+		FIELDABLE = iFieldable;
 		setBounds(x, y, width, height);
 		PILE_X = pileX;
 		PILE_Y = pileY;
@@ -66,12 +71,19 @@ public class Field extends Actor
 		PILE_LIMIT = pileLimit;
 	}
 
-	public Field(Stage stage, Vector2 position)
+	public Field(final iFieldable fieldable, final Vector2 position)
 	{
-		this(position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 2, 2,
-				new ArrayList<BattleCard>(),
-				1);
-		stage.addActor(this);
+		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 2, 2,
+				new ArrayList<BattleCard>(), 1);
+		fieldable.giveBattleController().giveStage().addActor(this);
+	}
+
+	//HAND layout
+	public Field(iFieldable fieldable, Vector2 position, float cardOffSetX)
+	{
+		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, cardOffSetX, 0,
+				new ArrayList<BattleCard>(), 1);
+		fieldable.giveBattleController().giveStage().addActor(this);
 	}
 
 	// ===================================
@@ -88,13 +100,23 @@ public class Field extends Actor
 			float      y    = getY() + PILE_Y + i * CARD_OFFSET_Y + (j - 1) * PILE_OFFSET_Y;
 			BattleCard card = CARDS.get(i);
 			card.setPosition(x, y);
+
+
 			card.takeRotation();
 		}
 	}
 
 	public void addCard(BattleCard cardToAdd)
 	{
+
+		Field currentField = FIELDABLE.giveBattleController().giveCurrentFieldOfBattleCard(cardToAdd);
+
+		if (currentField != null) {
+			currentField.removeCard(cardToAdd);
+		}
+
 		CARDS.add(cardToAdd);
+
 		update();
 	}
 
@@ -116,8 +138,12 @@ public class Field extends Actor
 		return pullCard(CARDS.size() - 1);
 	}
 
+	/*
+	Gibt aus Kapselungsgründen nicht die originale ArrayList, sondern eine Kopie von ihr zurück. Bedenke: Wenn die
+	originale ArrayList nach außen gelangt, kann sie von außen manipuliert werden. Das darf nicht passieren!
+ */
 	public ArrayList<BattleCard> giveCards()
 	{
-		return CARDS;
+		return new ArrayList<BattleCard>(CARDS);
 	}
 }
