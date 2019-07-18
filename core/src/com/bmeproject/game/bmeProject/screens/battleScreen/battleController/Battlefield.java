@@ -115,7 +115,7 @@ public class Battlefield
 	private ArrayList<Sector> giveZonedSectors(Zone zone)
 	{
 		// Bereitet eine Liste mit Sektoren vor, die zurückgegeben werden soll
-		ArrayList<Sector> zonedSectors = new ArrayList<>();
+		ArrayList<Sector> zonedSectors = new ArrayList<Sector>();
 
 		// Speichert den Index des im Kompass hinterlegten Startsektors
 		int index = SECTORS.indexOf(COMPASS.giveStartSector());
