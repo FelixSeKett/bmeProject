@@ -20,6 +20,7 @@ public class BattleController extends Controller
 
 	private static final Texture BACKGROUND = new Texture("core/assets/visuals/spielbrettSmall.png");
 
+	public final  DetailView  DETAIL_VIEW;
 	private final Player      PLAYER_1;
 	private final Player      PLAYER_2;
 	public final  Battlefield BATTLEFIELD;
@@ -45,6 +46,7 @@ public class BattleController extends Controller
 		super(spriteBatch);
 		Image backgroundImage = new Image(BACKGROUND);
 		stage.addActor(backgroundImage);
+		DETAIL_VIEW = new DetailView(stage);
 		BATTLEFIELD = new Battlefield(this);
 		PLAYER_1 = new Player(this, Party.ALLY);
 		PLAYER_2 = new Player(this, Party.ENEMY);
