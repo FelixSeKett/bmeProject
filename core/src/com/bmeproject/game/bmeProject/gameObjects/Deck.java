@@ -21,8 +21,9 @@ public class Deck {
         deck.add(id);
     }
 
-    // Hinzfügen von 40 zufälligen Karten (3 Quartieren und 37 anderen Karten )in das Deck
-    public void addStarterCardsToDeck() {
+
+
+    private void addStarterCardsToDeck() {
         // added 37 Karten von der Id 6-44 in das Deck (alle Karten die kein Quarier sind)
         for (int i = 0; i < 37; i++) {
             int random = (int) (Math.random() * 44 + 6);
