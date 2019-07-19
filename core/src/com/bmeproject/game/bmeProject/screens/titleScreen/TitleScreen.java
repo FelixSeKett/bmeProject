@@ -23,11 +23,10 @@ public class TitleScreen extends AbstractScreen
 	@Override public void show()
 	{
 		super.show();
-		BME_PROJECT.activateBattleScreen();
 	}
 
 	@Override protected Controller createController(SpriteBatch spriteBatch)
 	{
-		return new TitleController(spriteBatch);
+		return new TitleController(spriteBatch, this);
 	}
 }
