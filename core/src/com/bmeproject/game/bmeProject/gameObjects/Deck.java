@@ -18,13 +18,12 @@ public class Deck {
     }
 
     public void addCardToDeck(int id) {
-         deck.add(id);
+        deck.add(id);
     }
 
 
-
     private void addStarterCardsToDeck() {
-        // added 37 Karten von der Id 6-44 in das Deck (alle Karten die kein Quarier sind)
+        // added 37  Karten von der Id 6-44 in das Deck (alle Karten die kein Quarier sind)
         for (int i = 0; i < 37; i++) {
             int random = (int) (Math.random() * 44 + 6);
             deck.add(random);

@@ -123,7 +123,8 @@ public class Battlefield {
         checkForWin();
     }
 
-
+// prüft ob jemande bereits 6 Sektoren hat und gibt den Gewinn in der Konsole aus
+    //TODO: Label hinzufügen
     private void checkForWin() {
         if (allyCounter == 6) {
             System.out.println("YouWin");
@@ -161,5 +162,5 @@ public class Battlefield {
         zonedSectors.add(SECTORS.get(index));
 
         return zonedSectors;
-    } 
+    }
 }
