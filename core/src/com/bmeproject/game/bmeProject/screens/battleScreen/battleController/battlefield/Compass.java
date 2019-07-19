@@ -1,4 +1,7 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield;
+
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Battlefield;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.compass.Stream;
 
 import java.util.Random;
 

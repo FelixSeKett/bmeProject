@@ -1,9 +1,8 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Field;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Sector;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 
 import java.util.ArrayList;
 

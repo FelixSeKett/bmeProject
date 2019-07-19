@@ -1,9 +1,8 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Field;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
 
 public class Phenomenon extends BattleCard
 {

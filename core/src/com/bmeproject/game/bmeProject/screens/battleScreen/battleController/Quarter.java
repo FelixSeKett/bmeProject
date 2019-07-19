@@ -1,8 +1,7 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.EntryField;
 
 public class Quarter extends BattleCard
 {
@@ -21,12 +20,20 @@ public class Quarter extends BattleCard
 
 	@Override public void activate()
 	{
-		Gdx.app.log(toString(), "Ich bin ein Quatier und dürfte garnicht reden können!");
+		EntryField correspondingEntryField = giveCorrespondingEntryField();
+		if (correspondingEntryField.giveCards().size() > 0) {
+			correspondingEntryField.moveContentStreamwise();
+		}
 	}
 
 	@Override public void getDestroyed()
 	{
 		commander = PLAYER.BATTLE_CONTROLLER.giveOppositePlayerOf(commander);
+	}
+
+	private EntryField giveCorrespondingEntryField()
+	{
+		return giveCurrentSector().giveEntryField();
 	}
 }
 

@@ -3,7 +3,9 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 import com.badlogic.gdx.math.Vector2;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Compass;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 
 import java.util.ArrayList;
 
@@ -51,6 +53,26 @@ public class Battlefield
 
 	public Sector giveSectorOfIndex(int index)
 	{
+		return SECTORS.get(index);
+	}
+
+	public Sector givePreviousSectorOf(Sector sectorToGivePreviousSectorOf)
+	{
+		int index = giveIndexOfSector(sectorToGivePreviousSectorOf);
+		index -= 1;
+		if (index < 0) {
+			index += 6;
+		}
+		return SECTORS.get(index);
+	}
+
+	public Sector giveNextSectorOf(Sector sectorToGiveNextSectorOf)
+	{
+		int index = giveIndexOfSector(sectorToGiveNextSectorOf);
+		index += 1;
+		if (index > 5) {
+			index -= 6;
+		}
 		return SECTORS.get(index);
 	}
 
@@ -128,6 +150,9 @@ public class Battlefield
 		for (Sector sector : activeSectors) {
 			sector.giveQuarter().resetHitPoints();
 		}
+
+		// Markiere den Spielzug als gestartet
+		BATTLE_CONTROLLER.getStarted();
 
 		// Setze die Zone als aktiviert
 		zoneToActivate.activate();

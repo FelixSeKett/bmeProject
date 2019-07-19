@@ -6,7 +6,6 @@ import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Type;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 import java.util.ArrayList;

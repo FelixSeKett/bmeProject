@@ -1,9 +1,14 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield;
 
 import com.badlogic.gdx.math.Vector2;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.compass.Stream;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.EndField;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.EntryField;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.LeadField;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +22,7 @@ public class Sector implements iFieldable
 	// ATTRIBUTES
 	// ===================================
 
-	private final Battlefield      BATTLEFIELD;
+	public final  Battlefield      BATTLEFIELD;
 	private final ArrayList<Field> FIELDS; // Muss aus Kapselungsgründen private bleiben!
 
 	// ===================================
@@ -30,9 +35,9 @@ public class Sector implements iFieldable
 		BATTLEFIELD = battlefield;
 		FIELDS = new ArrayList<Field>();
 		FIELDS.add(new Field(this, quarterFieldVector));
-		FIELDS.add(new Field(this, field1Vector));
+		FIELDS.add(new LeadField(this, field1Vector));
 		FIELDS.add(new EntryField(this, field2Vector));
-		FIELDS.add(new Field(this, field3Vector));
+		FIELDS.add(new EndField(this, field3Vector));
 	}
 
 	// ===================================
@@ -59,6 +64,16 @@ public class Sector implements iFieldable
 		return giveQuarter().giveCommander();
 	}
 
+	public Sector givePreviousSector()
+	{
+		return BATTLEFIELD.givePreviousSectorOf(this);
+	}
+
+	public Sector giveNextSector()
+	{
+		return BATTLEFIELD.giveNextSectorOf(this);
+	}
+
 	public Zone giveCurrentZone()
 	{
 		return BATTLEFIELD.giveZoneOfSector(this);
@@ -72,6 +87,21 @@ public class Sector implements iFieldable
 			}
 		}
 		return false;
+	}
+
+	public LeadField giveLeadField()
+	{
+		return (LeadField)FIELDS.get(1);
+	}
+
+	public EntryField giveEntryField()
+	{
+		return (EntryField)FIELDS.get(2);
+	}
+
+	public EndField giveEndField()
+	{
+		return (EndField)FIELDS.get(3);
 	}
 
 	// TODO: Liste ist noch nicht nach Strömungsregeln sortiert

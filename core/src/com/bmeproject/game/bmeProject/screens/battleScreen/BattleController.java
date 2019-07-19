@@ -9,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 public class BattleController extends Controller
@@ -114,12 +115,19 @@ public class BattleController extends Controller
 
 	public void takeLastClickedBattleCard(BattleCard battleCard)
 	{
+		if (lastClickedBattleCard != null) {
+			lastClickedBattleCard.getUnselected();
+		}
+		battleCard.getSelected();
 		lastClickedBattleCard = battleCard;
 	}
 
 	public void resetLastClickedBattleCard()
 	{
-		lastClickedBattleCard = null;
+		if (lastClickedBattleCard != null) {
+			lastClickedBattleCard.getUnselected();
+			lastClickedBattleCard = null;
+		}
 	}
 
 	public void changeActivePlayer()
@@ -130,5 +138,17 @@ public class BattleController extends Controller
 		Zone.BLUE.deactivate();
 		started = false;
 		activePlayer = giveOppositePlayerOf(activePlayer);
+	}
+
+	/**
+	 * Markiert für den aktuellen Spielzug den Zeitpunkt, ab dem eine anfängliche Veränderung für Farbzone und
+	 * Strömungsrichtung nicht mehr möglich ist. Soll beim ersten Setzen einer Handkarte oder der ersten Aktivierung
+	 * einer Farbzone aufgerufen werden.
+	 */
+	public void getStarted()
+	{
+		if (!started) {
+			started = true;
+		}
 	}
 }

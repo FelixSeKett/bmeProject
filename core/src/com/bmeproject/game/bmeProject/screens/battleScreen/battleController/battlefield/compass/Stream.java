@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.compass;
 
 public enum Stream
 {

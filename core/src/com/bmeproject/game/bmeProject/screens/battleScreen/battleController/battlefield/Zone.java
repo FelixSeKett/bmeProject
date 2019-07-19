@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield;
 
 public enum Zone
 {
