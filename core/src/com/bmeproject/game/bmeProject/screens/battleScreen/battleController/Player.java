@@ -23,7 +23,7 @@ public class Player implements iFieldable {
 
     // ===================================
     // CONSTRUCTORS
-    // ===================================
+    // ================================= ==
 
     public Player(BattleController battleController, Party party) {
         BATTLE_CONTROLLER = battleController;

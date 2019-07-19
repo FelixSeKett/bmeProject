@@ -18,7 +18,7 @@ public class Deck {
     }
 
     public void addCardToDeck(int id) {
-        deck.add(id);
+         deck.add(id);
     }
 
 

@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 public enum Party {
     // ===================================
     // ENUMERATIONS
-    // ===================================
+    // ======================== ===========
 
     ALLY {
         @Override

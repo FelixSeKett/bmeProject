@@ -161,5 +161,5 @@ public class Battlefield {
         zonedSectors.add(SECTORS.get(index));
 
         return zonedSectors;
-    }
+    } 
 }
