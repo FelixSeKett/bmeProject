@@ -75,10 +75,7 @@ public class BMEProject extends Game
 		setScreen(titleScreen);
 	}
 
-	public void activateBattleScreen()
-	{
-		setScreen(battleScreen);
-	}
+	public void activateBattleScreen() { setScreen(battleScreen); }
 
 	public void activateDeckScreen()
 	{
