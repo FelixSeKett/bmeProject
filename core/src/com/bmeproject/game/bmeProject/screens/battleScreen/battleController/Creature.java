@@ -24,7 +24,7 @@ public class Creature extends BattleCard
 	@Override public void activate()
 	{
 		// Lege eine Liste mit potenziellen Angriffszielen an
-		ArrayList<BattleCard> potentialTargets = new ArrayList<>();
+		ArrayList<BattleCard> potentialTargets = new ArrayList<BattleCard>();
 
 		// Hole dir eine Liste mit Sektoren aus der Zone, in der sich diese Karte befindet
 		ArrayList<Sector> sectors =
