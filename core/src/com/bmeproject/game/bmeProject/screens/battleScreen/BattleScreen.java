@@ -16,7 +16,6 @@ public class BattleScreen extends AbstractScreen
 		super(bmeProject);
 	}
 
-
 	// ===================================
 	// METHODS
 	// ===================================
@@ -37,11 +36,8 @@ public class BattleScreen extends AbstractScreen
 		super.resize(width, height);
 	}
 
-
 	@Override protected Controller createController(SpriteBatch spriteBatch)
 	{
 		return new BattleController(spriteBatch);
 	}
-
-
 }

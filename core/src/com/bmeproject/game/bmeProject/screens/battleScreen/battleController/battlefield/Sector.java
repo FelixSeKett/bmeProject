@@ -89,6 +89,11 @@ public class Sector implements iFieldable
 		return false;
 	}
 
+	public Field giveQuarterField()
+	{
+		return FIELDS.get(0);
+	}
+
 	public LeadField giveLeadField()
 	{
 		return (LeadField)FIELDS.get(1);

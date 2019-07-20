@@ -66,11 +66,9 @@ public abstract class BattleCard extends Actor
 
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-				if (PLAYER.isActive()) {
-					if (BattleCard.this.isOnBattlefield() || BattleCard.this.isOnHand() ||
-							BattleCard.this.isOnGraveyard()) {
-						PLAYER.BATTLE_CONTROLLER.DETAIL_VIEW.update(BattleCard.this);
-					}
+				if (BattleCard.this.isOnBattlefield() || BattleCard.this.isOnHand() ||
+						BattleCard.this.isOnGraveyard()) {
+					PLAYER.BATTLE_CONTROLLER.DETAIL_VIEW.update(BattleCard.this);
 				}
 			}
 		});
@@ -218,4 +216,9 @@ public abstract class BattleCard extends Actor
 	}
 
 	public abstract void getDestroyed();
+
+	public void prepareForBattle()
+	{
+		PLAYER.giveSupply().addCard(this);
+	}
 }

@@ -22,7 +22,7 @@
         <cardDescription>Beschreibung</cardDescription>
         <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_3.png</cardIllustrationFilePath>
     </card>
-    <card id="004">
+ <!--   <card id="004">
         <cardName>Strahlende Mundhygiene</cardName>
         <cardType>QUARTER</cardType>
         <cardEffect>1,2,3</cardEffect>
@@ -35,7 +35,7 @@
         <cardEffect>1,2,3</cardEffect>
         <cardDescription>Beschreibung</cardDescription>
         <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_5.png</cardIllustrationFilePath>
-    </card>
+    </card>-->
     <card id="006">
         <cardName>Hermit-Crabie</cardName>
         <cardType>CREATURE</cardType>

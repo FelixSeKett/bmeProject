@@ -13,9 +13,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
+
+/*
+TODO
+- Abfrage beim Setzen von Karten auf Eintrittsfeld: Gehört der Sektor auch dem entsprechenden Spieler?
+- Buttons fertig machen
+- Kartenrückseite / -Rotation
+- Quartiere in Decks limitieren
+- TitleScreen fertig machen
+ */
 
 public class BattleController extends Controller
 {
@@ -23,12 +33,13 @@ public class BattleController extends Controller
 	// ATTRIBUTES
 	// ===================================
 
-	private static final Texture BACKGROUND = new Texture("core/assets/visuals/spielbrettSmall.png");
-	private static final Texture BUTTON_BLUE = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
-	private static final Texture BUTTON_GREEN = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
-	private static final Texture BUTTON_RED = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
-	private static final Texture BUTTON_ZONE = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
-	private static final Texture BUTTON_STREAM = new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall.png");
+	private static final Texture BACKGROUND    = new Texture("core/assets/visuals/spielbrettSmall.png");
+	private static final Texture BUTTON_BLUE   = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
+	private static final Texture BUTTON_GREEN  = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
+	private static final Texture BUTTON_RED    = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
+	private static final Texture BUTTON_ZONE   = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
+	private static final Texture BUTTON_STREAM =
+			new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall" + ".png");
 	private static final Texture BUTTON_FINISH = new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png");
 
 	public final  DetailView  DETAIL_VIEW;
@@ -151,46 +162,49 @@ public class BattleController extends Controller
 		activePlayer = giveOppositePlayerOf(activePlayer);
 	}
 
-	public void buttons(){
+	public void buttons()
+	{
 		zoneButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
-		zoneButton.setPosition(620,380);
+		zoneButton.setPosition(620, 380);
 		stage.addActor(zoneButton);
 
 		streamButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_STREAM)));
-		streamButton.setPosition(620,330);
+		streamButton.setPosition(620, 330);
 		stage.addActor(streamButton);
 
 		greenButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
-		greenButton.setPosition(620,230);
+		greenButton.setPosition(620, 230);
 		stage.addActor(greenButton);
 
 
 		redButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
-		redButton.setPosition(620,180);
+		redButton.setPosition(620, 180);
 		stage.addActor(redButton);
 
 		blueButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)));
-		blueButton.setPosition(620,130);
+		blueButton.setPosition(620, 130);
 		stage.addActor(blueButton);
 
 		finishButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH)));
-		finishButton.setPosition(620,20);
+		finishButton.setPosition(620, 20);
 		stage.addActor(finishButton);
 
 
 		clickedImageButton(zoneButton);
 	}
 
-	public void clickedImageButton(ImageButton btn){
+	public void clickedImageButton(ImageButton btn)
+	{
 
-		btn.addListener(new ActorGestureListener(){
-			@Override public void tap (InputEvent event, float x, float y, int count, int button){
+		btn.addListener(new ActorGestureListener()
+		{
+			@Override public void tap(InputEvent event, float x, float y, int count, int button)
+			{
 				System.out.println("Zone successfully clicked");
 			}
 		});
 
 	}
-
 
 	/**
 	 * Markiert für den aktuellen Spielzug den Zeitpunkt, ab dem eine anfängliche Veränderung für Farbzone und
@@ -201,6 +215,33 @@ public class BattleController extends Controller
 	{
 		if (!started) {
 			started = true;
+		}
+	}
+
+	// prüft ob jemande bereits 6 Sektoren hat und gibt den Gewinn in der Konsole aus
+	//TODO: Label hinzufügen
+	public void checkForWin()
+	{
+		int allyCounter  = 0;
+		int enemyCounter = 0;
+
+		//prüft die Besitzer der einzelnen Sektoren und zählt
+		for (Sector sector : BATTLEFIELD.giveSectors()) {
+			if (sector.giveCommander().PARTY == Party.ALLY) {
+				allyCounter++;
+			} else {
+				enemyCounter++;
+			}
+		}
+
+		if (allyCounter == 6) {
+			System.out.println("YouWin");
+		}
+		if (enemyCounter == 6) {
+			System.out.println("YouLoose");
+		} else {
+			allyCounter = 0;
+			enemyCounter = 0;
 		}
 	}
 }
