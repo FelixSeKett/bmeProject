@@ -16,10 +16,9 @@ public class Player implements iFieldable
 	// ATTRIBUTES
 	// ===================================
 
-	public final  BattleController      BATTLE_CONTROLLER;
-	public final  Party                 PARTY;
-	private final ArrayList<Field>      FIELDS; // Muss aus Kapselungsgründen private bleiben!
-	private final ArrayList<BattleCard> BATTLE_CARDS; // Muss aus Kapselungsgründen private bleiben!
+	public final  BattleController BATTLE_CONTROLLER;
+	public final  Party            PARTY;
+	private final ArrayList<Field> FIELDS; // Muss aus Kapselungsgründen private bleiben!
 
 	// ===================================
 	// CONSTRUCTORS
@@ -37,20 +36,12 @@ public class Player implements iFieldable
 		FIELDS.add(new Field(this, PARTY.giveGraveyardVector()));
 
 		// Alle Cards als BattleCards instanziieren
-		BATTLE_CARDS = new ArrayList<BattleCard>();
 		Stage stage = BATTLE_CONTROLLER.giveStage();
 		for (Card card : BMEProject.allCards.values()) {
-			Type type = card.TYPE;
-			for (int i = 0; i < 2; i++) {
-				BattleCard battleCard = type.createBattleCard(this, card);
-				BATTLE_CARDS.add(battleCard);
-				stage.addActor(battleCard);
-			}
-		}
-
-		// Alle Cards in den eigenen Supply verschieben
-		for (BattleCard battleCard : BATTLE_CARDS) {
-			giveSupply().addCard(battleCard);
+			Type       type       = card.TYPE;
+			BattleCard battleCard = type.createBattleCard(this, card);
+			battleCard.prepareForBattle();
+			stage.addActor(battleCard);
 		}
 	}
 
@@ -110,9 +101,9 @@ public class Player implements iFieldable
 		BATTLE_CONTROLLER.changeActivePlayer();
 	}
 
-	public void drawTopCard() {
+	public void drawTopCard()
+	{
 		BattleCard card = giveSupply().pullTopCard();
-
 		giveHand().addCard(card);
 	}
 }

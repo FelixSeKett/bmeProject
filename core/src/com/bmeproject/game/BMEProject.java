@@ -67,7 +67,7 @@ public class BMEProject extends Game
 		battleScreen = new BattleScreen(this);
 		deckScreen = new DeckScreen(this);
 
-		setScreen(titleScreen);
+		setScreen(battleScreen);
 	}
 
 	public void activateTitleScreen()
@@ -75,10 +75,7 @@ public class BMEProject extends Game
 		setScreen(titleScreen);
 	}
 
-	public void activateBattleScreen()
-	{
-		setScreen(battleScreen);
-	}
+	public void activateBattleScreen() { setScreen(battleScreen); }
 
 	public void activateDeckScreen()
 	{

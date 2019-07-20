@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
@@ -46,6 +47,11 @@ public class Battlefield
 	// METHODS
 	// ===================================
 
+	public ArrayList<Sector> giveSectors()
+	{
+		return new ArrayList<Sector>(SECTORS);
+	}
+
 	public int giveIndexOfSector(Sector sector)
 	{
 		return SECTORS.indexOf(sector);
@@ -54,6 +60,17 @@ public class Battlefield
 	public Sector giveSectorOfIndex(int index)
 	{
 		return SECTORS.get(index);
+	}
+
+	public Field giveNextEmptyQuarterFieldFor(Quarter quarter)
+	{
+		for (int i = quarter.PLAYER.PARTY.ordinal(); i < SECTORS.size(); i += 2) {
+			Field quarterField = SECTORS.get(i).giveQuarterField();
+			if (quarterField.giveCards().isEmpty()) {
+				return quarterField;
+			}
+		}
+		return null;
 	}
 
 	public Sector givePreviousSectorOf(Sector sectorToGivePreviousSectorOf)

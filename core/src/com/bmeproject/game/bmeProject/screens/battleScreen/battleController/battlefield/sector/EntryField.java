@@ -25,10 +25,11 @@ public class EntryField extends RingField
 				BattleController battleController = FIELDABLE.giveBattleController();
 				BattleCard       selectedCard     = battleController.giveLastClickedBattleCard();
 				if (selectedCard != null) {
-					if (selectedCard.giveCommander() == FIELDABLE.giveCommander()) {
-						addCard(selectedCard);
-						battleController.resetLastClickedBattleCard();
-					}
+					// TODO: Konditionen prüfen
+					//					if (selectedCard.giveCommander() == FIELDABLE.giveCommander()) {
+					addCard(selectedCard);
+					battleController.resetLastClickedBattleCard();
+					//					}
 				}
 				return true;
 			}

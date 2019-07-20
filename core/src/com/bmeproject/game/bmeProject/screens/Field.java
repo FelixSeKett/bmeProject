@@ -26,7 +26,7 @@ public class Field extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	protected final iFieldable            FIELDABLE;
+	public final    iFieldable            FIELDABLE;
 	private final   float                 PILE_X;
 	private final   float                 PILE_Y;
 	private final   float                 PILE_OFFSET_X;

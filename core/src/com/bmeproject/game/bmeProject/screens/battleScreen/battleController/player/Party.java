@@ -26,7 +26,7 @@ public enum Party
 
 		@Override public Vector2 giveHandVector()
 		{
-			return new Vector2(280, 0);
+			return new Vector2(280, 20);
 		}
 	},
 	ENEMY {
@@ -47,7 +47,7 @@ public enum Party
 
 		@Override public Vector2 giveHandVector()
 		{
-			return new Vector2(280, 406);
+			return new Vector2(280, 386);
 		}
 	};
 

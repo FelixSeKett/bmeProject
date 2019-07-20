@@ -31,10 +31,13 @@ public class BattleScreen extends AbstractScreen
 		super.render(delta);
 	}
 
+	@Override public void resize(int width, int height)
+	{
+		super.resize(width, height);
+	}
+
 	@Override protected Controller createController(SpriteBatch spriteBatch)
 	{
 		return new BattleController(spriteBatch);
 	}
-
-
 }

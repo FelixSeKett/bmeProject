@@ -18,7 +18,7 @@ public abstract class AbstractScreen implements Screen
 	// ATTRIBUTES
 	// ===================================
 
-	protected final BMEProject BME_PROJECT;
+	public final BMEProject BME_PROJECT;
 	private         Controller controller;
 	private         Renderer   renderer;
 
@@ -75,6 +75,7 @@ public abstract class AbstractScreen implements Screen
 
 	@Override public void resize(int width, int height)
 	{
+		renderer.resize(width, height);
 	}
 
 	@Override public void pause()
