@@ -101,10 +101,12 @@ public class Player implements iFieldable
 		BATTLE_CONTROLLER.changeActivePlayer();
 	}
 
-	public void drawTopCard()
-	{
-		BattleCard card = giveSupply().pullTopCard();
-		giveHand().addCard(card);
+	public void drawTopCard() {
+		//Prüfung ob Hand mehr als 7 Karten enthält
+		if (giveHand().getPileSize() <= 7) {
+			BattleCard card = giveSupply().pullTopCard();
+			giveHand().addCard(card);
+		}
 	}
 }
 
