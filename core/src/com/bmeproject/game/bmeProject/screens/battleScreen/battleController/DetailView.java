@@ -32,7 +32,7 @@ public class DetailView
 		final Label.LabelStyle INFO_STYLE  = new Label.LabelStyle(new BitmapFont(), Color.BLACK);
 
 		BATTLE_CARD_IMAGE = new Image();
-		BATTLE_CARD_IMAGE.setBounds(X, 195, 160, 235);
+		BATTLE_CARD_IMAGE.setBounds(X, 195, 347, 513);
 		NAME_LABEL = new Label("", LABEL_STYLE);
 		NAME_LABEL.setPosition(X, 180);
 		ACTUAL_NAME = new Label("", INFO_STYLE);

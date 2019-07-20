@@ -9,6 +9,9 @@ public enum Party
 	// ===================================
 
 	ALLY {
+		double screenWidth=1920;
+		double screenHeight=1080;
+
 		@Override public float giveRotation()
 		{
 			return 0;

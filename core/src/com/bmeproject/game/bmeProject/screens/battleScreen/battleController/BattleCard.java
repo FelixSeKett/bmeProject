@@ -25,8 +25,8 @@ public abstract class BattleCard extends Actor
 
 	private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
 	private static final float         ANIMATION_SPEED         = 0.5f;
-	public static final  int           WIDTH                   = 30;
-	public static final  int           HEIGHT                  = 44;
+	public static final  int           WIDTH                   = 70;
+	public static final  int           HEIGHT                  = 103;
 
 	protected final Player PLAYER;
 	public final    Card   CARD;
@@ -48,7 +48,7 @@ public abstract class BattleCard extends Actor
 		commander = PLAYER;
 		currentHitPoints = DEFAULT_HIT_POINTS;
 		SPRITE = new Sprite(new Texture(CARD.ILLUSTRATION_FILE_PATH));
-		setBounds(0, 0, 30, 44);
+		setBounds(0, 0, 70, 103);
 		setOrigin(getWidth() / 2, getHeight() / 2);
 
 		addListener(new InputListener()

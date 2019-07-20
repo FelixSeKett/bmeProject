@@ -165,28 +165,28 @@ public class BattleController extends Controller
 	public void buttons()
 	{
 		zoneButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
-		zoneButton.setPosition(620, 380);
+		zoneButton.setPosition(1480, 900);
 		stage.addActor(zoneButton);
 
 		streamButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_STREAM)));
-		streamButton.setPosition(620, 330);
+		streamButton.setPosition(1480, 900-130);
 		stage.addActor(streamButton);
 
 		greenButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
-		greenButton.setPosition(620, 230);
+		greenButton.setPosition(1480, 900-350);
 		stage.addActor(greenButton);
 
 
 		redButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
-		redButton.setPosition(620, 180);
+		redButton.setPosition(1480, 900-480);
 		stage.addActor(redButton);
 
 		blueButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)));
-		blueButton.setPosition(620, 130);
+		blueButton.setPosition(1480, 900-605);
 		stage.addActor(blueButton);
 
 		finishButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH)));
-		finishButton.setPosition(620, 20);
+		finishButton.setPosition(1480, 60);
 		stage.addActor(finishButton);
 
 

@@ -31,8 +31,8 @@ public class Renderer
 	{
 		SPRITE_BATCH = spriteBatch;
 		camera = new OrthographicCamera();
-		viewport = new FitViewport(800, 450, camera);
-		camera.position.set(400, 225, 0);
+		viewport = new FitViewport(1920, 1020, camera);
+		camera.position.set(1920/2, 1020/2, 0);
 	}
 
 	// ===================================
