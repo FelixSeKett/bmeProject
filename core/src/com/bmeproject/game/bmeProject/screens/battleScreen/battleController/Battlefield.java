@@ -3,8 +3,10 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 import com.badlogic.gdx.math.Vector2;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Compass;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 
 import java.util.ArrayList;
 
@@ -14,7 +16,7 @@ public class Battlefield {
     // ===================================
 
     public final BattleController BATTLE_CONTROLLER;
-    private final Compass COMPASS;
+    public final Compass COMPASS;
     private final ArrayList<Sector> SECTORS; // Muss aus Kapselungsgründen private bleiben!
     private int allyCounter;
     private int enemyCounter;
@@ -55,24 +57,68 @@ public class Battlefield {
         return SECTORS.get(index);
     }
 
-    public Field giveCurrentFieldOfBattleCard(BattleCard battleCard) {
-        for (Sector sector : SECTORS) {
-            Field field = sector.giveCurrentFieldOfBattleCard(battleCard);
-            if (field != null) {
-                return field;
-            }
-        }
-        return null;
-    }
+	public Sector givePreviousSectorOf(Sector sectorToGivePreviousSectorOf)
+	{
+		int index = giveIndexOfSector(sectorToGivePreviousSectorOf);
+		index -= 1;
+		if (index < 0) {
+			index += 6;
+		}
+		return SECTORS.get(index);
+	}
 
-    /*
-    TODO: Vor dem Aufruf dieser Methode (Button-Klick) muss gecheckt werden, ob die Zone aktiviert werden kann (nicht,
-     wenn sie im gleichen Spielzug schon einmal aktiviert wurde) und ob der aktivierende Spieler auch der aktive
-     Spieler ist
-    */
-    private void activateZone(Zone zoneToActivate) {
-        // Erstelle eine nach Strömungsregeln sortierte ArrayList mit Sektoren, die zur aktivierten Zone gehören
-        ArrayList<Sector> activeSectors = giveZonedSectors(zoneToActivate);
+	public Sector giveNextSectorOf(Sector sectorToGiveNextSectorOf)
+	{
+		int index = giveIndexOfSector(sectorToGiveNextSectorOf);
+		index += 1;
+		if (index > 5) {
+			index -= 6;
+		}
+		return SECTORS.get(index);
+	}
+
+	public Zone giveZoneOfSector(Sector sectorToGiveZoneOf)
+	{
+		int index = giveIndexOfSector(COMPASS.giveStartSector());
+		for (int i = 0; i < SECTORS.size(); i++) {
+			int colorIndex = index + i;
+			if (SECTORS.get(colorIndex) == sectorToGiveZoneOf) {
+				return Zone.giveZoneByColorIndex(colorIndex);
+			}
+		}
+		return null;
+	}
+
+	public Field giveCurrentFieldOfBattleCard(BattleCard battleCard)
+	{
+		for (Sector sector : SECTORS) {
+			Field field = sector.giveCurrentFieldOfBattleCard(battleCard);
+			if (field != null) {
+				return field;
+			}
+		}
+		return null;
+	}
+
+	public Sector giveCurrentSectorOfBattleCard(BattleCard battleCard)
+	{
+		for (Sector sector : SECTORS) {
+			if (sector.hasBattleCard(battleCard)) {
+				return sector;
+			}
+		}
+		return null;
+	}
+
+	/*
+	TODO: Vor dem Aufruf dieser Methode (Button-Klick) muss gecheckt werden, ob die Zone aktiviert werden kann (nicht,
+	 wenn sie im gleichen Spielzug schon einmal aktiviert wurde) und ob der aktivierende Spieler auch der aktive
+	 Spieler ist
+	*/
+	private void activateZone(Zone zoneToActivate)
+	{
+		// Erstelle eine nach Strömungsregeln sortierte ArrayList mit Sektoren, die zur aktivierten Zone gehören
+		ArrayList<Sector> activeSectors = giveZonedSectors(zoneToActivate);
 
         // Erstelle eine nach Strömungsregeln sortierte ArrayList aus zu aktivierenden Karten aus der Sektoren-Liste,
         // wobei die äußeren Felder mit Kreaturen und Phänomenen zuerst abgearbeitet werden...
@@ -108,6 +154,11 @@ public class Battlefield {
 
         // Setze die Zone als aktiviert
         zoneToActivate.activate();
+		// Markiere den Spielzug als gestartet
+		BATTLE_CONTROLLER.getStarted();
+
+		// Setze die Zone als aktiviert
+		zoneToActivate.activate();
 
         //prüft die Besitzer der einzelnen Sektoren und zählt
         for (Sector sector : SECTORS) {
@@ -136,30 +187,32 @@ public class Battlefield {
         }
     }
 
-    // TODO: Die Reihenfolge der Einträge der zurückgegebenen ArrayList soll entsprechend der Strömung sortiert sein
-    private ArrayList<Sector> giveZonedSectors(Zone zone) {
-        // Bereitet eine Liste mit Sektoren vor, die zurückgegeben werden soll
-        ArrayList<Sector> zonedSectors = new ArrayList<Sector>();
+    	// TODO: Die Reihenfolge der Einträge der zurückgegebenen ArrayList soll entsprechend der Strömung sortiert sein
+	public ArrayList<Sector> giveZonedSectors(Zone zone)
+	{
+		// Bereitet eine Liste mit Sektoren vor, die zurückgegeben werden soll
+		ArrayList<Sector> zonedSectors = new ArrayList<Sector>();
 
-        // Speichert den Index des im Kompass hinterlegten Startsektors
-        int index = SECTORS.indexOf(COMPASS.giveStartSector());
+		// Speichert den Index des im Kompass hinterlegten Startsektors
+		int index = SECTORS.indexOf(COMPASS.giveStartSector());
 
-        // Fügt den Sektor hinzu, dessen Index der Differenz aus dem Startsektor und dem ColorIndex der gesuchten
-        // Zone entspricht
-        index -= zone.getColorIndex() * 2;
-        if (index < 0) {
-            index += 6;
-        }
-        zonedSectors.add(SECTORS.get(index));
+		// Fügt den Sektor hinzu, dessen Index der Differenz aus dem Startsektor und dem ColorIndex der gesuchten
+		// Zone entspricht
+		index -= zone.ordinal() * 2;
+		if (index < 0) {
+			index += 6;
+		}
+		zonedSectors.add(SECTORS.get(index));
 
-        // Fügt den Sektor hinzu, dessen Index der Differenz aus dem Startsektor und dem ColorIndex der gesuchten
-        // Zone +1 entspricht
-        index--;
-        if (index < 0) {
-            index += 6;
-        }
-        zonedSectors.add(SECTORS.get(index));
+		// Fügt den Sektor hinzu, dessen Index der Differenz aus dem Startsektor und dem ColorIndex der gesuchten
+		// Zone +1 entspricht
+		index--;
+		if (index < 0) {
+			index += 6;
+		}
+		zonedSectors.add(SECTORS.get(index));
 
-        return zonedSectors;
-    }
+		return zonedSectors;
+	}
+
 }

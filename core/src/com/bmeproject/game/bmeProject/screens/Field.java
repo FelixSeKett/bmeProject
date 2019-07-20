@@ -2,10 +2,10 @@ package com.bmeproject.game.bmeProject.screens;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.iFieldable;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class Field extends Actor
 	private final   float                 PILE_OFFSET_Y;
 	private final   float                 CARD_OFFSET_X;
 	private final   float                 CARD_OFFSET_Y;
-	private final   ArrayList<BattleCard> CARDS; // Muss aus Kapselungsgründen private bleiben!
+	protected final ArrayList<BattleCard> CARDS; // Muss aus Kapselungsgründen private bleiben!
 	private final   int                   PILE_LIMIT;
 
 	// ===================================
@@ -99,10 +99,8 @@ public class Field extends Actor
 			float      x    = getX() + PILE_X + i * CARD_OFFSET_X + (j - 1) * PILE_OFFSET_X;
 			float      y    = getY() + PILE_Y + i * CARD_OFFSET_Y + (j - 1) * PILE_OFFSET_Y;
 			BattleCard card = CARDS.get(i);
-			card.setPosition(x, y);
-
-
-			card.takeRotation();
+			card.moveTo(x, y);
+			card.updateRotation();
 		}
 	}
 
@@ -115,7 +113,7 @@ public class Field extends Actor
 			currentField.removeCard(cardToAdd);
 		}
 
-		if(cardToAdd != null){
+		if (cardToAdd != null) {
 			CARDS.add(cardToAdd);
 		}
 
@@ -128,17 +126,20 @@ public class Field extends Actor
 		update();
 	}
 
-	public BattleCard pullCard(int index) {
-		if(CARDS.size() > 0 && CARDS.size() >= index && index >= 0){
+	public BattleCard pullCard(int index)
+	{
+		if (CARDS.size() > 0 && CARDS.size() >= index && index >= 0) {
 			BattleCard card = CARDS.get(index);
 			removeCard(card);
 			return card;
-		} else return null;
+		} else {
+			return null;
+		}
 	}
 
 	public BattleCard pullTopCard()
 	{
-		return pullCard(CARDS.size()-1);
+		return pullCard(CARDS.size() - 1);
 	}
 
 	/*

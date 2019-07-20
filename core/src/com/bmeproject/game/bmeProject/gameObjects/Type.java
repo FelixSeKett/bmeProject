@@ -1,10 +1,11 @@
 package com.bmeproject.game.bmeProject.gameObjects;
 
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Creature;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Phenomenon;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Quarter;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Creature;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Phenomenon;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Quarter;
 
 import java.util.ArrayList;
 

@@ -1,15 +1,19 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Zone;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 
 import java.util.ArrayList;
 
@@ -19,8 +23,10 @@ public abstract class BattleCard extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	public static final int WIDTH  = 30;
-	public static final int HEIGHT = 44;
+	private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
+	private static final float         ANIMATION_SPEED         = 0.5f;
+	public static final  int           WIDTH                   = 30;
+	public static final  int           HEIGHT                  = 44;
 
 	protected final Player PLAYER;
 	public final    Card   CARD;
@@ -120,6 +126,12 @@ public abstract class BattleCard extends Actor
 		SPRITE.setOrigin(x, y);
 	}
 
+	@Override public void setScale(float scaleX, float scaleY)
+	{
+		super.setScale(scaleX, scaleY);
+		SPRITE.setScale(scaleX, scaleY);
+	}
+
 	public abstract void activate();
 
 	public String giveName()
@@ -132,6 +144,11 @@ public abstract class BattleCard extends Actor
 		return commander;
 	}
 
+	public Sector giveCurrentSector()
+	{
+		return PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveCurrentSectorOfBattleCard(this);
+	}
+
 	public boolean isOnHand()
 	{
 		return PLAYER.giveHand().giveCards().contains(this);
@@ -142,9 +159,22 @@ public abstract class BattleCard extends Actor
 		return PLAYER.giveGraveyard().giveCards().contains(this);
 	}
 
-	public void takeRotation()
+	public void moveTo(float x, float y)
 	{
-		setRotation(commander.PARTY.giveRotation());
+		MoveToAction moveToAction = new MoveToAction();
+		moveToAction.setDuration(ANIMATION_SPEED);
+		moveToAction.setInterpolation(ANIMATION_INTERPOLATION);
+		moveToAction.setPosition(x, y);
+		addAction(moveToAction);
+	}
+
+	public void updateRotation()
+	{
+		RotateToAction rotateToAction = new RotateToAction();
+		rotateToAction.setDuration(ANIMATION_SPEED);
+		rotateToAction.setInterpolation(ANIMATION_INTERPOLATION);
+		rotateToAction.setRotation(commander.PARTY.giveRotation());
+		addAction(rotateToAction);
 	}
 
 	public void resetHitPoints()
@@ -171,7 +201,21 @@ public abstract class BattleCard extends Actor
 		return CARD.TYPE.giveActivatingZones();
 	}
 
+	public void getSelected()
+	{
+		ScaleToAction scaleToAction = new ScaleToAction();
+		scaleToAction.setDuration(0.1f);
+		scaleToAction.setScale(1.4f);
+		addAction(scaleToAction);
+	}
+
+	public void getUnselected()
+	{
+		ScaleToAction scaleToAction = new ScaleToAction();
+		scaleToAction.setDuration(0.1f);
+		scaleToAction.setScale(1f);
+		addAction(scaleToAction);
+	}
+
 	public abstract void getDestroyed();
-
-
 }

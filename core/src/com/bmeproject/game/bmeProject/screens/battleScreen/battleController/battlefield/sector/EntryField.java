@@ -1,13 +1,15 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.iFieldable;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 
-public class EntryField extends Field
+public class EntryField extends RingField
 {
 	// ===================================
 	// CONSTRUCTORS
@@ -31,5 +33,19 @@ public class EntryField extends Field
 				return true;
 			}
 		});
+	}
+
+	// ===================================
+	// METHODS
+	// ===================================
+
+	@Override public Field givePreviousField()
+	{
+		return ((Sector)FIELDABLE).giveLeadField();
+	}
+
+	@Override public Field giveNextField()
+	{
+		return ((Sector)FIELDABLE).giveEndField();
 	}
 }

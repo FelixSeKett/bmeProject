@@ -1,4 +1,4 @@
-package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
+package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield;
 
 public enum Zone
 {
@@ -6,24 +6,9 @@ public enum Zone
 	// ENTRIES
 	// ===================================
 
-	RED {
-		@Override public int getColorIndex()
-		{
-			return 0;
-		}
-	},
-	GREEN {
-		@Override public int getColorIndex()
-		{
-			return 1;
-		}
-	},
-	BLUE {
-		@Override public int getColorIndex()
-		{
-			return 2;
-		}
-	};
+	RED,
+	GREEN,
+	BLUE;
 
 	// ===================================
 	// ATTRIBUTES
@@ -44,7 +29,16 @@ public enum Zone
 	// ATTRIBUTES
 	// ===================================
 
-	public abstract int getColorIndex();
+	public static Zone giveZoneByColorIndex(int index)
+	{
+		for (Zone zone : values()) {
+			int ordinal = zone.ordinal() * 2;
+			if (ordinal == index || ordinal == (index + 1)) {
+				return zone;
+			}
+		}
+		return null;
+	}
 
 	public boolean isActivated()
 	{
