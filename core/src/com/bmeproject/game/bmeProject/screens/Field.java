@@ -73,7 +73,7 @@ public class Field extends Actor
 
 	public Field(final iFieldable fieldable, final Vector2 position)
 	{
-		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 2, 2,
+		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 0.2f, 0.2f,
 				new ArrayList<BattleCard>(), 1);
 		fieldable.giveBattleController().giveStage().addActor(this);
 	}
@@ -149,5 +149,9 @@ public class Field extends Actor
 	public ArrayList<BattleCard> giveCards()
 	{
 		return new ArrayList<BattleCard>(CARDS);
+	}
+
+	public int getPileSize(){
+		return CARDS.size();
 	}
 }
