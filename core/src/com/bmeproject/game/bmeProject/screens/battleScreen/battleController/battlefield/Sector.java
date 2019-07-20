@@ -16,14 +16,13 @@ import java.util.Collections;
 /**
  * Achtung: von den insgesamt 4 Fields, die diese Klasse beinhaltet, ist das erste immer das QuarterField.
  */
-public class Sector implements iFieldable
+public class Sector extends FieldUser
 {
 	// ===================================
 	// ATTRIBUTES
 	// ===================================
 
-	public final  Battlefield      BATTLEFIELD;
-	private final ArrayList<Field> FIELDS; // Muss aus Kapselungsgründen private bleiben!
+	public final Battlefield BATTLEFIELD;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -32,8 +31,8 @@ public class Sector implements iFieldable
 	public Sector(Battlefield battlefield, Vector2 field1Vector, Vector2 field2Vector, Vector2 field3Vector,
 			Vector2 quarterFieldVector)
 	{
+		super();
 		BATTLEFIELD = battlefield;
-		FIELDS = new ArrayList<Field>();
 		FIELDS.add(new Field(this, quarterFieldVector));
 		FIELDS.add(new LeadField(this, field1Vector));
 		FIELDS.add(new EntryField(this, field2Vector));
@@ -62,6 +61,11 @@ public class Sector implements iFieldable
 	@Override public Player giveCommander()
 	{
 		return giveQuarter().giveCommander();
+	}
+
+	public ArrayList<Field> giveFields()
+	{
+		return new ArrayList<>(FIELDS);
 	}
 
 	public Sector givePreviousSector()

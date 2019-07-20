@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.iFieldable;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.FieldUser;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 
 public class EntryField extends RingField
@@ -15,21 +15,20 @@ public class EntryField extends RingField
 	// CONSTRUCTORS
 	// ===================================
 
-	public EntryField(iFieldable fieldable, Vector2 position)
+	public EntryField(FieldUser fieldable, Vector2 position)
 	{
 		super(fieldable, position);
 		addListener(new InputListener()
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				BattleController battleController = FIELDABLE.giveBattleController();
+				BattleController battleController = FIELD_USER.giveBattleController();
 				BattleCard       selectedCard     = battleController.giveLastClickedBattleCard();
 				if (selectedCard != null) {
-					// TODO: Konditionen prüfen
-					//					if (selectedCard.giveCommander() == FIELDABLE.giveCommander()) {
-					addCard(selectedCard);
-					battleController.resetLastClickedBattleCard();
-					//					}
+					if (selectedCard.giveCommander() == FIELD_USER.giveCommander()) {
+						addCard(selectedCard);
+						battleController.resetLastClickedBattleCard();
+					}
 				}
 				return true;
 			}
@@ -42,11 +41,11 @@ public class EntryField extends RingField
 
 	@Override public Field givePreviousField()
 	{
-		return ((Sector)FIELDABLE).giveLeadField();
+		return ((Sector)FIELD_USER).giveLeadField();
 	}
 
 	@Override public Field giveNextField()
 	{
-		return ((Sector)FIELDABLE).giveEndField();
+		return ((Sector)FIELD_USER).giveEndField();
 	}
 }

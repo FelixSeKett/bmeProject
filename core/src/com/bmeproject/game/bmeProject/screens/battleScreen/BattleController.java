@@ -4,12 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
@@ -18,13 +14,21 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.batt
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
+import java.util.ArrayList;
+
 /*
-TODO
-- Abfrage beim Setzen von Karten auf Eintrittsfeld: Gehört der Sektor auch dem entsprechenden Spieler?
-- Buttons fertig machen
-- Kartenrückseite / -Rotation
-- Quartiere in Decks limitieren
+TODO: Funktionalität
 - TitleScreen fertig machen
+- Strömungsanimation implementieren
+- Drehung Farbkreis implementieren und animieren
+- Drehung Strömung animieren
+
+TODO: Debug
+- Aktivierung Rote / Blaue Zone debuggen
+- Aktivierung Grüne Zone debuggen
+
+TODO: Kosmetik
+- Buttons mit Pressed und Hovered Bildern versehen
  */
 
 public class BattleController extends Controller
@@ -33,31 +37,15 @@ public class BattleController extends Controller
 	// ATTRIBUTES
 	// ===================================
 
-	private static final Texture BACKGROUND    = new Texture("core/assets/visuals/spielbrettSmall.png");
-	private static final Texture BUTTON_BLUE   = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
-	private static final Texture BUTTON_GREEN  = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
-	private static final Texture BUTTON_RED    = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
-	private static final Texture BUTTON_ZONE   = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
-	private static final Texture BUTTON_STREAM =
-			new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall" + ".png");
-	private static final Texture BUTTON_FINISH = new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png");
-
 	public final  DetailView  DETAIL_VIEW;
+	public final  ButtonView  BUTTON_VIEW;
+	public final  Battlefield BATTLEFIELD;
 	private final Player      PLAYER_1;
 	private final Player      PLAYER_2;
-	public final  Battlefield BATTLEFIELD;
 
 	private Player     activePlayer;
 	private boolean    started;
 	private BattleCard lastClickedBattleCard;
-
-	// TODO: In ein HUD auslagern
-	private ImageButton zoneButton;
-	private ImageButton streamButton;
-	private ImageButton greenButton;
-	private ImageButton redButton;
-	private ImageButton blueButton;
-	private ImageButton finishButton;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -66,14 +54,15 @@ public class BattleController extends Controller
 	public BattleController(SpriteBatch spriteBatch)
 	{
 		super(spriteBatch);
-		Image backgroundImage = new Image(BACKGROUND);
+		Image backgroundImage = new Image(new Texture("core/assets/visuals/spielbrettSmall.png"));
 		stage.addActor(backgroundImage);
-		buttons();
 		DETAIL_VIEW = new DetailView(stage);
+		BUTTON_VIEW = new ButtonView(this);
 		BATTLEFIELD = new Battlefield(this);
 		PLAYER_1 = new Player(this, Party.ALLY);
 		PLAYER_2 = new Player(this, Party.ENEMY);
 		activePlayer = PLAYER_1;
+		activePlayer.beginTurn();
 		Gdx.input.setInputProcessor(stage);
 	}
 
@@ -84,8 +73,10 @@ public class BattleController extends Controller
 	@Override public void update(float delta)
 	{
 		super.update(delta);
-		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-			activePlayer.drawTopCard();
+		if (BMEProject.DEBUG) {
+			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+				activePlayer.drawTopCard();
+			}
 		}
 	}
 
@@ -159,51 +150,21 @@ public class BattleController extends Controller
 		Zone.GREEN.deactivate();
 		Zone.BLUE.deactivate();
 		started = false;
-		activePlayer = giveOppositePlayerOf(activePlayer);
+		Player nextPlayer = giveOppositePlayerOf(activePlayer);
+		nextPlayer.beginTurn();
+		activePlayer = nextPlayer;
+		updateAllFields();
 	}
 
-	public void buttons()
+	public void updateAllFields()
 	{
-		zoneButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
-		zoneButton.setPosition(620, 380);
-		stage.addActor(zoneButton);
-
-		streamButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_STREAM)));
-		streamButton.setPosition(620, 330);
-		stage.addActor(streamButton);
-
-		greenButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
-		greenButton.setPosition(620, 230);
-		stage.addActor(greenButton);
-
-
-		redButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
-		redButton.setPosition(620, 180);
-		stage.addActor(redButton);
-
-		blueButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)));
-		blueButton.setPosition(620, 130);
-		stage.addActor(blueButton);
-
-		finishButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH)));
-		finishButton.setPosition(620, 20);
-		stage.addActor(finishButton);
-
-
-		clickedImageButton(zoneButton);
-	}
-
-	public void clickedImageButton(ImageButton btn)
-	{
-
-		btn.addListener(new ActorGestureListener()
-		{
-			@Override public void tap(InputEvent event, float x, float y, int count, int button)
-			{
-				System.out.println("Zone successfully clicked");
-			}
-		});
-
+		ArrayList<Field> allFields = new ArrayList<>();
+		allFields.addAll(BATTLEFIELD.giveAllContainingFields());
+		allFields.addAll(PLAYER_1.giveFields());
+		allFields.addAll(PLAYER_2.giveFields());
+		for (Field field : allFields) {
+			field.update();
+		}
 	}
 
 	/**
@@ -211,7 +172,7 @@ public class BattleController extends Controller
 	 * Strömungsrichtung nicht mehr möglich ist. Soll beim ersten Setzen einer Handkarte oder der ersten Aktivierung
 	 * einer Farbzone aufgerufen werden.
 	 */
-	public void getStarted()
+	public void startTurn()
 	{
 		if (!started) {
 			started = true;
@@ -235,10 +196,10 @@ public class BattleController extends Controller
 		}
 
 		if (allyCounter == 6) {
-			System.out.println("YouWin");
+			System.out.println("You win");
 		}
 		if (enemyCounter == 6) {
-			System.out.println("YouLoose");
+			System.out.println("You lose");
 		} else {
 			allyCounter = 0;
 			enemyCounter = 0;

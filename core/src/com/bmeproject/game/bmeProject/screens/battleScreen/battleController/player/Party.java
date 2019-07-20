@@ -9,6 +9,11 @@ public enum Party
 	// ===================================
 
 	ALLY {
+		@Override public String giveName()
+		{
+			return "Spieler 1";
+		}
+
 		@Override public float giveRotation()
 		{
 			return 0;
@@ -30,6 +35,11 @@ public enum Party
 		}
 	},
 	ENEMY {
+		@Override public String giveName()
+		{
+			return "Spieler 2";
+		}
+
 		@Override public float giveRotation()
 		{
 			return 180;
@@ -54,6 +64,8 @@ public enum Party
 	// ===================================
 	// METHODS
 	// ===================================
+
+	public abstract String giveName();
 
 	public abstract float giveRotation();
 

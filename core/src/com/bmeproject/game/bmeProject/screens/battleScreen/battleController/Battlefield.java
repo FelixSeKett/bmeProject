@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
@@ -50,6 +49,15 @@ public class Battlefield
 	public ArrayList<Sector> giveSectors()
 	{
 		return new ArrayList<Sector>(SECTORS);
+	}
+
+	public ArrayList<Field> giveAllContainingFields()
+	{
+		ArrayList<Field> allFields = new ArrayList<>();
+		for (Sector sector : SECTORS) {
+			allFields.addAll(sector.giveFields());
+		}
+		return allFields;
 	}
 
 	public int giveIndexOfSector(Sector sector)
@@ -131,7 +139,7 @@ public class Battlefield
 	 wenn sie im gleichen Spielzug schon einmal aktiviert wurde) und ob der aktivierende Spieler auch der aktive
 	 Spieler ist
 	*/
-	private void activateZone(Zone zoneToActivate)
+	public void activateZone(Zone zoneToActivate)
 	{
 		// Erstelle eine nach Strömungsregeln sortierte ArrayList mit Sektoren, die zur aktivierten Zone gehören
 		ArrayList<Sector> activeSectors = giveZonedSectors(zoneToActivate);
@@ -140,7 +148,7 @@ public class Battlefield
 		// wobei die äußeren Felder mit Kreaturen und Phänomenen zuerst abgearbeitet werden...
 		ArrayList<BattleCard> battleCardsToActivate = new ArrayList<BattleCard>();
 		for (Sector sector : activeSectors) {
-			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveCurrentStream())) {
+			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveStream())) {
 				if (battleCard.giveActivatingZones().contains(zoneToActivate)) {
 					battleCardsToActivate.add(battleCard);
 				}
@@ -154,13 +162,13 @@ public class Battlefield
 		// aktiviere jede Karte der zuvor erstellen Liste nach Listenreihenfolge
 		for (BattleCard battleCard : battleCardsToActivate) {
 			if (battleCard.isOnBattlefield()) {
-				battleCard.activate();
+				battleCard.getActivated();
 			}
 		}
 
 		// setze die HitPoints der BattleCards in dieser Zone zurück
 		for (Sector sector : activeSectors) {
-			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveCurrentStream())) {
+			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveStream())) {
 				battleCard.resetHitPoints();
 			}
 		}
@@ -169,7 +177,7 @@ public class Battlefield
 		}
 
 		// Markiere den Spielzug als gestartet
-		BATTLE_CONTROLLER.getStarted();
+		BATTLE_CONTROLLER.startTurn();
 
 		// Setze die Zone als aktiviert
 		zoneToActivate.activate();
