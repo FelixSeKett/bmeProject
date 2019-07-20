@@ -6,19 +6,20 @@ import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Type;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.HandField;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.SupplyField;
 
 import java.util.ArrayList;
 
-public class Player implements iFieldable
+public class Player extends FieldUser
 {
 	// ===================================
 	// ATTRIBUTES
 	// ===================================
 
-	public final  BattleController BATTLE_CONTROLLER;
-	public final  Party            PARTY;
-	private final ArrayList<Field> FIELDS; // Muss aus Kapselungsgründen private bleiben!
+	public final BattleController BATTLE_CONTROLLER;
+	public final Party            PARTY;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -26,22 +27,28 @@ public class Player implements iFieldable
 
 	public Player(BattleController battleController, Party party)
 	{
+		super();
+
 		BATTLE_CONTROLLER = battleController;
 		PARTY = party;
 
 		// Alle Fields instanziieren
-		FIELDS = new ArrayList<Field>();
-		FIELDS.add(new Field(this, PARTY.giveSupplyVector()));
-		FIELDS.add(new Field(this, PARTY.giveHandVector(), 35));
+		FIELDS.add(new SupplyField(this, PARTY.giveSupplyVector()));
+		FIELDS.add(new HandField(this, PARTY.giveHandVector()));
 		FIELDS.add(new Field(this, PARTY.giveGraveyardVector()));
 
-		// Alle Cards als BattleCards instanziieren
+		// Alle Cards als BattleCards instanziieren und ihren jeweiligen Start-Fields zuweisen
 		Stage stage = BATTLE_CONTROLLER.giveStage();
 		for (Card card : BMEProject.allCards.values()) {
 			Type       type       = card.TYPE;
 			BattleCard battleCard = type.createBattleCard(this, card);
-			battleCard.prepareForBattle();
 			stage.addActor(battleCard);
+		}
+
+		giveSupply().shuffle();
+
+		for (int i = 0; i < 5; i++) {
+			drawTopCard();
 		}
 	}
 
@@ -69,6 +76,11 @@ public class Player implements iFieldable
 		return this;
 	}
 
+	public ArrayList<Field> giveFields()
+	{
+		return new ArrayList<Field>(FIELDS);
+	}
+
 	public Field giveSupply()
 	{
 		return FIELDS.get(0);
@@ -89,9 +101,9 @@ public class Player implements iFieldable
 		return BATTLE_CONTROLLER.giveActivePlayer() == this;
 	}
 
-	// TODO
 	public void beginTurn()
 	{
+		BATTLE_CONTROLLER.BUTTON_VIEW.updateActivePlayerLabel(this);
 		drawTopCard();
 	}
 

@@ -3,7 +3,7 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.bat
 import com.badlogic.gdx.math.Vector2;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.iFieldable;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.FieldUser;
 
 public class EndField extends RingField
 {
@@ -11,7 +11,7 @@ public class EndField extends RingField
 	// CONSTRUCTORS
 	// ===================================
 
-	public EndField(iFieldable fieldable, Vector2 position)
+	public EndField(FieldUser fieldable, Vector2 position)
 	{
 		super(fieldable, position);
 	}
@@ -22,11 +22,11 @@ public class EndField extends RingField
 
 	@Override public Field givePreviousField()
 	{
-		return ((Sector)FIELDABLE).giveEntryField();
+		return ((Sector)FIELD_USER).giveEntryField();
 	}
 
 	@Override public Field giveNextField()
 	{
-		return ((Sector)FIELDABLE).giveNextSector().giveLeadField();
+		return ((Sector)FIELD_USER).giveNextSector().giveLeadField();
 	}
 }

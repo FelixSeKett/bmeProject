@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.compass.Stream;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.iFieldable;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.FieldUser;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 
 public abstract class RingField extends Field
@@ -13,7 +13,7 @@ public abstract class RingField extends Field
 	// CONSTRUCTORS
 	// ===================================
 
-	public RingField(iFieldable fieldable, Vector2 position)
+	public RingField(FieldUser fieldable, Vector2 position)
 	{
 		super(fieldable, position);
 	}
@@ -31,7 +31,7 @@ public abstract class RingField extends Field
 	 */
 	public void moveContentStreamwise()
 	{
-		if (((Sector)FIELDABLE).BATTLEFIELD.COMPASS.giveCurrentStream() == Stream.CLOCKWISE) {
+		if (((Sector)FIELD_USER).BATTLEFIELD.COMPASS.giveStream() == Stream.CLOCKWISE) {
 			moveContentToField(givePreviousField());
 		} else {
 			moveContentToField(giveNextField());

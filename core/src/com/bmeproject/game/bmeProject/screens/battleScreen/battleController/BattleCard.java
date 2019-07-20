@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
+import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 
@@ -23,18 +24,21 @@ public abstract class BattleCard extends Actor
 	// ATTRIBUTES
 	// ===================================
 
+	private static final Texture       BACK_TEXTURE            =
+			new Texture("core/assets/visuals/cards/small/back.jpg");
 	private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
 	private static final float         ANIMATION_SPEED         = 0.5f;
 	public static final  int           WIDTH                   = 30;
 	public static final  int           HEIGHT                  = 44;
 
-	protected final Player PLAYER;
-	public final    Card   CARD;
-	private final   int    DEFAULT_HIT_POINTS;
-	public final    Sprite SPRITE;
+	protected final Player  PLAYER;
+	public final    Card    CARD;
+	private final   int     DEFAULT_HIT_POINTS;
+	private final   Texture FRONT_TEXTURE;
+	public final    Sprite  SPRITE;
 
 	protected Player commander;
-	protected int    currentHitPoints;
+	private   int    currentHitPoints;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -47,8 +51,12 @@ public abstract class BattleCard extends Actor
 		DEFAULT_HIT_POINTS = defaultHitPoints;
 		commander = PLAYER;
 		currentHitPoints = DEFAULT_HIT_POINTS;
-		SPRITE = new Sprite(new Texture(CARD.ILLUSTRATION_FILE_PATH));
-		setBounds(0, 0, 30, 44);
+		FRONT_TEXTURE = new Texture(CARD.ILLUSTRATION_FILE_PATH);
+		SPRITE = new Sprite(BACK_TEXTURE);
+		Field field = giveStartField();
+		field.addCard(this);
+		setBounds(field.getX(), field.getY(), 30, 44);
+		setRotation(PLAYER.PARTY.giveRotation());
 		setOrigin(getWidth() / 2, getHeight() / 2);
 
 		addListener(new InputListener()
@@ -66,8 +74,7 @@ public abstract class BattleCard extends Actor
 
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-				if (BattleCard.this.isOnBattlefield() || BattleCard.this.isOnHand() ||
-						BattleCard.this.isOnGraveyard()) {
+				if (isReadable()) {
 					PLAYER.BATTLE_CONTROLLER.DETAIL_VIEW.update(BattleCard.this);
 				}
 			}
@@ -130,7 +137,9 @@ public abstract class BattleCard extends Actor
 		SPRITE.setScale(scaleX, scaleY);
 	}
 
-	public abstract void activate();
+	public abstract void getActivated();
+
+	public abstract void getDestroyed();
 
 	public String giveName()
 	{
@@ -140,6 +149,16 @@ public abstract class BattleCard extends Actor
 	public Player giveCommander()
 	{
 		return commander;
+	}
+
+	protected Field giveStartField()
+	{
+		return PLAYER.giveSupply();
+	}
+
+	public Field giveCurrentField()
+	{
+		return PLAYER.BATTLE_CONTROLLER.giveCurrentFieldOfBattleCard(this);
 	}
 
 	public Sector giveCurrentSector()
@@ -155,6 +174,12 @@ public abstract class BattleCard extends Actor
 	public boolean isOnGraveyard()
 	{
 		return PLAYER.giveGraveyard().giveCards().contains(this);
+	}
+
+	private boolean isReadable()
+	{
+		return isOnBattlefield() || isOnGraveyard() ||
+				(isOnHand() && commander == PLAYER.BATTLE_CONTROLLER.giveActivePlayer());
 	}
 
 	public void moveTo(float x, float y)
@@ -215,10 +240,13 @@ public abstract class BattleCard extends Actor
 		addAction(scaleToAction);
 	}
 
-	public abstract void getDestroyed();
-
-	public void prepareForBattle()
+	public void getUncovered()
 	{
-		PLAYER.giveSupply().addCard(this);
+		SPRITE.setTexture(FRONT_TEXTURE);
+	}
+
+	public void getCovered()
+	{
+		SPRITE.setTexture(BACK_TEXTURE);
 	}
 }

@@ -19,12 +19,12 @@ public class Phenomenon extends BattleCard
 	// METHODS
 	// ===================================
 
-	@Override public void activate()
+	@Override public void getActivated()
 	{
-		Gdx.app.log(toString(), "Ich bin ein Phänomen und gehöre zu den coolen Kids!");
 	}
 
-	@Override public void getDestroyed() {
+	@Override public void getDestroyed()
+	{
 		Field graveyard = PLAYER.giveGraveyard();
 		graveyard.addCard(this);
 	}
