@@ -1,313 +1,313 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-<cards>
-    <card id="001">
-        <cardName>Mystisches Lichtfass</cardName>
-        <cardType>QUARTER</cardType>
-        <cardEffect>12,15,16</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_1.png</cardIllustrationFilePath>
-    </card>
-    <card id="002">
-        <cardName>Enizap!</cardName>
-        <cardType>QUARTER</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_2.png</cardIllustrationFilePath>
-    </card>
-    <card id="003">
-        <cardName>Donnerkugelfische</cardName>
-        <cardType>QUARTER</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_3.png</cardIllustrationFilePath>
-    </card>
- <!--   <card id="004">
-        <cardName>Strahlende Mundhygiene</cardName>
-        <cardType>QUARTER</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_4.png</cardIllustrationFilePath>
-    </card>
-    <card id="005">
-        <cardName>Helm des Giganten</cardName>
-        <cardType>QUARTER</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_5.png</cardIllustrationFilePath>
-    </card>-->
-    <card id="006">
-        <cardName>Hermit-Crabie</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-    <card id="007">
-        <cardName>Humphrey</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="008">
-        <cardName>Camilla</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="009">
-        <cardName>Nudi Mc Slugger</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="010">
-        <cardName>Lady Amber</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="011">
-        <cardName>Mad Manta</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="012">
-        <cardName>Bully</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="013">
-        <cardName>Ampere</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="014">
-        <cardName>Kalimarus</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="015">
-        <cardName>Seewind Reiter</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="016">
-        <cardName>Mr. Naughtylus</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="017">
-        <cardName>Jack O Lantern</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="018">
-        <cardName>Weirdo</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="019">
-        <cardName>Weirdo</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="020">
-        <cardName>Jelly-Dish</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="021">
-        <cardName>Tom</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="022">
-        <cardName>Samson</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="023">
-        <cardName>Guy</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="024">
-        <cardName>Capote</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="025">
-        <cardName>Algon</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="026">
-        <cardName>Karl and Bert</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="027">
-        <cardName>Queen Pelago</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="028">
-        <cardName>Rawk Kappa</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="029">
-        <cardName>Billy</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="030">
-        <cardName>Shuriken-Sai</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="031">
-        <cardName>Uglarry</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="0032">
-        <cardName>Touche</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="033">
-        <cardName>Kelpie</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="034">
-        <cardName>Bonestreet Boys</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="035">
-        <cardName>Chomp-Muräne</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="036">
-        <cardName>Immobilienhai</cardName>
-        <cardType>CREATURE</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="037">
-        <cardName>Atomarer Mundgeruch</cardName>
-        <cardType>PHENOMENON</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="038">
-        <cardName>Dangerous Treat</cardName>
-        <cardType>PHENOMENON</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="039">
-        <cardName>Grauen der Tiefe</cardName>
-        <cardType>PHENOMENON</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="040">
-        <cardName>Zu den Waffen!</cardName>
-        <cardType>PHENOMENON</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="041">
-        <cardName>Jim and Johnny</cardName>
-        <cardType>PHENOMENON</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="042">
-        <cardName>Verein der Nichtschwimmer</cardName>
-        <cardType>PHENOMENON</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="043">
-        <cardName>City des Edward</cardName>
-        <cardType>PHENOMENON</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-  <card id="044">
-        <cardName>Grandle</cardName>
-        <cardType>PHENOMENON</cardType>
-        <cardEffect>1,2,3</cardEffect>
-        <cardDescription>Beschreibung</cardDescription>
-        <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
-    </card>
-</cards>
+    <cards>
+        <card id="001">
+            <cardName>Mystisches Lichtfass</cardName>
+            <cardType>QUARTER</cardType>
+            <cardEffect>12,15,16</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_1.png</cardIllustrationFilePath>
+        </card>
+        <card id="002">
+            <cardName>Enizap!</cardName>
+            <cardType>QUARTER</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_2.png</cardIllustrationFilePath>
+        </card>
+        <card id="003">
+            <cardName>Donnerkugelfische</cardName>
+            <cardType>QUARTER</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_3.png</cardIllustrationFilePath>
+        </card>
+        <!--<card id="004">
+            <cardName>Strahlende Mundhygiene</cardName>
+            <cardType>QUARTER</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_4.png</cardIllustrationFilePath>
+        </card>
+        <card id="005">
+            <cardName>Helm des Giganten</cardName>
+            <cardType>QUARTER</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_5.png</cardIllustrationFilePath>
+        </card>-->
+        <card id="006">
+            <cardName>Hermit-Crabie</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_6.png</cardIllustrationFilePath>
+        </card>
+        <card id="007">
+            <cardName>Humphrey</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_7.png</cardIllustrationFilePath>
+        </card>
+        <card id="008">
+            <cardName>Camilla</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_8.png</cardIllustrationFilePath>
+        </card>
+        <card id="009">
+            <cardName>Nudi Mc Slugger</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_9.png</cardIllustrationFilePath>
+        </card>
+        <card id="010">
+            <cardName>Lady Amber</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_10.png</cardIllustrationFilePath>
+        </card>
+        <card id="011">
+            <cardName>Mad Manta</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_11.png</cardIllustrationFilePath>
+        </card>
+        <card id="012">
+            <cardName>Bully</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_12.png</cardIllustrationFilePath>
+        </card>
+        <card id="013">
+            <cardName>Ampere</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_13.png</cardIllustrationFilePath>
+        </card>
+        <card id="014">
+            <cardName>Kalimarus</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_14.png</cardIllustrationFilePath>
+        </card>
+        <card id="015">
+            <cardName>Seewind Reiter</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_15.png</cardIllustrationFilePath>
+        </card>
+        <card id="016">
+            <cardName>Mr. Naughtylus</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_16.png</cardIllustrationFilePath>
+        </card>
+        <card id="017">
+            <cardName>Jack O Lantern</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_17.png</cardIllustrationFilePath>
+        </card>
+        <card id="018">
+            <cardName>Weirdo</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_18.png</cardIllustrationFilePath>
+        </card>
+        <card id="019">
+            <cardName>Weirdo</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_19.png</cardIllustrationFilePath>
+        </card>
+        <card id="020">
+            <cardName>Jelly-Dish</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_20.png</cardIllustrationFilePath>
+        </card>
+        <card id="021">
+            <cardName>Tom</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_21.png</cardIllustrationFilePath>
+        </card>
+        <card id="022">
+            <cardName>Samson</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_22.png</cardIllustrationFilePath>
+        </card>
+        <card id="023">
+            <cardName>Guy</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_23.png</cardIllustrationFilePath>
+        </card>
+        <card id="024">
+            <cardName>Capote</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_24.png</cardIllustrationFilePath>
+        </card>
+        <card id="025">
+            <cardName>Algon</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_25.png</cardIllustrationFilePath>
+        </card>
+        <card id="026">
+            <cardName>Karl and Bert</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_26.png</cardIllustrationFilePath>
+        </card>
+        <card id="027">
+            <cardName>Queen Pelago</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_27.png</cardIllustrationFilePath>
+        </card>
+        <card id="028">
+            <cardName>Rawk Kappa</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_28.png</cardIllustrationFilePath>
+        </card>
+        <card id="029">
+            <cardName>Billy</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_29.png</cardIllustrationFilePath>
+        </card>
+        <card id="030">
+            <cardName>Shuriken-Sai</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_30.png</cardIllustrationFilePath>
+        </card>
+        <card id="031">
+            <cardName>Uglarry</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_31.png</cardIllustrationFilePath>
+        </card>
+        <card id="0032">
+            <cardName>Touche</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_32.png</cardIllustrationFilePath>
+        </card>
+        <card id="033">
+            <cardName>Kelpie</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_33.png</cardIllustrationFilePath>
+        </card>
+        <card id="034">
+            <cardName>Bonestreet Boys</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_34.png</cardIllustrationFilePath>
+        </card>
+        <card id="035">
+            <cardName>Chomp-Muräne</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_35.png</cardIllustrationFilePath>
+        </card>
+        <card id="036">
+            <cardName>Immobilienhai</cardName>
+            <cardType>CREATURE</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_36.png</cardIllustrationFilePath>
+        </card>
+        <card id="037">
+            <cardName>Atomarer Mundgeruch</cardName>
+            <cardType>PHENOMENON</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_37.png</cardIllustrationFilePath>
+        </card>
+        <card id="038">
+            <cardName>Dangerous Treat</cardName>
+            <cardType>PHENOMENON</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_38.png</cardIllustrationFilePath>
+        </card>
+        <card id="039">
+            <cardName>Grauen der Tiefe</cardName>
+            <cardType>PHENOMENON</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_39.png</cardIllustrationFilePath>
+        </card>
+        <card id="040">
+            <cardName>Zu den Waffen!</cardName>
+            <cardType>PHENOMENON</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_40.png</cardIllustrationFilePath>
+        </card>
+        <card id="041">
+            <cardName>Jim and Johnny</cardName>
+            <cardType>PHENOMENON</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_41.png</cardIllustrationFilePath>
+        </card>
+        <card id="042">
+            <cardName>Verein der Nichtschwimmer</cardName>
+            <cardType>PHENOMENON</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_42.png</cardIllustrationFilePath>
+        </card>
+        <card id="043">
+            <cardName>City des Edward</cardName>
+            <cardType>PHENOMENON</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_43.png</cardIllustrationFilePath>
+        </card>
+        <card id="044">
+            <cardName>Grandle</cardName>
+            <cardType>PHENOMENON</cardType>
+            <cardEffect>1,2,3</cardEffect>
+            <cardDescription>Beschreibung</cardDescription>
+            <cardIllustrationFilePath>core/assets/visuals/cards/small/card_id_44.png</cardIllustrationFilePath>
+        </card>
+    </cards>
 </root>
