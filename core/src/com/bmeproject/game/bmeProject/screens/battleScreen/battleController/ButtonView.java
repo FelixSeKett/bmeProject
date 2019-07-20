@@ -29,6 +29,14 @@ public class ButtonView
 	private       ImageButton      blueButton;
 	private       ImageButton      finishButton;
 
+	private static final Texture BACKGROUND    = new Texture("core/assets/visuals/spielbrettSmall.png");
+	private static final Texture BUTTON_BLUE   = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
+	private static final Texture BUTTON_GREEN  = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
+	private static final Texture BUTTON_RED    = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
+	private static final Texture BUTTON_ZONE   = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
+	private static final Texture BUTTON_STREAM = new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall" + ".png");
+	private static final Texture BUTTON_FINISH = new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png");
+
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
@@ -58,39 +66,33 @@ public class ButtonView
 
 	private void initButtons(Stage stage)
 	{
-		zoneButton = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png"))));
-		zoneButton.setPosition(X, 380);
+		zoneButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
+		zoneButton.setPosition(1480, 900);
 		stage.addActor(zoneButton);
 		zoneButton.addListener(createZoneButtonListener());
 
-		streamButton = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall.png"))));
-		streamButton.setPosition(X, 330);
+		streamButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_STREAM)));
+		streamButton.setPosition(1480, 900-130);
 		stage.addActor(streamButton);
 		streamButton.addListener(createStreamButtonListener());
 
-		redButton = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png"))));
-		redButton.setPosition(X, 180);
+		redButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
+		redButton.setPosition(1480, 900-480);
 		stage.addActor(redButton);
 		redButton.addListener(createRedButtonListener());
 
-		greenButton = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png"))));
-		greenButton.setPosition(X, 230);
+		greenButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
+		greenButton.setPosition(1480, 900-350);
 		stage.addActor(greenButton);
 		greenButton.addListener(createGreenButtonListener());
 
-		blueButton = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png"))));
-		blueButton.setPosition(X, 130);
+		blueButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)));
+		blueButton.setPosition(1480, 900-605);
 		stage.addActor(blueButton);
 		blueButton.addListener(createBlueButtonListener());
 
-		finishButton = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png"))));
-		finishButton.setPosition(X, 20);
+		finishButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH)));
+		finishButton.setPosition(1480, 60);
 		stage.addActor(finishButton);
 		finishButton.addListener(createFinishButtonListener());
 	}

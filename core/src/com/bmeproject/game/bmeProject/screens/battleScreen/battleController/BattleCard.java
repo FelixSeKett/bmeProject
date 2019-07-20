@@ -28,8 +28,8 @@ public abstract class BattleCard extends Actor
 			new Texture("core/assets/visuals/cards/small/back.jpg");
 	private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
 	private static final float         ANIMATION_SPEED         = 0.5f;
-	public static final  int           WIDTH                   = 30;
-	public static final  int           HEIGHT                  = 44;
+	public static final  int           WIDTH                   = 70;
+	public static final  int           HEIGHT                  = 103;
 
 	protected final Player  PLAYER;
 	public final    Card    CARD;
@@ -55,7 +55,7 @@ public abstract class BattleCard extends Actor
 		SPRITE = new Sprite(BACK_TEXTURE);
 		Field field = giveStartField();
 		field.addCard(this);
-		setBounds(field.getX(), field.getY(), 30, 44);
+		setBounds(0,0,70,103);
 		setRotation(PLAYER.PARTY.giveRotation());
 		setOrigin(getWidth() / 2, getHeight() / 2);
 
