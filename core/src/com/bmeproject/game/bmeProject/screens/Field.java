@@ -92,6 +92,7 @@ public class Field extends Actor
 			BattleCard card = CARDS.get(i);
 			card.moveTo(x, y);
 			card.updateRotation();
+			card.setZIndex(100 + i);
 			updateReadabilityOfBattleCard(card);
 		}
 	}

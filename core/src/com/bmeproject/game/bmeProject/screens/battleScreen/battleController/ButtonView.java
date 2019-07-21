@@ -80,7 +80,7 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				if (BATTLE_CONTROLLER.hasTurnStarted()) {
+				if (!BATTLE_CONTROLLER.hasTurnStarted()) {
 					BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.proceedStartSector();
 				}
 				return true;
@@ -94,7 +94,7 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				if (BATTLE_CONTROLLER.hasTurnStarted()) {
+				if (!BATTLE_CONTROLLER.hasTurnStarted()) {
 					BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.toggleStream();
 				}
 				return true;

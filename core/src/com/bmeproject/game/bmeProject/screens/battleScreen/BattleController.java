@@ -19,14 +19,12 @@ import java.util.ArrayList;
 /*
 TODO: Funktionalität
 - TitleScreen fertig machen
-- Strömungsanimation implementieren
 - Drehung Farbkreis implementieren und animieren
-- Drehung Strömung animieren
+- Gewinndarstellung implementieren
 
 TODO: Debug
 - Aktivierung Rote / Blaue Zone debuggen
 - Aktivierung Grüne Zone debuggen
-- z-Index der Karten machen
 
 TODO: Kosmetik
 - Buttons mit Pressed und Hovered Bildern versehen

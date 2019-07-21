@@ -14,12 +14,17 @@ public class Creature extends BattleCard
 
 	public Creature(Player owner, Card card)
 	{
-		super(owner, card, 2);
+		super(owner, card);
 	}
 
 	// ===================================
 	// METHODS
 	// ===================================
+
+	@Override public int giveDefaultHitpoints()
+	{
+		return 2;
+	}
 
 	@Override public void getActivated()
 	{

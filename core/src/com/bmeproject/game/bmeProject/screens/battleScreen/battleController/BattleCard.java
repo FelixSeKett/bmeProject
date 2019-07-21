@@ -25,7 +25,7 @@ public abstract class BattleCard extends Actor
 	// ===================================
 
 	private static final Texture       BACK_TEXTURE            =
-			new Texture("core/assets/visuals/cards/small/back.jpg");
+			new Texture("core/assets/visuals/cards/large/back.png");
 	private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
 	private static final float         ANIMATION_SPEED         = 0.5f;
 	public static final  int           WIDTH                   = 70;
@@ -33,7 +33,6 @@ public abstract class BattleCard extends Actor
 
 	protected final Player  PLAYER;
 	public final    Card    CARD;
-	private final   int     DEFAULT_HIT_POINTS;
 	private final   Texture FRONT_TEXTURE;
 	public final    Sprite  SPRITE;
 
@@ -44,20 +43,19 @@ public abstract class BattleCard extends Actor
 	// CONSTRUCTORS
 	// ===================================
 
-	public BattleCard(Player player, Card card, int defaultHitPoints)
+	public BattleCard(Player player, Card card)
 	{
 		PLAYER = player;
 		CARD = card;
-		DEFAULT_HIT_POINTS = defaultHitPoints;
 		commander = PLAYER;
-		currentHitPoints = DEFAULT_HIT_POINTS;
+		currentHitPoints = giveDefaultHitpoints();
 		FRONT_TEXTURE = new Texture(CARD.ILLUSTRATION_FILE_PATH);
 		SPRITE = new Sprite(BACK_TEXTURE);
 		Field field = giveStartField();
 		field.addCard(this);
-		setBounds(0, 0, 70, 103);
+		setBounds(field.getX(), field.getY(), 70f, 103f);
 		setRotation(PLAYER.PARTY.giveRotation());
-		setOrigin(getWidth() / 2, getHeight() / 2);
+		setOrigin(getWidth() / 2f, getHeight() / 2f);
 
 		addListener(new InputListener()
 		{
@@ -137,6 +135,8 @@ public abstract class BattleCard extends Actor
 		SPRITE.setScale(scaleX, scaleY);
 	}
 
+	public abstract int giveDefaultHitpoints();
+
 	public abstract void getActivated();
 
 	public abstract void getDestroyed();
@@ -202,7 +202,7 @@ public abstract class BattleCard extends Actor
 
 	public void resetHitPoints()
 	{
-		currentHitPoints = DEFAULT_HIT_POINTS;
+		currentHitPoints = giveDefaultHitpoints();
 	}
 
 	public void takeDamage()

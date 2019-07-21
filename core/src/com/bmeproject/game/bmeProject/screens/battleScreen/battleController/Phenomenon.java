@@ -12,12 +12,17 @@ public class Phenomenon extends BattleCard
 
 	public Phenomenon(Player owner, Card card)
 	{
-		super(owner, card, 1);
+		super(owner, card);
 	}
 
 	// ===================================
 	// METHODS
 	// ===================================
+
+	@Override public int giveDefaultHitpoints()
+	{
+		return 1;
+	}
 
 	@Override public void getActivated()
 	{

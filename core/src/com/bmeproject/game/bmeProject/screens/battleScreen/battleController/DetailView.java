@@ -14,7 +14,9 @@ public class DetailView
 	// ===================================
 
 	private final Image BATTLE_CARD_IMAGE;
-	private final Label ACTUAL_EFFECT;
+	private final Label PLAYER;
+	private final Label COMMANDER;
+	private final Label FLAVOUR_TEXT;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -24,18 +26,29 @@ public class DetailView
 	{
 		final float            X          = 60f;
 		final float            WIDTH      = 350f;
+		final float            FONT_SCALE = 2f;
 		final Label.LabelStyle INFO_STYLE = new Label.LabelStyle(new BitmapFont(), Color.BLACK);
 
 		BATTLE_CARD_IMAGE = new Image();
-		BATTLE_CARD_IMAGE.setBounds(X, 500, WIDTH, 513);
+		BATTLE_CARD_IMAGE.setBounds(X, 500f, WIDTH, 513f);
 
-		ACTUAL_EFFECT = new Label("", INFO_STYLE);
-		ACTUAL_EFFECT.setBounds(X, 60, WIDTH, 420);
-		ACTUAL_EFFECT.setWrap(true);
-		ACTUAL_EFFECT.setFontScale(2f);
+		PLAYER = new Label("", INFO_STYLE);
+		PLAYER.setBounds(X, 420f, WIDTH, 60f);
+		PLAYER.setFontScale(FONT_SCALE);
+
+		COMMANDER = new Label("", INFO_STYLE);
+		COMMANDER.setBounds(X, 360f, WIDTH, 60f);
+		COMMANDER.setFontScale(FONT_SCALE);
+
+		FLAVOUR_TEXT = new Label("", INFO_STYLE);
+		FLAVOUR_TEXT.setBounds(X, 60f, WIDTH, 300f);
+		FLAVOUR_TEXT.setFontScale(FONT_SCALE);
+		FLAVOUR_TEXT.setWrap(true);
 
 		stage.addActor(BATTLE_CARD_IMAGE);
-		stage.addActor(ACTUAL_EFFECT);
+		stage.addActor(PLAYER);
+		stage.addActor(COMMANDER);
+		stage.addActor(FLAVOUR_TEXT);
 	}
 
 	// ===================================
@@ -45,8 +58,10 @@ public class DetailView
 	public void update(BattleCard battleCard)
 	{
 		BATTLE_CARD_IMAGE.setDrawable(new TextureRegionDrawable(battleCard.SPRITE));
-		ACTUAL_EFFECT.setText(
-				"Das hier ist ein Beispieltext. Das hier ist ein Beispieltext. Das hier ist ein Beispieltext. Das " +
-						"hier" + " ist ein Beispieltext.");
+		PLAYER.setText("Besitzer: " + battleCard.PLAYER.PARTY.giveName());
+		COMMANDER.setText("Kontrolle: " + battleCard.commander.PARTY.giveName());
+		FLAVOUR_TEXT.setText(
+				"Das hier ist ein Flavour Text. Das hier ist ein Flavour Text. Das hier ist ein Flavour Text. Das " +
+						"hier ist ein Flavour Text.");
 	}
 }
