@@ -12,7 +12,7 @@ public class Compass
 	// ===================================
 
 	private final Battlefield BATTLEFIELD;
-	private       Stream      currentStream;
+	private       Stream      stream;
 	private       Sector      startSector;
 
 	// ===================================
@@ -22,7 +22,7 @@ public class Compass
 	public Compass(Battlefield battlefield)
 	{
 		BATTLEFIELD = battlefield;
-		currentStream = Stream.CLOCKWISE;
+		stream = Stream.CLOCKWISE;
 		/*
 		 Starting Sector is implemented here.
 		 "Starting" means, that this is the first entry of the underlying ArrayList.
@@ -38,9 +38,9 @@ public class Compass
 	// METHODS
 	// ===================================
 
-	public Stream giveCurrentStream()
+	public Stream giveStream()
 	{
-		return currentStream;
+		return stream;
 	}
 
 	public Sector giveStartSector()
@@ -53,12 +53,12 @@ public class Compass
 		startSector = startSectorToTake;
 	}
 
-	private void changeCurrentStream()
+	public void toggleStream()
 	{
-		currentStream = currentStream.giveOppositeStream();
+		stream = stream.giveOppositeStream();
 	}
 
-	private void changeStartSector()
+	public void proceedStartSector()
 	{
 		int index = BATTLEFIELD.giveIndexOfSector(startSector) - 1;
 		if (index < 0) {

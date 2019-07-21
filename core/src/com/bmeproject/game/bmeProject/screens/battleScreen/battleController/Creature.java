@@ -21,7 +21,7 @@ public class Creature extends BattleCard
 	// METHODS
 	// ===================================
 
-	@Override public void activate()
+	@Override public void getActivated()
 	{
 		// Lege eine Liste mit potenziellen Angriffszielen an
 		ArrayList<BattleCard> potentialTargets = new ArrayList<BattleCard>();
@@ -33,7 +33,7 @@ public class Creature extends BattleCard
 		// Füge der Liste mit potenziellen Zielen alle Karten hinzu, die in der Liste aus Sektoren vorkommen
 		for (Sector sector : sectors) {
 			potentialTargets.addAll(sector
-					.giveSortedOuterBattleCards(PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.giveCurrentStream()));
+					.giveSortedOuterBattleCards(PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.giveStream()));
 		}
 		for (Sector sector : sectors) {
 			potentialTargets.add(sector.giveQuarter());

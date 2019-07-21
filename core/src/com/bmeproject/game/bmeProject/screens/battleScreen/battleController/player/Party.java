@@ -9,6 +9,14 @@ public enum Party
 	// ===================================
 
 	ALLY {
+		double screenWidth=1920;
+		double screenHeight=1080;
+
+		@Override public String giveName()
+		{
+			return "Spieler 1";
+		}
+
 		@Override public float giveRotation()
 		{
 			return 0;
@@ -16,20 +24,25 @@ public enum Party
 
 		@Override public Vector2 giveSupplyVector()
 		{
-			return new Vector2(542, 41);
+			return new Vector2(1300, 95);
 		}
 
 		@Override public Vector2 giveGraveyardVector()
 		{
-			return new Vector2(230, 41);
+			return new Vector2(551, 95);
 		}
 
 		@Override public Vector2 giveHandVector()
 		{
-			return new Vector2(280, 20);
+			return new Vector2(840, 20);
 		}
 	},
 	ENEMY {
+		@Override public String giveName()
+		{
+			return "Spieler 2";
+		}
+
 		@Override public float giveRotation()
 		{
 			return 180;
@@ -37,23 +50,25 @@ public enum Party
 
 		@Override public Vector2 giveSupplyVector()
 		{
-			return new Vector2(230, 366);
+			return new Vector2(552, 876);
 		}
 
 		@Override public Vector2 giveGraveyardVector()
 		{
-			return new Vector2(542, 366);
+			return new Vector2(1302, 876);
 		}
 
 		@Override public Vector2 giveHandVector()
 		{
-			return new Vector2(280, 386);
+			return new Vector2(747, 948);
 		}
 	};
 
 	// ===================================
 	// METHODS
 	// ===================================
+
+	public abstract String giveName();
 
 	public abstract float giveRotation();
 

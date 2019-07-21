@@ -57,7 +57,7 @@ public class DeckController extends Controller
 
 		//		deckField = new Field(0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 5f, 5f, testList, 10);
 		//		System.out.println(testList);
-		//		deckField.update();
+		//		deckField.updateActivePlayerLabel();
 	}
 
 	private void createCollectionArea()

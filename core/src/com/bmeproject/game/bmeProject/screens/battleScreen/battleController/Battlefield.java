@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
@@ -28,18 +27,42 @@ public class Battlefield
 	{
 		BATTLE_CONTROLLER = battleController;
 		SECTORS = new ArrayList<Sector>();
-		SECTORS.add(new Sector(this, new Vector2(258f, 167f), new Vector2(294f, 167f), new Vector2(294f, 118f),
-				new Vector2(336f, 175f)));
-		SECTORS.add(new Sector(this, new Vector2(350f, 84f), new Vector2(385f, 90f), new Vector2(420f, 84f),
-				new Vector2(385f, 147f)));
-		SECTORS.add(new Sector(this, new Vector2(476f, 118), new Vector2(476f, 167f), new Vector2(512f, 167f),
-				new Vector2(433f, 175f)));
-		SECTORS.add(new Sector(this, new Vector2(512f, 241f), new Vector2(476f, 241f), new Vector2(476f, 290f),
-				new Vector2(433f, 232f)));
-		SECTORS.add(new Sector(this, new Vector2(420f, 324f), new Vector2(385f, 317f), new Vector2(350f, 324f),
-				new Vector2(385f, 261f)));
-		SECTORS.add(new Sector(this, new Vector2(294f, 290f), new Vector2(294f, 241f), new Vector2(258f, 241f),
-				new Vector2(336f, 232f)));
+		//sektor auf 8 Uhr
+		SECTORS.add(new Sector(this,
+				new Vector2(620f, 398f),
+				new Vector2(706f, 398f),
+				new Vector2(706f, 282f),
+				new Vector2(808f, 420f)));
+		//sektor auf 6 Uhr
+		SECTORS.add(new Sector(this,
+				new Vector2(840f, 200f),
+				new Vector2(925f, 215f),
+				new Vector2(1010f, 200f),
+				new Vector2(925f, 353f)));
+		//sektor auf 4 Uhr
+		SECTORS.add(new Sector(this,
+				new Vector2(1145f, 280),
+				new Vector2(1145f, 400f),
+				new Vector2(1230f, 400f),
+				new Vector2(1042f, 420f)));
+		//sektor auf 2 Uhr
+		SECTORS.add(new Sector(this,
+				new Vector2(1230, 578f),
+				new Vector2(1144f, 578f),
+				new Vector2(1144, 695),
+				new Vector2(1042f, 555)));
+		//sektor auf 12 Uhr
+		SECTORS.add(new Sector(this,
+				new Vector2(1010, 775f),
+				new Vector2(925f, 760f),
+				new Vector2(840f, 775f),
+				new Vector2(925f, 625f)));
+		//sektor auf 10 Uhr
+		SECTORS.add(new Sector(this,
+				new Vector2(620f, 578f),
+				new Vector2(706f, 578f),
+				new Vector2(706f, 695f),
+				new Vector2(808f, 555f)));
 		COMPASS = new Compass(this);
 	}
 
@@ -50,6 +73,15 @@ public class Battlefield
 	public ArrayList<Sector> giveSectors()
 	{
 		return new ArrayList<Sector>(SECTORS);
+	}
+
+	public ArrayList<Field> giveAllContainingFields()
+	{
+		ArrayList<Field> allFields = new ArrayList<Field>();
+		for (Sector sector : SECTORS) {
+			allFields.addAll(sector.giveFields());
+		}
+		return allFields;
 	}
 
 	public int giveIndexOfSector(Sector sector)
@@ -131,7 +163,7 @@ public class Battlefield
 	 wenn sie im gleichen Spielzug schon einmal aktiviert wurde) und ob der aktivierende Spieler auch der aktive
 	 Spieler ist
 	*/
-	private void activateZone(Zone zoneToActivate)
+	public void activateZone(Zone zoneToActivate)
 	{
 		// Erstelle eine nach Strömungsregeln sortierte ArrayList mit Sektoren, die zur aktivierten Zone gehören
 		ArrayList<Sector> activeSectors = giveZonedSectors(zoneToActivate);
@@ -140,7 +172,7 @@ public class Battlefield
 		// wobei die äußeren Felder mit Kreaturen und Phänomenen zuerst abgearbeitet werden...
 		ArrayList<BattleCard> battleCardsToActivate = new ArrayList<BattleCard>();
 		for (Sector sector : activeSectors) {
-			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveCurrentStream())) {
+			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveStream())) {
 				if (battleCard.giveActivatingZones().contains(zoneToActivate)) {
 					battleCardsToActivate.add(battleCard);
 				}
@@ -154,13 +186,13 @@ public class Battlefield
 		// aktiviere jede Karte der zuvor erstellen Liste nach Listenreihenfolge
 		for (BattleCard battleCard : battleCardsToActivate) {
 			if (battleCard.isOnBattlefield()) {
-				battleCard.activate();
+				battleCard.getActivated();
 			}
 		}
 
 		// setze die HitPoints der BattleCards in dieser Zone zurück
 		for (Sector sector : activeSectors) {
-			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveCurrentStream())) {
+			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveStream())) {
 				battleCard.resetHitPoints();
 			}
 		}
@@ -169,7 +201,7 @@ public class Battlefield
 		}
 
 		// Markiere den Spielzug als gestartet
-		BATTLE_CONTROLLER.getStarted();
+		BATTLE_CONTROLLER.startTurn();
 
 		// Setze die Zone als aktiviert
 		zoneToActivate.activate();

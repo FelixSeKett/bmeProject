@@ -2,12 +2,11 @@ package com.bmeproject.game.bmeProject.screens;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.iFieldable;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.FieldUser;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Das Field dient zur Berechnung der Koordinaten einzelner Spielkarten. Es gilt: Jede auf einem Bildschirm
@@ -26,7 +25,7 @@ public class Field extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	public final    iFieldable            FIELDABLE;
+	public final    FieldUser             FIELD_USER;
 	private final   float                 PILE_X;
 	private final   float                 PILE_Y;
 	private final   float                 PILE_OFFSET_X;
@@ -55,11 +54,11 @@ public class Field extends Actor
 	 * @param pileLimit   Limit für Karten in einem Pile und damit Indikatorwert für Gruppierung nachfolgender
 	 *                    Karten in einem weiteren Pile.
 	 */
-	private Field(iFieldable iFieldable, float x, float y, float width, float height, float pileX, float pileY,
+	public Field(FieldUser fieldUser, float x, float y, float width, float height, float pileX, float pileY,
 			float pileOffsetX, float pileOffsetY, float cardOffsetX, float cardOffsetY, ArrayList<BattleCard> cards,
 			int pileLimit)
 	{
-		FIELDABLE = iFieldable;
+		FIELD_USER = fieldUser;
 		setBounds(x, y, width, height);
 		PILE_X = pileX;
 		PILE_Y = pileY;
@@ -71,19 +70,11 @@ public class Field extends Actor
 		PILE_LIMIT = pileLimit;
 	}
 
-	public Field(final iFieldable fieldable, final Vector2 position)
+	public Field(final FieldUser fieldUser, final Vector2 position)
 	{
-		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, 2, 2,
+		this(fieldUser, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0f, 0f, 0f, 0f, 0.25f, 0.25f,
 				new ArrayList<BattleCard>(), 1);
-		fieldable.giveBattleController().giveStage().addActor(this);
-	}
-
-	//HAND layout
-	public Field(iFieldable fieldable, Vector2 position, float cardOffSetX)
-	{
-		this(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0, 0, 0, 0, cardOffSetX, 0,
-				new ArrayList<BattleCard>(), 1);
-		fieldable.giveBattleController().giveStage().addActor(this);
+		fieldUser.giveBattleController().giveStage().addActor(this);
 	}
 
 	// ===================================
@@ -101,22 +92,24 @@ public class Field extends Actor
 			BattleCard card = CARDS.get(i);
 			card.moveTo(x, y);
 			card.updateRotation();
+			updateReadabilityOfBattleCard(card);
 		}
+	}
+
+	protected void updateReadabilityOfBattleCard(BattleCard battleCard)
+	{
+		battleCard.getUncovered();
 	}
 
 	public void addCard(BattleCard cardToAdd)
 	{
-
-		Field currentField = FIELDABLE.giveBattleController().giveCurrentFieldOfBattleCard(cardToAdd);
-
+		Field currentField = FIELD_USER.giveBattleController().giveCurrentFieldOfBattleCard(cardToAdd);
 		if (currentField != null) {
 			currentField.removeCard(cardToAdd);
 		}
-
 		if (cardToAdd != null) {
 			CARDS.add(cardToAdd);
 		}
-
 		update();
 	}
 
@@ -145,9 +138,18 @@ public class Field extends Actor
 	/*
 	Gibt aus Kapselungsgründen nicht die originale ArrayList, sondern eine Kopie von ihr zurück. Bedenke: Wenn die
 	originale ArrayList nach außen gelangt, kann sie von außen manipuliert werden. Das darf nicht passieren!
- */
+    */
 	public ArrayList<BattleCard> giveCards()
 	{
 		return new ArrayList<BattleCard>(CARDS);
+	}
+
+	public void shuffle()
+	{
+		Collections.shuffle(CARDS);
+	}
+
+	public int getPileSize(){
+		return CARDS.size();
 	}
 }

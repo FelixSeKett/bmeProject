@@ -1,11 +1,11 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Field;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.EntryField;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 public class Quarter extends BattleCard
 {
@@ -16,13 +16,23 @@ public class Quarter extends BattleCard
 	public Quarter(Player owner, Card card)
 	{
 		super(owner, card, 3);
+		if (BMEProject.DEBUG) {
+			addListener(new InputListener()
+			{
+				@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+				{
+					getDestroyed();
+					return true;
+				}
+			});
+		}
 	}
 
 	// ===================================
 	// METHODS
 	// ===================================
 
-	@Override public void activate()
+	@Override public void getActivated()
 	{
 		EntryField correspondingEntryField = giveCorrespondingEntryField();
 		if (correspondingEntryField.giveCards().size() > 0) {
@@ -33,12 +43,16 @@ public class Quarter extends BattleCard
 	@Override public void getDestroyed()
 	{
 		commander = PLAYER.BATTLE_CONTROLLER.giveOppositePlayerOf(commander);
+		Field currentField = giveCurrentField();
+		if (currentField != null) {
+			currentField.update();
+		}
 		PLAYER.BATTLE_CONTROLLER.checkForWin();
 	}
 
-	@Override public void prepareForBattle()
+	@Override protected Field giveStartField()
 	{
-		PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveNextEmptyQuarterFieldFor(this).addCard(this);
+		return PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveNextEmptyQuarterFieldFor(this);
 	}
 
 	private EntryField giveCorrespondingEntryField()
