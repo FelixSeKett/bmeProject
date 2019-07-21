@@ -51,8 +51,13 @@ public abstract class BattleCard extends Actor
 		DEFAULT_HIT_POINTS = defaultHitPoints;
 		commander = PLAYER;
 		currentHitPoints = DEFAULT_HIT_POINTS;
+
 		FRONT_TEXTURE = new Texture(CARD.ILLUSTRATION_FILE_PATH);
+		FRONT_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		BACK_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
 		SPRITE = new Sprite(BACK_TEXTURE);
+
 		Field field = giveStartField();
 		field.addCard(this);
 		setBounds(0,0,70,103);

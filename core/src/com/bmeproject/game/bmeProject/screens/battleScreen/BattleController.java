@@ -54,7 +54,11 @@ public class BattleController extends Controller
 	public BattleController(SpriteBatch spriteBatch)
 	{
 		super(spriteBatch);
-		Image backgroundImage = new Image(new Texture("core/assets/visuals/spielbrettSmall.png"));
+		Texture background = new Texture("core/assets/visuals/spielbrettSmall.png");
+		background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		Image backgroundImage = new Image(background);
+
+
 		stage.addActor(backgroundImage);
 		DETAIL_VIEW = new DetailView(stage);
 		BUTTON_VIEW = new ButtonView(this);

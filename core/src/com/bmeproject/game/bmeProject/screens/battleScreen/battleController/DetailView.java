@@ -1,6 +1,7 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -28,8 +29,12 @@ public class DetailView
 	public DetailView(Stage stage)
 	{
 		final int              X           = 60;
-		final Label.LabelStyle LABEL_STYLE = new Label.LabelStyle(new BitmapFont(), Color.DARK_GRAY);
-		final Label.LabelStyle INFO_STYLE  = new Label.LabelStyle(new BitmapFont(), Color.BLACK);
+		BitmapFont font = new BitmapFont();
+		final Label.LabelStyle LABEL_STYLE = new Label.LabelStyle(font, Color.DARK_GRAY);
+		final Label.LabelStyle INFO_STYLE  = new Label.LabelStyle(font, Color.BLACK);
+		font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+
 
 		BATTLE_CARD_IMAGE = new Image();
 		BATTLE_CARD_IMAGE.setBounds(X, 360, 347, 513);
