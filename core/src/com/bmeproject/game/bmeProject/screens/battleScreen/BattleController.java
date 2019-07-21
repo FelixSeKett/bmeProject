@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.Field;
@@ -45,6 +48,9 @@ public class BattleController extends Controller {
     private Player activePlayer;
     private boolean started;
     private BattleCard lastClickedBattleCard;
+    public static boolean checkforWin;
+
+
 
     // ===================================
     // CONSTRUCTORS
@@ -174,7 +180,7 @@ public class BattleController extends Controller {
 
     // prüft ob jemande bereits 6 Sektoren hat und gibt den Gewinn in der Konsole aus
     //TODO: Label hinzufügen
-    public void checkForWin() {
+    public boolean checkForWin( ){
         int allyCounter = 0;
         int enemyCounter = 0;
 
@@ -187,17 +193,23 @@ public class BattleController extends Controller {
             }
         }
 
-        if (allyCounter == 6) {
+        if (allyCounter == 6 ) {
             Texture overlay = new Texture("core/assets/visuals/messages/win.png");
             showWinConditionMessage(overlay);
-
+            ButtonView.showEndButtons(stage);
+            return true;
 
         }
         if (enemyCounter == 6) {
             Texture overlay = new Texture("core/assets/visuals/messages/loose.png");
             showWinConditionMessage(overlay);
+            ButtonView.showEndButtons(stage);
+            return true;
 
         }
+        else{
+        }
+        return false;
     }
 
     private void showWinConditionMessage(Texture overlay) {
@@ -205,6 +217,9 @@ public class BattleController extends Controller {
         Image texture = new Image(overlay);
         texture.setBounds(0, 0, 1920, 1080);
         stage.addActor(texture);
+        texture.setZIndex(200);
         //TODO Start new Game Button einbinden
     }
+
+
 }
