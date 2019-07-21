@@ -60,22 +60,22 @@ public class ButtonView
 	{
 
 		final Texture BUTTON_BLUE   = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
-		BUTTON_BLUE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		addAntialiasing(BUTTON_BLUE);
 
 		final Texture BUTTON_GREEN  = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
-		BUTTON_GREEN.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		addAntialiasing(BUTTON_GREEN);
 
 		final Texture BUTTON_RED    = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
-		BUTTON_RED.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		addAntialiasing(BUTTON_RED);
 
 		final Texture BUTTON_ZONE   = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
-		BUTTON_ZONE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		addAntialiasing(BUTTON_ZONE);
 
 		final Texture BUTTON_STREAM = new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall" + ".png");
-		BUTTON_STREAM.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		addAntialiasing(BUTTON_STREAM);
 
 		final Texture BUTTON_FINISH = new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png");
-		BUTTON_FINISH.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		addAntialiasing(BUTTON_FINISH);
 
 
 		zoneButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
@@ -179,5 +179,9 @@ public class ButtonView
 				return true;
 			}
 		};
+	}
+
+	private void addAntialiasing(Texture texture){
+		texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 	}
 }
