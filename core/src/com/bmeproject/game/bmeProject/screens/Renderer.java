@@ -19,9 +19,9 @@ public class Renderer
 	// ===================================
 
 	private final SpriteBatch SPRITE_BATCH;
-	private Viewport viewport;
-	private Camera camera;
-	private Stage stage;
+	private       Viewport    viewport;
+	private       Camera      camera;
+	private       Stage       stage;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -31,8 +31,8 @@ public class Renderer
 	{
 		SPRITE_BATCH = spriteBatch;
 		camera = new OrthographicCamera();
-		viewport = new FitViewport(1920, 1020, camera);
-		camera.position.set(1920/2, 1020/2, 0);
+		viewport = new FitViewport(1920f, 1080f, camera);
+		camera.position.set(1920 / 2f, 1080 / 2f, 0f);
 	}
 
 	// ===================================
@@ -43,7 +43,7 @@ public class Renderer
 	{
 		stage = stageToRender;
 		stage.setViewport(viewport);
-		Gdx.gl.glClearColor(0, 0, 0, 0f);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.draw();
 	}

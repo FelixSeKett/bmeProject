@@ -1,14 +1,11 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
@@ -20,22 +17,6 @@ public class ButtonView
 	// ===================================
 
 	private final BattleController BATTLE_CONTROLLER;
-	private final Label            ACTIVE_PLAYER_LABEL;
-	private final int              X = 620;
-	private       ImageButton      zoneButton;
-	private       ImageButton      streamButton;
-	private       ImageButton      greenButton;
-	private       ImageButton      redButton;
-	private       ImageButton      blueButton;
-	private       ImageButton      finishButton;
-
-	private static final Texture BACKGROUND    = new Texture("core/assets/visuals/spielbrettSmall.png");
-	private static final Texture BUTTON_BLUE   = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
-	private static final Texture BUTTON_GREEN  = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
-	private static final Texture BUTTON_RED    = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
-	private static final Texture BUTTON_ZONE   = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
-	private static final Texture BUTTON_STREAM = new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall" + ".png");
-	private static final Texture BUTTON_FINISH = new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png");
 
 	// ===================================
 	// CONSTRUCTORS
@@ -44,55 +25,51 @@ public class ButtonView
 	public ButtonView(BattleController battleController)
 	{
 		BATTLE_CONTROLLER = battleController;
-
-		Stage stage = battleController.giveStage();
-
-		final Label.LabelStyle ACTIVE_PLAYER_LABEL_STYLE = new Label.LabelStyle(new BitmapFont(), Color.BLACK);
-		ACTIVE_PLAYER_LABEL = new Label("", ACTIVE_PLAYER_LABEL_STYLE);
-		ACTIVE_PLAYER_LABEL.setPosition(X + 10, 80);
-		stage.addActor(ACTIVE_PLAYER_LABEL);
-
-		initButtons(stage);
+		initButtons(battleController.giveStage());
 	}
 
 	// ===================================
 	// METHODS
 	// ===================================
 
-	public void updateActivePlayerLabel(Player activePlayer)
-	{
-		ACTIVE_PLAYER_LABEL.setText(activePlayer.PARTY.giveName() + " ist am Zug!");
-	}
-
 	private void initButtons(Stage stage)
 	{
-		zoneButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
-		zoneButton.setPosition(1480, 900);
-		stage.addActor(zoneButton);
-		zoneButton.addListener(createZoneButtonListener());
+		final int X = 1480;
+		final int Y = 900;
 
-		streamButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_STREAM)));
-		streamButton.setPosition(1480, 900-130);
-		stage.addActor(streamButton);
-		streamButton.addListener(createStreamButtonListener());
+		final Texture     BUTTON_ZONE = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
+		final ImageButton ZONE_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
+		ZONE_BUTTON.setPosition(X, Y);
+		stage.addActor(ZONE_BUTTON);
+		ZONE_BUTTON.addListener(createZoneButtonListener());
 
-		redButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
-		redButton.setPosition(1480, 900-480);
-		stage.addActor(redButton);
-		redButton.addListener(createRedButtonListener());
+		final Texture     BUTTON_STREAM = new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall.png");
+		final ImageButton STREAM_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_STREAM)));
+		STREAM_BUTTON.setPosition(X, Y - 130);
+		stage.addActor(STREAM_BUTTON);
+		STREAM_BUTTON.addListener(createStreamButtonListener());
 
-		greenButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
-		greenButton.setPosition(1480, 900-350);
-		stage.addActor(greenButton);
-		greenButton.addListener(createGreenButtonListener());
+		final Texture     BUTTON_RED = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
+		final ImageButton RED_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
+		RED_BUTTON.setPosition(X, Y - 480);
+		stage.addActor(RED_BUTTON);
+		RED_BUTTON.addListener(createRedButtonListener());
 
-		blueButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)));
-		blueButton.setPosition(1480, 900-605);
-		stage.addActor(blueButton);
-		blueButton.addListener(createBlueButtonListener());
+		final Texture     BUTTON_GREEN = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
+		final ImageButton GREEN_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
+		GREEN_BUTTON.setPosition(X, Y - 350);
+		stage.addActor(GREEN_BUTTON);
+		GREEN_BUTTON.addListener(createGreenButtonListener());
 
-		finishButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH)));
-		finishButton.setPosition(1480, 60);
+		final Texture     BUTTON_BLUE = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
+		final ImageButton BLUE_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)));
+		BLUE_BUTTON.setPosition(X, Y - 605);
+		stage.addActor(BLUE_BUTTON);
+		BLUE_BUTTON.addListener(createBlueButtonListener());
+
+		final Texture     BUTTON_FINISH = new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png");
+		final ImageButton finishButton  = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH)));
+		finishButton.setPosition(X + 7, 60);
 		stage.addActor(finishButton);
 		finishButton.addListener(createFinishButtonListener());
 	}
@@ -103,7 +80,9 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.proceedStartSector();
+				if (BATTLE_CONTROLLER.hasTurnStarted()) {
+					BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.proceedStartSector();
+				}
 				return true;
 			}
 		};
@@ -115,7 +94,9 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.toggleStream();
+				if (BATTLE_CONTROLLER.hasTurnStarted()) {
+					BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.toggleStream();
+				}
 				return true;
 			}
 		};
@@ -127,7 +108,9 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.RED);
+				if (Zone.RED.isActivated()) {
+					BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.RED);
+				}
 				return true;
 			}
 		};
@@ -139,7 +122,9 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.GREEN);
+				if (Zone.GREEN.isActivated()) {
+					BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.GREEN);
+				}
 				return true;
 			}
 		};
@@ -151,7 +136,9 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.BLUE);
+				if (Zone.BLUE.isActivated()) {
+					BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.BLUE);
+				}
 				return true;
 			}
 		};

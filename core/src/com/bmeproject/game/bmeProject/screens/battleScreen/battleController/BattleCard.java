@@ -55,7 +55,7 @@ public abstract class BattleCard extends Actor
 		SPRITE = new Sprite(BACK_TEXTURE);
 		Field field = giveStartField();
 		field.addCard(this);
-		setBounds(0,0,70,103);
+		setBounds(0, 0, 70, 103);
 		setRotation(PLAYER.PARTY.giveRotation());
 		setOrigin(getWidth() / 2, getHeight() / 2);
 

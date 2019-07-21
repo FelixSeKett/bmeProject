@@ -103,7 +103,6 @@ public class Player extends FieldUser
 
 	public void beginTurn()
 	{
-		BATTLE_CONTROLLER.BUTTON_VIEW.updateActivePlayerLabel(this);
 		drawTopCard();
 	}
 

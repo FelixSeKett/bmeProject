@@ -26,9 +26,13 @@ TODO: Funktionalität
 TODO: Debug
 - Aktivierung Rote / Blaue Zone debuggen
 - Aktivierung Grüne Zone debuggen
+- z-Index der Karten machen
 
 TODO: Kosmetik
 - Buttons mit Pressed und Hovered Bildern versehen
+- Button View vom oberen Rand wegrücken
+- Interpolation von Bildern lösen
+- Text in der FlavourText-Box der DetailView obenbündig machen und schriftgröße erhöhen, ohne einfach hochzuskalieren
  */
 
 public class BattleController extends Controller
@@ -38,7 +42,6 @@ public class BattleController extends Controller
 	// ===================================
 
 	public final  DetailView  DETAIL_VIEW;
-	public final  ButtonView  BUTTON_VIEW;
 	public final  Battlefield BATTLEFIELD;
 	private final Player      PLAYER_1;
 	private final Player      PLAYER_2;
@@ -57,7 +60,7 @@ public class BattleController extends Controller
 		Image backgroundImage = new Image(new Texture("core/assets/visuals/spielbrettSmall.png"));
 		stage.addActor(backgroundImage);
 		DETAIL_VIEW = new DetailView(stage);
-		BUTTON_VIEW = new ButtonView(this);
+		new ButtonView(this);
 		BATTLEFIELD = new Battlefield(this);
 		PLAYER_1 = new Player(this, Party.ALLY);
 		PLAYER_2 = new Player(this, Party.ENEMY);
@@ -165,6 +168,11 @@ public class BattleController extends Controller
 		for (Field field : allFields) {
 			field.update();
 		}
+	}
+
+	public boolean hasTurnStarted()
+	{
+		return started;
 	}
 
 	/**

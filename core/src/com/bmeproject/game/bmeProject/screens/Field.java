@@ -149,7 +149,8 @@ public class Field extends Actor
 		Collections.shuffle(CARDS);
 	}
 
-	public int getPileSize(){
+	public int getPileSize()
+	{
 		return CARDS.size();
 	}
 }
