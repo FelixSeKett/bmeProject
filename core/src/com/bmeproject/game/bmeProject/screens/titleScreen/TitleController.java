@@ -19,8 +19,9 @@ public class TitleController extends Controller
 	// ATTRIBUTES
 	// ===================================
 
-	private static final Texture TITLESCREEN = new Texture("core/assets/titlescreen_image.png");
-    private Texture startDuellButton = new Texture("core/assets/Duell-Basis.png");
+	private final Texture TITLESCREEN = new Texture("core/assets/titlescreen_image.png");
+
+	private Texture startDuellButton = new Texture("core/assets/Duell-Basis.png");
     private Texture startDuellButtonClicked = new Texture("core/assets/Duell-OnClick.png");
     private final TitleScreen titleScreen;
 
@@ -33,7 +34,11 @@ public class TitleController extends Controller
 		super(spriteBatch);
 		this.titleScreen = titleScreen;
 
+		TITLESCREEN.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+
 		Image backgroundImage = new Image(TITLESCREEN);
+
 		stage.addActor(backgroundImage);
 
 		startDuellBtn();
@@ -51,8 +56,12 @@ public class TitleController extends Controller
 	public void startDuellBtn(){
         ImageButton btn = new ImageButton(new TextureRegionDrawable(new TextureRegion(startDuellButton)),
                 new TextureRegionDrawable(new TextureRegion(startDuellButtonClicked)));
+		startDuellButton.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		startDuellButtonClicked.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        btn.setPosition(500,350);
+
+
+		btn.setPosition(500,350);
         stage.addActor(btn);
 
         btnClicked(btn);
@@ -65,7 +74,7 @@ public class TitleController extends Controller
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
 				titleScreen.BME_PROJECT.activateBattleScreen();
                 return true;
-            };
-        });
+            }
+		});
     }
 }

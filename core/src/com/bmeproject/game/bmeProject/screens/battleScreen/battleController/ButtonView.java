@@ -58,12 +58,25 @@ public class ButtonView
 
 	private void initButtons(Stage stage)
 	{
+
 		final Texture BUTTON_BLUE   = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
+		BUTTON_BLUE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
 		final Texture BUTTON_GREEN  = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
+		BUTTON_GREEN.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
 		final Texture BUTTON_RED    = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
+		BUTTON_RED.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
 		final Texture BUTTON_ZONE   = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
+		BUTTON_ZONE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
 		final Texture BUTTON_STREAM = new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall" + ".png");
+		BUTTON_STREAM.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
 		final Texture BUTTON_FINISH = new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png");
+		BUTTON_FINISH.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
 
 		zoneButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
 		zoneButton.setPosition(1480, 900);
