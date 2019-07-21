@@ -2,6 +2,7 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.bat
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Battlefield;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.compass.Stream;
@@ -15,6 +16,7 @@ public class Compass
 	// ===================================
 
 	private final Battlefield BATTLEFIELD;
+	private final Image       ZONE_VIEWER;
 	private       Stream      stream;
 	private       Sector      startSector;
 
@@ -25,8 +27,8 @@ public class Compass
 	public Compass(Battlefield battlefield)
 	{
 		BATTLEFIELD = battlefield;
-		stream = Stream.CLOCKWISE;
-		initStreamImage();
+		ZONE_VIEWER = generateZoneViewer();
+		initStream();
 		initStartSector();
 	}
 
@@ -44,14 +46,22 @@ public class Compass
 		return startSector;
 	}
 
-	public void takeStartSector(Sector startSectorToTake)
+	private Image generateZoneViewer()
 	{
-		startSector = startSectorToTake;
+		final Stage STAGE           = BATTLEFIELD.BATTLE_CONTROLLER.giveStage();
+		final Image ZONE_VIEW_IMAGE = new Image(new Texture("core/assets/visuals/compass/zone_view.png"));
+		ZONE_VIEW_IMAGE.setPosition(STAGE.getWidth() / 2f - ZONE_VIEW_IMAGE.getWidth() / 2f,
+				STAGE.getHeight() / 2f - ZONE_VIEW_IMAGE.getWidth() / 2f);
+		ZONE_VIEW_IMAGE.setOrigin(ZONE_VIEW_IMAGE.getWidth() / 2f, ZONE_VIEW_IMAGE.getHeight() / 2f);
+		STAGE.addActor(ZONE_VIEW_IMAGE);
+		return ZONE_VIEW_IMAGE;
 	}
 
-	private void initStreamImage()
+	private void initStream()
 	{
-		final Image STREAM_IMAGE = new Image(new Texture("core/assets/visuals/stream.png"))
+		stream = Stream.CLOCKWISE;
+		final Stage STAGE = BATTLEFIELD.BATTLE_CONTROLLER.giveStage();
+		final Image STREAM_IMAGE = new Image(new Texture("core/assets/visuals/compass/stream.png"))
 		{
 			@Override public void act(float delta)
 			{
@@ -59,11 +69,10 @@ public class Compass
 				rotateBy(1f * stream.giveDirection());
 			}
 		};
-		Stage stage = BATTLEFIELD.BATTLE_CONTROLLER.giveStage();
-		STREAM_IMAGE.setPosition(stage.getWidth() / 2f - STREAM_IMAGE.getWidth() / 2f,
-				stage.getHeight() / 2f - STREAM_IMAGE.getWidth() / 2f);
+		STREAM_IMAGE.setPosition(STAGE.getWidth() / 2f - STREAM_IMAGE.getWidth() / 2f,
+				STAGE.getHeight() / 2f - STREAM_IMAGE.getWidth() / 2f);
 		STREAM_IMAGE.setOrigin(STREAM_IMAGE.getWidth() / 2f, STREAM_IMAGE.getHeight() / 2f);
-		stage.addActor(STREAM_IMAGE);
+		STAGE.addActor(STREAM_IMAGE);
 		STREAM_IMAGE.setZIndex(0);
 	}
 
@@ -87,10 +96,21 @@ public class Compass
 
 	public void proceedStartSector()
 	{
-		int index = BATTLEFIELD.giveIndexOfSector(startSector) - 1;
-		if (index < 0) {
-			index += 6;
+		int index = BATTLEFIELD.giveIndexOfSector(startSector) + 1;
+		if (index > 5) {
+			index -= 6;
 		}
 		startSector = BATTLEFIELD.giveSectorOfIndex(index);
+		updateZoneViewer();
+	}
+
+	private void updateZoneViewer()
+	{
+		float          newRotation    = BATTLEFIELD.giveIndexOfSector(startSector) * 60f;
+		RotateToAction rotateToAction = new RotateToAction();
+		rotateToAction.setDuration(0.5f);
+		rotateToAction.setRotation(newRotation);
+		rotateToAction.setUseShortestDirection(true);
+		ZONE_VIEWER.addAction(rotateToAction);
 	}
 }

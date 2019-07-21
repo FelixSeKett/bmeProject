@@ -31,6 +31,7 @@ TODO: Kosmetik
 - Button View vom oberen Rand wegrücken
 - Interpolation von Bildern lösen
 - Text in der FlavourText-Box der DetailView obenbündig machen und schriftgröße erhöhen, ohne einfach hochzuskalieren
+- Texturen in TextureRegions umbauen
  */
 
 public class BattleController extends Controller
@@ -186,7 +187,7 @@ public class BattleController extends Controller
 	}
 
 	// prüft ob jemande bereits 6 Sektoren hat und gibt den Gewinn in der Konsole aus
-	//TODO: Label hinzufügen
+	// TODO: Label hinzufügen
 	public void checkForWin()
 	{
 		int allyCounter  = 0;
