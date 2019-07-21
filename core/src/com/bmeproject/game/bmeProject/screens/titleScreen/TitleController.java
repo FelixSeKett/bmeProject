@@ -35,8 +35,6 @@ public class TitleController extends Controller
 		this.titleScreen = titleScreen;
 
 		TITLESCREEN.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		startDuellButton.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		startDuellButtonClicked.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
 
 		Image backgroundImage = new Image(TITLESCREEN);
@@ -58,8 +56,12 @@ public class TitleController extends Controller
 	public void startDuellBtn(){
         ImageButton btn = new ImageButton(new TextureRegionDrawable(new TextureRegion(startDuellButton)),
                 new TextureRegionDrawable(new TextureRegion(startDuellButtonClicked)));
+		startDuellButton.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		startDuellButtonClicked.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        btn.setPosition(500,350);
+
+
+		btn.setPosition(500,350);
         stage.addActor(btn);
 
         btnClicked(btn);
