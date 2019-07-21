@@ -201,12 +201,10 @@ public class BattleController extends Controller {
     }
 
     private void showWinConditionMessage(Texture overlay) {
-
         overlay.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         Image texture = new Image(overlay);
         texture.setBounds(0, 0, 1920, 1080);
         stage.addActor(texture);
         //TODO Start new Game Button einbinden
-
     }
 }
