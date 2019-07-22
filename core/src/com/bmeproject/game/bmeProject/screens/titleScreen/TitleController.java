@@ -33,12 +33,8 @@ public class TitleController extends Controller
 	{
 		super(spriteBatch);
 		this.titleScreen = titleScreen;
-
 		TITLESCREEN.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-
 		Image backgroundImage = new Image(TITLESCREEN);
-
 		stage.addActor(backgroundImage);
 
 		startDuellBtn();
