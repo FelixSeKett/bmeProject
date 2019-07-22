@@ -31,7 +31,6 @@ public class ButtonView {
     private ImageButton finishButton;
 
 
-
     // ===================================
     // CONSTRUCTORS
     // ===================================
@@ -46,49 +45,29 @@ public class ButtonView {
         ACTIVE_PLAYER_LABEL.setPosition(X + 10, 80);
         stage.addActor(ACTIVE_PLAYER_LABEL);
 
-
-
         //todo Reiehnfolge anzeigen
-
 
         initButtons(stage);
     }
 
-    public static void showEndButtons(Stage stage) {
+    public void showEndButtons(Stage stage) {
         ImageButton neuesSpiel;
         ImageButton toStart;
 
         final Texture BUTTON_NEW = new Texture("core/assets/visuals/buttons/4_neuesSpiel.png");
-
         final Texture BUTTON_MAIN = new Texture("core/assets/visuals/buttons/4_zumHauptmenue.png");
 
+        neuesSpiel = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_NEW)));
+        neuesSpiel.setPosition(1480, 60);
+        stage.addActor(neuesSpiel);
+        neuesSpiel.setZIndex(300);
+        neuesSpiel.addListener(createEndofGAmeButtonNewGame());
 
-
-
-            neuesSpiel = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_NEW)));
-            neuesSpiel.setPosition(1480, 60);
-            stage.addActor(neuesSpiel);
-            neuesSpiel.setZIndex(300);
-            // neuesSpiel.addListener(createNeuesSpielListener());
-
-            toStart = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_MAIN)));
-            toStart.setPosition(69, 60);
-            stage.addActor(toStart);
-            toStart.setZIndex(300);
-
-            //toStart.addListener(createToStartListener());
-
-        // private EventListener createToStartListener() {
-        //todo zum Hauptmenue
-        // return null;
-        // }
-
-        // private InputListener createNeuesSpielListener() {
-        //toDo start neues Spiel aufrufen
-        //return null;
-        // }
-
-
+        toStart = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_MAIN)));
+        toStart.setPosition(69, 60);
+        stage.addActor(toStart);
+        toStart.setZIndex(300);
+        toStart.addListener(createEndOfGameButtonTitle());
     }
 
     // ===================================
@@ -120,8 +99,6 @@ public class ButtonView {
         addAntialiasing(BUTTON_FINISH);
 
 
-
-
         zoneButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
         zoneButton.setPosition(1480, 900);
         stage.addActor(zoneButton);
@@ -151,14 +128,27 @@ public class ButtonView {
         finishButton.setPosition(1480, 60);
         stage.addActor(finishButton);
         finishButton.addListener(createFinishButtonListener());
-
-
-
-
     }
 
+    private InputListener createEndOfGameButtonTitle() {
+        return new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                BATTLE_CONTROLLER.getProject().activateTitleScreen();
+                return true;
+            }
+        };
+    }
 
-
+    private InputListener createEndofGAmeButtonNewGame() {
+        return new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                BATTLE_CONTROLLER.getProject().activateBattleScreen();
+                return true;
+            }
+        };
+    }
 
 
     private InputListener createZoneButtonListener() {
