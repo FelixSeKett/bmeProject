@@ -16,10 +16,10 @@ public class Compass
 	// ATTRIBUTES
 	// ===================================
 
-	public final  Battlefield BATTLEFIELD;
-	private final ZoneViewer  ZONE_VIEWER;
-	private       Stream      stream;
-	private       Sector      startSector;
+	public final Battlefield BATTLEFIELD;
+	public final ZoneViewer  ZONE_VIEWER;
+	private      Stream      stream;
+	private      Sector      startSector;
 
 	// ===================================
 	// CONSTRUCTORS

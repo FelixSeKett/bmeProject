@@ -23,12 +23,14 @@ public class EntryField extends RingField
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				BattleController battleController = FIELD_USER.giveBattleController();
-				BattleCard       selectedCard     = battleController.giveLastClickedBattleCard();
-				if (selectedCard != null) {
-					if (selectedCard.giveCommander() == FIELD_USER.giveCommander()) {
-						addCard(selectedCard);
-						battleController.setTurnStarted();
-						battleController.resetLastClickedBattleCard();
+				if (battleController.isGoodToGo()) {
+					BattleCard selectedCard = battleController.giveLastClickedBattleCard();
+					if (selectedCard != null) {
+						if (selectedCard.giveCommander() == FIELD_USER.giveCommander()) {
+							addCard(selectedCard);
+							battleController.setTurnStarted();
+							battleController.resetLastClickedBattleCard();
+						}
 					}
 				}
 				return true;

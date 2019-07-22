@@ -52,6 +52,24 @@ public class Battlefield
 	// METHODS
 	// ===================================
 
+	/**
+	 * Der Spieler soll stattfindende Animationen abwarten müssen, bevor sein Input erneut ausgewertet wird. Das soll
+	 * dazu führen, dass sich nicht mehrere Animationen überschneiden; grafische Werte so vielleicht
+	 * durcheinanderkommen oder die FrameRate in die Knie geht. Diese Methode gibt an, ob noch Animationen
+	 * abgewickelt werden oder das Spiel bereit für die nächste Eingabe samt nächster Animation ist.
+	 *
+	 * @return Gibt true zurück, wenn keine Animation mehr abgewickelt wird.
+	 */
+	public boolean isGoodToGo()
+	{
+		for (Sector sector : SECTORS) {
+			if (!sector.isGoodToGo()) {
+				return false;
+			}
+		}
+		return !COMPASS.ZONE_VIEWER.hasActions();
+	}
+
 	public ArrayList<Sector> giveSectors()
 	{
 		return new ArrayList<Sector>(SECTORS);

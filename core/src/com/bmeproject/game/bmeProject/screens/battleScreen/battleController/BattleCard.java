@@ -61,10 +61,12 @@ public abstract class BattleCard extends Actor
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				if (PLAYER.isActive()) {
-					if (BattleCard.this.isOnHand()) {
-						PLAYER.BATTLE_CONTROLLER.takeLastClickedBattleCard(BattleCard.this);
-						Gdx.app.log(toString(), giveName() + " selected");
+				if (PLAYER.BATTLE_CONTROLLER.isGoodToGo()) {
+					if (PLAYER.isActive()) {
+						if (BattleCard.this.isOnHand()) {
+							PLAYER.BATTLE_CONTROLLER.takeLastClickedBattleCard(BattleCard.this);
+							Gdx.app.log(toString(), giveName() + " selected");
+						}
 					}
 				}
 				return true;

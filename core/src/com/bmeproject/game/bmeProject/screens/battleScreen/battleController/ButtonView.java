@@ -40,6 +40,11 @@ public class ButtonView
 	// METHODS
 	// ===================================
 
+	public boolean isGoodToGo()
+	{
+		return !START_BUTTONS.hasActions();
+	}
+
 	public void fadeOutStartButtons()
 	{
 		AlphaAction alphaAction = new AlphaAction();
@@ -107,7 +112,9 @@ public class ButtonView
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				if (!BATTLE_CONTROLLER.hasTurnStarted()) {
-					BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.proceedStartSector();
+					if (BATTLE_CONTROLLER.isGoodToGo()) {
+						BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.proceedStartSector();
+					}
 				}
 				return true;
 			}
@@ -121,7 +128,9 @@ public class ButtonView
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				if (!BATTLE_CONTROLLER.hasTurnStarted()) {
-					BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.toggleStream();
+					if (BATTLE_CONTROLLER.isGoodToGo()) {
+						BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.toggleStream();
+					}
 				}
 				return true;
 			}

@@ -20,9 +20,7 @@ import java.util.ArrayList;
 TODO: Funktionalität
 - TitleScreen fertig machen
 - Buttons mit Pressed und Hovered Bildern versehen
-- Drehung Farbkreis implementieren und animieren
 - Gewinndarstellung implementieren
-- Eingabeblockade implementieren, damit sich keine Animationen überschneiden
 
 TODO: Debug
 - Aktivierung Rote / Blaue Zone debuggen
@@ -34,6 +32,7 @@ TODO: Kosmetik
 - Interpolation von Bildern lösen
 - Text in der FlavourText-Box der DetailView obenbündig machen und schriftgröße erhöhen, ohne einfach hochzuskalieren
 - Texturen in TextureRegions umbauen
+- LastClickedBattleCard wieder "entklickbar" machen?
  */
 
 public class BattleController extends Controller
@@ -83,6 +82,19 @@ public class BattleController extends Controller
 				activePlayer.drawTopCard();
 			}
 		}
+	}
+
+	/**
+	 * Der Spieler soll stattfindende Animationen abwarten müssen, bevor sein Input erneut ausgewertet wird. Das soll
+	 * dazu führen, dass sich nicht mehrere Animationen überschneiden; grafische Werte so vielleicht
+	 * durcheinanderkommen oder die FrameRate in die Knie geht. Diese Methode gibt an, ob noch Animationen
+	 * abgewickelt werden oder das Spiel bereit für die nächste Eingabe samt nächster Animation ist.
+	 *
+	 * @return Gibt true zurück, wenn keine Animation mehr abgewickelt wird.
+	 */
+	public boolean isGoodToGo()
+	{
+		return BUTTON_VIEW.isGoodToGo() && BATTLEFIELD.isGoodToGo() && PLAYER_1.isGoodToGo() && PLAYER_2.isGoodToGo();
 	}
 
 	public Player giveActivePlayer()
