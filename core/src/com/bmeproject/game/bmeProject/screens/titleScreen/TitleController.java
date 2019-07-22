@@ -21,8 +21,10 @@ public class TitleController extends Controller
 
 	private final Texture TITLESCREEN = new Texture("core/assets/titlescreen_image.png");
 
-	private Texture startDuellButton = new Texture("core/assets/Duell-Basis.png");
-    private Texture startDuellButtonClicked = new Texture("core/assets/Duell-OnClick.png");
+	private Texture startDuellButton = new Texture("core/assets/visuals/buttons/1_duellStartenButton.png");
+	private Texture deckEditorButton = new Texture("core/assets/visuals/buttons/1_deckEditorButton.png");
+	private Texture einstellungenButton = new Texture("core/assets/visuals/buttons/1_einstellungenButton.png");
+
     private final TitleScreen titleScreen;
 
 	// ===================================
@@ -36,8 +38,9 @@ public class TitleController extends Controller
 		TITLESCREEN.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		Image backgroundImage = new Image(TITLESCREEN);
 		stage.addActor(backgroundImage);
-
 		startDuellBtn();
+		deckEditorBtn();
+		einstellungenBtn();
 	}
 
 	// ===================================
@@ -50,18 +53,29 @@ public class TitleController extends Controller
 	}
 
 	public void startDuellBtn(){
-        ImageButton btn = new ImageButton(new TextureRegionDrawable(new TextureRegion(startDuellButton)),
-                new TextureRegionDrawable(new TextureRegion(startDuellButtonClicked)));
+        ImageButton btn = new ImageButton(new TextureRegionDrawable(new TextureRegion(startDuellButton)));
 		startDuellButton.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		startDuellButtonClicked.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-
-
-		btn.setPosition(500,350);
+		btn.setPosition(50,519);
         stage.addActor(btn);
-
         btnClicked(btn);
     }
+
+	public void deckEditorBtn(){
+		ImageButton btn = new ImageButton(new TextureRegionDrawable(new TextureRegion(deckEditorButton)));
+		deckEditorButton.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		btn.setPosition(50,350);
+		stage.addActor(btn);
+		btnClicked(btn);
+	}
+
+	public void einstellungenBtn(){
+		ImageButton btn = new ImageButton(new TextureRegionDrawable(new TextureRegion(einstellungenButton)));
+		einstellungenButton.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		einstellungenButton.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		btn.setPosition(50,128);
+		stage.addActor(btn);
+		btnClicked(btn);
+	}
 
     public void btnClicked (ImageButton btnClick){
 	    btnClick.addListener(new InputListener(){

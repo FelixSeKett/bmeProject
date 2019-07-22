@@ -61,7 +61,7 @@ public class Compass
 		};
 		final float HALF_WIDTH  = STREAM_IMAGE.getWidth() / 2f;
 		final float HALF_HEIGHT = STREAM_IMAGE.getHeight() / 2f;
-		STREAM_IMAGE.setPosition(STAGE.getWidth() / 2f - HALF_WIDTH, STAGE.getHeight() / 2f - HALF_HEIGHT);
+		STREAM_IMAGE.setPosition(1920/ 2f - HALF_WIDTH, 1080 /2f - HALF_HEIGHT);
 		STREAM_IMAGE.setOrigin(HALF_WIDTH, HALF_HEIGHT);
 		STAGE.addActor(STREAM_IMAGE);
 		STREAM_IMAGE.setZIndex(0);

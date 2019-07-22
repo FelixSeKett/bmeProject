@@ -17,10 +17,14 @@ public enum Party
 			return "Spieler 1";
 		}
 
+
+
 		@Override public float giveRotation()
 		{
 			return 0;
 		}
+
+		@Override public String giveImagePath() { return "core/assets/visuals/messages/du_bist.png"; }
 
 		@Override public Vector2 giveSupplyVector()
 		{
@@ -42,6 +46,8 @@ public enum Party
 		{
 			return "Spieler 2";
 		}
+
+		@Override public String giveImagePath() { return "core/assets/visuals/messages/gegner_ist.png"; }
 
 		@Override public float giveRotation()
 		{
@@ -69,6 +75,8 @@ public enum Party
 	// ===================================
 
 	public abstract String giveName();
+
+	public abstract String giveImagePath();
 
 	public abstract float giveRotation();
 

@@ -64,8 +64,7 @@ public class XMLReader
 				Element eElement = (Element)nNode;
 				int     id       = Integer.parseInt(eElement.getAttribute("id"));
 				String  name     = eElement.getElementsByTagName("cardName").item(0).getTextContent();
-				String illustrationFilePath = eElement.getElementsByTagName("cardIllustrationFilePath").item(0)
-						.getTextContent();
+				String illustrationFilePath = eElement.getElementsByTagName("cardIllustrationFilePath").item(0).getTextContent();
 				Type type = getType(eElement.getElementsByTagName("cardType").item(0).getTextContent());
 				tempCard = new Card(id, name, illustrationFilePath, type);
 				cardList.add(tempCard);
