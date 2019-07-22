@@ -196,7 +196,7 @@ public class Battlefield
 
 		// ... und anschließend die inneren Felder mit Quartieren
 		// Achtung: Hier zeitgeschuldet noch kein schöner Code!
-		ArrayList<BattleCard> quarters = new ArrayList<>();
+		ArrayList<BattleCard> quarters = new ArrayList<BattleCard>();
 		for (Sector sector : activeSectors) {
 			BattleCard quarter = sector.giveQuarter();
 			if (quarter.giveActivatingZones().contains(zoneToActivate)) {

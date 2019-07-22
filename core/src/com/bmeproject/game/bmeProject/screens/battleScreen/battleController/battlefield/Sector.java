@@ -101,7 +101,7 @@ public class Sector extends FieldUser
 
 	private ArrayList<RingField> giveRingFields()
 	{
-		ArrayList<RingField> ringFields = new ArrayList<>();
+		ArrayList<RingField> ringFields = new ArrayList<RingField>();
 		ringFields.add(giveLeadField());
 		ringFields.add(giveEntryField());
 		ringFields.add(giveEndField());
