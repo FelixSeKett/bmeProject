@@ -1,5 +1,6 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Field;
 
@@ -29,6 +30,7 @@ public class Phenomenon extends BattleCard
 
 	@Override public void getDestroyed()
 	{
+		BMEProject.destroySound1.play(0.5f);
 		Field graveyard = PLAYER.giveGraveyard();
 		graveyard.addBattleCard(this);
 	}

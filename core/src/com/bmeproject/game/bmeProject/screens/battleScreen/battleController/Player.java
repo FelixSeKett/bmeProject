@@ -115,6 +115,7 @@ public class Player extends FieldUser
 	public void drawTopCard() {
 		//Prüfung ob Hand mehr als 7 Karten enthält
 		if (giveHand().getPileSize() <= 7) {
+			BMEProject.cardSound.play(0.5f);
 			BattleCard card = giveSupply().pullTopCard();
 			giveHand().addBattleCard(card);
 		}

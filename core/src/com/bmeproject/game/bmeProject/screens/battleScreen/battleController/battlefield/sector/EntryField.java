@@ -3,6 +3,7 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.bat
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.FieldUser;
@@ -26,6 +27,7 @@ public class EntryField extends RingField
 					BattleCard selectedCard = battleController.giveLastClickedBattleCard();
 					if (selectedCard != null) {
 						if (selectedCard.giveCommander() == FIELD_USER.giveCommander()) {
+							BMEProject.cardSound.play(0.5f);
 							addBattleCard(selectedCard);
 							battleController.setTurnStarted();
 							battleController.resetLastClickedBattleCard();
