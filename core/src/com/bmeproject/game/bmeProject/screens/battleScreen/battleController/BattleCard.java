@@ -33,6 +33,7 @@ public abstract class BattleCard extends Actor
 
 	protected final Player  PLAYER;
 	public final    Card    CARD;
+	private final   int     DEFAULT_HIT_POINTS;
 	private final   Texture FRONT_TEXTURE;
 	public final    Sprite  SPRITE;
 
@@ -47,10 +48,15 @@ public abstract class BattleCard extends Actor
 	{
 		PLAYER = player;
 		CARD = card;
+		DEFAULT_HIT_POINTS = giveDefaultHitpoints();
 		commander = PLAYER;
 		currentHitPoints = giveDefaultHitpoints();
 		FRONT_TEXTURE = new Texture(CARD.ILLUSTRATION_FILE_PATH);
+		FRONT_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		BACK_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
 		SPRITE = new Sprite(BACK_TEXTURE);
+
 		Field field = giveStartField();
 		field.addBattleCard(this);
 		setBounds(field.getX(), field.getY(), 70f, 103f);

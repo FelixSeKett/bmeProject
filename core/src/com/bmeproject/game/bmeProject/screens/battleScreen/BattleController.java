@@ -44,38 +44,45 @@ public class BattleController extends Controller
 	// ATTRIBUTES
 	// ===================================
 
-	public final  DetailView  DETAIL_VIEW;
-	public final  ButtonView  BUTTON_VIEW;
-	public final  Battlefield BATTLEFIELD;
-	private final Player      PLAYER_1;
-	private final Player      PLAYER_2;
+    public final DetailView DETAIL_VIEW;
+    public final ButtonView BUTTON_VIEW;
+    public final Battlefield BATTLEFIELD;
+    private final Player PLAYER_1;
+    private final Player PLAYER_2;
+    private final BMEProject BME_PROJECT;
 
-	private Player     activePlayer;
-	private boolean    started;
-	private BattleCard lastClickedBattleCard;
+    private Player activePlayer;
+    private boolean started;
+    private BattleCard lastClickedBattleCard;
+    public static boolean checkforWin;
 
-	// ===================================
-	// CONSTRUCTORS
-	// ===================================
 
-	public BattleController(SpriteBatch spriteBatch)
-	{
-		super(spriteBatch);
-		Image backgroundImage = new Image(new Texture("core/assets/visuals/spielbrettSmall.png"));
-		stage.addActor(backgroundImage);
-		DETAIL_VIEW = new DetailView(stage);
-		BUTTON_VIEW = new ButtonView(this);
-		BATTLEFIELD = new Battlefield(this);
-		PLAYER_1 = new Player(this, Party.ALLY);
-		PLAYER_2 = new Player(this, Party.ENEMY);
-		activePlayer = PLAYER_1;
-		activePlayer.beginTurn();
-		Gdx.input.setInputProcessor(stage);
-	}
 
-	// ===================================
-	// METHODS
-	// ===================================
+    // ===================================
+    // CONSTRUCTORS
+    // ===================================
+
+    public BattleController(SpriteBatch spriteBatch, BMEProject bmeProject) {
+        super(spriteBatch);
+        Texture background = new Texture("core/assets/visuals/spielbrettSmall.png");
+        background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Image backgroundImage = new Image(background);
+        BME_PROJECT = bmeProject;
+
+        stage.addActor(backgroundImage);
+        DETAIL_VIEW = new DetailView(stage);
+        BUTTON_VIEW = new ButtonView(this);
+        BATTLEFIELD = new Battlefield(this);
+        PLAYER_1 = new Player(this, Party.ALLY);
+        PLAYER_2 = new Player(this, Party.ENEMY);
+        activePlayer = PLAYER_1;
+        activePlayer.beginTurn();
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    // ===================================
+    // METHODS
+    // ===================================
 
 	@Override public void update(float delta)
 	{
@@ -216,7 +223,7 @@ public class BattleController extends Controller
 
 	// prüft ob jemande bereits 6 Sektoren hat und gibt den Gewinn in der Konsole aus
 	// TODO: Label hinzufügen
-	public void checkForWin()
+	public boolean checkForWin()
 	{
 		int allyCounter  = 0;
 		int enemyCounter = 0;
@@ -230,14 +237,37 @@ public class BattleController extends Controller
 			}
 		}
 
-		if (allyCounter == 6) {
-			System.out.println("You win");
-		}
-		if (enemyCounter == 6) {
-			System.out.println("You lose");
-		} else {
-			allyCounter = 0;
-			enemyCounter = 0;
-		}
-	}
+        if (allyCounter == 6 ) {
+            Texture overlay = new Texture("core/assets/visuals/messages/win.png");
+            showWinConditionMessage(overlay);
+            BUTTON_VIEW.showEndButtons(stage);
+            return true;
+
+        }
+        if (enemyCounter == 6) {
+            Texture overlay = new Texture("core/assets/visuals/messages/loose.png");
+            showWinConditionMessage(overlay);
+            BUTTON_VIEW.showEndButtons(stage);
+            return true;
+
+        }
+        else{
+        }
+        return false;
+    }
+
+    private void showWinConditionMessage(Texture overlay) {
+        overlay.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Image texture = new Image(overlay);
+        texture.setBounds(0, 0, 1920, 1080);
+        stage.addActor(texture);
+        texture.setZIndex(200);
+        //TODO Start new Game Button einbinden
+    }
+
+    public BMEProject getProject(){
+        return BME_PROJECT;
+    }
+
+
 }
