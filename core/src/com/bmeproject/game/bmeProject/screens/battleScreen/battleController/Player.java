@@ -116,7 +116,7 @@ public class Player extends FieldUser
 		//Prüfung ob Hand mehr als 7 Karten enthält
 		if (giveHand().getPileSize() <= 7) {
 			BattleCard card = giveSupply().pullTopCard();
-			giveHand().addCard(card);
+			giveHand().addBattleCard(card);
 		}
 	}
 }

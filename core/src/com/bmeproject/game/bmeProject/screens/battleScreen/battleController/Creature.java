@@ -58,6 +58,6 @@ public class Creature extends BattleCard
 	@Override public void getDestroyed()
 	{
 		Field graveyard = PLAYER.giveGraveyard();
-		graveyard.addCard(this);
+		graveyard.addBattleCard(this);
 	}
 }

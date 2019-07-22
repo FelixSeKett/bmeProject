@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Field;
 
@@ -31,6 +30,6 @@ public class Phenomenon extends BattleCard
 	@Override public void getDestroyed()
 	{
 		Field graveyard = PLAYER.giveGraveyard();
-		graveyard.addCard(this);
+		graveyard.addBattleCard(this);
 	}
 }

@@ -5,7 +5,6 @@ import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.compass.Stream;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.FieldUser;
-import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 
 public abstract class RingField extends Field
 {
@@ -22,9 +21,9 @@ public abstract class RingField extends Field
 	// METHODS
 	// ===================================
 
-	public abstract Field givePreviousField();
+	public abstract RingField givePreviousField();
 
-	public abstract Field giveNextField();
+	public abstract RingField giveNextField();
 
 	/**
 	 * Verschiebt all seine Karten auf das je nach Strömungsrichtung nächstgelegene Feld innerhalb des Feldringes
@@ -32,27 +31,43 @@ public abstract class RingField extends Field
 	public void moveContentStreamwise()
 	{
 		if (((Sector)FIELD_USER).BATTLEFIELD.COMPASS.giveStream() == Stream.CLOCKWISE) {
-			moveContentToField(givePreviousField());
+			RingField previousEmptyField = givePreviousEmptyField();
+			if (previousEmptyField != null) {
+				previousEmptyField.addBattleCards(giveCards());
+			}
 		} else {
-			moveContentToField(giveNextField());
+			RingField nextEmptyField = giveNextEmptyField();
+			if (nextEmptyField != null) {
+				nextEmptyField.addBattleCards(giveCards());
+			}
 		}
 	}
 
-	/**
-	 * Verschiebt all seine Karten auf das angegebene Field, wenn es sich dabei um ein anderes Field handelt.
-	 *
-	 * @param field Feld, auf das alle Karten verschoben werden sollen
-	 */
-	private void moveContentToField(Field field)
+	private RingField givePreviousEmptyField()
 	{
-		if (field != this) {
-			if (field.giveCards().isEmpty()) {
-				for (BattleCard battleCard : CARDS) {
-					field.addCard(battleCard);
-				}
+		RingField previousField = givePreviousField();
+		if (previousField != this) {
+			if (previousField.giveCards().isEmpty()) {
+				return previousField;
 			} else {
-				moveContentStreamwise();
+				return previousField.givePreviousEmptyField();
 			}
+		} else {
+			return null;
+		}
+	}
+
+	private RingField giveNextEmptyField()
+	{
+		RingField nextField = giveNextField();
+		if (nextField != this) {
+			if (nextField.giveCards().isEmpty()) {
+				return nextField;
+			} else {
+				return nextField.giveNextEmptyField();
+			}
+		} else {
+			return null;
 		}
 	}
 }
