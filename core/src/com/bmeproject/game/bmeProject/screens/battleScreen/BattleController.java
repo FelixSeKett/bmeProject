@@ -21,10 +21,12 @@ TODO: Funktionalität
 - TitleScreen fertig machen
 - Drehung Farbkreis implementieren und animieren
 - Gewinndarstellung implementieren
+- Eingabeblockade implementieren, damit sich keine Animationen überschneiden
 
 TODO: Debug
 - Aktivierung Rote / Blaue Zone debuggen
 - Aktivierung Grüne Zone debuggen
+- Schauen, ob Enum Zone auch mit Visualisierung übereinstimmt
 
 TODO: Kosmetik
 - Buttons mit Pressed und Hovered Bildern versehen

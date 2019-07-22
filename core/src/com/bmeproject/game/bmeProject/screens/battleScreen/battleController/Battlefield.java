@@ -28,40 +28,22 @@ public class Battlefield
 		BATTLE_CONTROLLER = battleController;
 		SECTORS = new ArrayList<Sector>();
 		//sektor auf 8 Uhr
-		SECTORS.add(new Sector(this,
-				new Vector2(620f, 398f),
-				new Vector2(706f, 398f),
-				new Vector2(706f, 282f),
+		SECTORS.add(new Sector(this, new Vector2(620f, 398f), new Vector2(706f, 398f), new Vector2(706f, 282f),
 				new Vector2(808f, 420f)));
 		//sektor auf 6 Uhr
-		SECTORS.add(new Sector(this,
-				new Vector2(840f, 200f),
-				new Vector2(925f, 215f),
-				new Vector2(1010f, 200f),
+		SECTORS.add(new Sector(this, new Vector2(840f, 200f), new Vector2(925f, 215f), new Vector2(1010f, 200f),
 				new Vector2(925f, 353f)));
 		//sektor auf 4 Uhr
-		SECTORS.add(new Sector(this,
-				new Vector2(1145f, 280),
-				new Vector2(1145f, 400f),
-				new Vector2(1230f, 400f),
+		SECTORS.add(new Sector(this, new Vector2(1145f, 280), new Vector2(1145f, 400f), new Vector2(1230f, 400f),
 				new Vector2(1042f, 420f)));
 		//sektor auf 2 Uhr
-		SECTORS.add(new Sector(this,
-				new Vector2(1230, 578f),
-				new Vector2(1144f, 578f),
-				new Vector2(1144, 695),
+		SECTORS.add(new Sector(this, new Vector2(1230, 578f), new Vector2(1144f, 578f), new Vector2(1144, 695),
 				new Vector2(1042f, 555)));
 		//sektor auf 12 Uhr
-		SECTORS.add(new Sector(this,
-				new Vector2(1010, 775f),
-				new Vector2(925f, 760f),
-				new Vector2(840f, 775f),
+		SECTORS.add(new Sector(this, new Vector2(1010, 775f), new Vector2(925f, 760f), new Vector2(840f, 775f),
 				new Vector2(925f, 625f)));
 		//sektor auf 10 Uhr
-		SECTORS.add(new Sector(this,
-				new Vector2(620f, 578f),
-				new Vector2(706f, 578f),
-				new Vector2(706f, 695f),
+		SECTORS.add(new Sector(this, new Vector2(620f, 578f), new Vector2(706f, 578f), new Vector2(706f, 695f),
 				new Vector2(808f, 555f)));
 		COMPASS = new Compass(this);
 	}
