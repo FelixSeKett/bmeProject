@@ -21,7 +21,12 @@ public class ButtonView
 
 	private final BattleController BATTLE_CONTROLLER;
 	private final Group            START_BUTTONS;
+	private final ImageButton      RED_BUTTON;
+	private final ImageButton      GREEN_BUTTON;
+	private final ImageButton      BLUE_BUTTON;
 	private final Interpolation    BUTTON_FADING_INTERPOLATION = Interpolation.sineIn;
+	private final int              X                           = 1480;
+	private final int              Y                           = 900;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -34,6 +39,9 @@ public class ButtonView
 		final Stage STAGE = battleController.giveStage();
 		STAGE.addActor(START_BUTTONS);
 		initButtons(STAGE);
+		RED_BUTTON = generateRedButton();
+		GREEN_BUTTON = generateGreenButton();
+		BLUE_BUTTON = generateBlueButton();
 	}
 
 	// ===================================
@@ -47,27 +55,83 @@ public class ButtonView
 
 	public void fadeOutStartButtons()
 	{
+		START_BUTTONS.addAction(generateFadeOutAction());
+	}
+
+	public void fadeInStartButtons()
+	{
+		START_BUTTONS.addAction(generateFadeInAction());
+	}
+
+	public void fadeOutButtonOfZone(Zone zone)
+	{
+		// Schlechter Code, aber es musste schnell gehen
+		if (zone == Zone.RED) {
+			RED_BUTTON.addAction(generateFadeOutAction());
+		} else if (zone == Zone.GREEN) {
+			GREEN_BUTTON.addAction(generateFadeOutAction());
+		} else if (zone == Zone.BLUE) {
+			BLUE_BUTTON.addAction(generateFadeOutAction());
+		}
+	}
+
+	public void fadeInZoneButtons()
+	{
+		RED_BUTTON.addAction(generateFadeInAction());
+		GREEN_BUTTON.addAction(generateFadeInAction());
+		BLUE_BUTTON.addAction(generateFadeInAction());
+	}
+
+	private AlphaAction generateFadeOutAction()
+	{
 		AlphaAction alphaAction = new AlphaAction();
 		alphaAction.setAlpha(0.3f);
 		alphaAction.setDuration(1f);
 		alphaAction.setInterpolation(BUTTON_FADING_INTERPOLATION);
-		START_BUTTONS.addAction(alphaAction);
+		return alphaAction;
 	}
 
-	public void fadeInStartButtons()
+	private AlphaAction generateFadeInAction()
 	{
 		AlphaAction alphaAction = new AlphaAction();
 		alphaAction.setAlpha(1f);
 		alphaAction.setDuration(0.3f);
 		alphaAction.setInterpolation(BUTTON_FADING_INTERPOLATION);
-		START_BUTTONS.addAction(alphaAction);
+		return alphaAction;
+	}
+
+	private ImageButton generateRedButton()
+	{
+		final Texture     BUTTON_RED = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
+		final ImageButton RED_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
+		RED_BUTTON.setPosition(X, Y - 480);
+		BATTLE_CONTROLLER.giveStage().addActor(RED_BUTTON);
+		RED_BUTTON.addListener(createRedButtonListener());
+		return RED_BUTTON;
+	}
+
+	private ImageButton generateGreenButton()
+	{
+		final Texture     BUTTON_GREEN = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
+		final ImageButton GREEN_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
+		GREEN_BUTTON.setPosition(X, Y - 350);
+		BATTLE_CONTROLLER.giveStage().addActor(GREEN_BUTTON);
+		GREEN_BUTTON.addListener(createGreenButtonListener());
+		return GREEN_BUTTON;
+	}
+
+	private ImageButton generateBlueButton()
+	{
+		final Texture     BUTTON_BLUE = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
+		final ImageButton BLUE_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)));
+		BLUE_BUTTON.setPosition(X, Y - 605);
+		BATTLE_CONTROLLER.giveStage().addActor(BLUE_BUTTON);
+		BLUE_BUTTON.addListener(createBlueButtonListener());
+		return BLUE_BUTTON;
 	}
 
 	private void initButtons(Stage stage)
 	{
-		final int X = 1480;
-		final int Y = 900;
-
 		final Texture     BUTTON_ZONE = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
 		final ImageButton ZONE_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
 		ZONE_BUTTON.setPosition(X, Y);
@@ -79,24 +143,6 @@ public class ButtonView
 		STREAM_BUTTON.setPosition(X, Y - 130);
 		START_BUTTONS.addActor(STREAM_BUTTON);
 		STREAM_BUTTON.addListener(createStreamButtonListener());
-
-		final Texture     BUTTON_RED = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
-		final ImageButton RED_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
-		RED_BUTTON.setPosition(X, Y - 480);
-		stage.addActor(RED_BUTTON);
-		RED_BUTTON.addListener(createRedButtonListener());
-
-		final Texture     BUTTON_GREEN = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
-		final ImageButton GREEN_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
-		GREEN_BUTTON.setPosition(X, Y - 350);
-		stage.addActor(GREEN_BUTTON);
-		GREEN_BUTTON.addListener(createGreenButtonListener());
-
-		final Texture     BUTTON_BLUE = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
-		final ImageButton BLUE_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)));
-		BLUE_BUTTON.setPosition(X, Y - 605);
-		stage.addActor(BLUE_BUTTON);
-		BLUE_BUTTON.addListener(createBlueButtonListener());
 
 		final Texture     BUTTON_FINISH = new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png");
 		final ImageButton finishButton  = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH)));
@@ -111,8 +157,8 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				if (!BATTLE_CONTROLLER.hasTurnStarted()) {
-					if (BATTLE_CONTROLLER.isGoodToGo()) {
+				if (BATTLE_CONTROLLER.isGoodToGo()) {
+					if (!BATTLE_CONTROLLER.hasTurnStarted()) {
 						BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.proceedStartSector();
 					}
 				}
@@ -127,8 +173,8 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				if (!BATTLE_CONTROLLER.hasTurnStarted()) {
-					if (BATTLE_CONTROLLER.isGoodToGo()) {
+				if (BATTLE_CONTROLLER.isGoodToGo()) {
+					if (!BATTLE_CONTROLLER.hasTurnStarted()) {
 						BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.toggleStream();
 					}
 				}
@@ -143,8 +189,10 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				if (Zone.RED.isActivated()) {
-					BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.RED);
+				if (BATTLE_CONTROLLER.isGoodToGo()) {
+					if (!Zone.RED.isActivated()) {
+						BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.RED);
+					}
 				}
 				return true;
 			}
@@ -157,8 +205,10 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				if (Zone.GREEN.isActivated()) {
-					BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.GREEN);
+				if (BATTLE_CONTROLLER.isGoodToGo()) {
+					if (!Zone.GREEN.isActivated()) {
+						BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.GREEN);
+					}
 				}
 				return true;
 			}
@@ -171,8 +221,10 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				if (Zone.BLUE.isActivated()) {
-					BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.BLUE);
+				if (BATTLE_CONTROLLER.isGoodToGo()) {
+					if (!Zone.BLUE.isActivated()) {
+						BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.BLUE);
+					}
 				}
 				return true;
 			}
@@ -185,7 +237,9 @@ public class ButtonView
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				BATTLE_CONTROLLER.changeActivePlayer();
+				if (BATTLE_CONTROLLER.isGoodToGo()) {
+					BATTLE_CONTROLLER.changeActivePlayer();
+				}
 				return true;
 			}
 		};

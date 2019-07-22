@@ -32,7 +32,6 @@ public class Quarter extends BattleCard
 	// METHODS
 	// ===================================
 
-
 	@Override public int giveDefaultHitpoints()
 	{
 		return 3;

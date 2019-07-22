@@ -93,7 +93,6 @@ public class Compass
 			index -= 6;
 		}
 		startSector = BATTLEFIELD.giveSectorOfIndex(index);
-		Gdx.app.log(toString(), "StartSector: " + BATTLEFIELD.giveIndexOfSector(startSector));
 		ZONE_VIEWER.update();
 	}
 }

@@ -21,11 +21,11 @@ TODO: Funktionalität
 - TitleScreen fertig machen
 - Buttons mit Pressed und Hovered Bildern versehen
 - Gewinndarstellung implementieren
+- Kampfanimation implementieren
 
 TODO: Debug
 - Aktivierung Rote / Blaue Zone debuggen
 - Aktivierung Grüne Zone debuggen
-- Schauen, ob Enum Zone auch mit Visualisierung übereinstimmt
 
 TODO: Kosmetik
 - Button View vom oberen Rand wegrücken
@@ -33,6 +33,10 @@ TODO: Kosmetik
 - Text in der FlavourText-Box der DetailView obenbündig machen und schriftgröße erhöhen, ohne einfach hochzuskalieren
 - Texturen in TextureRegions umbauen
 - LastClickedBattleCard wieder "entklickbar" machen?
+- Wenn eine Karte auf der Hand ausgewählt wurde könnte man die möglichen Eintrittsfelder markieren
+- Kartenvorder- und Rückseite mit Rahmen versehen?
+- Sektoren visuell besser voneinander abgrenzbar machen?
+- Zonen-Buttons in der Reihenfolge anordnen: 1. Rot, 2. Grün, 3. Blau
  */
 
 public class BattleController extends Controller
@@ -42,7 +46,7 @@ public class BattleController extends Controller
 	// ===================================
 
 	public final  DetailView  DETAIL_VIEW;
-	private final ButtonView  BUTTON_VIEW;
+	public final  ButtonView  BUTTON_VIEW;
 	public final  Battlefield BATTLEFIELD;
 	private final Player      PLAYER_1;
 	private final Player      PLAYER_2;
@@ -167,6 +171,7 @@ public class BattleController extends Controller
 		Zone.GREEN.deactivate();
 		Zone.BLUE.deactivate();
 		setTurnUnstarted();
+		BUTTON_VIEW.fadeInZoneButtons();
 		Player nextPlayer = giveOppositePlayerOf(activePlayer);
 		nextPlayer.beginTurn();
 		activePlayer = nextPlayer;
