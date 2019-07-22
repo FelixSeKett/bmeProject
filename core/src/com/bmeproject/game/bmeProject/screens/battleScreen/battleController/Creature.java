@@ -1,8 +1,10 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
+import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 
 import java.util.ArrayList;
 
@@ -32,8 +34,9 @@ public class Creature extends BattleCard
 		ArrayList<BattleCard> potentialTargets = new ArrayList<BattleCard>();
 
 		// Hole dir eine Liste mit Sektoren aus der Zone, in der sich diese Karte befindet
-		ArrayList<Sector> sectors =
-				PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveZonedSectors(giveCurrentSector().giveCurrentZone());
+		Zone currentZone = giveCurrentSector().giveCurrentZone();
+		Gdx.app.log(toString(), "Current Zone: " + currentZone);
+		ArrayList<Sector> sectors = PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveZonedSectors(currentZone);
 
 		// Füge der Liste mit potenziellen Zielen alle Karten hinzu, die in der Liste aus Sektoren vorkommen
 		for (Sector sector : sectors) {
@@ -42,6 +45,11 @@ public class Creature extends BattleCard
 		}
 		for (Sector sector : sectors) {
 			potentialTargets.add(sector.giveQuarter());
+		}
+
+		//Testzwecke:
+		for (BattleCard battleCard : potentialTargets) {
+			Gdx.app.log(toString(), "Potenzielle Ziele: " + battleCard.giveName());
 		}
 
 		// Greife die nächste auf diese Karte folgende gegnerische Karte aus der Liste mit potenziellen Zielen an

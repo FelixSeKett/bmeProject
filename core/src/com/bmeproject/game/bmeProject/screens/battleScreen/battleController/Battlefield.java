@@ -130,11 +130,16 @@ public class Battlefield
 
 	public Zone giveZoneOfSector(Sector sectorToGiveZoneOf)
 	{
-		int index = giveIndexOfSector(COMPASS.giveStartSector());
+		int startIndex = giveIndexOfSector(COMPASS.giveStartSector());
 		for (int i = 0; i < SECTORS.size(); i++) {
-			int colorIndex = index + i;
+			int colorIndex = startIndex + i;
+			if (colorIndex > 5) {
+				colorIndex -= 6;
+			}
 			if (SECTORS.get(colorIndex) == sectorToGiveZoneOf) {
-				return Zone.giveZoneByColorIndex(colorIndex);
+				Gdx.app.log(toString(), "Gefundener Sektor: " + colorIndex);
+				Gdx.app.log(toString(), "Differenz zu StartSector: " + i);
+				return Zone.giveZoneByColorIndex(i);
 			}
 		}
 		return null;
