@@ -128,7 +128,7 @@ public class ButtonView
 		final Texture     BUTTON_RED = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
 		addAntialiasing(BUTTON_RED);
 		final ImageButton RED_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
-		RED_BUTTON.setPosition(X, Y - 480);
+		RED_BUTTON.setPosition(X, Y - 350);
 		BATTLE_CONTROLLER.giveStage().addActor(RED_BUTTON);
 		RED_BUTTON.addListener(createRedButtonListener());
 		return RED_BUTTON;
@@ -139,7 +139,7 @@ public class ButtonView
 		final Texture     BUTTON_GREEN = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
 		addAntialiasing(BUTTON_GREEN);
 		final ImageButton GREEN_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
-		GREEN_BUTTON.setPosition(X, Y - 350);
+		GREEN_BUTTON.setPosition(X, Y - 480);
 		BATTLE_CONTROLLER.giveStage().addActor(GREEN_BUTTON);
 		GREEN_BUTTON.addListener(createGreenButtonListener());
 		return GREEN_BUTTON;
