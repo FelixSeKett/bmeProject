@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.Controller;
@@ -90,6 +93,18 @@ public class BattleController extends Controller
 		if (BMEProject.DEBUG) {
 			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 				activePlayer.drawTopCard();
+			}
+		}
+		if (Gdx.input.justTouched()) {
+
+			Stage stage = giveStage();
+			Vector2 vector = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+			stage.screenToStageCoordinates(vector);
+			Actor clickedActor = stage.hit(vector.x, vector.y, true);
+			if (clickedActor != null){
+				if(!(clickedActor instanceof BattleCard)){
+					resetLastClickedBattleCard();
+				}
 			}
 		}
 	}
