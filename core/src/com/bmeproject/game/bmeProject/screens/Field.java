@@ -92,6 +92,7 @@ public class Field extends Actor
 			BattleCard card = CARDS.get(i);
 			card.moveTo(x, y);
 			card.updateRotation();
+			card.setZIndex(1000 + i);
 			updateReadabilityOfBattleCard(card);
 		}
 	}
@@ -101,14 +102,26 @@ public class Field extends Actor
 		battleCard.getUncovered();
 	}
 
-	public void addCard(BattleCard cardToAdd)
+	public void addBattleCard(BattleCard battleCardToAdd)
 	{
-		Field currentField = FIELD_USER.giveBattleController().giveCurrentFieldOfBattleCard(cardToAdd);
+		Field currentField = FIELD_USER.giveBattleController().giveCurrentFieldOfBattleCard(battleCardToAdd);
 		if (currentField != null) {
-			currentField.removeCard(cardToAdd);
+			currentField.removeCard(battleCardToAdd);
 		}
-		if (cardToAdd != null) {
-			CARDS.add(cardToAdd);
+		if (battleCardToAdd != null) {
+			CARDS.add(battleCardToAdd);
+		}
+		update();
+	}
+
+	public void addBattleCards(ArrayList<BattleCard> battleCardsToAdd)
+	{
+		for (BattleCard battleCard : battleCardsToAdd) {
+			Field currentField = FIELD_USER.giveBattleController().giveCurrentFieldOfBattleCard(battleCard);
+			if (currentField != null) {
+				currentField.removeCard(battleCard);
+			}
+			CARDS.add(battleCard);
 		}
 		update();
 	}
@@ -149,7 +162,8 @@ public class Field extends Actor
 		Collections.shuffle(CARDS);
 	}
 
-	public int getPileSize(){
+	public int getPileSize()
+	{
 		return CARDS.size();
 	}
 }

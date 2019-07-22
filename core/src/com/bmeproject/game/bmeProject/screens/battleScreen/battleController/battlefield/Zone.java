@@ -33,7 +33,7 @@ public enum Zone
 	{
 		for (Zone zone : values()) {
 			int ordinal = zone.ordinal() * 2;
-			if (ordinal == index || ordinal == (index + 1)) {
+			if (ordinal == index || (ordinal + 1) == index) {
 				return zone;
 			}
 		}

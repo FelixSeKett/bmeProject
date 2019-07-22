@@ -15,7 +15,7 @@ public class Quarter extends BattleCard
 
 	public Quarter(Player owner, Card card)
 	{
-		super(owner, card, 3);
+		super(owner, card);
 		if (BMEProject.DEBUG) {
 			addListener(new InputListener()
 			{
@@ -31,6 +31,11 @@ public class Quarter extends BattleCard
 	// ===================================
 	// METHODS
 	// ===================================
+
+	@Override public int giveDefaultHitpoints()
+	{
+		return 3;
+	}
 
 	@Override public void getActivated()
 	{

@@ -31,4 +31,24 @@ public abstract class FieldUser
 	public abstract Field giveCurrentFieldOfBattleCard(BattleCard battleCard);
 
 	public abstract Player giveCommander();
+
+	/**
+	 * Der Spieler soll stattfindende Animationen abwarten müssen, bevor sein Input erneut ausgewertet wird. Das soll
+	 * dazu führen, dass sich nicht mehrere Animationen überschneiden; grafische Werte so vielleicht
+	 * durcheinanderkommen oder die FrameRate in die Knie geht. Diese Methode gibt an, ob noch Animationen
+	 * abgewickelt werden oder das Spiel bereit für die nächste Eingabe samt nächster Animation ist.
+	 *
+	 * @return Gibt true zurück, wenn keine Animation mehr abgewickelt wird.
+	 */
+	public boolean isGoodToGo()
+	{
+		for (Field field : FIELDS) {
+			for (BattleCard battleCard : field.giveCards()) {
+				if (battleCard.hasActions()) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }

@@ -20,12 +20,12 @@ public class EndField extends RingField
 	// METHODS
 	// ===================================
 
-	@Override public Field givePreviousField()
+	@Override public RingField givePreviousField()
 	{
 		return ((Sector)FIELD_USER).giveEntryField();
 	}
 
-	@Override public Field giveNextField()
+	@Override public RingField giveNextField()
 	{
 		return ((Sector)FIELD_USER).giveNextSector().giveLeadField();
 	}

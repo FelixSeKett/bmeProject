@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.Controller;
 import com.bmeproject.game.bmeProject.screens.Field;
@@ -22,22 +19,30 @@ import java.util.ArrayList;
 /*
 TODO: Funktionalität
 - TitleScreen fertig machen
-- Strömungsanimation implementieren
-- Drehung Farbkreis implementieren und animieren
-- Drehung Strömung animieren
+- Buttons mit Pressed und Hovered Bildern versehen
+- Gewinndarstellung implementieren
+- Kampfanimation implementieren
 
 TODO: Debug
-- Aktivierung Rote / Blaue Zone debuggen
-- Aktivierung Grüne Zone debuggen
+-
 
 TODO: Kosmetik
-- Buttons mit Pressed und Hovered Bildern versehen
+- Button View vom oberen Rand wegrücken
+- Interpolation von Bildern lösen
+- Text in der FlavourText-Box der DetailView obenbündig machen und schriftgröße erhöhen, ohne einfach hochzuskalieren
+- Texturen in TextureRegions umbauen
+- LastClickedBattleCard wieder "entklickbar" machen?
+- Wenn eine Karte auf der Hand ausgewählt wurde könnte man die möglichen Eintrittsfelder markieren
+- Kartenvorder- und Rückseite mit Rahmen versehen?
+- Sektoren visuell besser voneinander abgrenzbar machen?
+- Zonen-Buttons in der Reihenfolge anordnen: 1. Rot, 2. Grün, 3. Blau
  */
 
-public class BattleController extends Controller {
-    // ===================================
-    // ATTRIBUTES
-    // ===================================
+public class BattleController extends Controller
+{
+	// ===================================
+	// ATTRIBUTES
+	// ===================================
 
     public final DetailView DETAIL_VIEW;
     public final ButtonView BUTTON_VIEW;
@@ -79,120 +84,158 @@ public class BattleController extends Controller {
     // METHODS
     // ===================================
 
-    @Override
-    public void update(float delta) {
-        super.update(delta);
-        if (BMEProject.DEBUG) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                activePlayer.drawTopCard();
-            }
-        }
-    }
+	@Override public void update(float delta)
+	{
+		super.update(delta);
+		if (BMEProject.DEBUG) {
+			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+				activePlayer.drawTopCard();
+			}
+		}
+	}
 
-    public Player giveActivePlayer() {
-        return activePlayer;
-    }
+	/**
+	 * Der Spieler soll stattfindende Animationen abwarten müssen, bevor sein Input erneut ausgewertet wird. Das soll
+	 * dazu führen, dass sich nicht mehrere Animationen überschneiden; grafische Werte so vielleicht
+	 * durcheinanderkommen oder die FrameRate in die Knie geht. Diese Methode gibt an, ob noch Animationen
+	 * abgewickelt werden oder das Spiel bereit für die nächste Eingabe samt nächster Animation ist.
+	 *
+	 * @return Gibt true zurück, wenn keine Animation mehr abgewickelt wird.
+	 */
+	public boolean isGoodToGo()
+	{
+		return BUTTON_VIEW.isGoodToGo() && BATTLEFIELD.isGoodToGo() && PLAYER_1.isGoodToGo() && PLAYER_2.isGoodToGo();
+	}
 
-    public BattleCard giveLastClickedBattleCard() {
-        return lastClickedBattleCard;
-    }
+	public Player giveActivePlayer()
+	{
+		return activePlayer;
+	}
 
-    public Player giveOppositePlayerOf(Player player) {
-        if (player == PLAYER_1) {
-            return PLAYER_2;
-        } else {
-            return PLAYER_1;
-        }
-    }
+	public BattleCard giveLastClickedBattleCard()
+	{
+		return lastClickedBattleCard;
+	}
 
-    public Field giveCurrentFieldOfBattleCard(BattleCard battleCard) {
-        Field field = null;
+	public Player giveOppositePlayerOf(Player player)
+	{
+		if (player == PLAYER_1) {
+			return PLAYER_2;
+		} else {
+			return PLAYER_1;
+		}
+	}
 
-        // Checke die Fields der Sektoren des Battlefields nach der BattleCard!
-        if (BATTLEFIELD != null) {
-            field = BATTLEFIELD.giveCurrentFieldOfBattleCard(battleCard);
-        }
-        // Wenn die BattleCard auf keinem der soeben gecheckten Fields liegt, dann...
-        if (field == null) {
-            // ... checke die Fields vom ersten Spieler nach der BattleCard!
-            if (PLAYER_1 != null) {
-                field = PLAYER_1.giveCurrentFieldOfBattleCard(battleCard);
-            }
-            // Wenn die BattleCard auf keinem der soeben gecheckten Fields liegt, dann...
-            if (field == null) {
-                // Checke die Fields vom zweiten Spieler nach der BattleCard!
-                if (PLAYER_2 != null) {
-                    field = PLAYER_2.giveCurrentFieldOfBattleCard(battleCard);
-                }
-            }
-        }
+	public Field giveCurrentFieldOfBattleCard(BattleCard battleCard)
+	{
+		Field field = null;
 
-        // Wenn die BattleCard auf keinem der soeben gecheckten Fields liegt, gib null zurück!
-        return field;
-    }
+		// Checke die Fields der Sektoren des Battlefields nach der BattleCard!
+		if (BATTLEFIELD != null) {
+			field = BATTLEFIELD.giveCurrentFieldOfBattleCard(battleCard);
+		}
+		// Wenn die BattleCard auf keinem der soeben gecheckten Fields liegt, dann...
+		if (field == null) {
+			// ... checke die Fields vom ersten Spieler nach der BattleCard!
+			if (PLAYER_1 != null) {
+				field = PLAYER_1.giveCurrentFieldOfBattleCard(battleCard);
+			}
+			// Wenn die BattleCard auf keinem der soeben gecheckten Fields liegt, dann...
+			if (field == null) {
+				// Checke die Fields vom zweiten Spieler nach der BattleCard!
+				if (PLAYER_2 != null) {
+					field = PLAYER_2.giveCurrentFieldOfBattleCard(battleCard);
+				}
+			}
+		}
 
-    public void takeLastClickedBattleCard(BattleCard battleCard) {
-        if (lastClickedBattleCard != null) {
-            lastClickedBattleCard.getUnselected();
-        }
-        battleCard.getSelected();
-        lastClickedBattleCard = battleCard;
-    }
+		// Wenn die BattleCard auf keinem der soeben gecheckten Fields liegt, gib null zurück!
+		return field;
+	}
 
-    public void resetLastClickedBattleCard() {
-        if (lastClickedBattleCard != null) {
-            lastClickedBattleCard.getUnselected();
-            lastClickedBattleCard = null;
-        }
-    }
+	public void takeLastClickedBattleCard(BattleCard battleCard)
+	{
+		if (lastClickedBattleCard != null) {
+			lastClickedBattleCard.getUnselected();
+		}
+		battleCard.getSelected();
+		lastClickedBattleCard = battleCard;
+	}
 
-    public void changeActivePlayer() {
-        resetLastClickedBattleCard();
-        Zone.RED.deactivate();
-        Zone.GREEN.deactivate();
-        Zone.BLUE.deactivate();
-        started = false;
-        Player nextPlayer = giveOppositePlayerOf(activePlayer);
-        nextPlayer.beginTurn();
-        activePlayer = nextPlayer;
-        updateAllFields();
-    }
+	public void resetLastClickedBattleCard()
+	{
+		if (lastClickedBattleCard != null) {
+			lastClickedBattleCard.getUnselected();
+			lastClickedBattleCard = null;
+		}
+	}
 
-    public void updateAllFields() {
-        ArrayList<Field> allFields = new ArrayList<Field>();
-        allFields.addAll(BATTLEFIELD.giveAllContainingFields());
-        allFields.addAll(PLAYER_1.giveFields());
-        allFields.addAll(PLAYER_2.giveFields());
-        for (Field field : allFields) {
-            field.update();
-        }
-    }
+	public void changeActivePlayer()
+	{
+		resetLastClickedBattleCard();
+		Zone.RED.deactivate();
+		Zone.GREEN.deactivate();
+		Zone.BLUE.deactivate();
+		setTurnUnstarted();
+		BUTTON_VIEW.fadeInZoneButtons();
+		Player nextPlayer = giveOppositePlayerOf(activePlayer);
+		nextPlayer.beginTurn();
+		activePlayer = nextPlayer;
+		updateAllFields();
+	}
 
-    /**
-     * Markiert für den aktuellen Spielzug den Zeitpunkt, ab dem eine anfängliche Veränderung für Farbzone und
-     * Strömungsrichtung nicht mehr möglich ist. Soll beim ersten Setzen einer Handkarte oder der ersten Aktivierung
-     * einer Farbzone aufgerufen werden.
-     */
-    public void startTurn() {
-        if (!started) {
-            started = true;
-        }
-    }
+	public void updateAllFields()
+	{
+		ArrayList<Field> allFields = new ArrayList<Field>();
+		allFields.addAll(BATTLEFIELD.giveAllContainingFields());
+		allFields.addAll(PLAYER_1.giveFields());
+		allFields.addAll(PLAYER_2.giveFields());
+		for (Field field : allFields) {
+			field.update();
+		}
+	}
 
-    // prüft ob jemande bereits 6 Sektoren hat und gibt den Gewinn in der Konsole aus
-    //TODO: Label hinzufügen
-    public boolean checkForWin( ){
-        int allyCounter = 0;
-        int enemyCounter = 0;
+	public boolean hasTurnStarted()
+	{
+		return started;
+	}
 
-        //prüft die Besitzer der einzelnen Sektoren und zählt
-        for (Sector sector : BATTLEFIELD.giveSectors()) {
-            if (sector.giveCommander().PARTY == Party.ALLY) {
-                allyCounter++;
-            } else {
-                enemyCounter++;
-            }
-        }
+	/**
+	 * Markiert für den aktuellen Spielzug den Zeitpunkt, ab dem eine anfängliche Veränderung für Farbzone und
+	 * Strömungsrichtung nicht mehr möglich ist. Soll beim ersten Setzen einer Handkarte oder der ersten Aktivierung
+	 * einer Farbzone aufgerufen werden.
+	 */
+	public void setTurnStarted()
+	{
+		if (!started) {
+			BUTTON_VIEW.fadeOutStartButtons();
+			started = true;
+		}
+	}
+
+	private void setTurnUnstarted()
+	{
+		if (started) {
+			BUTTON_VIEW.fadeInStartButtons();
+			started = false;
+		}
+	}
+
+	// prüft ob jemande bereits 6 Sektoren hat und gibt den Gewinn in der Konsole aus
+	// TODO: Label hinzufügen
+	public boolean checkForWin()
+	{
+		int allyCounter  = 0;
+		int enemyCounter = 0;
+
+		//prüft die Besitzer der einzelnen Sektoren und zählt
+		for (Sector sector : BATTLEFIELD.giveSectors()) {
+			if (sector.giveCommander().PARTY == Party.ALLY) {
+				allyCounter++;
+			} else {
+				enemyCounter++;
+			}
+		}
 
         if (allyCounter == 6 ) {
             Texture overlay = new Texture("core/assets/visuals/messages/win.png");

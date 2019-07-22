@@ -25,7 +25,7 @@ public abstract class BattleCard extends Actor
 	// ===================================
 
 	private static final Texture       BACK_TEXTURE            =
-			new Texture("core/assets/visuals/cards/small/back.jpg");
+			new Texture("core/assets/visuals/cards/large/back.png");
 	private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
 	private static final float         ANIMATION_SPEED         = 0.5f;
 	public static final  int           WIDTH                   = 70;
@@ -44,14 +44,13 @@ public abstract class BattleCard extends Actor
 	// CONSTRUCTORS
 	// ===================================
 
-	public BattleCard(Player player, Card card, int defaultHitPoints)
+	public BattleCard(Player player, Card card)
 	{
 		PLAYER = player;
 		CARD = card;
-		DEFAULT_HIT_POINTS = defaultHitPoints;
+		DEFAULT_HIT_POINTS = giveDefaultHitpoints();
 		commander = PLAYER;
-		currentHitPoints = DEFAULT_HIT_POINTS;
-
+		currentHitPoints = giveDefaultHitpoints();
 		FRONT_TEXTURE = new Texture(CARD.ILLUSTRATION_FILE_PATH);
 		FRONT_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		BACK_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -59,19 +58,21 @@ public abstract class BattleCard extends Actor
 		SPRITE = new Sprite(BACK_TEXTURE);
 
 		Field field = giveStartField();
-		field.addCard(this);
-		setBounds(0,0,70,103);
+		field.addBattleCard(this);
+		setBounds(field.getX(), field.getY(), 70f, 103f);
 		setRotation(PLAYER.PARTY.giveRotation());
-		setOrigin(getWidth() / 2, getHeight() / 2);
+		setOrigin(getWidth() / 2f, getHeight() / 2f);
 
 		addListener(new InputListener()
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				if (PLAYER.isActive()) {
-					if (BattleCard.this.isOnHand()) {
-						PLAYER.BATTLE_CONTROLLER.takeLastClickedBattleCard(BattleCard.this);
-						Gdx.app.log(toString(), giveName() + " selected");
+				if (PLAYER.BATTLE_CONTROLLER.isGoodToGo()) {
+					if (PLAYER.isActive()) {
+						if (BattleCard.this.isOnHand()) {
+							PLAYER.BATTLE_CONTROLLER.takeLastClickedBattleCard(BattleCard.this);
+							Gdx.app.log(toString(), giveName() + " selected");
+						}
 					}
 				}
 				return true;
@@ -142,6 +143,8 @@ public abstract class BattleCard extends Actor
 		SPRITE.setScale(scaleX, scaleY);
 	}
 
+	public abstract int giveDefaultHitpoints();
+
 	public abstract void getActivated();
 
 	public abstract void getDestroyed();
@@ -207,7 +210,7 @@ public abstract class BattleCard extends Actor
 
 	public void resetHitPoints()
 	{
-		currentHitPoints = DEFAULT_HIT_POINTS;
+		currentHitPoints = giveDefaultHitpoints();
 	}
 
 	public void takeDamage()

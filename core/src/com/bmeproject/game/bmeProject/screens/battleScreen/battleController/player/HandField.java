@@ -15,7 +15,7 @@ public class HandField extends Field
 
 	public HandField(FieldUser fieldable, Vector2 position)
 	{
-		super(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0f, 0f, 0f, 0f, 35f, 0f,
+		super(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0f, 0f, 0f, 0f, 50f, 0f,
 				new ArrayList<BattleCard>(), 1);
 		fieldable.giveBattleController().giveStage().addActor(this);
 	}

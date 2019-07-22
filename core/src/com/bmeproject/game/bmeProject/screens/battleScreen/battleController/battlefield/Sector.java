@@ -9,6 +9,7 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.batt
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.EntryField;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.LeadField;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.RingField;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,6 +99,15 @@ public class Sector extends FieldUser
 		return FIELDS.get(0);
 	}
 
+	private ArrayList<RingField> giveRingFields()
+	{
+		ArrayList<RingField> ringFields = new ArrayList<>();
+		ringFields.add(giveLeadField());
+		ringFields.add(giveEntryField());
+		ringFields.add(giveEndField());
+		return ringFields;
+	}
+
 	public LeadField giveLeadField()
 	{
 		return (LeadField)FIELDS.get(1);
@@ -113,13 +123,10 @@ public class Sector extends FieldUser
 		return (EndField)FIELDS.get(3);
 	}
 
-	// TODO: Liste ist noch nicht nach Strömungsregeln sortiert
 	public ArrayList<BattleCard> giveSortedOuterBattleCards(Stream stream)
 	{
 		ArrayList<BattleCard> battleCards = new ArrayList<BattleCard>();
-		for (Field field : FIELDS) {
-			// Implementierte Strömungsregel:
-
+		for (Field field : giveRingFields()) {
 			if (stream == Stream.COUNTERCLOCKWISE) {
 				battleCards.addAll(field.giveCards());
 			} else {

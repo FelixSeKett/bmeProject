@@ -4,13 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.bmeproject.game.bmeProject.util.Constants;
 
 public class Renderer
 {
@@ -31,8 +28,8 @@ public class Renderer
 	{
 		SPRITE_BATCH = spriteBatch;
 		camera = new OrthographicCamera();
-		viewport = new FitViewport(1920, 1080, camera);
-		camera.position.set(1920/2, 1080/2, 0);
+		viewport = new FitViewport(1920f, 1080f, camera);
+		camera.position.set(1920 / 2f, 1080 / 2f, 0f);
 	}
 
 	// ===================================
@@ -43,7 +40,7 @@ public class Renderer
 	{
 		stage = stageToRender;
 		stage.setViewport(viewport);
-		Gdx.gl.glClearColor(0, 0, 0, 0f);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.draw();
 	}
