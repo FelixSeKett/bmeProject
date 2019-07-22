@@ -2,9 +2,12 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
@@ -17,6 +20,8 @@ public class ButtonView
 	// ===================================
 
 	private final BattleController BATTLE_CONTROLLER;
+	private final Group            START_BUTTONS;
+	private final Interpolation    BUTTON_FADING_INTERPOLATION = Interpolation.sineIn;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -25,12 +30,33 @@ public class ButtonView
 	public ButtonView(BattleController battleController)
 	{
 		BATTLE_CONTROLLER = battleController;
-		initButtons(battleController.giveStage());
+		START_BUTTONS = new Group();
+		final Stage STAGE = battleController.giveStage();
+		STAGE.addActor(START_BUTTONS);
+		initButtons(STAGE);
 	}
 
 	// ===================================
 	// METHODS
 	// ===================================
+
+	public void fadeOutStartButtons()
+	{
+		AlphaAction alphaAction = new AlphaAction();
+		alphaAction.setAlpha(0.3f);
+		alphaAction.setDuration(1f);
+		alphaAction.setInterpolation(BUTTON_FADING_INTERPOLATION);
+		START_BUTTONS.addAction(alphaAction);
+	}
+
+	public void fadeInStartButtons()
+	{
+		AlphaAction alphaAction = new AlphaAction();
+		alphaAction.setAlpha(1f);
+		alphaAction.setDuration(0.3f);
+		alphaAction.setInterpolation(BUTTON_FADING_INTERPOLATION);
+		START_BUTTONS.addAction(alphaAction);
+	}
 
 	private void initButtons(Stage stage)
 	{
@@ -40,13 +66,13 @@ public class ButtonView
 		final Texture     BUTTON_ZONE = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
 		final ImageButton ZONE_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
 		ZONE_BUTTON.setPosition(X, Y);
-		stage.addActor(ZONE_BUTTON);
+		START_BUTTONS.addActor(ZONE_BUTTON);
 		ZONE_BUTTON.addListener(createZoneButtonListener());
 
 		final Texture     BUTTON_STREAM = new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall.png");
 		final ImageButton STREAM_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_STREAM)));
 		STREAM_BUTTON.setPosition(X, Y - 130);
-		stage.addActor(STREAM_BUTTON);
+		START_BUTTONS.addActor(STREAM_BUTTON);
 		STREAM_BUTTON.addListener(createStreamButtonListener());
 
 		final Texture     BUTTON_RED = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");

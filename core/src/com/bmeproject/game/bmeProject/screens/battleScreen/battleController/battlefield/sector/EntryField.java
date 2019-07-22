@@ -27,7 +27,7 @@ public class EntryField extends RingField
 				if (selectedCard != null) {
 					if (selectedCard.giveCommander() == FIELD_USER.giveCommander()) {
 						addCard(selectedCard);
-						battleController.startTurn();
+						battleController.setTurnStarted();
 						battleController.resetLastClickedBattleCard();
 					}
 				}

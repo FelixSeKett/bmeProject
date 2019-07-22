@@ -19,6 +19,7 @@ import java.util.ArrayList;
 /*
 TODO: Funktionalität
 - TitleScreen fertig machen
+- Buttons mit Pressed und Hovered Bildern versehen
 - Drehung Farbkreis implementieren und animieren
 - Gewinndarstellung implementieren
 - Eingabeblockade implementieren, damit sich keine Animationen überschneiden
@@ -29,7 +30,6 @@ TODO: Debug
 - Schauen, ob Enum Zone auch mit Visualisierung übereinstimmt
 
 TODO: Kosmetik
-- Buttons mit Pressed und Hovered Bildern versehen
 - Button View vom oberen Rand wegrücken
 - Interpolation von Bildern lösen
 - Text in der FlavourText-Box der DetailView obenbündig machen und schriftgröße erhöhen, ohne einfach hochzuskalieren
@@ -43,6 +43,7 @@ public class BattleController extends Controller
 	// ===================================
 
 	public final  DetailView  DETAIL_VIEW;
+	private final ButtonView  BUTTON_VIEW;
 	public final  Battlefield BATTLEFIELD;
 	private final Player      PLAYER_1;
 	private final Player      PLAYER_2;
@@ -61,7 +62,7 @@ public class BattleController extends Controller
 		Image backgroundImage = new Image(new Texture("core/assets/visuals/spielbrettSmall.png"));
 		stage.addActor(backgroundImage);
 		DETAIL_VIEW = new DetailView(stage);
-		new ButtonView(this);
+		BUTTON_VIEW = new ButtonView(this);
 		BATTLEFIELD = new Battlefield(this);
 		PLAYER_1 = new Player(this, Party.ALLY);
 		PLAYER_2 = new Player(this, Party.ENEMY);
@@ -153,7 +154,7 @@ public class BattleController extends Controller
 		Zone.RED.deactivate();
 		Zone.GREEN.deactivate();
 		Zone.BLUE.deactivate();
-		started = false;
+		setTurnUnstarted();
 		Player nextPlayer = giveOppositePlayerOf(activePlayer);
 		nextPlayer.beginTurn();
 		activePlayer = nextPlayer;
@@ -181,10 +182,19 @@ public class BattleController extends Controller
 	 * Strömungsrichtung nicht mehr möglich ist. Soll beim ersten Setzen einer Handkarte oder der ersten Aktivierung
 	 * einer Farbzone aufgerufen werden.
 	 */
-	public void startTurn()
+	public void setTurnStarted()
 	{
 		if (!started) {
+			BUTTON_VIEW.fadeOutStartButtons();
 			started = true;
+		}
+	}
+
+	private void setTurnUnstarted()
+	{
+		if (started) {
+			BUTTON_VIEW.fadeInStartButtons();
+			started = false;
 		}
 	}
 

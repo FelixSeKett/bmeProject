@@ -183,7 +183,7 @@ public class Battlefield
 		}
 
 		// Markiere den Spielzug als gestartet
-		BATTLE_CONTROLLER.startTurn();
+		BATTLE_CONTROLLER.setTurnStarted();
 
 		// Setze die Zone als aktiviert
 		zoneToActivate.activate();
