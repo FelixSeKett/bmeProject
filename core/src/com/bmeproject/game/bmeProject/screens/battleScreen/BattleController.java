@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.Controller;
@@ -78,7 +79,9 @@ public class BattleController extends Controller
         activePlayer = PLAYER_1;
         activePlayer.beginTurn();
         Gdx.input.setInputProcessor(stage);
-    }
+		showActivePlayerMessage();
+
+	}
 
     // ===================================
     // METHODS
@@ -110,6 +113,7 @@ public class BattleController extends Controller
 	public Player giveActivePlayer()
 	{
 		return activePlayer;
+
 	}
 
 	public BattleCard giveLastClickedBattleCard()
@@ -182,6 +186,19 @@ public class BattleController extends Controller
 		nextPlayer.beginTurn();
 		activePlayer = nextPlayer;
 		updateAllFields();
+		showActivePlayerMessage();
+	}
+
+	private void showActivePlayerMessage() {
+		final Stage STAGE = BATTLEFIELD.BATTLE_CONTROLLER.giveStage();
+		String ORDERIMGPATH = activePlayer.PARTY.giveImagePath();
+		Texture OrderTexture = new Texture(ORDERIMGPATH);
+		final Image ORDER = new Image(OrderTexture);
+		OrderTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		ORDER.setPosition(60, 909);
+		ORDER.setSize(356, 110);
+		STAGE.addActor(ORDER);
+
 	}
 
 	public void updateAllFields()
@@ -222,7 +239,6 @@ public class BattleController extends Controller
 	}
 
 	// prüft ob jemande bereits 6 Sektoren hat und gibt den Gewinn in der Konsole aus
-	// TODO: Label hinzufügen
 	public boolean checkForWin()
 	{
 		int allyCounter  = 0;
