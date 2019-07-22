@@ -8,12 +8,18 @@ import com.bmeproject.game.bmeProject.screens.Controller;
 public class BattleScreen extends AbstractScreen
 {
 	// ===================================
+	// ATTRIBUTES & CONSTANTS
+	// ===================================
+	private final BMEProject BME_PROJECT;
+
+	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
 	public BattleScreen(BMEProject bmeProject)
 	{
 		super(bmeProject);
+		BME_PROJECT = bmeProject;
 	}
 
 	// ===================================
@@ -38,6 +44,6 @@ public class BattleScreen extends AbstractScreen
 
 	@Override protected Controller createController(SpriteBatch spriteBatch)
 	{
-		return new BattleController(spriteBatch);
+		return new BattleController(spriteBatch, BME_PROJECT);
 	}
 }

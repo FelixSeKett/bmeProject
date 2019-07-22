@@ -44,6 +44,7 @@ public class BattleController extends Controller {
     public final Battlefield BATTLEFIELD;
     private final Player PLAYER_1;
     private final Player PLAYER_2;
+    private final BMEProject BME_PROJECT;
 
     private Player activePlayer;
     private boolean started;
@@ -56,12 +57,12 @@ public class BattleController extends Controller {
     // CONSTRUCTORS
     // ===================================
 
-    public BattleController(SpriteBatch spriteBatch) {
+    public BattleController(SpriteBatch spriteBatch, BMEProject bmeProject) {
         super(spriteBatch);
         Texture background = new Texture("core/assets/visuals/spielbrettSmall.png");
         background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         Image backgroundImage = new Image(background);
-
+        BME_PROJECT = bmeProject;
 
         stage.addActor(backgroundImage);
         DETAIL_VIEW = new DetailView(stage);
@@ -196,14 +197,14 @@ public class BattleController extends Controller {
         if (allyCounter == 6 ) {
             Texture overlay = new Texture("core/assets/visuals/messages/win.png");
             showWinConditionMessage(overlay);
-            ButtonView.showEndButtons(stage);
+            BUTTON_VIEW.showEndButtons(stage);
             return true;
 
         }
         if (enemyCounter == 6) {
             Texture overlay = new Texture("core/assets/visuals/messages/loose.png");
             showWinConditionMessage(overlay);
-            ButtonView.showEndButtons(stage);
+            BUTTON_VIEW.showEndButtons(stage);
             return true;
 
         }
@@ -219,6 +220,10 @@ public class BattleController extends Controller {
         stage.addActor(texture);
         texture.setZIndex(200);
         //TODO Start new Game Button einbinden
+    }
+
+    public BMEProject getProject(){
+        return BME_PROJECT;
     }
 
 
