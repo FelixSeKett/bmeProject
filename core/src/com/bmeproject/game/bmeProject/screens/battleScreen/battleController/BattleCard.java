@@ -34,7 +34,8 @@ public abstract class BattleCard extends Actor
 	protected final Player  PLAYER;
 	public final    Card    CARD;
 	private final   int     DEFAULT_HIT_POINTS;
-	private final   Texture FRONT_TEXTURE;
+	public final   Texture FRONT_TEXTURE;
+	private final   Texture FRONT_TEXTURE_SMALL;
 	public final    Sprite  SPRITE;
 
 	protected Player commander;
@@ -52,7 +53,9 @@ public abstract class BattleCard extends Actor
 		commander = PLAYER;
 		currentHitPoints = giveDefaultHitpoints();
 		FRONT_TEXTURE = new Texture(CARD.ILLUSTRATION_FILE_PATH);
+		FRONT_TEXTURE_SMALL= new Texture(CARD.ILLUSTRATION_FILE_PATH_SMALL);
 		FRONT_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		FRONT_TEXTURE_SMALL.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		BACK_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
 		SPRITE = new Sprite(BACK_TEXTURE);
@@ -250,7 +253,7 @@ public abstract class BattleCard extends Actor
 
 	public void getUncovered()
 	{
-		SPRITE.setTexture(FRONT_TEXTURE);
+		SPRITE.setTexture(FRONT_TEXTURE_SMALL);
 	}
 
 	public void getCovered()

@@ -16,17 +16,21 @@ public class Card
 	public final int    ID;
 	public final String NAME;
 	public final String ILLUSTRATION_FILE_PATH;
+	public final String ILLUSTRATION_FILE_PATH_SMALL;
 	public final Type   TYPE;
 
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
 
-	public Card(int id, String name, String illustrationFilePath, Type type)
+	public Card( int id, String name, String illustrationFilePath, Type type )
 	{
 		ID = id;
 		NAME = name;
-		ILLUSTRATION_FILE_PATH = illustrationFilePath;
+		ILLUSTRATION_FILE_PATH = "core/assets/visuals/cards/large/" + illustrationFilePath;
+		ILLUSTRATION_FILE_PATH_SMALL = "core/assets/visuals/cards/small/" + illustrationFilePath;
 		TYPE = type;
 	}
+
+
 }

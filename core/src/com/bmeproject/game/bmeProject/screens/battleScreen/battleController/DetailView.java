@@ -3,6 +3,7 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -48,7 +49,7 @@ public class DetailView
 
 	public void update(BattleCard battleCard)
 	{
-		BATTLE_CARD_IMAGE.setDrawable(new TextureRegionDrawable(battleCard.SPRITE));
+		BATTLE_CARD_IMAGE.setDrawable(new TextureRegionDrawable(new TextureRegion(battleCard.FRONT_TEXTURE)));
 		USER_MESSAGE.setText("hier werden Hinweise zum Spielzug angezeigt:");
 
 	}
