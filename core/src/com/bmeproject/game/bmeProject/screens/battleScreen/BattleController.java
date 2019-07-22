@@ -24,8 +24,7 @@ TODO: Funktionalität
 - Kampfanimation implementieren
 
 TODO: Debug
-- Aktivierung Rote / Blaue Zone debuggen
-- Aktivierung Grüne Zone debuggen
+-
 
 TODO: Kosmetik
 - Button View vom oberen Rand wegrücken
