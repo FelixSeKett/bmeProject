@@ -1,6 +1,9 @@
 package com.bmeproject.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.bmeproject.game.bmeProject.dataAccess.CardGenerator;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Deck;
@@ -33,6 +36,16 @@ public class BMEProject extends Game
 	public static HashMap<Integer, Card> allCards;
 	public static ArrayList<Card>        Cards;
 
+	public static Music music;
+	public static Sound cardSound;
+	public static Sound buttonSound;
+	public static Sound attackSound;
+	public static Sound destroySound1;
+	public static Sound destroySound2;
+	public static Sound streamSound;
+	public static Sound streamChangeSound;
+
+
 	/**
 	 * Verrichtet alle Arbeiten, die einmalig beim Erzeugen der Instanz dieser Klasse - sprich: bei Spielstart -
 	 * anfallen. Soll alle komplexe Datentypen initialisieren und einen Screen aufrufen.
@@ -40,6 +53,20 @@ public class BMEProject extends Game
 	@Override public void create()
 	{
 		user = new User(this, "TestUser");
+
+		music = Gdx.audio.newMusic(Gdx.files.internal("core/assets/audio/music.mp3"));
+		cardSound = Gdx.audio.newSound(Gdx.files.internal("core/assets/audio/card.ogg"));
+		buttonSound = Gdx.audio.newSound(Gdx.files.internal("core/assets/audio/button1.ogg"));
+		attackSound = Gdx.audio.newSound(Gdx.files.internal("core/assets/audio/attack1.ogg"));
+		destroySound1 = Gdx.audio.newSound(Gdx.files.internal("core/assets/audio/destroy1.ogg"));
+		destroySound2 = Gdx.audio.newSound(Gdx.files.internal("core/assets/audio/destroy2.ogg"));
+		streamSound = Gdx.audio.newSound(Gdx.files.internal("core/assets/audio/stream.ogg"));
+		streamChangeSound = Gdx.audio.newSound(Gdx.files.internal("core/assets/audio/activated.ogg"));
+
+		music.setLooping(true);
+		music.setVolume(1.0f);
+		music.play();
+
 		initializeScreens();
 	}
 
@@ -58,6 +85,8 @@ public class BMEProject extends Game
 		sg.saveGame(user);
 		user = sg.loadGame(user);
 	}
+
+
 
 	private void initializeScreens()
 	{
@@ -83,5 +112,18 @@ public class BMEProject extends Game
 	public void activateDeckScreen()
 	{
 		setScreen(deckScreen);
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		music.dispose();
+		cardSound.dispose();
+		buttonSound.dispose();
+		attackSound.dispose();
+		destroySound1.dispose();
+		destroySound2.dispose();
+		streamSound.dispose();
+		streamChangeSound.dispose();
 	}
 }

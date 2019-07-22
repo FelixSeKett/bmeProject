@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
@@ -234,6 +235,7 @@ public abstract class BattleCard extends Actor
 
 	public void getSelected()
 	{
+		BMEProject.cardSound.play(0.5f);
 		ScaleToAction scaleToAction = new ScaleToAction();
 		scaleToAction.setDuration(0.1f);
 		scaleToAction.setScale(1.4f);

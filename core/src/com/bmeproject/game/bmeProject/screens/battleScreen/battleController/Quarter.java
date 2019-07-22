@@ -47,6 +47,7 @@ public class Quarter extends BattleCard
 
 	@Override public void getDestroyed()
 	{
+		BMEProject.destroySound2.play(0.1f);
 		commander = PLAYER.BATTLE_CONTROLLER.giveOppositePlayerOf(commander);
 		Field currentField = giveCurrentField();
 		if (currentField != null) {
