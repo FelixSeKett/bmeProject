@@ -12,6 +12,7 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.EntryField;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 
 import java.util.ArrayList;
@@ -160,6 +161,14 @@ public class BattleController extends Controller
 		}
 		battleCard.getSelected();
 		lastClickedBattleCard = battleCard;
+
+		for (Sector s : BATTLEFIELD.giveSectors()){
+			if(s.giveCommander().PARTY == Party.ALLY){
+				s.giveEntryField().showBorder();
+			}else{
+				s.giveEntryField().hideBorder();
+			}
+		}
 	}
 
 	public void resetLastClickedBattleCard()
