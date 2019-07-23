@@ -8,9 +8,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
-import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
@@ -24,18 +22,18 @@ public abstract class BattleCard extends Actor {
     // ATTRIBUTES
     // ===================================
 
-    private static final Texture BACK_TEXTURE =
-            new Texture("core/assets/visuals/cards/large/back.png");
-    private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
-    private static final float ANIMATION_SPEED = 0.5f;
-    public static final int WIDTH = 70;
-    public static final int HEIGHT = 103;
+	private static final Texture       BACK_TEXTURE            =
+			new Texture("core/assets/visuals/cards/large/back.png");
+	private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
+	private static final float         ANIMATION_DURATION      = 0.5f;
+	public static final  int           WIDTH                   = 70;
+	public static final  int           HEIGHT                  = 103;
 
-    protected final Player PLAYER;
-    public final Card CARD;
-    public final Texture FRONT_TEXTURE;
-    private final Texture FRONT_TEXTURE_SMALL;
-    public final Sprite SPRITE;
+	protected final Player  PLAYER;
+	public final    Card    CARD;
+	public final    Texture FRONT_TEXTURE;
+	private final   Texture FRONT_TEXTURE_SMALL;
+	public final    Sprite  SPRITE;
 
     protected Player commander;
     private int currentHitPoints;
@@ -44,16 +42,17 @@ public abstract class BattleCard extends Actor {
     // CONSTRUCTORS
     // ===================================
 
-    public BattleCard( Player player, Card card ) {
-        PLAYER = player;
-        CARD = card;
-        commander = PLAYER;
-        currentHitPoints = giveDefaultHitpoints();
-        FRONT_TEXTURE = new Texture(CARD.ILLUSTRATION_FILE_PATH);
-        FRONT_TEXTURE_SMALL = new Texture(CARD.ILLUSTRATION_FILE_PATH_SMALL);
-        FRONT_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        FRONT_TEXTURE_SMALL.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        BACK_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+	public BattleCard(Player player, Card card)
+	{
+		PLAYER = player;
+		CARD = card;
+		commander = PLAYER;
+		currentHitPoints = giveDefaultHitpoints();
+		FRONT_TEXTURE = new Texture(CARD.ILLUSTRATION_FILE_PATH);
+		FRONT_TEXTURE_SMALL = new Texture(CARD.ILLUSTRATION_FILE_PATH_SMALL);
+		FRONT_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		FRONT_TEXTURE_SMALL.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		BACK_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         SPRITE = new Sprite(BACK_TEXTURE);
 
@@ -186,26 +185,27 @@ public abstract class BattleCard extends Actor {
         return PLAYER.giveGraveyard().giveCards().contains(this);
     }
 
+	public void moveTo(final float X, final float Y)
+	{
+		final MoveToAction MOVE_TO_ACTION = new MoveToAction();
+		MOVE_TO_ACTION.setDuration(ANIMATION_DURATION);
+		MOVE_TO_ACTION.setInterpolation(ANIMATION_INTERPOLATION);
+		MOVE_TO_ACTION.setPosition(X, Y);
+		addAction(MOVE_TO_ACTION);
+	}
     private boolean isReadable() {
         return isOnBattlefield() || isOnGraveyard() ||
                 (isOnHand() && commander == PLAYER.BATTLE_CONTROLLER.giveActivePlayer());
     }
 
-    public void moveTo( float x, float y ) {
-        MoveToAction moveToAction = new MoveToAction();
-        moveToAction.setDuration(ANIMATION_SPEED);
-        moveToAction.setInterpolation(ANIMATION_INTERPOLATION);
-        moveToAction.setPosition(x, y);
-        addAction(moveToAction);
-    }
-
-    public void updateRotation() {
-        RotateToAction rotateToAction = new RotateToAction();
-        rotateToAction.setDuration(ANIMATION_SPEED);
-        rotateToAction.setInterpolation(ANIMATION_INTERPOLATION);
-        rotateToAction.setRotation(commander.PARTY.giveRotation());
-        addAction(rotateToAction);
-    }
+	public void updateRotation()
+	{
+		RotateToAction rotateToAction = new RotateToAction();
+		rotateToAction.setDuration(ANIMATION_DURATION);
+		rotateToAction.setInterpolation(ANIMATION_INTERPOLATION);
+		rotateToAction.setRotation(commander.PARTY.giveRotation());
+		addAction(rotateToAction);
+	}
 
     public void resetHitPoints() {
         currentHitPoints = giveDefaultHitpoints();

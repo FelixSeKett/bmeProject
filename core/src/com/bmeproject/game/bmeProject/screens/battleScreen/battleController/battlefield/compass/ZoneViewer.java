@@ -19,8 +19,7 @@ public class ZoneViewer extends Image
 
 	private final Compass COMPASS;
 	private final Sprite  VIEWER;
-	private  final Texture KOMPASS_TEXTURE;
-
+	private final Texture KOMPASS_TEXTURE;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -30,13 +29,13 @@ public class ZoneViewer extends Image
 	{
 		super(new Texture("core/assets/visuals/compass/zone_viewer_lights.png"));
 		COMPASS = compass;
-		KOMPASS_TEXTURE= new Texture("core/assets/visuals/compass/zone_view.png");
+		KOMPASS_TEXTURE = new Texture("core/assets/visuals/compass/zone_view.png");
 		KOMPASS_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		VIEWER = new Sprite(KOMPASS_TEXTURE);
 
 
 		final Stage STAGE    = COMPASS.BATTLEFIELD.BATTLE_CONTROLLER.giveStage();
-		final float CENTER_X = 1920/ 2f;
+		final float CENTER_X = 1920 / 2f;
 		final float CENTER_Y = 1080 / 2f;
 
 		setPosition(CENTER_X - getWidth() / 2f, CENTER_Y - getHeight() / 2f);

@@ -21,12 +21,11 @@ import java.util.ArrayList;
 
 /*
 TODO: Funktionalität
-- Buttons mit Pressed und Hovered Bildern versehen
 - Kampfanimation implementieren
 - Zone bei Aktivierung aufleuchten lassen
 
 TODO: Debug
--
+- Quartiere funktionieren noch nicht richtig
 
 TODO: Kosmetik
 - Texturen in TextureRegions umbauen
@@ -78,9 +77,9 @@ public class BattleController extends Controller
 		showActivePlayerMessage();
 	}
 
-    // ===================================
-    // METHODS
-    // ===================================
+	// ===================================
+	// METHODS
+	// ===================================
 
 	@Override public void update(float delta)
 	{
@@ -92,12 +91,12 @@ public class BattleController extends Controller
 		}
 		if (Gdx.input.justTouched()) {
 
-			Stage stage = giveStage();
+			Stage   stage  = giveStage();
 			Vector2 vector = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 			stage.screenToStageCoordinates(vector);
 			Actor clickedActor = stage.hit(vector.x, vector.y, true);
-			if (clickedActor != null){
-				if(!(clickedActor instanceof BattleCard)){
+			if (clickedActor != null) {
+				if (!(clickedActor instanceof BattleCard)) {
 					resetLastClickedBattleCard();
 				}
 			}
@@ -196,11 +195,12 @@ public class BattleController extends Controller
 		showActivePlayerMessage();
 	}
 
-	private void showActivePlayerMessage() {
-		final Stage STAGE = BATTLEFIELD.BATTLE_CONTROLLER.giveStage();
-		String ORDERIMGPATH = activePlayer.PARTY.giveImagePath();
-		Texture OrderTexture = new Texture(ORDERIMGPATH);
-		final Image ORDER = new Image(OrderTexture);
+	private void showActivePlayerMessage()
+	{
+		final Stage STAGE        = BATTLEFIELD.BATTLE_CONTROLLER.giveStage();
+		String      ORDERIMGPATH = activePlayer.PARTY.giveImagePath();
+		Texture     OrderTexture = new Texture(ORDERIMGPATH);
+		final Image ORDER        = new Image(OrderTexture);
 		OrderTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		ORDER.setPosition(28, 909);
 		STAGE.addActor(ORDER);
@@ -248,8 +248,8 @@ public class BattleController extends Controller
 	public boolean checkForWin()
 	{
 		EndOfGameScreen endOfGameScreen;
-		int allyCounter  = 0;
-		int enemyCounter = 0;
+		int             allyCounter  = 0;
+		int             enemyCounter = 0;
 
 		//prüft die Besitzer der einzelnen Sektoren und zählt
 		for (Sector sector : BATTLEFIELD.giveSectors()) {
@@ -260,23 +260,23 @@ public class BattleController extends Controller
 			}
 		}
 
-        if (allyCounter == 6 ) {
+		if (allyCounter == 6) {
 			endOfGameScreen = new EndOfGameScreen(BME_PROJECT, this, true);
 			BME_PROJECT.setEndOfGameScreen(endOfGameScreen);
-            return true;
+			return true;
 
-        }
-        else if (enemyCounter == 6) {
+		} else if (enemyCounter == 6) {
 			endOfGameScreen = new EndOfGameScreen(BME_PROJECT, this, false);
 			BME_PROJECT.setEndOfGameScreen(endOfGameScreen);
-            return true;
-        }
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    public BMEProject getProject(){
-        return BME_PROJECT;
-    }
+	public BMEProject getProject()
+	{
+		return BME_PROJECT;
+	}
 
 }
