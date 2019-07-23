@@ -88,7 +88,8 @@ public class Battlefield
 	}
 
 	public int giveIndexOfSector(Sector sector)
-	{
+	{		System.out.println("test");
+
 		return SECTORS.indexOf(sector);
 	}
 
@@ -225,6 +226,7 @@ public class Battlefield
 		zoneToActivate.activate();
 	}
 
+	// TODO: Braucht man angesichts von giveRingwiseOrderedFieldsOfZone() nicht mehr
 	public ArrayList<Sector> giveOrderedZonedSectors(Zone zone)
 	{
 		// Bereitet eine Liste mit Sektoren vor, die zurückgegeben werden soll

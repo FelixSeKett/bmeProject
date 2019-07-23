@@ -226,7 +226,7 @@ public class ButtonView
             }
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Drehe den Kompass um die Sektoren mit Strahlung auszusetzten. Die verschiedenen Strahlungen beeinflussen die Einheiten auf unterschiedliche Weise");
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Drehe den Kompass um die Sektoren mit Strahlung auszusetzen. Die verschiedenen Strahlungen beeinflussen die Einheiten auf unterschiedliche Weise");
 			}
         };
     }
