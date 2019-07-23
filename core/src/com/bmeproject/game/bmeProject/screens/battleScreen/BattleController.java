@@ -173,10 +173,18 @@ public class BattleController extends Controller
 
 		lastClickedBattleCard = battleCard;
 
-		for (Sector s : BATTLEFIELD.giveSectors()){
-			if(s.giveCommander().PARTY == Party.ALLY){
+		if(activePlayer == PLAYER_1) {
+			activateSectorOfPlayer(Party.ALLY);
+		}else{
+			activateSectorOfPlayer(Party.ENEMY);
+		}
+	}
+
+	public void activateSectorOfPlayer(Party party){
+		for (Sector s : BATTLEFIELD.giveSectors()) {
+			if (s.giveCommander().PARTY == party) {
 				s.giveEntryField().showBorder();
-			}else{
+			} else {
 				s.giveEntryField().hideBorder();
 			}
 		}
