@@ -245,7 +245,7 @@ public class ButtonView
             }
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Die Strömung ändert die Kampfreihenfolge der Einheiten");
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Die Strömung im Rücken ist vom Vorteil. Sie lässt dich zuerst Angreifen");
 			}
         };
     }
