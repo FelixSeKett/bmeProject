@@ -15,7 +15,7 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Batt
 public class EntryField extends RingField
 {
 	public final float duration = 0.5f;
-	public final Texture SHOW_SECTOR = new Texture("core/assets/visuals/card.png");
+	public final Texture SHOW_SECTOR = new Texture("core/assets/glow_border.png");
 	Image image1 = new Image(SHOW_SECTOR);
 	RepeatAction repeatAction = new RepeatAction();
 
@@ -36,15 +36,17 @@ public class EntryField extends RingField
 
 		image1.setPosition(x,y);
 		image1.setColor(1,1,1,0);
-		image1.setZIndex(zCor);
-		System.out.println("Z von bild: "+ zCor + " Z von Field: " + getZIndex());
+		image1.setHeight(getHeight());
+		image1.setWidth(getWidth());
 		getStage().addActor(image1);
+
+		image1.setZIndex(zCor);
+
 
 		addListener(new InputListener()
 		{
 			@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
-				System.out.println("hi");
 				BattleController battleController = FIELD_USER.giveBattleController();
 				if (battleController.isGoodToGo()) {
 					BattleCard selectedCard = battleController.giveLastClickedBattleCard();

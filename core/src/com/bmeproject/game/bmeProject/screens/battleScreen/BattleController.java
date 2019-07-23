@@ -160,6 +160,7 @@ public class BattleController extends Controller
 			lastClickedBattleCard.getUnselected();
 		}
 		battleCard.getSelected();
+
 		lastClickedBattleCard = battleCard;
 
 		for (Sector s : BATTLEFIELD.giveSectors()){
@@ -176,6 +177,10 @@ public class BattleController extends Controller
 		if (lastClickedBattleCard != null) {
 			lastClickedBattleCard.getUnselected();
 			lastClickedBattleCard = null;
+		}
+
+		for (Sector sector : BATTLEFIELD.giveSectors()){
+				sector.giveEntryField().hideBorder();
 		}
 	}
 
