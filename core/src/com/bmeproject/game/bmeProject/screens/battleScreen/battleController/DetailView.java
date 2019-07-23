@@ -1,5 +1,7 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -8,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
+import sun.tools.jstat.Alignment;
 
 public class DetailView
 {
@@ -27,7 +31,12 @@ public class DetailView
 	{
 		final int              X           = 69;
 		BitmapFont font = new BitmapFont();
-		final Label.LabelStyle LABEL_STYLE = new Label.LabelStyle(font, Color.DARK_GRAY);
+		//Gdx.files.internal("core/assets/fonts/LondrinaSolid-Regular.bmp")
+
+		font.getData().setScale(1.5f);
+
+		Label.LabelStyle LABEL_STYLE = new Label.LabelStyle(font, Color.DARK_GRAY);
+
 		final Label.LabelStyle INFO_STYLE  = new Label.LabelStyle(font, Color.BLACK);
 		font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
@@ -35,10 +44,17 @@ public class DetailView
 
 		BATTLE_CARD_IMAGE = new Image();
 		BATTLE_CARD_IMAGE.setBounds(X, 75, 347, 513);
-		USER_MESSAGE = new Label("", LABEL_STYLE);
-		USER_MESSAGE.setPosition(98, 665);
-
 		stage.addActor(BATTLE_CARD_IMAGE);
+
+
+
+		USER_MESSAGE = new Label("", LABEL_STYLE);
+
+		USER_MESSAGE.setPosition(98f, 665f);
+		USER_MESSAGE.setWidth(300f);
+		USER_MESSAGE.setHeight(216f);
+		USER_MESSAGE.setAlignment(Align.center);
+		USER_MESSAGE.setWrap(true);
 		stage.addActor(USER_MESSAGE);
 
 	}

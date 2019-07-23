@@ -127,7 +127,7 @@ public class ButtonView
 		final ImageButton RED_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)), new TextureRegionDrawable(new TextureRegion(BUTTON_RED_DOWN)));
 		addAntialiasing(BUTTON_RED);
 		addAntialiasing(BUTTON_RED_DOWN);
-		RED_BUTTON.setPosition(X, Y - 480);
+		RED_BUTTON.setPosition(X, Y - 350);
 		BATTLE_CONTROLLER.giveStage().addActor(RED_BUTTON);
 		RED_BUTTON.addListener(createRedButtonListener());
 		return RED_BUTTON;
@@ -140,7 +140,7 @@ public class ButtonView
 		addAntialiasing(BUTTON_GREEN);
 		addAntialiasing(BUTTON_GREEN_DOWN);
 		final ImageButton GREEN_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)), new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN_DOWN)));
-		GREEN_BUTTON.setPosition(X, Y - 350);
+		GREEN_BUTTON.setPosition(X, Y - 480);
 		BATTLE_CONTROLLER.giveStage().addActor(GREEN_BUTTON);
 		GREEN_BUTTON.addListener(createGreenButtonListener());
 		return GREEN_BUTTON;
@@ -226,7 +226,7 @@ public class ButtonView
             }
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("kompass button info");
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Drehe den Kompass um die Sektoren mit Strahlung auszusetzten. Die verschiedenen Strahlungen beeinflussen die Einheiten auf unterschiedliche Weise");
 			}
         };
     }
@@ -245,7 +245,7 @@ public class ButtonView
             }
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("steam button info");
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Die Strömung ändert die Kampfreihenfolge der Einheiten");
 			}
         };
     }
@@ -264,7 +264,7 @@ public class ButtonView
             }
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-					BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("roter button info");
+					BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Deine Kreaturen und Phänomene werden durch die rote Strahlung zu wahren Kriegsmaschinen");
 			}
         };
     }
@@ -283,7 +283,7 @@ public class ButtonView
             }
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("green button info");
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Die Grüne Strahlung schafft dir mehr Raum um neue Einheiten in den Kampf zu senden");
 			}
         };
     }
@@ -302,7 +302,7 @@ public class ButtonView
             }
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("blue button info");
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Deine Kreaturen und Phänomene werden durch die blaue Strahlung zu wahren Kriegsmaschinen");
 			}
         };
     }
@@ -319,7 +319,7 @@ public class ButtonView
             }
 			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
 			{
-				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("finish button info");
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Beende deinen Zug");
 			}
         };
     }

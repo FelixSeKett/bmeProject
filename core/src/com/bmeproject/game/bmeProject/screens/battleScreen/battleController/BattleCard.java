@@ -82,10 +82,10 @@ public abstract class BattleCard extends Actor {
                 if (isReadable()) {
                     PLAYER.BATTLE_CONTROLLER.DETAIL_VIEW.update(BattleCard.this);
                     if (isOnHand()) {
-                        PLAYER.BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("handkarten info");
+                        PLAYER.BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Setzte deine Einheit auf die gewünschte Kampfposition");
                     }
                     if (isOnGraveyard()){
-                        PLAYER.BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("grab info");                    }
+                        PLAYER.BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("Diese Einheiten stehen dir für den Kampf nicht mehr zur Verfügung");                    }
                 }
             }
         });

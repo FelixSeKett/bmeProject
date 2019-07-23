@@ -75,6 +75,7 @@ public class BattleController extends Controller
 		activePlayer = PLAYER_1;
 		activePlayer.beginTurn();
 		Gdx.input.setInputProcessor(stage);
+		showActivePlayerMessage();
 	}
 
     // ===================================
@@ -201,8 +202,7 @@ public class BattleController extends Controller
 		Texture OrderTexture = new Texture(ORDERIMGPATH);
 		final Image ORDER = new Image(OrderTexture);
 		OrderTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		ORDER.setPosition(60, 909);
-		ORDER.setSize(356, 110);
+		ORDER.setPosition(28, 909);
 		STAGE.addActor(ORDER);
 
 	}
