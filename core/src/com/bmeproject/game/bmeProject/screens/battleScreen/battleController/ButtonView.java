@@ -1,18 +1,17 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.AlphaAction;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
+
 
 public class ButtonView
 {
@@ -225,6 +224,10 @@ public class ButtonView
 	            }
 	            return true;
             }
+			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
+			{
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("kompass button info");
+			}
         };
     }
 
@@ -240,6 +243,10 @@ public class ButtonView
 	            }
 	            return true;
             }
+			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
+			{
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("steam button info");
+			}
         };
     }
 
@@ -255,6 +262,10 @@ public class ButtonView
 	            }
 	            return true;
             }
+			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
+			{
+					BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("roter button info");
+			}
         };
     }
 
@@ -270,6 +281,10 @@ public class ButtonView
 	            }
 	            return true;
             }
+			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
+			{
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("green button info");
+			}
         };
     }
 
@@ -285,6 +300,10 @@ public class ButtonView
 	            }
 	            return true;
             }
+			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
+			{
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("blue button info");
+			}
         };
     }
 
@@ -298,6 +317,10 @@ public class ButtonView
 	            }
 	            return true;
             }
+			@Override public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor)
+			{
+				BATTLE_CONTROLLER.DETAIL_VIEW.setUserMessage("finish button info");
+			}
         };
     }
 

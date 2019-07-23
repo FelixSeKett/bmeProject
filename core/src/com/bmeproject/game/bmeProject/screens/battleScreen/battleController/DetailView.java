@@ -50,7 +50,12 @@ public class DetailView
 	public void update(BattleCard battleCard)
 	{
 		BATTLE_CARD_IMAGE.setDrawable(new TextureRegionDrawable(new TextureRegion(battleCard.FRONT_TEXTURE)));
-		USER_MESSAGE.setText("hier werden Hinweise zum Spielzug angezeigt:");
+
+
+	}
+
+	public void setUserMessage(String userMessage) {
+		USER_MESSAGE.setText(userMessage);
 
 	}
 }
