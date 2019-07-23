@@ -41,7 +41,7 @@ public class Controller
 		stage.act(delta);
 	}
 
-	void dispose()
+	public void dispose()
 	{
 		stage.dispose();
 	}

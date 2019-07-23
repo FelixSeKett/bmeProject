@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.Controller;
-import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
@@ -23,16 +22,13 @@ import java.util.ArrayList;
 /*
 TODO: Funktionalität
 - Buttons mit Pressed und Hovered Bildern versehen
-- Gewinndarstellung implementieren
 - Kampfanimation implementieren
+- Zone bei Aktivierung aufleuchten lassen
 
 TODO: Debug
 -
 
 TODO: Kosmetik
-- Button View vom oberen Rand wegrücken
-- Interpolation von Bildern lösen
-- Text in der FlavourText-Box der DetailView obenbündig machen und schriftgröße erhöhen, ohne einfach hochzuskalieren
 - Texturen in TextureRegions umbauen
 - LastClickedBattleCard wieder "entklickbar" machen?
 - Wenn eine Karte auf der Hand ausgewählt wurde könnte man die möglichen Eintrittsfelder markieren
@@ -47,38 +43,38 @@ public class BattleController extends Controller
 	// ATTRIBUTES
 	// ===================================
 
-    public final DetailView DETAIL_VIEW;
-    public final ButtonView BUTTON_VIEW;
-    public final Battlefield BATTLEFIELD;
-    private final Player PLAYER_1;
-    private final Player PLAYER_2;
-    private final BMEProject BME_PROJECT;
+	public final  DetailView  DETAIL_VIEW;
+	public final  ButtonView  BUTTON_VIEW;
+	public final  Battlefield BATTLEFIELD;
+	private final Player      PLAYER_1;
+	private final Player      PLAYER_2;
+	private final BMEProject  BME_PROJECT;
 
-    private Player activePlayer;
-    private boolean started;
-    private BattleCard lastClickedBattleCard;
+	private Player     activePlayer;
+	private boolean    started;
+	private BattleCard lastClickedBattleCard;
 
-    // ===================================
-    // CONSTRUCTORS
-    // ===================================
+	// ===================================
+	// CONSTRUCTORS
+	// ===================================
 
-    public BattleController(SpriteBatch spriteBatch, BMEProject bmeProject) {
-        super(spriteBatch);
-        Texture background = new Texture("core/assets/visuals/spielbrettSmall.png");
-        background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Image backgroundImage = new Image(background);
-        BME_PROJECT = bmeProject;
+	public BattleController(SpriteBatch spriteBatch, BMEProject bmeProject)
+	{
+		super(spriteBatch);
+		Texture background = new Texture("core/assets/visuals/spielbrettSmall.png");
+		background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		Image backgroundImage = new Image(background);
+		BME_PROJECT = bmeProject;
 
-        stage.addActor(backgroundImage);
-        DETAIL_VIEW = new DetailView(stage);
-        BUTTON_VIEW = new ButtonView(this);
-        BATTLEFIELD = new Battlefield(this);
-        PLAYER_1 = new Player(this, Party.ALLY);
-        PLAYER_2 = new Player(this, Party.ENEMY);
-        activePlayer = PLAYER_1;
-        activePlayer.beginTurn();
-        Gdx.input.setInputProcessor(stage);
-		showActivePlayerMessage();
+		stage.addActor(backgroundImage);
+		DETAIL_VIEW = new DetailView(stage);
+		BUTTON_VIEW = new ButtonView(this);
+		BATTLEFIELD = new Battlefield(this);
+		PLAYER_1 = new Player(this, Party.ALLY);
+		PLAYER_2 = new Player(this, Party.ENEMY);
+		activePlayer = PLAYER_1;
+		activePlayer.beginTurn();
+		Gdx.input.setInputProcessor(stage);
 	}
 
     // ===================================

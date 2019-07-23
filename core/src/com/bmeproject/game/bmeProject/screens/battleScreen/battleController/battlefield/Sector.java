@@ -1,7 +1,7 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield;
 
 import com.badlogic.gdx.math.Vector2;
-import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.compass.Stream;
@@ -99,7 +99,7 @@ public class Sector extends FieldUser
 		return FIELDS.get(0);
 	}
 
-	private ArrayList<RingField> giveRingFields()
+	public ArrayList<RingField> giveRingFields()
 	{
 		ArrayList<RingField> ringFields = new ArrayList<RingField>();
 		ringFields.add(giveLeadField());
@@ -146,5 +146,12 @@ public class Sector extends FieldUser
 	public BattleCard giveQuarter()
 	{
 		return FIELDS.get(0).giveCards().get(0);
+	}
+
+	public ArrayList<RingField> giveOrderedRingFields()
+	{
+		ArrayList<RingField> orderedRingFields = giveRingFields();
+		BATTLEFIELD.COMPASS.giveStream().orderRingFields(orderedRingFields);
+		return orderedRingFields;
 	}
 }

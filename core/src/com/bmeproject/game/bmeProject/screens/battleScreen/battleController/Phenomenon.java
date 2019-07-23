@@ -2,7 +2,7 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 
 public class Phenomenon extends BattleCard
 {

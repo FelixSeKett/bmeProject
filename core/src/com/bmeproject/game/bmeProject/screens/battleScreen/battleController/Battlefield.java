@@ -2,7 +2,7 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Compass;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
@@ -110,21 +110,13 @@ public class Battlefield
 
 	public Sector givePreviousSectorOf(Sector sectorToGivePreviousSectorOf)
 	{
-		int index = giveIndexOfSector(sectorToGivePreviousSectorOf);
-		index -= 1;
-		if (index < 0) {
-			index += 6;
-		}
+		int index = decreaseSectorIndex(giveIndexOfSector(sectorToGivePreviousSectorOf));
 		return SECTORS.get(index);
 	}
 
 	public Sector giveNextSectorOf(Sector sectorToGiveNextSectorOf)
 	{
-		int index = giveIndexOfSector(sectorToGiveNextSectorOf);
-		index += 1;
-		if (index > 5) {
-			index -= 6;
-		}
+		int index = increaseSectorIndex(giveIndexOfSector(sectorToGiveNextSectorOf));
 		return SECTORS.get(index);
 	}
 
@@ -132,13 +124,11 @@ public class Battlefield
 	{
 		int startIndex = giveIndexOfSector(COMPASS.giveStartSector());
 		for (int i = 0; i < SECTORS.size(); i++) {
-			int colorIndex = startIndex + i;
-			if (colorIndex > 5) {
-				colorIndex -= 6;
+			int index = startIndex + i;
+			if (index > 5) {
+				index -= 6;
 			}
-			if (SECTORS.get(colorIndex) == sectorToGiveZoneOf) {
-				Gdx.app.log(toString(), "Gefundener Sektor: " + colorIndex);
-				Gdx.app.log(toString(), "Differenz zu StartSector: " + i);
+			if (SECTORS.get(index) == sectorToGiveZoneOf) {
 				return Zone.giveZoneByColorIndex(i);
 			}
 		}
@@ -175,7 +165,7 @@ public class Battlefield
 		BATTLE_CONTROLLER.BUTTON_VIEW.fadeOutButtonOfZone(zoneToActivate);
 
 		// Erstelle eine nach Strömungsregeln sortierte ArrayList mit Sektoren, die zur aktivierten Zone gehören
-		ArrayList<Sector> activeSectors = giveZonedSectors(zoneToActivate);
+		ArrayList<Sector> activeSectors = giveOrderedZonedSectors(zoneToActivate);
 
 		// Erstelle eine nach Strömungsregeln sortierte ArrayList aus zu aktivierenden Karten aus der Sektoren-Liste...
 		ArrayList<BattleCard> battleCardsToActivate = new ArrayList<BattleCard>();
@@ -235,8 +225,7 @@ public class Battlefield
 		zoneToActivate.activate();
 	}
 
-	// TODO: Die Reihenfolge der Einträge der zurückgegebenen ArrayList soll entsprechend der Strömung sortiert sein
-	public ArrayList<Sector> giveZonedSectors(Zone zone)
+	public ArrayList<Sector> giveOrderedZonedSectors(Zone zone)
 	{
 		// Bereitet eine Liste mit Sektoren vor, die zurückgegeben werden soll
 		ArrayList<Sector> zonedSectors = new ArrayList<Sector>();
@@ -244,34 +233,60 @@ public class Battlefield
 		// Speichert den Index des im Kompass hinterlegten Startsektors
 		int index = SECTORS.indexOf(COMPASS.giveStartSector());
 
-		// Fügt den Sektor hinzu, dessen Index der Differenz aus dem Startsektor und der Nummerierung der gesuchten
-		// Zone entspricht
-		index += zone.ordinal() * 2;
-		if (index > 5) {
-			index -= 6;
+		// Erhöht den Index um den Zonenindex der gesuchten Zone und fügt den Sektor hinzu, dessen Sektorindex dem
+		// erhöhten Index entspricht.
+		for (int i = 0; i < zone.ordinal() * 2; i++) {
+			index = increaseSectorIndex(index);
 		}
 		zonedSectors.add(SECTORS.get(index));
 
-		// Fügt den Sektor hinzu, dessen Index der Differenz aus dem Startsektor und der Nummerierung der gesuchten
-		// Zone +1 entspricht
-		index++;
-		if (index > 5) {
-			index -= 6;
-		}
+		// Erhöht den Index um 1 und fügt den Sektor hinzu, dessen Sektorindex dem erhöhten Index entspricht.
+		index = increaseSectorIndex(index);
 		zonedSectors.add(SECTORS.get(index));
 
-		// Reihenfolge der Sektoren bei Strömung im Uhrzeigersinn umkehren
-		// Achtung: Hier zeitgeschuldet noch kein schöner Code!
-		if (COMPASS.giveStream() == Stream.CLOCKWISE) {
-			Collections.reverse(zonedSectors);
-		}
-
-		//Testzwecke:
-		for (Sector sector : zonedSectors) {
-			Gdx.app.log(toString(), "Sector added: " + giveIndexOfSector(sector));
-		}
+		// Ordnet die Sektorenliste nach Strömungsrichtung
+		COMPASS.giveStream().orderSectors(zonedSectors);
 
 		return zonedSectors;
 	}
 
+	/**
+	 * Gibt eine Liste mit Feldern zurück, die die beiden Sektoren der übergebenen Zone beinhalten, und zwar in der
+	 * Reihenfolge: Alle Ringfelder nach Feldindex und Sektorenindex (äußerer Ring), dann alle Quartierfelder nach
+	 * Sektorenindex (innerer Ring).
+	 *
+	 * @param zone Zone, die die Sektoren mit ihren Feldern beschreibt
+	 * @return Liste mit allen Feldern aus der übergebenen Zone.
+	 */
+	public ArrayList<Field> giveRingwiseOrderedFieldsOfZone(Zone zone)
+	{
+		ArrayList<Field>  fields  = new ArrayList<Field>();
+		ArrayList<Sector> sectors = giveOrderedZonedSectors(zone);
+		for (Sector sector : sectors) {
+			fields.addAll(sector.giveOrderedRingFields());
+		}
+		for (Sector sector : sectors) {
+			fields.add(sector.giveQuarterField());
+		}
+
+		return fields;
+	}
+
+	private int increaseSectorIndex(int indexToIncrease)
+	{
+		indexToIncrease++;
+		if (indexToIncrease > 5) {
+			indexToIncrease -= 6;
+		}
+		return indexToIncrease;
+	}
+
+	private int decreaseSectorIndex(int indexToDecrease)
+	{
+		indexToDecrease--;
+		if (indexToDecrease < 0) {
+			indexToDecrease += 6;
+		}
+		return indexToDecrease;
+	}
 }
