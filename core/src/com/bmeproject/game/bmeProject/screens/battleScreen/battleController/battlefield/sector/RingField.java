@@ -34,7 +34,7 @@ public abstract class RingField extends Field
 		if (((Sector)FIELD_USER).BATTLEFIELD.COMPASS.giveStream() == Stream.CLOCKWISE) {
 			RingField previousEmptyField = givePreviousEmptyField();
 			if (previousEmptyField != null) {
-				BMEProject.cardSound.play(0.5f);
+				BMEProject.cardSound.play(0.4f);
 				previousEmptyField.addBattleCards(giveCards());
 			}
 		} else {

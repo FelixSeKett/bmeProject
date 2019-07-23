@@ -185,7 +185,7 @@ public class ButtonView
         return new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				BMEProject.buttonSound.play(0.5f);
+				BMEProject.buttonSound.play(0.6f);
                 BATTLE_CONTROLLER.getProject().activateTitleScreen();
                 return true;
             }
@@ -196,7 +196,7 @@ public class ButtonView
         return new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				BMEProject.buttonSound.play(0.5f);
+				BMEProject.buttonSound.play(0.6f);
                 BATTLE_CONTROLLER.getProject().activateBattleScreen();
                 return true;
             }
@@ -210,7 +210,7 @@ public class ButtonView
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 	            if (BATTLE_CONTROLLER.isGoodToGo()) {
 		            if (!BATTLE_CONTROLLER.hasTurnStarted()) {
-						BMEProject.streamChangeSound.play(1.0f);
+						BMEProject.streamChangeSound.play(1.3f);
 			            BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.proceedStartSector();
 		            }
 	            }
@@ -225,7 +225,7 @@ public class ButtonView
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 	            if (BATTLE_CONTROLLER.isGoodToGo()) {
 		            if (!BATTLE_CONTROLLER.hasTurnStarted()) {
-						BMEProject.streamSound.play(0.5f);
+						BMEProject.streamSound.play(0.4f);
 			            BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.toggleStream();
 		            }
 	            }
@@ -240,7 +240,7 @@ public class ButtonView
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 	            if (BATTLE_CONTROLLER.isGoodToGo()) {
 		            if (!Zone.RED.isActivated()) {
-						BMEProject.buttonSound.play(0.5f);
+						BMEProject.buttonSound.play(0.6f);
 			            BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.RED);
 		            }
 	            }
@@ -255,7 +255,7 @@ public class ButtonView
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 	            if (BATTLE_CONTROLLER.isGoodToGo()) {
 		            if (!Zone.GREEN.isActivated()) {
-						BMEProject.buttonSound.play(0.5f);
+						BMEProject.buttonSound.play(0.6f);
 			            BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.GREEN);
 		            }
 	            }
@@ -270,7 +270,7 @@ public class ButtonView
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 	            if (BATTLE_CONTROLLER.isGoodToGo()) {
 		            if (!Zone.BLUE.isActivated()) {
-						BMEProject.buttonSound.play(0.5f);
+						BMEProject.buttonSound.play(0.6f);
 			            BATTLE_CONTROLLER.BATTLEFIELD.activateZone(Zone.BLUE);
 		            }
 	            }
@@ -284,7 +284,7 @@ public class ButtonView
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 	            if (BATTLE_CONTROLLER.isGoodToGo()) {
-					BMEProject.buttonSound.play(0.5f);
+					BMEProject.buttonSound.play(0.6f);
 		            BATTLE_CONTROLLER.changeActivePlayer();
 	            }
 	            return true;

@@ -238,7 +238,7 @@ public abstract class BattleCard extends Actor
 
 	public void getSelected()
 	{
-		BMEProject.cardSound.play(0.5f);
+		BMEProject.cardSound.play(0.4f);
 		ScaleToAction scaleToAction = new ScaleToAction();
 		scaleToAction.setDuration(0.1f);
 		scaleToAction.setScale(1.4f);
