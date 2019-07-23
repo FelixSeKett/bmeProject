@@ -27,7 +27,7 @@ public class EntryField extends RingField
 					BattleCard selectedCard = battleController.giveLastClickedBattleCard();
 					if (selectedCard != null) {
 						if (selectedCard.giveCommander() == FIELD_USER.giveCommander()) {
-							BMEProject.cardSound.play(0.5f);
+							BMEProject.cardSound.play(0.4f);
 							addBattleCard(selectedCard);
 							battleController.setTurnStarted();
 							battleController.resetLastClickedBattleCard();

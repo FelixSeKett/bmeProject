@@ -4,33 +4,31 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.Controller;
-import com.bmeproject.game.bmeProject.screens.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
+import com.bmeproject.game.bmeProject.screens.endOfGameScreen.EndOfGameScreen;
 
 import java.util.ArrayList;
 
 /*
 TODO: Funktionalität
-- TitleScreen fertig machen
 - Buttons mit Pressed und Hovered Bildern versehen
-- Gewinndarstellung implementieren
 - Kampfanimation implementieren
+- Zone bei Aktivierung aufleuchten lassen
 
 TODO: Debug
 -
 
 TODO: Kosmetik
-- Button View vom oberen Rand wegrücken
-- Interpolation von Bildern lösen
-- Text in der FlavourText-Box der DetailView obenbündig machen und schriftgröße erhöhen, ohne einfach hochzuskalieren
 - Texturen in TextureRegions umbauen
 - LastClickedBattleCard wieder "entklickbar" machen?
 - Wenn eine Karte auf der Hand ausgewählt wurde könnte man die möglichen Eintrittsfelder markieren
@@ -45,42 +43,38 @@ public class BattleController extends Controller
 	// ATTRIBUTES
 	// ===================================
 
-    public final DetailView DETAIL_VIEW;
-    public final ButtonView BUTTON_VIEW;
-    public final Battlefield BATTLEFIELD;
-    private final Player PLAYER_1;
-    private final Player PLAYER_2;
-    private final BMEProject BME_PROJECT;
+	public final  DetailView  DETAIL_VIEW;
+	public final  ButtonView  BUTTON_VIEW;
+	public final  Battlefield BATTLEFIELD;
+	private final Player      PLAYER_1;
+	private final Player      PLAYER_2;
+	private final BMEProject  BME_PROJECT;
 
-    private Player activePlayer;
-    private boolean started;
-    private BattleCard lastClickedBattleCard;
-    public static boolean checkforWin;
+	private Player     activePlayer;
+	private boolean    started;
+	private BattleCard lastClickedBattleCard;
 
+	// ===================================
+	// CONSTRUCTORS
+	// ===================================
 
+	public BattleController(SpriteBatch spriteBatch, BMEProject bmeProject)
+	{
+		super(spriteBatch);
+		Texture background = new Texture("core/assets/visuals/spielbrettSmall.png");
+		background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		Image backgroundImage = new Image(background);
+		BME_PROJECT = bmeProject;
 
-    // ===================================
-    // CONSTRUCTORS
-    // ===================================
-
-    public BattleController(SpriteBatch spriteBatch, BMEProject bmeProject) {
-        super(spriteBatch);
-        Texture background = new Texture("core/assets/visuals/spielbrettSmall.png");
-        background.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Image backgroundImage = new Image(background);
-        BME_PROJECT = bmeProject;
-
-        stage.addActor(backgroundImage);
-        DETAIL_VIEW = new DetailView(stage);
-        BUTTON_VIEW = new ButtonView(this);
-        BATTLEFIELD = new Battlefield(this);
-        PLAYER_1 = new Player(this, Party.ALLY);
-        PLAYER_2 = new Player(this, Party.ENEMY);
-        activePlayer = PLAYER_1;
-        activePlayer.beginTurn();
-        Gdx.input.setInputProcessor(stage);
-		showActivePlayerMessage();
-
+		stage.addActor(backgroundImage);
+		DETAIL_VIEW = new DetailView(stage);
+		BUTTON_VIEW = new ButtonView(this);
+		BATTLEFIELD = new Battlefield(this);
+		PLAYER_1 = new Player(this, Party.ALLY);
+		PLAYER_2 = new Player(this, Party.ENEMY);
+		activePlayer = PLAYER_1;
+		activePlayer.beginTurn();
+		Gdx.input.setInputProcessor(stage);
 	}
 
     // ===================================
@@ -93,6 +87,18 @@ public class BattleController extends Controller
 		if (BMEProject.DEBUG) {
 			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 				activePlayer.drawTopCard();
+			}
+		}
+		if (Gdx.input.justTouched()) {
+
+			Stage stage = giveStage();
+			Vector2 vector = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+			stage.screenToStageCoordinates(vector);
+			Actor clickedActor = stage.hit(vector.x, vector.y, true);
+			if (clickedActor != null){
+				if(!(clickedActor instanceof BattleCard)){
+					resetLastClickedBattleCard();
+				}
 			}
 		}
 	}
@@ -241,6 +247,7 @@ public class BattleController extends Controller
 	// prüft ob jemande bereits 6 Sektoren hat und gibt den Gewinn in der Konsole aus
 	public boolean checkForWin()
 	{
+		EndOfGameScreen endOfGameScreen;
 		int allyCounter  = 0;
 		int enemyCounter = 0;
 
@@ -254,36 +261,22 @@ public class BattleController extends Controller
 		}
 
         if (allyCounter == 6 ) {
-            Texture overlay = new Texture("core/assets/visuals/messages/win.png");
-            showWinConditionMessage(overlay);
-            BUTTON_VIEW.showEndButtons(stage);
+			endOfGameScreen = new EndOfGameScreen(BME_PROJECT, this, true);
+			BME_PROJECT.setEndOfGameScreen(endOfGameScreen);
             return true;
 
         }
-        if (enemyCounter == 6) {
-            Texture overlay = new Texture("core/assets/visuals/messages/loose.png");
-            showWinConditionMessage(overlay);
-            BUTTON_VIEW.showEndButtons(stage);
+        else if (enemyCounter == 6) {
+			endOfGameScreen = new EndOfGameScreen(BME_PROJECT, this, false);
+			BME_PROJECT.setEndOfGameScreen(endOfGameScreen);
             return true;
+        }
 
-        }
-        else{
-        }
         return false;
-    }
-
-    private void showWinConditionMessage(Texture overlay) {
-        overlay.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Image texture = new Image(overlay);
-        texture.setBounds(0, 0, 1920, 1080);
-        stage.addActor(texture);
-        texture.setZIndex(200);
-        //TODO Start new Game Button einbinden
     }
 
     public BMEProject getProject(){
         return BME_PROJECT;
     }
-
 
 }

@@ -78,6 +78,7 @@ public class TitleController extends Controller
 
 	        @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
+				titleScreen.BME_PROJECT.buttonSound.play(0.6f);
 				titleScreen.BME_PROJECT.activateBattleScreen();
                 return true;
             }

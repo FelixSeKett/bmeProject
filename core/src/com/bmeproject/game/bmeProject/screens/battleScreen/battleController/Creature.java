@@ -3,7 +3,8 @@ package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 import com.badlogic.gdx.Gdx;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 
@@ -31,35 +32,33 @@ public class Creature extends BattleCard
 
 	@Override public void getActivated()
 	{
-		// Lege eine Liste mit potenziellen Angriffszielen an
-		ArrayList<BattleCard> potentialTargets = new ArrayList<BattleCard>();
+		Zone             currentZone = giveCurrentZone();
+		ArrayList<Field> fields      =
+				PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveRingwiseOrderedFieldsOfZone(currentZone);
 
-		// Hole dir eine Liste mit Sektoren aus der Zone, in der sich diese Karte befindet
-		Zone currentZone = giveCurrentSector().giveCurrentZone();
-		Gdx.app.log(toString(), "Current Zone: " + currentZone);
-		ArrayList<Sector> sectors = PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveZonedSectors(currentZone);
-
-		// Füge der Liste mit potenziellen Zielen alle Karten hinzu, die in der Liste aus Sektoren vorkommen
-		for (Sector sector : sectors) {
-			potentialTargets.addAll(sector
-					.giveSortedOuterBattleCards(PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.giveStream()));
-		}
-		for (Sector sector : sectors) {
-			potentialTargets.add(sector.giveQuarter());
+		// Debug
+		for (Field field : fields) {
+			Gdx.app.log(toString(), "Field " + ((Sector)field.FIELD_USER).FIELDS.indexOf(field) + " in Sektor " +
+					PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveIndexOfSector((Sector)field.FIELD_USER));
+			if (field.giveCards().size() > 0) {
+				Gdx.app.log(toString(), "Karten: " + field.giveCards());
+			}
 		}
 
-		//Testzwecke:
-		for (BattleCard battleCard : potentialTargets) {
-			Gdx.app.log(toString(), "Potenzielle Ziele: " + battleCard.giveName());
-		}
+		int index = (fields.indexOf(giveCurrentField()) + 1);
+		Gdx.app.log(toString(), "Iterations begin at " + giveName() + ": " + index);
+		Gdx.app.log(toString(), "Iterations von " + giveName() + ": " + (fields.size() - index));
 
-		// Greife die nächste auf diese Karte folgende gegnerische Karte aus der Liste mit potenziellen Zielen an
-		int index = potentialTargets.indexOf(this);
-		for (int i = index; i < potentialTargets.size() - index; i++) {
-			BattleCard target = potentialTargets.get(i);
-			if (target.giveCommander() != commander) {
-				target.takeDamage();
-				return;
+		for (int i = index; i < fields.size(); i++) {
+			ArrayList<BattleCard> fieldCards = fields.get(i).giveCards();
+			if (fieldCards.size() > 0) {
+				BattleCard potentialTarget = fieldCards.get(0);
+				Gdx.app.log(toString(), "Ziel von " + giveName() + ": " + potentialTarget.giveName());
+
+				if (potentialTarget.giveCommander() != commander) {
+					attack(potentialTarget);
+					return;
+				}
 			}
 		}
 	}
@@ -69,5 +68,10 @@ public class Creature extends BattleCard
 		BMEProject.destroySound1.play(0.5f);
 		Field graveyard = PLAYER.giveGraveyard();
 		graveyard.addBattleCard(this);
+	}
+
+	private void attack(BattleCard battleCard)
+	{
+		battleCard.takeDamage();
 	}
 }

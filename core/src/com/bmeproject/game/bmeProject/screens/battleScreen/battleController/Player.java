@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Type;
-import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.HandField;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
@@ -115,7 +115,7 @@ public class Player extends FieldUser
 	public void drawTopCard() {
 		//Prüfung ob Hand mehr als 7 Karten enthält
 		if (giveHand().getPileSize() <= 7) {
-			BMEProject.cardSound.play(0.5f);
+			BMEProject.cardSound.play(0.4f);
 			BattleCard card = giveSupply().pullTopCard();
 			giveHand().addBattleCard(card);
 		}
