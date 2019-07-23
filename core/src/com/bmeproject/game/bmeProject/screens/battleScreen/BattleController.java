@@ -16,6 +16,7 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.batt
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
+import com.bmeproject.game.bmeProject.screens.endOfGameScreen.EndOfGameScreen;
 
 import java.util.ArrayList;
 
@@ -56,9 +57,6 @@ public class BattleController extends Controller
     private Player activePlayer;
     private boolean started;
     private BattleCard lastClickedBattleCard;
-    public static boolean checkforWin;
-
-
 
     // ===================================
     // CONSTRUCTORS
@@ -81,7 +79,6 @@ public class BattleController extends Controller
         activePlayer.beginTurn();
         Gdx.input.setInputProcessor(stage);
 		showActivePlayerMessage();
-
 	}
 
     // ===================================
@@ -254,6 +251,7 @@ public class BattleController extends Controller
 	// prüft ob jemande bereits 6 Sektoren hat und gibt den Gewinn in der Konsole aus
 	public boolean checkForWin()
 	{
+		EndOfGameScreen endOfGameScreen;
 		int allyCounter  = 0;
 		int enemyCounter = 0;
 
@@ -267,36 +265,22 @@ public class BattleController extends Controller
 		}
 
         if (allyCounter == 6 ) {
-            Texture overlay = new Texture("core/assets/visuals/messages/win.png");
-            showWinConditionMessage(overlay);
-            BUTTON_VIEW.showEndButtons(stage);
+			endOfGameScreen = new EndOfGameScreen(BME_PROJECT, this, true);
+			BME_PROJECT.setEndOfGameScreen(endOfGameScreen);
             return true;
 
         }
-        if (enemyCounter == 6) {
-            Texture overlay = new Texture("core/assets/visuals/messages/loose.png");
-            showWinConditionMessage(overlay);
-            BUTTON_VIEW.showEndButtons(stage);
+        else if (enemyCounter == 6) {
+			endOfGameScreen = new EndOfGameScreen(BME_PROJECT, this, false);
+			BME_PROJECT.setEndOfGameScreen(endOfGameScreen);
             return true;
+        }
 
-        }
-        else{
-        }
         return false;
-    }
-
-    private void showWinConditionMessage(Texture overlay) {
-        overlay.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        Image texture = new Image(overlay);
-        texture.setBounds(0, 0, 1920, 1080);
-        stage.addActor(texture);
-        texture.setZIndex(200);
-        //TODO Start new Game Button einbinden
     }
 
     public BMEProject getProject(){
         return BME_PROJECT;
     }
-
 
 }
