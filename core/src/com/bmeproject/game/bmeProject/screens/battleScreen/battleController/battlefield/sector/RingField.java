@@ -1,7 +1,7 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector;
 
 import com.badlogic.gdx.math.Vector2;
-import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.compass.Stream;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.FieldUser;
@@ -30,7 +30,7 @@ public abstract class RingField extends Field
 	 */
 	public void moveContentStreamwise()
 	{
-		if (((Sector)FIELD_USER).BATTLEFIELD.COMPASS.giveStream() == Stream.CLOCKWISE) {
+		if (FIELD_USER.giveBattleController().BATTLEFIELD.COMPASS.giveStream() == Stream.CLOCKWISE) {
 			RingField previousEmptyField = givePreviousEmptyField();
 			if (previousEmptyField != null) {
 				previousEmptyField.addBattleCards(giveCards());

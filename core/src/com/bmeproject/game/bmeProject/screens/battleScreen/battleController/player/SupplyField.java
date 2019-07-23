@@ -1,7 +1,7 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player;
 
 import com.badlogic.gdx.math.Vector2;
-import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.FieldUser;
 

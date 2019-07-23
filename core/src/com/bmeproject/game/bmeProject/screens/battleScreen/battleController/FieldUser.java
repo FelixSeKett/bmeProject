@@ -1,6 +1,6 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
 
 import java.util.ArrayList;

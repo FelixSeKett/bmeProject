@@ -1,5 +1,11 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.compass;
 
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.RingField;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 public enum Stream
 {
 	// ===================================
@@ -15,6 +21,16 @@ public enum Stream
 		@Override public Stream giveOppositeStream()
 		{
 			return Stream.COUNTERCLOCKWISE;
+		}
+
+		@Override public void orderSectors(ArrayList<Sector> sectorsToOrder)
+		{
+			Collections.reverse(sectorsToOrder);
+		}
+
+		@Override public void orderRingFields(ArrayList<RingField> ringFieldsToOrder)
+		{
+			Collections.reverse(ringFieldsToOrder);
 		}
 	},
 
@@ -38,4 +54,11 @@ public enum Stream
 
 	public abstract Stream giveOppositeStream();
 
+	public void orderSectors(ArrayList<Sector> sectorsToOrder)
+	{
+	}
+
+	public void orderRingFields(ArrayList<RingField> ringFieldsToOrder)
+	{
+	}
 }

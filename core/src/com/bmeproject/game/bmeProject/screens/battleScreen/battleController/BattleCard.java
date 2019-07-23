@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
-import com.bmeproject.game.bmeProject.screens.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 
@@ -33,7 +33,6 @@ public abstract class BattleCard extends Actor
 
 	protected final Player  PLAYER;
 	public final    Card    CARD;
-	private final   int     DEFAULT_HIT_POINTS;
 	private final   Texture FRONT_TEXTURE;
 	public final    Sprite  SPRITE;
 
@@ -48,7 +47,6 @@ public abstract class BattleCard extends Actor
 	{
 		PLAYER = player;
 		CARD = card;
-		DEFAULT_HIT_POINTS = giveDefaultHitpoints();
 		commander = PLAYER;
 		currentHitPoints = giveDefaultHitpoints();
 		FRONT_TEXTURE = new Texture(CARD.ILLUSTRATION_FILE_PATH);
@@ -174,6 +172,11 @@ public abstract class BattleCard extends Actor
 		return PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveCurrentSectorOfBattleCard(this);
 	}
 
+	public Zone giveCurrentZone()
+	{
+		return PLAYER.BATTLE_CONTROLLER.BATTLEFIELD.giveZoneOfSector(giveCurrentSector());
+	}
+
 	public boolean isOnHand()
 	{
 		return PLAYER.giveHand().giveCards().contains(this);
@@ -215,6 +218,7 @@ public abstract class BattleCard extends Actor
 
 	public void takeDamage()
 	{
+		Gdx.app.log(toString(), giveName() + " damaged!");
 		currentHitPoints -= 1;
 		if (currentHitPoints <= 0) {
 			currentHitPoints = 0;
