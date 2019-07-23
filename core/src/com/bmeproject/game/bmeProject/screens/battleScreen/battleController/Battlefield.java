@@ -225,6 +225,7 @@ public class Battlefield
 		zoneToActivate.activate();
 	}
 
+	// TODO: Braucht man angesichts von giveRingwiseOrderedFieldsOfZone() nicht mehr
 	public ArrayList<Sector> giveOrderedZonedSectors(Zone zone)
 	{
 		// Bereitet eine Liste mit Sektoren vor, die zurückgegeben werden soll
