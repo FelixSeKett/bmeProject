@@ -23,7 +23,6 @@ import java.util.ArrayList;
 TODO: Funktionalität
 - Kampfanimation implementieren
 - Zone bei Aktivierung aufleuchten lassen
--
 
 TODO: Debug
 - Quartiere funktionieren noch nicht richtig

@@ -124,9 +124,11 @@ public class ButtonView
 	private ImageButton generateRedButton()
 	{
 		final Texture     BUTTON_RED = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall.png");
+		final Texture     BUTTON_RED_DOWN = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall_down.png");
+		final ImageButton RED_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)), new TextureRegionDrawable(new TextureRegion(BUTTON_RED_DOWN)));
 		addAntialiasing(BUTTON_RED);
-		final ImageButton RED_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)));
-		RED_BUTTON.setPosition(X, Y - 350);
+		addAntialiasing(BUTTON_RED_DOWN);
+		RED_BUTTON.setPosition(X, Y - 480);
 		BATTLE_CONTROLLER.giveStage().addActor(RED_BUTTON);
 		RED_BUTTON.addListener(createRedButtonListener());
 		return RED_BUTTON;
@@ -135,9 +137,11 @@ public class ButtonView
 	private ImageButton generateGreenButton()
 	{
 		final Texture     BUTTON_GREEN = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall.png");
+		final Texture     BUTTON_GREEN_DOWN = new Texture("core/assets/visuals/buttons/3_gruenbuttonSmall_down.png");
 		addAntialiasing(BUTTON_GREEN);
-		final ImageButton GREEN_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)));
-		GREEN_BUTTON.setPosition(X, Y - 480);
+		addAntialiasing(BUTTON_GREEN_DOWN);
+		final ImageButton GREEN_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN)), new TextureRegionDrawable(new TextureRegion(BUTTON_GREEN_DOWN)));
+		GREEN_BUTTON.setPosition(X, Y - 350);
 		BATTLE_CONTROLLER.giveStage().addActor(GREEN_BUTTON);
 		GREEN_BUTTON.addListener(createGreenButtonListener());
 		return GREEN_BUTTON;
@@ -146,8 +150,10 @@ public class ButtonView
 	private ImageButton generateBlueButton()
 	{
 		final Texture     BUTTON_BLUE = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall.png");
+		final Texture     BUTTON_BLUE_DOWN = new Texture("core/assets/visuals/buttons/3_blaubuttonSmall_down.png");
 		addAntialiasing(BUTTON_BLUE);
-		final ImageButton BLUE_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)));
+		addAntialiasing(BUTTON_BLUE_DOWN);
+		final ImageButton BLUE_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE)), new TextureRegionDrawable(new TextureRegion(BUTTON_BLUE_DOWN)));
 		BLUE_BUTTON.setPosition(X, Y - 605);
 		BATTLE_CONTROLLER.giveStage().addActor(BLUE_BUTTON);
 		BLUE_BUTTON.addListener(createBlueButtonListener());
@@ -157,22 +163,28 @@ public class ButtonView
 	private void initButtons(Stage stage)
 	{
 		final Texture     BUTTON_ZONE = new Texture("core/assets/visuals/buttons/3_kompassbuttonSmall.png");
+		final Texture BUTTON_ZONE_DOWN = new Texture ("core/assets/visuals/buttons/3_kompassbuttonSmall_down.png");
 		addAntialiasing(BUTTON_ZONE);
-		final ImageButton ZONE_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)));
+		addAntialiasing(BUTTON_ZONE_DOWN);
+		final ImageButton ZONE_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE)), new TextureRegionDrawable(new TextureRegion(BUTTON_ZONE_DOWN)));
 		ZONE_BUTTON.setPosition(X, Y);
 		START_BUTTONS.addActor(ZONE_BUTTON);
 		ZONE_BUTTON.addListener(createZoneButtonListener());
 
 		final Texture     BUTTON_STREAM = new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall.png");
+		final Texture BUTTON_STREAM_DOWN = new Texture("core/assets/visuals/buttons/3_stroemungsbuttonSmall_down.png");
 		addAntialiasing(BUTTON_STREAM);
-		final ImageButton STREAM_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_STREAM)));
+		addAntialiasing(BUTTON_STREAM_DOWN);
+		final ImageButton STREAM_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_STREAM)), new TextureRegionDrawable(new TextureRegion (BUTTON_STREAM_DOWN)));
 		STREAM_BUTTON.setPosition(X, Y - 130);
 		START_BUTTONS.addActor(STREAM_BUTTON);
 		STREAM_BUTTON.addListener(createStreamButtonListener());
 
 		final Texture     BUTTON_FINISH = new Texture("core/assets/visuals/buttons/3_zubeendenSmall.png");
+		final Texture     BUTTON_FINISH_DOWN = new Texture("core/assets/visuals/buttons/3_zubeendenSmall_down.png");
 		addAntialiasing(BUTTON_FINISH);
-		final ImageButton finishButton  = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH)));
+		addAntialiasing(BUTTON_FINISH_DOWN);
+		final ImageButton finishButton  = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH)), new TextureRegionDrawable(new TextureRegion(BUTTON_FINISH_DOWN)));
 		finishButton.setPosition(X + 7, 60);
 		stage.addActor(finishButton);
 		finishButton.addListener(createFinishButtonListener());

@@ -37,7 +37,7 @@ public class Quarter extends BattleCard
 		return 3;
 	}
 
-	@Override public void getActivated()
+	@Override public void getActivated(int delay)
 	{
 		EntryField correspondingEntryField = giveCorrespondingEntryField();
 		if (correspondingEntryField.giveCards().size() > 0) {

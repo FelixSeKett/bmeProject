@@ -25,16 +25,17 @@ public abstract class BattleCard extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	private static final Texture       BACK_TEXTURE            =
+	private static final   Texture       BACK_TEXTURE            =
 			new Texture("core/assets/visuals/cards/large/back.png");
-	private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
-	private static final float         ANIMATION_SPEED         = 0.5f;
-	public static final  int           WIDTH                   = 70;
-	public static final  int           HEIGHT                  = 103;
+	private static final   Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
+	private static final   float         ANIMATION_DURATION      = 0.5f;
+	protected static final float         ACTIVATION_DURATION     = 1f;
+	public static final    int           WIDTH                   = 70;
+	public static final    int           HEIGHT                  = 103;
 
 	protected final Player  PLAYER;
 	public final    Card    CARD;
-	public final   Texture FRONT_TEXTURE;
+	public final    Texture FRONT_TEXTURE;
 	private final   Texture FRONT_TEXTURE_SMALL;
 	public final    Sprite  SPRITE;
 
@@ -52,7 +53,7 @@ public abstract class BattleCard extends Actor
 		commander = PLAYER;
 		currentHitPoints = giveDefaultHitpoints();
 		FRONT_TEXTURE = new Texture(CARD.ILLUSTRATION_FILE_PATH);
-		FRONT_TEXTURE_SMALL= new Texture(CARD.ILLUSTRATION_FILE_PATH_SMALL);
+		FRONT_TEXTURE_SMALL = new Texture(CARD.ILLUSTRATION_FILE_PATH_SMALL);
 		FRONT_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		FRONT_TEXTURE_SMALL.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		BACK_TEXTURE.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -147,7 +148,7 @@ public abstract class BattleCard extends Actor
 
 	public abstract int giveDefaultHitpoints();
 
-	public abstract void getActivated();
+	public abstract void getActivated(int delay);
 
 	public abstract void getDestroyed();
 
@@ -200,7 +201,7 @@ public abstract class BattleCard extends Actor
 	public void moveTo(float x, float y)
 	{
 		MoveToAction moveToAction = new MoveToAction();
-		moveToAction.setDuration(ANIMATION_SPEED);
+		moveToAction.setDuration(ANIMATION_DURATION);
 		moveToAction.setInterpolation(ANIMATION_INTERPOLATION);
 		moveToAction.setPosition(x, y);
 		addAction(moveToAction);
@@ -209,7 +210,7 @@ public abstract class BattleCard extends Actor
 	public void updateRotation()
 	{
 		RotateToAction rotateToAction = new RotateToAction();
-		rotateToAction.setDuration(ANIMATION_SPEED);
+		rotateToAction.setDuration(ANIMATION_DURATION);
 		rotateToAction.setInterpolation(ANIMATION_INTERPOLATION);
 		rotateToAction.setRotation(commander.PARTY.giveRotation());
 		addAction(rotateToAction);
