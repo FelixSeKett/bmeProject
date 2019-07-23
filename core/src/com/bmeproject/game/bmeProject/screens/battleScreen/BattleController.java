@@ -14,6 +14,7 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.*;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Sector;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.EntryField;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.player.Party;
 import com.bmeproject.game.bmeProject.screens.endOfGameScreen.EndOfGameScreen;
 
@@ -169,7 +170,16 @@ public class BattleController extends Controller
 			lastClickedBattleCard.getUnselected();
 		}
 		battleCard.getSelected();
+
 		lastClickedBattleCard = battleCard;
+
+		for (Sector s : BATTLEFIELD.giveSectors()){
+			if(s.giveCommander().PARTY == Party.ALLY){
+				s.giveEntryField().showBorder();
+			}else{
+				s.giveEntryField().hideBorder();
+			}
+		}
 	}
 
 	public void resetLastClickedBattleCard()
@@ -177,6 +187,10 @@ public class BattleController extends Controller
 		if (lastClickedBattleCard != null) {
 			lastClickedBattleCard.getUnselected();
 			lastClickedBattleCard = null;
+		}
+
+		for (Sector sector : BATTLEFIELD.giveSectors()){
+				sector.giveEntryField().hideBorder();
 		}
 	}
 
