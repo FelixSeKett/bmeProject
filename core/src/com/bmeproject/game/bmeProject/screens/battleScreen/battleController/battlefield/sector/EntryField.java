@@ -68,9 +68,11 @@ public class EntryField extends RingField
 		BattleCard selectedCard = battleController.giveLastClickedBattleCard();
 
 		if(selectedCard != null){
-			SPRITE.setColor(Color.RED);
-			SPRITE.setPosition(x,y);
-			SPRITE.draw(batch, parentAlpha);
+			if (selectedCard.giveCommander() == FIELD_USER.giveCommander()) {
+				SPRITE.setColor(Color.RED);
+				SPRITE.setPosition(x, y);
+				SPRITE.draw(batch, parentAlpha);
+			}
 		}
 	}
 
