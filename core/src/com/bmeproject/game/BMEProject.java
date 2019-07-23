@@ -9,6 +9,7 @@ import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.gameObjects.Deck;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
 import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
+import com.bmeproject.game.bmeProject.screens.endOfGameScreen.EndOfGameScreen;
 import com.bmeproject.game.bmeProject.screens.titleScreen.TitleScreen;
 import com.bmeproject.game.bmeProject.userData.User;
 import com.bmeproject.game.bmeProject.util.SaveGameHandler;
@@ -112,6 +113,10 @@ public class BMEProject extends Game
 	public void activateDeckScreen()
 	{
 		setScreen(deckScreen);
+	}
+
+	public void setEndOfGameScreen(EndOfGameScreen endOfGameScreen){
+		setScreen(endOfGameScreen);
 	}
 
 	@Override
