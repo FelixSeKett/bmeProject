@@ -1,19 +1,16 @@
 package com.bmeproject.game.bmeProject.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleScreen;
 import com.bmeproject.game.bmeProject.screens.deckScreen.DeckScreen;
 
 /**
- * Elternklasse aller im Spiel verwendeter Screen-Klassen ({@link BattleScreen}, {@link DeckScreen}, etc.), die zur
- * Darstellung von Actors verwendet werden und damit auf eine {@link Stage} inklusive {@link SpriteBatch} angewiesen
- * sind.
+ * Elternklasse aller im Spiel verwendeten Screen-Klassen ({@link BattleScreen}, {@link DeckScreen}, etc.), die zur
+ * Aktualisierung und Darstellung von Actors verwendet wird und daher auf einen {@link Controller} inklusive
+ * {@link Stage} und einen {@link Renderer} inklusive {@link SpriteBatch} angewiesen ist.
  */
 public abstract class AbstractScreen implements Screen
 {
@@ -21,9 +18,9 @@ public abstract class AbstractScreen implements Screen
 	// ATTRIBUTES
 	// ===================================
 
-	public final BMEProject  BME_PROJECT;
-	private      SpriteBatch spriteBatch;
-	Stage stage;
+	public final BMEProject BME_PROJECT;
+	private         Controller controller;
+	private         Renderer   renderer;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -35,20 +32,20 @@ public abstract class AbstractScreen implements Screen
 	}
 
 	// ===================================
-	// PROCEDURES
+	// METHODS
 	// ===================================
 
 	/**
 	 * Wird aufgerufen, sobald der Screen in {@link BMEProject} per {@link BMEProject#setScreen(Screen)} zum aktiven
 	 * Screen gewählt wird und verrichtet alle einmaligen Arbeiten, die im Zuge dessen anfallen. Initialisiert so
-	 * unter anderem die Feldvariablen.
+	 * unter anderem die Instanzvariablen.
 	 */
 	@Override public void show()
 	{
-		spriteBatch = new SpriteBatch();
-		stage = new Stage(new ScreenViewport(), spriteBatch);
-		stage.setDebugAll(BMEProject.DEBUG);
-		Gdx.input.setInputProcessor(stage);
+		SpriteBatch spriteBatch = new SpriteBatch();
+		controller = createController(spriteBatch);
+		controller.init(spriteBatch);
+		renderer = new Renderer(spriteBatch);
 	}
 
 	/**
@@ -61,30 +58,8 @@ public abstract class AbstractScreen implements Screen
 	 */
 	@Override public void render(float delta)
 	{
-		Gdx.gl.glClearColor(1f, 1f, 1f, 0f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		stage.act(delta);
-		stage.draw();
-	}
-
-	@Override public void resize(int width, int height)
-	{
-
-	}
-
-	@Override public void pause()
-	{
-
-	}
-
-	@Override public void resume()
-	{
-
-	}
-
-	@Override public void hide()
-	{
-
+		controller.update(delta);
+		renderer.render(controller.stage);
 	}
 
 	/**
@@ -94,7 +69,26 @@ public abstract class AbstractScreen implements Screen
 	 */
 	@Override public void dispose()
 	{
-		spriteBatch.dispose();
-		stage.dispose();
+		controller.dispose();
+		renderer.dispose();
 	}
+
+	@Override public void resize(int width, int height)
+	{
+		renderer.resize(width, height);
+	}
+
+	@Override public void pause()
+	{
+	}
+
+	@Override public void resume()
+	{
+	}
+
+	@Override public void hide()
+	{
+	}
+
+	protected abstract Controller createController(SpriteBatch spriteBatch);
 }

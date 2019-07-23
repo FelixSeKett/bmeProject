@@ -1,17 +1,16 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bmeproject.game.BMEProject;
-import com.bmeproject.game.bmeProject.archive.Player;
 import com.bmeproject.game.bmeProject.screens.AbstractScreen;
+import com.bmeproject.game.bmeProject.screens.Controller;
 
 public class BattleScreen extends AbstractScreen
 {
 	// ===================================
-	// ATTRIBUTES
+	// ATTRIBUTES & CONSTANTS
 	// ===================================
-
-	private Player player1;
-	private Player player2;
+	private final BMEProject BME_PROJECT;
 
 	// ===================================
 	// CONSTRUCTORS
@@ -20,41 +19,31 @@ public class BattleScreen extends AbstractScreen
 	public BattleScreen(BMEProject bmeProject)
 	{
 		super(bmeProject);
+		BME_PROJECT = bmeProject;
 	}
 
 	// ===================================
-	// PROCEDURES
+	// METHODS
 	// ===================================
 
 	@Override public void show()
 	{
 		super.show();
 		System.out.println("BATTLE SCREEN SHOWN");
-		initializePlayers();
 	}
 
 	@Override public void render(float delta)
 	{
 		super.render(delta);
-		getActivePlayer().manageEvent();
 	}
 
-	private void initializePlayers()
+	@Override public void resize(int width, int height)
 	{
-		player1 = new Player(this);
-		player2 = new Player(this);
-		player1.initialize();
-		player2.initialize();
-		player1.startTurn();
+		super.resize(width, height);
 	}
 
-	// ===================================
-	// FUNCTIONS
-	// ===================================
-
-	private Player getActivePlayer()
+	@Override protected Controller createController(SpriteBatch spriteBatch)
 	{
-		if (player1.getEvent() != null) { return player1; }
-		else { return player2; }
+		return new BattleController(spriteBatch, BME_PROJECT);
 	}
 }

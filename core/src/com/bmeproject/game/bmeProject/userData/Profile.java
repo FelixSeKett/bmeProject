@@ -3,6 +3,8 @@ package com.bmeproject.game.bmeProject.userData;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Deck;
 
+import java.util.HashMap;
+
 public class Profile
 {
 	// ===================================
@@ -11,7 +13,7 @@ public class Profile
 
 	private final BMEProject BME_PROJECT;
 	private       String     name;
-	private       Deck       deck;
+	private HashMap<String, Deck> myDecks = new HashMap<String, Deck>(); // Deckname, Deck
 
 	// ===================================
 	// CONSTRUCTOR
@@ -26,8 +28,8 @@ public class Profile
 	// FUNCTIONS
 	// ===================================
 
-	public Deck getDeck()
+	/*public Deck getDeck()
 	{
 		return deck;
-	}
+	}*/
 }
