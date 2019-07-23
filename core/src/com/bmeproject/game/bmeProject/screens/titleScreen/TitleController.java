@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.screens.Controller;
 
 public class TitleController extends Controller
@@ -60,7 +61,7 @@ public class TitleController extends Controller
 	public void deckEditorBtn(){
 		ImageButton btn = new ImageButton(new TextureRegionDrawable(new TextureRegion(DECKEDITORBUTTON)));
 		DECKEDITORBUTTON.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		btn.setPosition(50,350);
+		btn.setPosition(33,350);
 		stage.addActor(btn);
 		btnClicked(btn);
 	}
@@ -78,7 +79,7 @@ public class TitleController extends Controller
 
 	        @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-				titleScreen.BME_PROJECT.buttonSound.play(0.6f);
+				BMEProject.buttonSound.play(0.6f);
 				titleScreen.BME_PROJECT.activateBattleScreen();
                 return true;
             }

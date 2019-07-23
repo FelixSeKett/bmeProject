@@ -281,7 +281,7 @@
             <cardDescription>Beschreibung</cardDescription>
             <cardIllustrationFilePath>card_id_40.png</cardIllustrationFilePath>
         </card>
-        <card id="041">
+        <!--<card id="041">
             <cardName>Jim and Johnny</cardName>
             <cardType>PHENOMENON</cardType>
             <cardEffect>1,2,3</cardEffect>
@@ -301,7 +301,7 @@
             <cardEffect>1,2,3</cardEffect>
             <cardDescription>Beschreibung</cardDescription>
             <cardIllustrationFilePath>card_id_43.png</cardIllustrationFilePath>
-        </card>
+        </card>-->
         <card id="044">
             <cardName>Grandle</cardName>
             <cardType>PHENOMENON</cardType>

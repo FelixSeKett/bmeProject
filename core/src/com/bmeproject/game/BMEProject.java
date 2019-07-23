@@ -28,7 +28,7 @@ public class BMEProject extends Game
 	// ATTRIBUTES
 	// ===================================
 
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	private       TitleScreen            titleScreen;
 	private       BattleScreen           battleScreen;
