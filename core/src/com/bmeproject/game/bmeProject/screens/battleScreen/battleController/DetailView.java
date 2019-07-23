@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -30,10 +31,15 @@ public class DetailView
 	public DetailView(Stage stage)
 	{
 		final int              X           = 69;
-		BitmapFont font = new BitmapFont();
+		//BitmapFont font = new BitmapFont();
 		//Gdx.files.internal("core/assets/fonts/LondrinaSolid-Regular.bmp")
 
-		font.getData().setScale(1.5f);
+
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("core/assets/fonts/LondrinaSolid-Regular.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = 25;
+		BitmapFont font = generator.generateFont(parameter); // font size 12 pixels
+		generator.dispose();
 
 		Label.LabelStyle LABEL_STYLE = new Label.LabelStyle(font, Color.DARK_GRAY);
 
