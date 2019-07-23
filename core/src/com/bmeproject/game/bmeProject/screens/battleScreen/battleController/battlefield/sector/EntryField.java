@@ -1,5 +1,9 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -10,6 +14,9 @@ import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Batt
 
 public class EntryField extends RingField
 {
+	public final Texture SHOW_SECTOR = new Texture("core/assets/visuals/card.png");
+	public final Sprite SPRITE = new Sprite(SHOW_SECTOR);
+
 	// ===================================
 	// CONSTRUCTORS
 	// ===================================
@@ -50,4 +57,22 @@ public class EntryField extends RingField
 	{
 		return ((Sector)FIELD_USER).giveEndField();
 	}
+
+	@Override public void draw(Batch batch, float parentAlpha)
+	{
+		super.draw(batch, parentAlpha);
+		float x = getX();
+		float y = getY();
+
+		BattleController battleController = FIELD_USER.giveBattleController();
+		BattleCard selectedCard = battleController.giveLastClickedBattleCard();
+
+		if(selectedCard != null){
+			SPRITE.setColor(Color.RED);
+			SPRITE.setPosition(x,y);
+			SPRITE.draw(batch, parentAlpha);
+		}
+	}
+
+
 }
