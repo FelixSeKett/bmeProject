@@ -205,10 +205,9 @@ public class Battlefield
 		}
 
 		// aktiviere jede Karte der zuvor erstellen Liste nach Listenreihenfolge
-		for (int i = 0; i < battleCardsToActivate.size(); i++) {
-			BattleCard battleCard = battleCardsToActivate.get(0);
+		for (BattleCard battleCard : battleCardsToActivate) {
 			if (battleCard.isOnBattlefield()) {
-				battleCard.getActivated(i);
+				battleCard.getActivated();
 			}
 		}
 

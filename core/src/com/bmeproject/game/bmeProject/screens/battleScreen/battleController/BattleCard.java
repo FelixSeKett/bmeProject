@@ -8,9 +8,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
-import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
@@ -25,13 +23,12 @@ public abstract class BattleCard extends Actor
 	// ATTRIBUTES
 	// ===================================
 
-	private static final   Texture       BACK_TEXTURE            =
+	private static final Texture       BACK_TEXTURE            =
 			new Texture("core/assets/visuals/cards/large/back.png");
-	private static final   Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
-	private static final   float         ANIMATION_DURATION      = 0.5f;
-	protected static final float         ACTIVATION_DURATION     = 1f;
-	public static final    int           WIDTH                   = 70;
-	public static final    int           HEIGHT                  = 103;
+	private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
+	private static final float         ANIMATION_DURATION      = 0.5f;
+	public static final  int           WIDTH                   = 70;
+	public static final  int           HEIGHT                  = 103;
 
 	protected final Player  PLAYER;
 	public final    Card    CARD;
@@ -148,7 +145,7 @@ public abstract class BattleCard extends Actor
 
 	public abstract int giveDefaultHitpoints();
 
-	public abstract void getActivated(int delay);
+	public abstract void getActivated();
 
 	public abstract void getDestroyed();
 
@@ -198,13 +195,13 @@ public abstract class BattleCard extends Actor
 				(isOnHand() && commander == PLAYER.BATTLE_CONTROLLER.giveActivePlayer());
 	}
 
-	public void moveTo(float x, float y)
+	public void moveTo(final float X, final float Y)
 	{
-		MoveToAction moveToAction = new MoveToAction();
-		moveToAction.setDuration(ANIMATION_DURATION);
-		moveToAction.setInterpolation(ANIMATION_INTERPOLATION);
-		moveToAction.setPosition(x, y);
-		addAction(moveToAction);
+		final MoveToAction MOVE_TO_ACTION = new MoveToAction();
+		MOVE_TO_ACTION.setDuration(ANIMATION_DURATION);
+		MOVE_TO_ACTION.setInterpolation(ANIMATION_INTERPOLATION);
+		MOVE_TO_ACTION.setPosition(X, Y);
+		addAction(MOVE_TO_ACTION);
 	}
 
 	public void updateRotation()

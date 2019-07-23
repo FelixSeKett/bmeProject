@@ -1,11 +1,17 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.bmeproject.game.BMEProject;
 import com.bmeproject.game.bmeProject.gameObjects.Card;
 import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.Zone;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.battlefield.sector.EntryField;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class Quarter extends BattleCard
 {
@@ -37,7 +43,7 @@ public class Quarter extends BattleCard
 		return 3;
 	}
 
-	@Override public void getActivated(int delay)
+	@Override public void getActivated()
 	{
 		EntryField correspondingEntryField = giveCorrespondingEntryField();
 		if (correspondingEntryField.giveCards().size() > 0) {

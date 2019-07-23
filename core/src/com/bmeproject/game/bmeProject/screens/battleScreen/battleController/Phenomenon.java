@@ -24,7 +24,7 @@ public class Phenomenon extends BattleCard
 		return 1;
 	}
 
-	@Override public void getActivated(int delay)
+	@Override public void getActivated()
 	{
 	}
 
