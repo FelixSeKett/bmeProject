@@ -219,7 +219,7 @@ public class ButtonView
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 	            if (BATTLE_CONTROLLER.isGoodToGo()) {
 		            if (!BATTLE_CONTROLLER.hasTurnStarted()) {
-						BMEProject.streamChangeSound.play(1.3f);
+						BMEProject.streamChangeSound.play(0.5f);
 			            BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.proceedStartSector();
 		            }
 	            }
@@ -234,7 +234,7 @@ public class ButtonView
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 	            if (BATTLE_CONTROLLER.isGoodToGo()) {
 		            if (!BATTLE_CONTROLLER.hasTurnStarted()) {
-						BMEProject.streamSound.play(0.4f);
+						BMEProject.streamSound.play(0.2f);
 			            BATTLE_CONTROLLER.BATTLEFIELD.COMPASS.toggleStream();
 		            }
 	            }
