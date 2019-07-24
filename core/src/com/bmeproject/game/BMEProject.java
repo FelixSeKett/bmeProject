@@ -88,7 +88,6 @@ public class BMEProject extends Game
 	}
 
 
-
 	private void initializeScreens()
 	{
 		allCards = new HashMap();
@@ -115,12 +114,13 @@ public class BMEProject extends Game
 		setScreen(deckScreen);
 	}
 
-	public void setEndOfGameScreen(EndOfGameScreen endOfGameScreen){
+	public void setEndOfGameScreen(EndOfGameScreen endOfGameScreen)
+	{
 		setScreen(endOfGameScreen);
 	}
 
-	@Override
-	public void dispose() {
+	@Override public void dispose()
+	{
 		super.dispose();
 		music.dispose();
 		cardSound.dispose();
