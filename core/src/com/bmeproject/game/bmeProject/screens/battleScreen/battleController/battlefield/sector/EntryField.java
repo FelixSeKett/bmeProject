@@ -17,7 +17,7 @@ public class EntryField extends RingField
 {
 	public final float duration = 0.5f;
 	public final Texture SHOW_SECTOR = new Texture("core/assets/glow_border.png");
-	Image image1 = new Image(SHOW_SECTOR);
+	Image glowBorder = new Image(SHOW_SECTOR);
 	RepeatAction repeatAction = new RepeatAction();
 
 
@@ -35,13 +35,13 @@ public class EntryField extends RingField
 		float y = getY();
 		int zCor = getZIndex() - 1;
 
-		image1.setPosition(x,y);
-		image1.setColor(1,1,1,0);
-		image1.setHeight(getHeight());
-		image1.setWidth(getWidth());
-		getStage().addActor(image1);
+		glowBorder.setPosition(x,y);
+		glowBorder.setColor(1,1,1,0);
+		glowBorder.setHeight(getHeight());
+		glowBorder.setWidth(getWidth());
+		getStage().addActor(glowBorder);
 
-		image1.setZIndex(zCor);
+		glowBorder.setZIndex(zCor);
 
 
 		addListener(new InputListener()
@@ -86,18 +86,18 @@ public class EntryField extends RingField
 	}
 
 	public void showBorder(){
-		image1.getActions().clear();
+		glowBorder.getActions().clear();
 
 		repeatAction.setAction(Actions.sequence(Actions.fadeOut(duration), Actions.fadeIn(duration)));
 		repeatAction.setCount(-1);
 
-		image1.setColor(1,1,1,1);
-		image1.addAction(repeatAction);
+		glowBorder.setColor(1,1,1,1);
+		glowBorder.addAction(repeatAction);
 	}
 
 	public void hideBorder(){
-		image1.getActions().clear();
-		image1.setColor(1,1,1,0);
+		glowBorder.getActions().clear();
+		glowBorder.setColor(1,1,1,0);
 	}
 
 }
