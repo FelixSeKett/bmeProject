@@ -89,9 +89,7 @@ public class Compass
 	public void proceedStartSector()
 	{
 		int index = BATTLEFIELD.giveIndexOfSector(startSector) + 1;
-		if (index > 5) {
-			index -= 6;
-		}
+		index = BATTLEFIELD.increaseSectorIndex(index);
 		startSector = BATTLEFIELD.giveSectorOfIndex(index);
 		ZONE_VIEWER.update();
 	}

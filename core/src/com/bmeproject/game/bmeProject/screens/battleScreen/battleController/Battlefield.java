@@ -274,7 +274,7 @@ public class Battlefield
 		return fields;
 	}
 
-	private int increaseSectorIndex(int indexToIncrease)
+	public int increaseSectorIndex(int indexToIncrease)
 	{
 		indexToIncrease++;
 		if (indexToIncrease > 5) {

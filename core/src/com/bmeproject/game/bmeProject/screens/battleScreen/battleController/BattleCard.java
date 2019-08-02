@@ -33,8 +33,8 @@ public abstract class BattleCard extends Actor
 
 	private static final Interpolation ANIMATION_INTERPOLATION = Interpolation.sine;
 	private static final float         ANIMATION_DURATION      = 0.5f;
-	public static final  int           WIDTH                   = 70;
-	public static final  int           HEIGHT                  = 103;
+	public static final  float         WIDTH                   = 70f;
+	public static final  float         HEIGHT                  = 103f;
 
 	protected final Player  PLAYER;
 	public final    Card    CARD;
@@ -211,13 +211,13 @@ public abstract class BattleCard extends Actor
 		return PLAYER.giveGraveyard().giveCards().contains(this);
 	}
 
-	public void moveTo(final float X, final float Y)
+	public void moveTo(float x, float y)
 	{
-		final MoveToAction MOVE_TO_ACTION = new MoveToAction();
-		MOVE_TO_ACTION.setDuration(ANIMATION_DURATION);
-		MOVE_TO_ACTION.setInterpolation(ANIMATION_INTERPOLATION);
-		MOVE_TO_ACTION.setPosition(X, Y);
-		addAction(MOVE_TO_ACTION);
+		MoveToAction moveToAction = new MoveToAction();
+		moveToAction.setDuration(0.5f);
+		moveToAction.setInterpolation(Interpolation.sine);
+		moveToAction.setPosition(x, y);
+		addAction(moveToAction);
 	}
 
 	private boolean isReadable()
@@ -277,12 +277,12 @@ public abstract class BattleCard extends Actor
 		addAction(scaleToAction);
 	}
 
-	public void getUncovered()
+	public void uncoverYourself()
 	{
 		SPRITE.setTexture(FRONT_TEXTURE_SMALL);
 	}
 
-	public void getCovered()
+	public void coverYourself()
 	{
 		SPRITE.setTexture(BACK_TEXTURE);
 	}

@@ -23,7 +23,7 @@ public class Sector extends FieldUser
 	// ATTRIBUTES
 	// ===================================
 
-	public final Battlefield BATTLEFIELD;
+	private final Battlefield BATTLEFIELD;
 
 	// ===================================
 	// CONSTRUCTORS

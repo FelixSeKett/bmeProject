@@ -26,6 +26,6 @@ public class SupplyField extends Field
 
 	@Override protected void updateReadabilityOfBattleCard(BattleCard battleCard)
 	{
-		battleCard.getCovered();
+		battleCard.coverYourself();
 	}
 }

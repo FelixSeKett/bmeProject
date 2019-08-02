@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.BattleCard;
 import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.FieldUser;
+import com.bmeproject.game.bmeProject.screens.battleScreen.battleController.Player;
 
 import java.util.ArrayList;
 
@@ -13,11 +14,11 @@ public class HandField extends Field
 	// CONSTRUCTORS
 	// ===================================
 
-	public HandField(FieldUser fieldable, Vector2 position)
+	public HandField(FieldUser fieldUser, Vector2 position)
 	{
-		super(fieldable, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0f, 0f, 0f, 0f, 50f, 0f,
+		super(fieldUser, position.x, position.y, BattleCard.WIDTH, BattleCard.HEIGHT, 0f, 0f, 0f, 0f, 50f, 0f,
 				new ArrayList<BattleCard>(), 1);
-		fieldable.giveBattleController().giveStage().addActor(this);
+		fieldUser.giveBattleController().giveStage().addActor(this);
 	}
 
 	// ===================================
@@ -26,10 +27,11 @@ public class HandField extends Field
 
 	@Override protected void updateReadabilityOfBattleCard(BattleCard battleCard)
 	{
-		if (battleCard.giveCommander() == FIELD_USER.giveBattleController().giveActivePlayer()) {
-			battleCard.getUncovered();
+		Player activePlayer = FIELD_USER.giveBattleController().giveActivePlayer();
+		if (battleCard.giveCommander() == activePlayer) {
+			battleCard.uncoverYourself();
 		} else {
-			battleCard.getCovered();
+			battleCard.coverYourself();
 		}
 	}
 }

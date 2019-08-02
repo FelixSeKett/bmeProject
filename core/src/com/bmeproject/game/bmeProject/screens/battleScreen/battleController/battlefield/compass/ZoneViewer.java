@@ -64,14 +64,14 @@ public class ZoneViewer extends Image
 		VIEWER.draw(batch);
 	}
 
-	private float giveZoneViewerRotation()
-	{
-		return COMPASS.BATTLEFIELD.giveIndexOfSector(COMPASS.giveStartSector()) * 60f;
-	}
-
 	public void updateRotation()
 	{
 		setRotation(giveZoneViewerRotation());
+	}
+
+	private float giveZoneViewerRotation()
+	{
+		return COMPASS.BATTLEFIELD.giveIndexOfSector(COMPASS.giveStartSector()) * 60f;
 	}
 
 	public void update()

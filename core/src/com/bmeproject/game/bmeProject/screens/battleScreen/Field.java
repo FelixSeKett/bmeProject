@@ -99,7 +99,7 @@ public class Field extends Actor
 
 	protected void updateReadabilityOfBattleCard(BattleCard battleCard)
 	{
-		battleCard.getUncovered();
+		battleCard.uncoverYourself();
 	}
 
 	public void addBattleCard(BattleCard battleCardToAdd)
