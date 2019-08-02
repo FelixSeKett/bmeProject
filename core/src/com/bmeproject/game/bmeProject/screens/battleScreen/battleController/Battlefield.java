@@ -1,6 +1,5 @@
 package com.bmeproject.game.bmeProject.screens.battleScreen.battleController;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.bmeproject.game.bmeProject.screens.battleScreen.Field;
 import com.bmeproject.game.bmeProject.screens.battleScreen.BattleController;
@@ -88,7 +87,8 @@ public class Battlefield
 	}
 
 	public int giveIndexOfSector(Sector sector)
-	{		System.out.println("test");
+	{
+		System.out.println("test");
 
 		return SECTORS.indexOf(sector);
 	}
@@ -159,11 +159,8 @@ public class Battlefield
 
 	public void activateZone(Zone zoneToActivate)
 	{
-		// Markiere den Spielzug als gestartet und blende in Folge dessen die StartButtons aus
-		BATTLE_CONTROLLER.setTurnStarted();
-
-		// Blende den Zonen-Button für diese Zone aus.
-		BATTLE_CONTROLLER.BUTTON_VIEW.fadeOutButtonOfZone(zoneToActivate);
+		// Markiere den Spielzug als gestartet und blende in Folge dessen die StartButtons und den Zonen-Button aus
+		BATTLE_CONTROLLER.setTurnStarted(zoneToActivate);
 
 		// Erstelle eine nach Strömungsregeln sortierte ArrayList mit Sektoren, die zur aktivierten Zone gehören
 		ArrayList<Sector> activeSectors = giveOrderedZonedSectors(zoneToActivate);
@@ -171,19 +168,14 @@ public class Battlefield
 		// Erstelle eine nach Strömungsregeln sortierte ArrayList aus zu aktivierenden Karten aus der Sektoren-Liste...
 		ArrayList<BattleCard> battleCardsToActivate = new ArrayList<BattleCard>();
 
-		Gdx.app.log(toString(), "Kreaturen und Phänomene hinzufgügen");
-
 		// ... wobei die äußeren Ringfelder mit Kreaturen und Phänomenen zuerst abgearbeitet werden...
 		for (Sector sector : activeSectors) {
 			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveStream())) {
 				if (battleCard.giveActivatingZones().contains(zoneToActivate)) {
 					battleCardsToActivate.add(battleCard);
-					Gdx.app.log(toString(), "Card added: " + battleCard.giveName());
 				}
 			}
 		}
-
-		Gdx.app.log(toString(), "Quartiere hinzufgügen");
 
 		// ... und anschließend die inneren Felder mit Quartieren
 		// Achtung: Hier zeitgeschuldet noch kein schöner Code!
@@ -192,18 +184,12 @@ public class Battlefield
 			BattleCard quarter = sector.giveQuarter();
 			if (quarter.giveActivatingZones().contains(zoneToActivate)) {
 				quarters.add(quarter);
-				Gdx.app.log(toString(), "Card added: " + quarter.giveName());
 			}
 		}
 		if (COMPASS.giveStream() == Stream.COUNTERCLOCKWISE) {
 			Collections.reverse(quarters);
 		}
 		battleCardsToActivate.addAll(quarters);
-
-		//Testzwecke:
-		for (BattleCard battleCard : battleCardsToActivate) {
-			Gdx.app.log(toString(), "Zu aktivieren: " + battleCard.giveName());
-		}
 
 		// aktiviere jede Karte der zuvor erstellen Liste nach Listenreihenfolge
 		for (BattleCard battleCard : battleCardsToActivate) {
@@ -214,20 +200,18 @@ public class Battlefield
 
 		// setze die HitPoints aller BattleCards in dieser Zone zurück
 		for (Sector sector : activeSectors) {
-			for (BattleCard battleCard : sector.giveSortedOuterBattleCards(COMPASS.giveStream())) {
-				battleCard.resetHitPoints();
+			for (Field field : sector.giveFields()) {
+				for (BattleCard battleCard : field.giveCards()) {
+					battleCard.resetHitPoints();
+				}
 			}
-		}
-		for (Sector sector : activeSectors) {
-			sector.giveQuarter().resetHitPoints();
 		}
 
 		// Setze die Zone als aktiviert
 		zoneToActivate.activate();
 	}
 
-	// TODO: Braucht man angesichts von giveRingwiseOrderedFieldsOfZone() nicht mehr
-	public ArrayList<Sector> giveOrderedZonedSectors(Zone zone)
+	private ArrayList<Sector> giveOrderedZonedSectors(Zone zone)
 	{
 		// Bereitet eine Liste mit Sektoren vor, die zurückgegeben werden soll
 		ArrayList<Sector> zonedSectors = new ArrayList<Sector>();

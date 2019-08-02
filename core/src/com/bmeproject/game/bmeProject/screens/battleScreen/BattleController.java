@@ -173,14 +173,15 @@ public class BattleController extends Controller
 
 		lastClickedBattleCard = battleCard;
 
-		if(activePlayer == PLAYER_1) {
+		if (activePlayer == PLAYER_1) {
 			activateSectorOfPlayer(Party.ALLY);
-		}else{
+		} else {
 			activateSectorOfPlayer(Party.ENEMY);
 		}
 	}
 
-	public void activateSectorOfPlayer(Party party){
+	public void activateSectorOfPlayer(Party party)
+	{
 		for (Sector s : BATTLEFIELD.giveSectors()) {
 			if (s.giveCommander().PARTY == party) {
 				s.giveEntryField().showBorder();
@@ -197,8 +198,8 @@ public class BattleController extends Controller
 			lastClickedBattleCard = null;
 		}
 
-		for (Sector sector : BATTLEFIELD.giveSectors()){
-				sector.giveEntryField().hideBorder();
+		for (Sector sector : BATTLEFIELD.giveSectors()) {
+			sector.giveEntryField().hideBorder();
 		}
 	}
 
@@ -256,6 +257,12 @@ public class BattleController extends Controller
 			BUTTON_VIEW.fadeOutStartButtons();
 			started = true;
 		}
+	}
+
+	public void setTurnStarted(Zone zone)
+	{
+		BUTTON_VIEW.fadeOutButtonOfZone(zone);
+		setTurnStarted();
 	}
 
 	private void setTurnUnstarted()
