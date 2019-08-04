@@ -9,9 +9,14 @@
 \usepackage{caption}
 \usepackage{refstyle}
 \usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{listings} 
+\usepackage{tcolorbox}
+
+\lstset{language=Java} 
  
-\title{Edwards Biotope - Interdiszipliänres Projekt II}
-\date{26.03.2019}
+\title{Edwards Biotope - Interdiszipliänres Projekt II - Abschlussbericht}
+\date{01.08.2019}
 
 \begin{document}
 
@@ -20,14 +25,19 @@
 \pagebreak
 \section{Abstract}
 \section{Einleitung}
-\section{Software-Entwicklung}
-\input{./se/architektur}
-\input{./se/infrastruktur}
-\section{Projekt-Management}
-\section{Ästhetik} 
 \pagebreak
-\section{Basics für  \LaTeX}
-\input{./hlp/hlp}
+\section{Roadmap}
+\input{./roadmap/roadmap}
+\pagebreak
+\section{Projekt-Management}
+\section{Software-Entwicklung}
+\input{./se/implemetation}
+\input{./se/konzept}
+\input{./se/softwarequali}
+\section{Gamedesign}
+\input{./gd/gamedesign}
+\section{Grafik- und Sounddesign} 
+\pagebreak
 
 \pagebreak
 \begin{thebibliography}{9}
@@ -37,5 +47,5 @@ Ort,
 2nd Edition,
 2019
 \end{thebibliography}
-
+\listoffigures
 \end{document}
