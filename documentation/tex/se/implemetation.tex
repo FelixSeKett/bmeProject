@@ -525,3 +525,204 @@ if (Gdx.input.justTouched()) {
 	}
 }
 \end{lstlisting}
+
+\subsubsection{Spielfeld}
+Um das Spielgeschehen überhaupt zu gestalten, bedarf es eines Spielfeldes, auf dem sich alle Spielzüge abspielen können.
+Dies darf man gerne mit einer Art „Schlachtfeld“ in einem kriegerischen Strategiespiel vergleichen, auf dem es einzunehmende Basen, die sogenannten „Quartiere“ gibt. Ziel einer Partie ist es, sämtliche Basen des Gegenspielers für sich zu gewinnen, indem alle verteidigenden Kreaturen besiegt und somit vom Feld genommen werden.
+Zum Spielfeld von EDWARDS BIOTOPE gehören Sektoren, Zonen und die darin geschehende Feldpositionierung. Die dafür benötigten Programmelemente wurden von Robert, Pamela, Gabriel, Cigdem, Manuela und Felix implementiert.
+
+\textbf{Sektoren}
+Das Spielfeld von EDWARDS BIOTOPE ist in sechs Sektoren aufgeteilt, die jeweils ein Quartier und drei Kreaturen und Phänomene halten können. Die im Spiel gelegten Karten werden wiederum den verschiedenen Feldern zugeordnet, die im jeweiligen Sektor angelegt sind.
+\begin{lstlisting}
+public Sector(Battlefield battlefield, Vector2 field1Vector, Vector2 field2Vector, Vector2 field3Vector,
+      Vector2 quarterFieldVector)
+{
+   super();
+   BATTLEFIELD = battlefield;
+   FIELDS.add(new Field(this, quarterFieldVector));
+   FIELDS.add(new LeadField(this, field1Vector));
+   FIELDS.add(new EntryField(this, field2Vector));
+   FIELDS.add(new EndField(this, field3Vector));
+}
+\end{lstlisting}
+
+Es wird außerdem ausgegeben, welche Sektoren vor bzw. nach dem aktuellen Sektor stehen.
+
+\begin{lstlisting}
+public Sector givePreviousSector()
+{
+   return BATTLEFIELD.givePreviousSectorOf(this);
+}
+
+public Sector giveNextSector()
+{
+   return BATTLEFIELD.giveNextSectorOf(this);
+}
+\end{lstlisting}
+
+Siehe im Git-Repository in den Commits:
+\begin{itemize}
+\item daf1fc139ee620220bbe36340e67b0e3bcbeada2
+\item e68492971171565a17d499ab5675c5032eb09542
+\item a936f5cfb03662dd957ca27a2ecf8b86e4da1c9a
+\end{itemize}
+
+\textbf{Zonen}
+Es erstrecken sich drei verschiedenfarbige Zonen über das Spielfeld: Rot, Grün und Blau. Jede Zone enthält jeweils zwei Sektoren. Die Zone selbst ist als eine Aufzählung angelegt und kann je nach momentan liegender Farbe aktiviert werden.
+\begin{lstlisting}
+public enum Zone
+{
+   // ===================================
+   // ENTRIES
+   // ===================================
+
+   RED,
+   GREEN,
+   BLUE;
+
+   // ===================================
+   // ATTRIBUTES
+   // ===================================
+
+   private boolean activated;
+
+   // ===================================
+   // CONSTRUCTORS
+   // ===================================
+
+   Zone()
+   {
+      activated = false;
+   }
+
+   // ===================================
+   // ATTRIBUTES
+   // ===================================
+
+   public static Zone giveZoneByColorIndex(int index)
+   {
+      for (Zone zone : values()) {
+         int ordinal = zone.ordinal() * 2;
+         if (ordinal == index || (ordinal + 1) == index) {
+            return zone;
+         }
+      }
+      return null;
+   }
+
+   public boolean isActivated()
+   {
+      return activated;
+   }
+
+   public void activate()
+   {
+      activated = true;
+   }
+
+   public void deactivate()
+   {
+      activated = false;
+   }
+}
+\end{lstlisting}
+
+Siehe im Git-Repository in den Commits:
+\begin{itemize}
+\item cfb3bf3736c1e90fc7144eb4a110ab580337df68
+\item 9b915960bfaf07586067aaa2ac92173d0700350d
+\item 16261f7ae75d97aedf791c6af081314f70f0ebdd
+\item c83d620c1d9bd22af5b58b22c683b0d596c66783
+\end{itemize}
+
+\textbf{Feldpositionierung}
+Für das Spielgeschehen spielt die Feldpositionierung eine entscheidende Rolle. Hiermit wird angegeben, auf welchem Feld sich eine Karte befindet, oder ob ein Feld leer ist. So hat ein Sektor ein Feld für das Quartier und drei Felder auf denen Kreaturen abgelegt werden können, wovon das erste das Eintrittsfeld darstellt. Über dieses Feld werden die Kreaturen in das Spielgeschehen geschickt. Sollte die grüne Zone aktiviert werden, kann die Kreatur dann auf eines der anderen Felder weitergeschoben werden, damit das Eintrittsfeld wieder frei wird für neu hinzukommende Karten.
+
+\begin{lstlisting}
+@Override public Field giveCurrentFieldOfBattleCard(BattleCard battleCard)
+{
+   for (Field field : FIELDS) {
+      if (field.giveCards().contains(battleCard)) {
+         return field;
+      }
+   }
+   return null;
+}
+\end{lstlisting}
+
+Mit der folgenden Funktion wird von den Sektoren abgefragt, ob das jeweilige Feld eine Karte hält oder nicht. Basierend auf diesen Flags, kann das Battlefield die Informationen dann dem Kontext entsprechend verarbeiten.
+
+\begin{lstlisting}
+public boolean hasBattleCard(BattleCard battleCardToHave)
+{
+   for (Field field : FIELDS) {
+      if (field.giveCards().contains(battleCardToHave)) {
+         return true;
+      }
+   }
+   return false;
+}
+\end{lstlisting}
+
+Des Weiteren wird ausgegeben, welches Feld mit welchen Karten belegt ist. Per get() findet hier eine eindeutige Zuweisung an der jeweiligen Stelle der zugrundeliegenden ArrayList ab. So können wir einen Trading-Card Spieltisch später mit fest zugewiesenen Slots für Karten verstehen und letztendlich grafisch übersichtlich präsentieren.
+
+\begin{lstlisting}
+public Field giveQuarterField()
+{
+   return FIELDS.get(0);
+}
+
+public ArrayList<RingField> giveRingFields()
+{
+   ArrayList<RingField> ringFields = new ArrayList<RingField>();
+   ringFields.add(giveLeadField());
+   ringFields.add(giveEntryField());
+   ringFields.add(giveEndField());
+   return ringFields;
+}
+
+public LeadField giveLeadField()
+{
+   return (LeadField)FIELDS.get(1);
+}
+
+public EntryField giveEntryField()
+{
+   return (EntryField)FIELDS.get(2);
+}
+
+public EndField giveEndField()
+{
+   return (EndField)FIELDS.get(3);
+}
+\end{lstlisting}
+
+In welche Richtung die Karten auf dem Feld positioniert werden, wird an der aktuellen Strömungsrichtung ausgemacht. Sie dient durch ihre Sortierung der Array-Liste später auch dazu, Angriffsrichtungen im Stellungsspiel um die Quartierkarten zu bestimmen.
+Man drückt im Interface am Anfang der Runde auf einen optionalen Schalter und dreht damit den Ablauf entweder im, oder gegen den Urzeigersinn. Das bestimmt dann, wer für eine Kreaturen-Karte das nächste mögliche Angriffsziel sein kann.
+
+\begin{lstlisting}
+private ArrayList<BattleCard> reverseCardOrder(ArrayList<BattleCard> list)
+{
+   Collections.reverse(list);
+   return list;
+}
+
+public BattleCard giveQuarter()
+{
+   return FIELDS.get(0).giveCards().get(0);
+}
+
+public ArrayList<RingField> giveOrderedRingFields()
+{
+   ArrayList<RingField> orderedRingFields = giveRingFields();
+   BATTLEFIELD.COMPASS.giveStream().orderRingFields(orderedRingFields);
+   return orderedRingFields;
+}
+\end{lstlisting}
+
+Siehe im Git-Repository in den Commits:
+\begin{itemize}
+\item daf1fc139ee620220bbe36340e67b0e3bcbeada2
+\item e68492971171565a17d499ab5675c5032eb09542
+\item a936f5cfb03662dd957ca27a2ecf8b86e4da1c9a
+\end{itemize}
