@@ -343,3 +343,96 @@ public void moveTo(float x, float y)
 }
 \end{lstlisting}
 Das bedeutet: Ein aktueller Wert (Koordinaten, Rotation, Größe) würde zu einem angegebenen Zielwert (Zielkoordinaten, Zielrotation, Zielgröße) über eine Anzahl an Game Loop-Iterationen hinweg verändert, die sich aus der Verrechnung von angegebener Zeitspanne und festgelegter Bildwiederholungsrate ergibt.
+
+\subsubsection{TitleScreen (ohne Bilddatei)}
+Zwar wurde im Wintersemester bereits an dem Titelbildschirm gearbeitet, allerdings war dies nicht der letzte Stand. Im letzten Semester war es möglich, einen TextButton beziehungsweise ImageButton anzuklicken. Der Anwender konnte somit vom Titelbildschirm zum nächsten Screen navigiert werden. 
+In diesem Semester war das Ziel die Funktionalität zu erweitern. 
+Es sollte ermöglicht werden, zwischen den Screens zu wechseln. 
+
+Auf dem Titelbildschirm gibt es nicht nur Bilder sondern auch Buttons. Diese Buttons sind anklickbar und leiten den Nutzer durch das Spiel.
+Es gibt verschiedene Arten von Buttons. Der TextButton ist zum Beispiel ein Button, womit ein Button mit einem Text erstellt wird. Zusätzlich muss die Schriftart in einem uiskin.json festgelegt und anschließend mit der Skin Methode implementiert werden. 
+Für eine Klick-Funktionalität eines Buttons wird der addListener implementiert. Zum Schluss wird die Stage gerendert. 
+
+Eine weitere Möglichkeit einen Button zu implementieren ist der ImageButton. Hier kann der Button selber designet werden. Das fertige Button Bild wird in den assets Ordner eingefügt. Der Texture Methode werden die Button Bilder in der show() Methode zugewiesen. Die Image Buttons werden in einen initionsButton() implementiert. Hier wird nun ebenfalls ein addListener benötigt. Nach einem Klick auf den Button wird dem Nutzer der TestScreen angezeigt. Da unsere Designer im Team selber Buttons erstellt hatten, fiel die Entscheidung auf die letztere Variante, nämlich auf den ImageButton. Daher wurden die drei ImageButtons „Duell starten“, „Button“ und „Einstellungen“ hinzugefügt. 
+
+\textbf{Screens implementieren} \\
+Zumeist wird einem Nutzer ermöglicht, zwischen den Screens zu wechseln. Daher ist es zum einen wichtig, einen neuen Screen aufzurufen und zum anderen wichtig, wieder auf den alten Screen zurückzugehen.
+  
+Folglich wurden auf der Titelseite drei Buttons hinzugefügt.
+Je nachdem welchen Button der Nutzer anklickt, wird der entsprechende Screen angezeigt. Dies wird in der render() Methode wie folgt implementiert. 
+
+\begin{lstlisting}
+  @Override
+  public void render(float delta) {
+      Gdx.gl.glClearColor(0x52 / 255.0f, 0x9D / 255.0f, 0xBF / 255.0f, 0xff / 
+      255.0f);
+      Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+      if (imageButtonBattle.isPressed()) {
+          BME_PROJECT.activateBattleScreen();
+      }
+      if (imageButtonDeck.isPressed()) {
+          BME_PROJECT.activateDeckScreen();
+      }
+  }
+\end{lstlisting}
+
+Da der Settings-Button keine hohe Priorität hat, ist dieser zunächst einmal auskommentiert.
+Wenn nun beispielsweise auf dem Titelbildschirm der „Duell starten“-ImageButton geklickt wird, wird dem Nutzer der Duell Screen angezeigt.
+Der Nutzer hat hier die Möglichkeit sein Deck zu bearbeiten oder wieder zurück auf die Titelseite zu gehen. Die folgende Abbildung veranschaulicht diese Implementierung. 
+
+\begin{figure}[h]
+\centering
+ \subfloat[Screenshot: Titlescreen 1]{{\includegraphics[width=5cm]{../img/screenshot_titlescreen.PNG} }}
+\qquad
+ \subfloat[Screenshot: Titlescreen 2]{{\includegraphics[width=5cm]{../img/screenshot_titlescreen_2.PNG} }}
+\caption{Screenshots Titlescreen}%
+ \label{fig:Screenshots Titlescreen}%
+\end{figure}
+
+In der render() Methode wird festgelegt, welcher Screen nach einem Klick auf den imageButtonBack angezeigt wird. In diesem Fall, soll das Startbildschirm erneut angezeigt werden. Nachdem mit einer If-Anweisung überprüft wird, ob der zurück Button geklickt wurde, wird das Startbildschirm angezeigt.  
+
+Schließlich wurde durch diese Implementierung ermöglicht, die Spielumgebungen durch Klicks auf die Buttons anzusteuern und zwischen den Screens zu wechseln. 
+
+\subsubsection{Imagebuttons für BattleScreen}
+Anfangs wurden die Screens mit einer Hintergrundfarbe festgelegt. 
+Allerdings war das nur vorübergehend. In diesem Semester erstellte Robert Sabo alles, was für den BattleScreen benötigt wurden.
+Alle Bilder, die hierfür auf diesem Screen benötigen werden, wurden zunächst einmal in den Assets- beziehungsweise Visuals-Ordner eingefügt. Das Spielfeld sah anfangs an den Seiten leer aus. Das liegt daran, das alle Buttons hinzugefügt und richtig positioniert werden mussten. Das Endergebnis ist in Abbildung \ref{fig:Screenshot: BattleScreen mit ImageButtons} zu sehen.
+\begin{figure}
+\includegraphics[width=0.5\textwidth]{../img/screenshot_battlescreen_buttons.PNG}
+\caption{Screenshot: BattleScreen mit ImageButtons}
+\label{fig:Screenshot: BattleScreen mit ImageButtons}
+\end{figure}
+Um testen zu können, ob der Klick auf den Button funktioniert, wurde zunächst einmal in der Console die Information „Zone successfully clicked“ wie folgt ausgegeben. \\
+\begin{lstlisting}
+450.0breite: 800.0
+BATTLE SCREEN SHOWN
+Zone successfully clicked
+\end{lstlisting}
+
+\subsubsection{Karte aus der Hand spielen}
+Bei jedem Kartenspiel ist es wichtig, die Karte, welche aus der Hand gespielt wird, abzulegen. Um diese Funktionalität an der richtigen Stelle einbauen zu können, wurde zunächst einmal der Code analysiert. Mit Hilfe der Ausgabe auf der Consolen-Ausgabe, konnte ermittelt werden, welche Klassen und Methoden hierfür benötigt wurden. 
+
+Die giveLastClickedBattledCard() Methode in der BattleControler Klasse gibt die lastClickedBattleCard, mit dem Rückgabetyp BattleCard, zurück. Mit Hilfe dessen, wurde zu aller erst ermittelt, ob die selecteCard null ist. Denn nur wenn eine Karte erst ausgewählt wird, kann diese auch wieder abgelegt werden. Nach einer weiteren if-Anweisung konnte mit Hilfe der Methoden addCard() und resetLastClicketBattleCard() die Funktionalität, die Karte aus der Hand zu legen, implementiert werden. Die folgenden Zeilen ermöglichen diesen Spielzug. 
+
+\begin{lstlisting}
+@Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+{
+    BattleController battleController = FIELDABLE.giveBattleController();
+    BattleCard  selectedCard     = battleController.giveLastClickedBattleCard();
+
+    if (selectedCard != null) {
+        addCard(selectedCard);
+        battleController.resetLastClickedBattleCard();
+    }
+    return true;
+}
+\end{lstlisting}
+
+Damit wurde somit dem Anwender die Option gegeben, seine Karte auf dem Spielfeld abzulegen. 
+
+\subsubsection{TitleScreen ausbauen: zum BattleScreen navigieren}
+Sobald das Projekt gestartet wurde, wurde uns der BattleScreen angezeigt. Daher musste der TitelScreen ausgebaut werden. Am Anfang des Semesters wurde diese Funktionalität zwar bereits programmiert, allerdings gab es während dem Semester Code-Änderungen. Das Resultat dieser Änderungen ergab, dass trotz eines Klicks auf den Button, der Anwender weiterhin den Titelbildschirm sah und somit nicht navigiert wurde. 
+
+Dabei wurde festgestellt, dass der Verweis auf den BattleScreen nicht sofort funktionierte, weshalb der vorhandene Code analysiert wurde. Der TitelScreen erbt von AbstractScreen. Dieser enthält die Methode createController mit dem Parameter SpriteBatch spriteBatch. Allerdings muss diese Methode in der TitelScreen Klasse erweitert werden. Daher musste der Konstruktor der TitelController Klasse mit einem zweiten Parameter, dem TitelScreen titelScreen, ergänzt werden. Des Weiteren wurde im TitelScreen der return Wert von der creatController Methode angepasst. Schließlich funktionierte wieder der Verweis auf den BattleScreen. 
+
