@@ -7,7 +7,7 @@ Für den Benutzer eines Videospiels soll die Bedienung möglichst intuitiv sein.
 So verhält es sich auch mit der Nutzereingabe in Form von Mausklicks. Daher muss gewährleistet werden, dass die theoretische Möglichkeit, zu jeder Zeit auf jeden Punkt des Bildschirms zu klicken, nicht in einen Wust aus parallelen Spielveränderungen und damit einhergehenden Objektanimationen ausartet.
 
 So implementierte Felix Baumgarten einen Schutzmechanismus für Eingabeauswertungen, der wie folgt funktioniert: Da Nutzereingaben im Rahmen des Game Loops mit jedem darzustellenden Frame erneut abgefragt und ausgewertet werden, müssen sensible Aktionsauslöser im Programmcode lediglich sicherstellen, dass zum Zeitpunkt einer Nutzereingabe keine Animationen mehr abgearbeitet werden. Dies geschieht, indem die Methode isGoodToGo() des BattleControllers aufgerufen wird. Diese leitet die Anfrage schlicht an alle Komponenten weiter, die über Instanzen der Actor-Klasse verfügen, welche wiederum im Spielverlauf animiert sein könnten. Mit der Methode hasActions() wird eine solche Actor-Instanz dann auf gegenwärtig abzuwickelnde Animationen geprüft.
-\pagebreak
+
 Prüfung der BattleController-Klasse:
  
 \begin{lstlisting}
@@ -410,6 +410,30 @@ BATTLE SCREEN SHOWN
 Zone successfully clicked
 \end{lstlisting}
 
+\subsubsection{Überarbeitung des Menüs im BattleScreen}
+Um den Spieler das Spielen etwas zu erleichtern, wurden ein paar Hilfestellungen implementiert. Zunächst sollte der Spieler wissen, wer gerade an der Reihe ist. Hierfür wurde für die Klasse “Party” dem  „Spieler 1“ der Imagepath zu dem Asset „du\_bist.png“ zugeordnet. Dem „Spieler 2“ wurde der Imagepath zu dem Asset „gegner\_ist.png“ zugeordnet. Der Path wird der Klasse “BattleControl” übergeben. Dort wird die Methode showActivePlayer implementiert. Diese Methode zeichnet das Bild an der gewünschten Stelle. Die Methode wird in der Methode „changeActivePlayer“ ausgeführt.
+Des Weiteren sollte der Spieler wissen, welche Effekte die unterschiedlichen Buttons im Spiel haben. Dafür wurde die Methode „setUserMessage“ in der Klasse „DetailView“ implementiert. Dieser Funktion wird jedes mal der String „userMessage“ übergeben, wenn der Spieler über einen Button, das Grab oder seine Handkarten fährt.
+Folgende Objekte benötigten folgende User Message:
+\begin{itemize}
+\item Strömungsrichtung ändern Button - Die Strömung im Rücken ist vom Vorteil. Sie lässt dich zuerst Angreifen
+\item Handkarten - Setze deine Einheit auf die gewünschte Kampfposition
+\item Kompassausrichtung ändern - Drehe den Kompass um die Sektoren mit Strahlung auszusetzen. Die verschiedenen Strahlungen beeinflussen die Einheiten auf unterschiedliche Weise
+\item Grab - Diese Einheiten stehen dir für den Kampf nicht mehr zur Verfügung
+\item Rote  \& Blaue Strahlung Aktivieren Button - Deine Kreaturen und Phänomene werden durch die rote/blaue Strahlung zu wahren Kriegsmaschinen
+\item Grüne Strahlung Aktivieren Button - Die Grüne Strahlung schafft dir mehr Raum um neue Einheiten in den Kampf zu senden
+\item Zug beenden Button - Beende deinen Zug
+\end{itemize}
+
+Die Nachricht an den Spieler muss an der gewünschten Position, im gewünschten Absatzformat und mit automatischen Umbrüchen bei langen Texten angezeigt werden. Dies kann mit den Funktionen .setPosition, setWidth, .setHeight, .setAlignment und .setWrap aus dem Framework libGDX erfolgen. 
+Um eine eigene Schriftart einzubinden wird der FreeTypeFontGenerator von libGDX benötigt. Dieser wandelt eine True Type Font in eine BitMap Font in der gewünschten Größe um. Für den Font muss ein linearer Filter für die Kantenglättung aktiviert werden.
+
+Siehe im Git-Repository in den Commits:
+\begin{itemize}
+\item 11e47f46e37f4ab279a322218272dbd34607bd0b
+\item 02d6bfa7794a80f599a048de649a22a8b060f047
+\item db2c258eb297e9354fe680d54f02bee5e6bd0800
+\end{itemize}
+
 \subsubsection{Kartenauswahl}
 Für die Auswahl einer bestimmten BattleCard und die damit verbundene Aktivierung bzw. Aktionsauslösung mussten erst entsprechende Vorbereitungen getroffen werden.
 Zum einen benötigte die Klasse an sich einen InputListener des Typs “touchDown”, welcher für die Auswahl der Karte durch Anklicken benötigt wird. Das Hinzufügen des InputListeners stellte die Klasse Actor, von der die BattleCard erbt, über die Methode addListener bereit. Ihr musste nur die Klasse InputListener übergeben werden, bei der man direkt interne Anpassungen durchführen konnte. So wurde die von ihr beinhaltende Methode touchDown für unser Vorhaben genutzt, indem sie die von dem Klick betroffene Karte als “zuletzt angeklickte Karte” sicherte. Für eine flexiblere Verwendung der dadurch aktivierten Karte, wurde sie im BattleController als solche gesetzt und war damit dank Getter-Methoden auch von den restlichen Klassen abrufbar.
@@ -725,4 +749,93 @@ Siehe im Git-Repository in den Commits:
 \item daf1fc139ee620220bbe36340e67b0e3bcbeada2
 \item e68492971171565a17d499ab5675c5032eb09542
 \item a936f5cfb03662dd957ca27a2ecf8b86e4da1c9a
+\end{itemize}
+
+\subsubsection{Musik und Soundeffekte}
+LibGDX bietet eine Musikschnittstelle, mit der man Musik und Soundeffekte leicht in das Spiel einbinden kann. Dafür gibt es die zwei Klassen “Music” und “Sound”. Bei einer Audiodatei, deren Länge ein paar Sekunden übertrifft, handelt es sich um eine Music-Klasse.  Es ist zu bevorzugen, die Datei von der Festplatte zu streamen, anstatt sie vollständig in den Arbeitsspeicher zu laden. Die Sound-Klasse bedient Soundeffekte, wie kleine Audio-Samples, die in der Regel nicht länger als einige Sekunden dauern und bei bestimmten Spielereignissen wiedergegeben werden sollen, wie zum Beispiel beim Drücken eines Buttons, beim Kartenziehen oder beim Drehen des Kompasses. Soundeffekte können in verschiedenen Formaten gespeichert werden. LibGDX unterstützt MP3-, OGG- und WAV-Dateien. Die benötigten Audio-Dateien liegen dabei im Assets-Ordner.
+Um die Musik in das Spiel zu laden, muss eine Instanz der Music-Klasse generiert werden. Dies passiert in der BMEProjekt-Klasse, damit man die Musik und Soundeffekte in allen Klassen benutzen kann:
+
+\begin{lstlisting}
+public static Music music = Gdx.audio.newMusic(Gdx.files.internal("core/assets/audio/music.mp3"));
+\end{lstlisting}
+
+Die Attribute der Music-Klasse erlauben die Anpassungen einiger Einstellungen, wie beispielsweise die Veränderung der Lautstärke und die Setzung der Audio-Datei auf Wiederholung:
+
+\begin{lstlisting}
+music.setVolume(1.0f);
+music.setLooping(true);
+\end{lstlisting}
+
+Das Abspielen der Musikinstanz funktioniert wie folgt:
+
+\begin{lstlisting}
+music.play();
+\end{lstlisting}
+
+Um Ressourcen freizugeben wird die Musikinstanz in der BMEProjekt-Klasse entsorgt, sobald sie nicht mehr benötigt wird:
+
+\begin{lstlisting}
+music.dispose();
+\end{lstlisting}
+
+Die Soundeffekte werden ähnlich implementiert und wie folgt abgespielt: 
+\begin{lstlisting}
+BMEProject.streamSound.play(0.2f);
+\end{lstlisting}
+
+Dadurch wird der Soundeffekt einmal mit der Lautstärke von 20 \% wiedergegeben. Die Methode .play(); wird beim Eintreten bestimmter Ereignissen gesetzt.
+
+\subsubsection{XML befüllen}
+Um der Klasse Cards ihre Werte zuzuweisen, wird ein XML benötigt mit allen relevanten Informationen. Jede Karte benötigt eine ID, cardName, cardType, cardEffect, cardDescription und den cardIllustrationFilePath. Diese Informationen wurden für 44 Karten hinterlegt.
+\begin{itemize}
+\item 1f719baad08daf434cbb0c69186e068338359ade
+\end{itemize}
+
+\subsubsection{Effekte}
+Da jede Karte mehrer Effekte bekommen sollte, wurde eine XML mit 10 Effekten erstellt.
+Der bisherige XML-Reader liest bisher die CARDS XML aus und musste deshalb erweitert werden, um die Effekte XML auszulesen. Jeder Effekt hat einen Integer Wert, mit der eigener ID.  Zusätzlich einen String, der den Effekt in einem Satz beschreibt.
+Um die Effekte den einzelnen Karten zu zuzuordnen, wurden die Karten im XML um den Tag <Effects> erweitert. In diesem Tag können die IDs der Effekte als Integer Wert eingetragen werden. Die Effekte werden mit der Karte verbunden, indem die Klassen „Card“ und „DeckCard“ um den Typ Effekt erweitert werden. Damit die Effekte angezeigt werden, wurde eine Methode implementiert, die die Karten in größerer Auflösung anzeigt. Beim Drüberfahren mit der Maus werden die Effekte, Typ und Beschreibung als Text anzeigt.
+Die Effekte wurden jedoch gestrichen, da die Konzeption der einzelnen Effekte nicht abgeschlossen war. Außerdem konnte die Implementierung zeitlich nicht bewältigt werden. Der Branch wurde deshalb im Git-Repository nicht dem Master Branch hinzugefügt.
+Siehe im Git-Repository den Branch: 70 76 KartenDetailsAnzeigen KartenAssets
+
+\subsubsection{Siegesbedingung}
+Um den Spieler zu signalisieren, wer der Gewinner ist, fehlte noch eine Methode mit einer Benachrichtigung über den Sieg. Nachdem ein Quartier den Besitzer gewechselt hat, wird über die sechs Quartiere auf dem Spielbrett iteriert. In der Iteration wird geprüft, welchem Spieler die Quartiere gehören. Besitzt ein Spieler alle sechs Quartiere, hat dieser gewonnen. Nach dem Erfüllen der Bedingung wird ein Bild angezeigt mit der Nachricht „du hast gewonnen“ oder „du hast verloren“. Zusätzlich werden Buttons eingefügt,  um ein neues Spiel zu starten und um zurück in das Hauptmenü zu gelangen. 
+Siehe im Git-Repository in den Commits:
+\begin{itemize}
+\item c390e51a6058673c1509ec47513f5e58ba560900
+\item 649f98e2344ba5429391f988e76dc903e2d58e08
+\item 7bcdccc49363fca3ac3529966aa51384e178c47c
+\item f634203a5dd291874886739790f981ed42f5fdc8
+\end{itemize}
+
+\subsubsection{Starter Deck mit drei Quartieren}
+Jeder Spieler darf in dem eigenen Deck Maximal drei Quartiere haben. Bisher wird das Kartendeck zufällig mit einem Random Number Generator generiert ohne dabei eine Obergrenze für Quartiere zu berücksichtigen. Die Quartiere in Cards\_XML haben die ID 1 bis 5 und die restlichen Kartentypen von 6 bis 44. Deshalb wurde der Random Number Generator aufgeteilt. Zunächst werden zufällig drei Zahlen von 1 bis 5 gezogen, anschließend werden 37 Zahlen zwischen 6 bis 44 gezogen. Die Kombination der Karten IDS wird beim Spielstart als Deck für den Nutzer gespeichert.
+Siehe im Git-Repository in dem Commit:
+\begin{itemize}
+\item c390e51a6058673c1509ec47513f5e58ba560900
+\end{itemize}
+
+\subsubsection{Auflösung auf des Title Screens und des BattleScreens auf HD anpassen}
+Bisher ist das Spielfeld auf eine Auflösung 800x450 Pixel konfiguriert. Diese Einstellung wurde auf Full HD Auflösung 1920x080 angepasst. Alle Regionen für die Karten waren absolut positioniert. Deshalb mussten alle Regionen neu positioniert und skaliert werden, um die volle Auflösung zu nutzen. 
+Die Assets waren nicht auf die HD-Auflösung angepasst und werden entweder vergrößert oder verkleinert angezeigt, dadurch entsteht ein Qualitätsverlust. Da EDWARDS BIOTOPE Full HD unterstützen soll, wurden die Assets auf die tatsächliche Größe angepasst. Um die tatsächlichen Größen auszulesen, wurde ein Screenshot des aktuellen Spiels in Adobe Photoshop vermessen und die benötigten Größen aufgeschrieben. Anschließend wurden die Assets in der tatsächlichen Größe erneut gespeichert und in das Spiel eingebunden. Die Spielkarten werden in zwei Größen benötigt. Einmal als kleine Version für das Spielbrett und eine große Version für die Detail-Ansicht. Deshalb muss die Klasse “Cards” um zwei Strings erweitert werden. Zum einen den LLUSTRATION\_FILE\_PATH dieser Path setzt sich "core/assets/visuals/cards/large/" und der Variable illustrationFilePath zusammen. Zusätzlich der ILLUSTRATION\_FILE\_PATH\_SMALL, dieser setzt sich aus "core/assets/visuals/cards/small/" und der Variable illustrationFilePath zusammen. Die Variable illustrationFilePath weist der XML Reader aus dem Card XML zu. Die Klasse “Battle Card” verwendet als Texturen für die Spielkarten den Pfad den ILLUSTRATION\_FILE\_PATH\_SMALL und die DetailView ILLUSTRATION\_FILE\_PATH. 
+Die Anzeige war nach den Anpassungen noch nicht zufriedenstellend, da LibGDX Texturen ohne Kantenglättung anzeigt.
+Siehe hierzu die Commits:
+\begin{itemize}
+\item 8ccd2046db2a7def1d17a7988afe598631f64f7b
+\item a0bab3abbb009b004659399adbbc854ee6932e8e
+\item 1dea80495d1dc5ba55e9909326146ac56540672d
+\item 90859da52af88b69d243b6d072f287102e0ca21e
+\item dde09c88d28081d813a9c581a4425b7425eb8a98
+\item 14ca0dd54308280139d0dac3d7e6e86d334a803f
+\end{itemize}
+
+\subsubsection{Anti Aliasing hinzufügen}
+LibGDX bietet die Funktion .setFilter für Texturen an. Hierfür muss der Filter von „Nearest“ auf „Linear“ angepasst werden, um die Kanten der Assets zu Glätten. Deshalb wurde der Code nach allen Texturen durchsucht und für jede Textur die Funktion
+\begin{lstlisting}
+TEXTUR.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
+\end{lstlisting}
+hinzugefügt.
+Siehe hierzu den Commit:
+\begin{itemize}
+\item 86617498da70acabe885862ce9db573342b08d6e
 \end{itemize}
