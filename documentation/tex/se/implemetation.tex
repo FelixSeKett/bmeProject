@@ -410,6 +410,10 @@ BATTLE SCREEN SHOWN
 Zone successfully clicked
 \end{lstlisting}
 
+\subsubsection{Kartenauswahl}
+Für die Auswahl einer bestimmten BattleCard und die damit verbundene Aktivierung bzw. Aktionsauslösung mussten erst entsprechende Vorbereitungen getroffen werden.
+Zum einen benötigte die Klasse an sich einen InputListener des Typs “touchDown”, welcher für die Auswahl der Karte durch Anklicken benötigt wird. Das Hinzufügen des InputListeners stellte die Klasse Actor, von der die BattleCard erbt, über die Methode addListener bereit. Ihr musste nur die Klasse InputListener übergeben werden, bei der man direkt interne Anpassungen durchführen konnte. So wurde die von ihr beinhaltende Methode touchDown für unser Vorhaben genutzt, indem sie die von dem Klick betroffene Karte als “zuletzt angeklickte Karte” sicherte. Für eine flexiblere Verwendung der dadurch aktivierten Karte, wurde sie im BattleController als solche gesetzt und war damit dank Getter-Methoden auch von den restlichen Klassen abrufbar.
+
 \subsubsection{Karte aus der Hand spielen}
 Bei jedem Kartenspiel ist es wichtig, die Karte, welche aus der Hand gespielt wird, abzulegen. Um diese Funktionalität an der richtigen Stelle einbauen zu können, wurde zunächst einmal der Code analysiert. Mit Hilfe der Ausgabe auf der Consolen-Ausgabe, konnte ermittelt werden, welche Klassen und Methoden hierfür benötigt wurden. 
 
@@ -436,3 +440,88 @@ Sobald das Projekt gestartet wurde, wurde uns der BattleScreen angezeigt. Daher 
 
 Dabei wurde festgestellt, dass der Verweis auf den BattleScreen nicht sofort funktionierte, weshalb der vorhandene Code analysiert wurde. Der TitelScreen erbt von AbstractScreen. Dieser enthält die Methode createController mit dem Parameter SpriteBatch spriteBatch. Allerdings muss diese Methode in der TitelScreen Klasse erweitert werden. Daher musste der Konstruktor der TitelController Klasse mit einem zweiten Parameter, dem TitelScreen titelScreen, ergänzt werden. Des Weiteren wurde im TitelScreen der return Wert von der creatController Methode angepasst. Schließlich funktionierte wieder der Verweis auf den BattleScreen. 
 
+\subsubsection{Deckeditor}
+Um dem Spieler die Möglichkeit zu verschaffen ein eigenes, individuelles Spielkartendeck zu erstellen, war anfangs ein Deckeditor geplant, der vom Titelscreen aus aufgerufen werden sollte. Die Klassen Deck, DeckScreen und DeckController wurden hierfür implementiert. Sie waren anfangs auch für interne Tests hilfreich, da sie alle Spielkarten hielten und dadurch der Zugriff auf Daten wie Kartenname oder Typ möglich war. Da die Priorität am Ende jedoch auf einer funktionierenden, visuell ansprechenden Spielfunktion lag, wurde der Deckeditor, und damit auch die Ausarbeitung der Deck-Klassen, auf Eis gelegt.
+
+\subsubsection{Karten ziehen (Debug)}
+Zur Visualisierung der Kartenziehung wurde vorerst vom Kartenstapel jeweils eine Karte auf das HandField verschoben.
+Dafür musste die drawTopCard-Methode der Player-Klasse innerhalb des BattleControllers aufgerufen werden.
+Dieser Aufruf musste nur noch mittels eines Impuls ausgelöst werden, für diesen Fall bot sich die von LibGDX bereitgestellte Tastendruckabfrage an:
+\begin{lstlisting}
+if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+	activePlayer.drawTopCard();
+}
+\end{lstlisting}
+Vorerst wurde diese Aktion mittels der Leertaste ausgeführt, wobei der Auslöser im Laufenden noch ausgearbeitet wurde.
+
+\subsubsection{Visuelles Feedback innerhalb Eintrittsfelder}
+Um dem Nutzer das Spielprinzip während seines Spielzuges zu erleichtern, bot sich eine visuelle Rückmeldung für die zum Ablegen von BattleCards ansteuerbaren Felder an. Um die Aufmerksamkeit des Nutzers also auf die möglichen Ablageorte zu lenken, wurde als Form der Kennzeichnung ein Asset in Form eines gelben Rahmens mit glühendem Effekt angefertigt. Dieses wird schließlich um das Feld oder die Felder pulsartig aufleuchten.
+Der erste Schritt in der Implementierung dieser Funktion lag im Hinzufügen des Assets in alle Ablagefelder (EntryFields), wobei seine Transparenz auf Null gesetzt wurde. Optisch änderte sich am Spielfeld also noch nichts.
+Bei diesem Schritt kam es jedoch zum Problem, dass sich das Verhalten des Ablagefeldes funktional veränderte, so wurde ein Mausklick auf dieses nicht mehr erkannt. Ein Kartenablegen auf dieses Feld war damit unmöglich.
+Der Fehler lag hierbei in der Positionierung des Assets, das fälschlicherweise über den Feld-Actor gelegt wurde, der den Mausklick erhält. Dafür musste man die Assets auf eine niedrigere Ebene als die des Actors legen. Für diese Positionierung setzte man die Z-Position der Assets neu:
+\begin{lstlisting}
+int zCor = getZIndex() - 1;
+glowBorder.setZIndex(zCor);
+\end{lstlisting}
+
+Der zweite Schritt wird durch den Mausklick auf die BattleCard angestoßen. Hier wird vorerst durch alle sechs Sektoren durchiteriert:
+
+\begin{lstlisting}
+public void activateSectorOfPlayer(Party party){
+  for (Sector s : BATTLEFIELD.giveSectors()) {
+     if (s.giveCommander().PARTY == party) {
+        s.giveEntryField().showBorder();
+     } else {
+        s.giveEntryField().hideBorder();
+     }
+  }
+}
+\end{lstlisting}
+
+Liegt dabei ein Sektor im Besitz des aktiven Spielers, so startet die vorgesehene Animation auf dem im Sektor enthaltenen Ablagefeld.
+Für Animationen stellt LibGDX eigene Aktionen bereit. Für den gewünschten, pulsierenden Effekt wurde die “RepeatAction” gewählt, der man eine Ausblende- und Einblendefunktion übergeben muss:
+
+\begin{lstlisting}
+repeatAction.setAction(Actions.sequence(Actions.fadeOut(duration);
+Actions.fadeIn(duration)));
+\end{lstlisting}
+
+Bei jedem Aufruf dieser Aktion werden diese beiden Funktionen einer Art Aktionsschleife hinzugefügt. Je länger diese Schleife wuchs, desto geringer wurde der prozentuale Anteil der Animationsdauer (Duration), daher verschnellerte sich bei jedem Klick die Rahmenanimation des Ein- und Ausblendens. Aus diesem Grund musste diese Aktionsschleife vor jedem Aufruf zuerst geleert werden:
+
+\begin{lstlisting}
+glowBorder.getActions().clear();
+\end{lstlisting}
+
+Diese Methode wird auch für das Beenden der Animation verwendet. Dieser Fall tritt immer dann ein wenn der Spieler aktuell keine BattleCard aktiviert hat, also wenn er entweder eine Karte abgelegt oder sie durch Klicken auf das Spielfeld unselektiert hat.
+Das Beenden der Animation lässt den Rahmen jedoch nicht verschwinden, sondern fügt ihn in seiner aktuellen Transparenz, die zwischen Eins (fadeIn) und Null (fadeOut) variiert, der Stage hinzu. Für das endgültige Beenden der visuellen Rückmeldung muss die Transparenz der Assets wieder auf Null gesetzt werden:
+
+\begin{lstlisting}
+glowBorder.setColor(1,1,1,0);
+\end{lstlisting}
+
+\subsubsection{Klickanimation der Buttons}
+Für die visuelle Bestätigung der Durchführung eines Klicks wurden die Spielefeldbuttons um ein Asset erweitert. Der Aufruf des ImageButton-Konstruktors mit zwei Parametern, imageUp und imageDown, ermöglicht es die Buttongrafiken während eines Mausklicks, als auch nach dieser Aktion, zu setzen. Das neu hinzugefügte Asset beinhaltet die Buttongrafik in einer schwächeren Belichtung:
+
+\begin{lstlisting}
+final Texture     BUTTON_RED_DOWN = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall_down.png");
+final ImageButton RED_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)), new TextureRegionDrawable(new TextureRegion(BUTTON_RED_DOWN)));
+\end{lstlisting}
+
+\subsubsection{Deselektion der BattleCard}
+Selektiert der Player eine Handkarte und entscheidet sich daraufhin um, weil er lieber eine oder mehrere andere Aktionen durchführen möchte, wird der Buffer der letzten geklickten Karte geleert und ihre Aktivierung damit aufgehoben. Generell geschieht dies bei jedem Mausklick außerhalb einer BattleCard.
+Benötigt wird hier also eine Abfrage, ob sich auf geklickter Position ein Actor befindet, der wiederum von einer BattleCard gehalten wird.
+Mit der hit-Methode der Stage-Klasse können wir dies leicht überprüfen. Diese benötigt lediglich die Koordinaten des Mausklicks, um einen dort positionierten Actor auszugeben. Dieser wird anschließend auf seine Zugehörigkeit geprüft, die nicht der BattleCard angehören darf:
+
+\begin{lstlisting}
+if (Gdx.input.justTouched()) {
+	Stage stage = giveStage();
+	Vector2 vector = new Vector2(Gdx.input.getX(), Gdx.input.getY());
+	stage.screenToStageCoordinates(vector);
+	Actor clickedActor = stage.hit(vector.x, vector.y, true);
+	if (clickedActor != null){
+		if(!(clickedActor instanceof BattleCard)) {
+			resetLastClickedBattleCard();
+		}
+	}
+}
+\end{lstlisting}
