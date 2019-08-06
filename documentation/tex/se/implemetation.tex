@@ -1166,3 +1166,6 @@ public ArrayList<BattleCard> giveCards()
    return new ArrayList<BattleCard>(CARDS);
 }
 \end{lstlisting}
+
+\subsubsection{Laden und Speichern von Decks}
+Ursprünglich war angedacht, dass ein Deckeditor umgesetzt werden soll. Dieser sollte dem Spieler ermöglichen, ein Karten-Deck nach seinen Wünschen zu gestalten, zu speichern und zu laden.  Als die Logik für das Feature "Effekte" jedoch vorerst nicht in das Gesamtprojekt eingefügt wurde, gab es nichts, anhand dessen sich die verschiedenen Kreaturen, Quartiere und Phenomene differenzierten. Daher machte auch darauf aufbauend eine Deck-Building mechanik erstmal keinen Sinn mehr. Trotz dessen wurde von Sebastian Beck eine einfache User-Klasse und ein SaveGameHandler implementiert. Die User-Klasse hielt die einzelnen Decks, während der SaveGameHandler als Utitlity-Klasse das Laden und Speichern zumindest backendseitig in ein Txt-File durchführte.
