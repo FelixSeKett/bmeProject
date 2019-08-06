@@ -75,6 +75,34 @@ Der Trailer muss den Zuschauer in die Unterwasserwelt von EDWARDS BIOTOPE eintau
 
 Letztendlich wurde sich nicht für eines der Storyboards entschieden, sondern es wurden die verschiedenen Umsetzungen miteinander kombiniert. Dies ergab schließlich die Vorgabe für unseren Trailer, der dann von Robert und Pia umgesetzt wurde.
 
+In unserem Gameplay-Trailer sollte der grobe Spielablauf dargestellt werden. Als Programm wurde Adobe After Effects CC verwendet.
+Wie bereits Eingangs beschrieben, wurden für das Video mehrere Storyboards angefertigt. Hierzu ein Auszug in Abbildung \ref{Storyboard: Spielfeld}
+
+\begin{figure}[h]
+\centering
+ \subfloat[Storyboard: Spielfeld 1]{{\includegraphics[width=4cm]{../img/storyboards/storyboard_1.JPG} }}
+\qquad
+ \subfloat[Storyboard: Spielfeld 2]{{\includegraphics[width=4cm]{../img/storyboards/storyboard_2.JPG} }}
+\qquad
+ \subfloat[Storyboard: Spielfeld 3]{{\includegraphics[width=4cm]{../img/storyboards/storyboard_3.JPG} }}
+\caption{Storyboard: Spielfeld}%
+ \label{fig:Storyboard: Spielfeld}%
+\end{figure}
+
+Nach einiger Überlegung wurde sich auf ein Storyboard geeinigt und den Trailer in 3 Abschnitte aufgeteilt, für die jeweils eine Person zuständig war. Abschnitt 1 ist die Vorgeschichte/Intro, Abschnitt 2 die Verwandlung der Kreaturen in mutierte Monster und Abschnitt 3 Ingame-Gameplay. Hier wird die Arbeit an Abschnitt 3 beschrieben.
+
+In Abschnitt 3 soll das Gameplay des Spiels gezeigt werden und zwar so nah am Endprodukt wie möglich. Dies war nicht sehr leicht, weil manche Ideen zum Gameplay noch nicht absolut feststanden. Die Idee war es die Grundfunktionen des Gameplays zu zeigen wie z.B. Farbrad drehen, Strömungsrichtung, Zonenaktivierung und einen ausgeführten Angriff. In dieser weise könnte ein Spielzug eines Spielers aussehen und es war wichtig diesen Ablauf einzuhalten. Zum Animieren wurden hauptsächlich die original Spiele-Assets verwendet, wobei bei den Spezialeffekten und der Seitenleiste die Original-Buttons noch nicht feststanden.
+
+\begin{figure}
+\includegraphics[width=0.8\textwidth]{../img/video_spielfeld.PNG}
+\caption{Darstellung des Spielfelds im Trailer}
+\label{fig:Videodarstellung Spielfeld}
+\end{figure}
+
+In Adobe After Effects wird anhand von Keyframes animiert. AE ist ein Compositing-Tool, das in Ebenen funktioniert, anders als Nuke(Compositing-Programm), das in Nodes aufgebaut wird.
+Pro Ebene ist ein Asset eingefügt. Jedes Asset lässt sich beliebig drehen, vergrößern, transparent machen und bewegen. Diese ganzen Parameter lassen sich auch über Keyframes definieren. Keyframes sind von der Zeitleiste abhängig, d.h. an dem Zeitpunkt an dem ein Keyframe ist, müssen die eingestellten Parameter angewendet sein. Von einem Keyframe zum nächsten wird diese Änderung aber interpoliert dargestellt, wodurch eine gleichmäßige Änderung im Video zu sehen ist.
+
+Dieser Workflow ist deutlich einfacher als Gameplay aufzunehmen oder vor allem Bild für Bild selber zu bearbeiten.
 
 \subsubsection{Produktion Video Intro}
 Für einen Einstieg in die Geschichtsthematik des Spieles wurde der Betrachter mittels einer Kamerafahrt über das Meer an den eigentlichen Veranstaltungsort mitgenommen.

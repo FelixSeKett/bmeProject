@@ -1,6 +1,11 @@
 \subsection{Implementationen}
 In diesem Abschnitt sind einzeln konkrete Umsetzungen von Anforderungen aufgeführt und über Commit-IDs oder Branch-Namen weiter referenziert.
 
+\subsection{Renderer Controller Screen}
+Wie bereits im Zwischen-Bericht angeführt stellten wir nach mehreren Refactors unsere Grundlegende Architektur auf eine Art MVC-Architektur um. 
+Hierbei dienen die Spielobjekte als die jeweilgen "Models", die Renderer als "View" und die Controller als die gleichnamigen "Controller". Eine besonderheit bilden noch die "Screens" in LibGDX die die zentrale Steuerung der drei komponenten Übernehmen, sobald sie aufgerufen werden.
+Ursprüng hatten wir konzipiert, dass wir die einzelnen Screen-Controller-Renderer Konstrukte als separierte Einheiten betrachten und auch so implementieren. Während der Implementation stellte sich jedoch relativ früh heraus, dass es beispielsweise keine separaten Renderer benötigt, da diese immer nur eine Sammlung von Objekten erhielten, diese renderten und nach Veränderungen im Controller diese anzeigten. Daher lies sich dies auf einen zentralen Renderer reduzieren. Ähnlich verhielt es sich auch bei den Controllern - diese setzten wir in einer Vererbungshirarchie um. Die Screens wurden gegen einen AbstractScreen implementiert.
+
 \subsubsection{Verhinderung der Input-Auswertung}
 Für den Benutzer eines Videospiels soll die Bedienung möglichst intuitiv sein. Eine Konsequenz davon ist das so genannte „Polishing“, also der Feinschliff der Schnittstellen. Wenn etwa grafische Elemente den Spieler durch ihre Ausgestaltung durch das Spiel navigieren oder Soundeffekte auf die richtige Art und Weise Feedback geben, können schon im Vorfeld Irritationen und Fragen auf ein Minimum beschränkt werden.
 
@@ -787,6 +792,7 @@ Dadurch wird der Soundeffekt einmal mit der Lautstärke von 20 \% wiedergegeben.
 
 \subsubsection{XML befüllen}
 Um der Klasse Cards ihre Werte zuzuweisen, wird ein XML benötigt mit allen relevanten Informationen. Jede Karte benötigt eine ID, cardName, cardType, cardEffect, cardDescription und den cardIllustrationFilePath. Diese Informationen wurden für 44 Karten hinterlegt.
+Siehe hierzu den Commit:
 \begin{itemize}
 \item 1f719baad08daf434cbb0c69186e068338359ade
 \end{itemize}
@@ -807,6 +813,23 @@ Siehe im Git-Repository in den Commits:
 \item 7bcdccc49363fca3ac3529966aa51384e178c47c
 \item f634203a5dd291874886739790f981ed42f5fdc8
 \end{itemize}
+
+Die entsprechende Logik wurde von Pia Korndörfer zuerst in den Klassen Battleflied und BattleController umgesetzt. Da es sich hierbei fachlich um einen eigenen Screen handelt musste der Code hierfür in einen neuen Screen umgezogen werden. Hierfür implementierte Sebastian Beck einen entsprechenden EndOfGameScreen und einen passenden Controller und übernahm die grundsätzliche logik. Die Besonderheit bei diesem Screen ist jedoch im vergleich zu den anderen, dass dieser nicht initial mit den anderen Screens im Projekt gebaut werden kann, da er vom Spielergebnis abhängig ist. Jedoch werden gleichzeitig die einzelnen Screens und Aufrufe über die zentrale Klasse "BMEProject" gesteuert. Hierzu wurde die BMEProject-Klasse um die Methode "setEndOfGameScreen()" erweitert. Diese erwartet ein vorbereitetes Objekt der "EndOfGameScreen"-Klasse, welches bereits mit einem Booealn "isWin" beladen ist um einen Gewinn oder Verlust anzuzeigen. \\
+\textbf{BattleController:}
+\begin{lstlisting}
+if (allyCounter == 6) {
+	endOfGameScreen = new EndOfGameScreen(BME_PROJECT, this, true);
+	BME_PROJECT.setEndOfGameScreen(endOfGameScreen);
+	return true;
+}
+\end{lstlisting}
+\textbf{BMEProject:}
+\begin{lstlisting}
+public void setEndOfGameScreen(EndOfGameScreen endOfGameScreen)
+{
+	setScreen(endOfGameScreen);
+}
+\end{lstlisting}
 
 \subsubsection{Starter Deck mit drei Quartieren}
 Jeder Spieler darf in dem eigenen Deck Maximal drei Quartiere haben. Bisher wird das Kartendeck zufällig mit einem Random Number Generator generiert ohne dabei eine Obergrenze für Quartiere zu berücksichtigen. Die Quartiere in Cards\_XML haben die ID 1 bis 5 und die restlichen Kartentypen von 6 bis 44. Deshalb wurde der Random Number Generator aufgeteilt. Zunächst werden zufällig drei Zahlen von 1 bis 5 gezogen, anschließend werden 37 Zahlen zwischen 6 bis 44 gezogen. Die Kombination der Karten IDS wird beim Spielstart als Deck für den Nutzer gespeichert.
@@ -839,3 +862,307 @@ Siehe hierzu den Commit:
 \begin{itemize}
 \item 86617498da70acabe885862ce9db573342b08d6e
 \end{itemize}
+
+\subsubsection{Camera Handle für Variable Bildschirmgrößen}
+LibGDX hat schon eine vorgefertigte Camera-Klasse, die man benutzen kann. Es gibt 2 Subklassen und zwar die OrthographicCamera und PerspectiveCamera. Bei der Orthographic Camera gibt es keine Perspektive, sondern alle Längen bleiben gleich egal von welchem Winkel man sie betrachtet.
+Für unser Spiel ist eine Orthographic Camera am sinnvollsten, weil wir keine Tiefen mit 3D-Meshes im Spielfeld haben.
+Die Implementierung der Kamera übernimmt die Renderer-Klasse
+\begin{lstlisting}
+private final SpriteBatch SPRITE_BATCH;
+private Viewport viewport;
+private Camera camera;
+private Stage stage;
+Renderer(SpriteBatch spriteBatch)
+{
+   SPRITE_BATCH = spriteBatch;
+   camera = new OrthographicCamera();
+   viewport = new FitViewport(1920f, 1080f, camera);
+   camera.position.set(1920 / 2f, 1080 / 2f, 0f);
+}
+\end{lstlisting}
+Als Viewport wird ein FitViewPort gewählt mit Full-HD Auflösung. Es gibt in LibGDX verschiedene Viewports z.B. StretchViewport, FillViewport, ScreenViewport usw. , der FitViewport
+macht keine Verzerrung, d.h. Egal in welche Größe ich das Fenster skaliere, wird das Spiel nie verzerrt. Schwarze Ränder füllen die Ränder auf, falls das Format des Fensters nicht mit dem Format des Spiels zusammenpasst. Die Position der Kamera ist die Mitte des Bildschirms, also 1920/2 für X und 1080/2 für Y. In Edwards Biotope braucht es nur eine statische Kamera die auf einer Position bleibt. Im Gegensatz zu Zelda, wo sich die Kamera mit dem Spieler bewegt.
+Die Render-Klasse hat ihre eigene Render-Methode. Die Methode bekommt bei jedem Render-Durchgang die stageToRender zugewiesen, das ist die Stage BattleScreen oder Titlescreen zum Beispiel, und der Viewport wird gesetzt. Das passiert 60 mal in der Sekunde.
+\begin{lstlisting}
+void render(Stage stageToRender)
+{
+   stage = stageToRender;
+   stage.setViewport(viewport);
+   Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
+   Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+   stage.draw();
+}
+\end{lstlisting}
+
+\subsubsection{Server Kommunikation Testing mit Router und Lokal}
+Die Implementierung, dass 2 Spieler am gleichen PC mit 2 Fenstern spielen können wurde bereits in einem frühen Stadium vom Spiel umgesetzt und kann als über die Projektzeit weiter führende Aufgabe in dem jetzigen Stand des Spiels, bei dem beide Spieler am gleichen Computer und im gleichen Fenster spielen, integriert werden. Dazu benötigt es nur der richtigen Events, die geschrieben werden müssen, um die Server-Kommunikation zu ermöglichen.
+Das Testing mit einem Handelsüblichen Router ist ähnlich dem Testing an einem Computer, man muss nur einige Parameter in der Software umstellen.
+Sowie beim Multiplayer auf einem System verwenden wir IO-Sockets mit einem Node-JS-Server.
+
+Die nötige Installationen sind folgend beschrieben:
+\begin{itemize}
+\item NodeJS.org öffnen
+\item z.B v10.14.2 LTS Downloaden
+\item NodeJS installieren
+\item Auf Mac: Terminal öffnen und „node —version“ eingeben. Wenn v10.14.2 als Antwort kommt
+war die Installation erfolgreich, falls nicht ist es höchstwahrscheinlich, dass der Computer den
+Pfad zu NodeJS nicht kennt
+\item Server starten: Im Terminal „node index.js“ eingeben. Hierfür muss man zum Verzeichnis
+wechseln wo index.js abgespeichert ist. Im Projektverzeichnis liegt dieses unter: bmeproject/game/bmeProject/MultiplayerDemo/Server
+Note: index.js ist eine selbsterstellte Javaskript-Datei in die den Server definiert(dessen Events usw.)
+\end{itemize}
+Um Lauffähigkeit herzustellen muss ggf. lokal noch Socket.io installiert werden. Eine ausführliche Anleitung hierfür befindet sich im Anhang. 
+
+Da es zum Testing keinen extra Server gab, wird ein PC, der das Spiel ausführt, zum Server gemacht. Das nennt sich Hosting und wird in Online-Spielen oft verwendet. Ein PC hat in seiner connectSocket die Localhost-Adresse eingetragen von sich selbst. Der andere PC hat die IP dieses PCs im Lokalen Netzwerk in seiner connectSocket()-Methode eingetragen. Diese IP ist beispielsweise 192.168.0.7. Beide Computer werden vorher mit dem Router verbunden per LAN-Kabel für optimale Geschwindigkeit.
+
+\subsubsection{Zerstören von Karten}
+Die Karten, die auf dem Spielfeld vom Gegner besiegt werden, müssen auf dem Friedhof landen, wenn es sich um Kreaturen oder Phänomene handelt. Quartiere werden nicht auf dem Friedhof abgelegt, sondern eingenommen vom Gegner. Die Kreaturen-Klasse und die Phänomenen-Klasse haben die gleiche getDestroyed()-Methode implementiert.
+
+\begin{lstlisting}
+@Override public void getDestroyed()
+{
+   BMEProject.destroySound1.play(0.5f);
+   Field graveyard = PLAYER.giveGraveyard();
+   graveyard.addBattleCard(this);
+}
+\end{lstlisting}
+
+In dieser Methode wird dem Graveyard die BattleCard hinzugefügt mit dem Aufruf von addBattleCard(this). Außerdem wird für die Spielästhetik ein Sound abgespielt.
+Da jeder Spieler seinen eigenen Friedhof hat, muss dieser erst abgefragt werden mit PLAYER.giveGraveyard(). Im Spiel ist der Graveyard ein Field, das einem Spieler zugeweisen ist. Die giveGraveyard()-Methode von Player gibt das Field aus einer Liste zurück, das für den Friedhof dieses Spielers steht. Alle Fields vom Spielfeld sind in einer Liste vorhanden und jedes Feld kann addressiert werden.
+
+\begin{lstlisting}
+public Field giveGraveyard()
+{
+   return FIELDS.get(2);
+}
+\end{lstlisting}
+
+Zu der Methode addBattleCard() ist die Beschreibung etwas umfangreicher. Es hört sich einfach an was die Methode macht, dennoch muss man einige Abfragen machen.
+Man hat ein currentField und einen FIELD\_USER. Man muss durch die Klassenhierarchie durchgehen. Man fragt den FIELD\_USER auf welchem Feld die mitgebene BattleCard sich befindet. Es kann auch sein, dass die BattleCard sich noch auf keinem Feld befindet. In den meisten Fällen ist das jedoch nicht so. Wenn das currentField also nicht null ist, wird die BattleCard von ihrem jetzigen Field entfernt mit removeCard(battleCardToAdd). Neben dieser Prüfung ist es auch wichtig nach der Existenz der Karte zu schauen. Wenn die Karte existiert wird sie der Liste CARDS hinzugefügt.
+
+\begin{lstlisting}
+public void addBattleCard(BattleCard battleCardToAdd)
+{
+   Field currentField = FIELD_USER.giveBattleController().giveCurrentFieldOfBattleCard(battleCardToAdd);
+   if (currentField != null) {
+      currentField.removeCard(battleCardToAdd);
+   }
+   if (battleCardToAdd != null) {
+      CARDS.add(battleCardToAdd);
+   }
+   update();
+}
+\end{lstlisting}
+
+Für die getDestroyed()-Methode des Quartiers müssen andere Abfragen und Befehle ausgeführt werden, deswegen ist diese Methode anders als die Kreatur- und Phänomen-Methode. Am Rande sei erwähnt, dass der Sound auch ein anderer ist und in deutlich niedrigerer Lautstärke.
+Quatiere haben einen Kommandeur(commander). Der commander ist der Spieler, der das Quartier gerade kontrolliert. In der Methode wird dem commander der Gegenspieler des derzeitigen commanders vom Quartier zugewiesen. In dieser Methode wird auch ein currentField angelegt.
+Dies dient dazu das currentField zu updaten.
+
+\begin{lstlisting}
+@Override public void getDestroyed()
+{
+   BMEProject.destroySound2.play(0.1f);
+   commander = PLAYER.BATTLE_CONTROLLER.giveOppositePlayerOf(commander);
+   Field currentField = giveCurrentField();
+   if (currentField != null) {
+      currentField.update();
+   }
+   PLAYER.BATTLE_CONTROLLER.checkForWin();
+}
+\end{lstlisting}
+
+\subsubsection{Handhabe aktive Spieler}
+Der BattleController ist verantwortlich für den Spielablauf während eines Tuniers von 2 Spielern. Der BattleController muss wissen welcher Spieler am Zug ist, damit er die Methoden beim richtigen Spieler ausführt. Zum Beispiel wäre es schlecht, wenn der BattleController beim Beginn eines Zuges von einem Spieler für den Gegenspieler die Methode drawTopCard() ausruft anstatt des derzeitigen aktiven Spieler. Bei diesem Fall würde der BattleController dem gerade nicht am Zug befindlichen Spieler eine neue Karte auf die Hand geben. Dies würde einen flüssigen Spielablauf so gut wie unmöglich machen, deswegen braucht man eine Instanz für den aktiven Spieler.
+
+\begin{lstlisting}
+private Player activePlayer;
+\end{lstlisting}
+
+Bei unserem Spiel gibt es genau 2 Spieler. Beide Spieler haben eine Nummer und zwar Spieler 1 und Spieler 2. Am Anfang von einem Spiel soll Spieler 1 der aktive Spieler sein.
+
+\begin{lstlisting}
+PLAYER_1 = new Player(this, Party.ALLY);
+PLAYER_2 = new Player(this, Party.ENEMY);
+activePlayer = PLAYER_1;
+activePlayer.beginTurn();
+\end{lstlisting}
+
+Wer Spieler 1 und wer Spieler 2 ist, ist durch die Aufteilung des Spielfeldes festgelegt. Der Spieler der seine Hand auf der unteren Hälfte des Bildschirmes hat, ist der Spieler 1. Spieler 2 ist dementsprechend der Spieler auf der oberen Hälfte.
+
+\begin{figure}[h]
+\includegraphics[width=1\textwidth]{../img/screenshot_spielfeldeinteilung.PNG}
+\caption{Screenshot: Spielfeld mit Spielerbereichen}
+\label{fig:Screenshot Spielfeld Spielerbereiche}
+\end{figure}
+
+Jetzt funktioniert es, dass die Methoden vom activePlayer, der Spieler 1 ist, aufgerufen wird. Wenn Spieler 1 seinen Zug beendet ist er dennoch activePlayer, aber dies ist ja nicht was wir wollen. Wir brauchen eine neue Methode die den aktiven Spieler von Spieler 1 zu Spieler 2 ändert und auch in anderer Richtung.
+
+Diese Methode muss den activePlayer kennen und diesen neu zuweisen. ActivePlayer soll also Spieler 2 zugewiesen werden.
+
+Den activePlayer kennt die Methode, weil activePlayer eine Instanz-Variable ist. Dennoch besteht das Problem, dass man nicht einfach Spieler 2 dem activePlayer zuweisen kann. So funktioniert die Methode nur in eine Richtung und nicht rückwärts. Es wird eine weitere Methode benötig, die den gerade nicht aktiven Spieler ausgibt, also den Gegenspieler. GiveOppositePlayerOf(Player player) wäre so eine Methode.
+
+\begin{lstlisting}
+public Player giveOppositePlayerOf(Player player)
+{
+   if (player == PLAYER_1) {
+      return PLAYER_2;
+   } else {
+      return PLAYER_1;
+   }
+}
+\end{lstlisting}
+
+Die Abfrage ist recht trivial. Man gibt der Methode den activePlayer mit. Wenn der activePlayer Player 1 ist, wird der Player 2 zurückgegeben. Beim umgedrehten Fall wird Spieler 1 zurückgegeben. Nun können wir dahin zurück den activePlayer neu zuzuweisen. Die Methode changeActivePlayer() macht genau dies in Kombination mit getOppositePlayer(Player player).
+
+\begin{lstlisting}
+public void changeActivePlayer()
+{
+   resetLastClickedBattleCard();
+   Zone.RED.deactivate();
+   Zone.GREEN.deactivate();
+   Zone.BLUE.deactivate();
+   setTurnUnstarted();
+   BUTTON_VIEW.fadeInZoneButtons();
+   Player nextPlayer = giveOppositePlayerOf(activePlayer);
+   nextPlayer.beginTurn();
+   activePlayer = nextPlayer;
+   updateAllFields();
+   showActivePlayerMessage();
+}
+\end{lstlisting}
+
+In der Methode wird eine neue Variable nextPlayer angelegt. Dieser wird der return-Wert von giveOppositePlayerOf(activePlayer) zugewiesen. Dem activePlayer wird dann nurnoch der nextPlayer-Wert zugewiesen und schon ist das Problem gelöst.
+Neben dem Opposite Player kann man natürlich auch den activePlayer, falls er gebraucht wird, ausgeben lassen.
+
+\begin{lstlisting}
+public Player giveActivePlayer()
+{
+   return activePlayer;
+}
+\end{lstlisting}
+
+Wenn ein Spieler am Zug ist, müssen auch seine eigenen Sektoren aktiviert werden und die vom Gegener deaktiviert, damit er nur auf seine eigenen Sektoren Karten legen kann. Dafür benötigt man auch den activePlayer und man geht bei ALLY von Spieler 1 aus und bei ENEMY von Spieler 2.
+
+\begin{lstlisting}
+public void activateSectorOfPlayer(Party party){
+   for (Sector s : BATTLEFIELD.giveSectors()) {
+      if (s.giveCommander().PARTY == party) {
+         s.giveEntryField().showBorder();
+      } else {
+         s.giveEntryField().hideBorder();
+      }
+   }
+}
+\end{lstlisting}
+
+\subsubsection{Felder}
+Unser Spielfeld ist in 6 Sektoren aufgeteilt. Jeder Sektor hat 4 Fields auf denen jeweils eine Karte abgelegt werden kann. Das Field muss wissen ob eine Karte auf ihr liegt oder ob sie frei ist. Das Field an sich hat X- und Y-Koordinaten sowie eine Breite und eine Höhe. Eine Karte wird in einem sogenannten Pile innerhalb des Fields abgelegt. Ein Field kann prinzipiell beliebig viele Piles haben, aber in unserem Spiel hat jedes Field ein Pile. Ein Pile hat einen eigen X- und Y-Offset innerhalb des Fields. Die Karten können einen Offset zum Ursprung des Piles haben in dem sie ablegt werden.
+Zur Erläuterung ein Pile ist keine eigene Klasse, sondern die Parameter PILE\_X und PILE\_Y legen
+einen Orientierungspunkt im Field für die Karten fest.
+
+\begin{figure}[h]
+\includegraphics[width=1\textwidth]{../img/bild_fields.JPG}
+\caption{Zeichnung: Fields}
+\label{fig:Zeichung Fields}
+\end{figure}
+
+Jedes Field hat auch ein Kartenlimit, bei fast allen ist dieses 1. Nur beim Deck gibt es ein Limit von 40 Karten pro Field.
+Im Field ist eine Update-Methode implementiert, die die Karten neu ordnet wenn eine Karte aus einem Field genommen wird. Die Methode macht logisch folgendes, die Methode itteriert durch die Karten des Piles durch, sie gibt jeder BattleCard ihre X- und Y-Werte neu bei jedem Update. So werden die Karten immer neu geordnet, wenn eine Karte zum Field hinzugefügt wird oder entfernt wird. Die Karten rücken also auf, damit keine Lücke entsteht.
+Es gibt noch einige weitere Methoden in der Field-Klasse, diese werden folgend beschrieben.
+
+\textbf{UpdateReadabilityOfBattleCard}
+Diese Methode ruft die Methode getUncovered() von der BattleCard auf. Auf einem physikalischen Kartenspiel wäre das das Umdrehen der Karte von Rückseite auf Vorderseite. Wenn eine Karte z.B. auf dem Stapel liegt, ist diese umgedreht und nur die Rückseite der Karte ist sichtbar, welches die gleiche Textur bei allen Karten ist. Die getUncovered-Methode ändert die Textur der BattleCard von der Rücksteite-Textur zur Vorderseite Textur und ist jetzt sichtbar für den Spieler.
+
+\begin{lstlisting}
+protected void updateReadabilityOfBattleCard(BattleCard battleCard)
+{
+   battleCard.getUncovered();
+}
+\end{lstlisting}
+
+\textbf{AddBattleCard}
+Wie der Name schon sagt, wird hier eine Karte dem Field hinzugefügt. Unter der Haube passiert dennoch deutlich mehr. Es wird abgefragt, ob die Karte derzeit auf einem anderen Field liegt. Falls ja wird die Karte von diesem Field erst einmal entfernt. Außerdem wird die Existenz der Karte mit einer if-not-null-Kontrolle überprüft. Die Update-Methode wird am Ende aufgerufen.
+
+\begin{lstlisting}
+public void addBattleCard(BattleCard battleCardToAdd)
+{
+   Field currentField = FIELD_USER.giveBattleController().giveCurrentFieldOfBattleCard(battleCardToAdd);
+   if (currentField != null) {
+      currentField.removeCard(battleCardToAdd);
+   }
+   if (battleCardToAdd != null) {
+      CARDS.add(battleCardToAdd);
+   }
+   update();
+}
+\end{lstlisting}
+
+\textbf{AddBattleCards}
+Man kann nicht nur einzelne Karten hinzufügen, sondern auch ArrayListen von Karten. Hier wird auch eine Abfrage gemacht, falls eine Karte schon auf einem anderen Feld ist, diese erst von diesem Feld zu entfernen. Für jede BattleCard von der ArrayList an Karten wird diese Abfrage gemacht und dann dem Field hinzugefügt.
+
+\begin{lstlisting}
+public void addBattleCards(ArrayList<BattleCard> battleCardsToAdd)
+{
+   for (BattleCard battleCard : battleCardsToAdd) {
+      Field currentField = FIELD_USER.giveBattleController().giveCurrentFieldOfBattleCard(battleCard);
+      if (currentField != null) {
+         currentField.removeCard(battleCard);
+      }
+      CARDS.add(battleCard);
+   }
+   update();
+}
+\end{lstlisting}
+
+\textbf{removeCard}
+Von der ArrayList CARDS wird die BattleCard entfernt die als Parameter übergeben wird.
+
+\begin{lstlisting}
+private void removeCard(BattleCard cardToRemove)
+{
+   CARDS.remove(cardToRemove);
+   update();
+}
+\end{lstlisting}
+
+\textbf{PullCard}
+Eine Karte wird anhand von ihrem index aus der ArrayList entfernt und dann zurückgegeben. Es gibt noch die Methode pullTopCard(), bei der der Index der Karte, die entfernt wird, einfach die ArrayList-Größe -1 ist. -1 weil Indices von 0 gezählt werden.
+
+\begin{lstlisting}
+public BattleCard pullCard(int index)
+{
+   if (CARDS.size() > 0 && CARDS.size() >= index && index >= 0) {
+      BattleCard card = CARDS.get(index);
+      removeCard(card);
+      return card;
+   } else {
+      return null;
+   }
+}
+public BattleCard pullTopCard()
+{
+   return pullCard(CARDS.size() - 1);
+}
+\end{lstlisting}
+
+Es gibt noch 2 weitere Methoden und zwar shuffle(), die die ArrayList CARDS durchmischt und getPileSize(), die die Größe der CARDS ArrayList zurückgibt.
+
+\begin{lstlisting}
+public void shuffle()
+{
+   Collections.shuffle(CARDS);
+}
+public int getPileSize()
+{
+   return CARDS.size();
+}
+\end{lstlisting}
+
+Am Anfang von jedem Spiel soll jedem Spieler Karten gegeben werden dies übernimmt giveCards().
+
+\begin{lstlisting}
+public ArrayList<BattleCard> giveCards()
+{
+   return new ArrayList<BattleCard>(CARDS);
+}
+\end{lstlisting}
