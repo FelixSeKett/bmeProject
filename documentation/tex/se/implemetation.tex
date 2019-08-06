@@ -1169,3 +1169,27 @@ public ArrayList<BattleCard> giveCards()
 
 \subsubsection{Laden und Speichern von Decks}
 Ursprünglich war angedacht, dass ein Deckeditor umgesetzt werden soll. Dieser sollte dem Spieler ermöglichen, ein Karten-Deck nach seinen Wünschen zu gestalten, zu speichern und zu laden.  Als die Logik für das Feature "Effekte" jedoch vorerst nicht in das Gesamtprojekt eingefügt wurde, gab es nichts, anhand dessen sich die verschiedenen Kreaturen, Quartiere und Phenomene differenzierten. Daher machte auch darauf aufbauend eine Deck-Building mechanik erstmal keinen Sinn mehr. Trotz dessen wurde von Sebastian Beck eine einfache User-Klasse und ein SaveGameHandler implementiert. Die User-Klasse hielt die einzelnen Decks, während der SaveGameHandler als Utitlity-Klasse das Laden und Speichern zumindest backendseitig in ein Txt-File durchführte.
+
+Zentral hierbei war entsprechend die Klasse "SaveGameHandler", welche sich auch im aktuellen Develop-Stand findet, jedoch nicht verwendet wird. 
+Sie besteht aus einer File-Reader / File-Writer Logik, die in den Funktionen "saveGame" und "loadGame" umgesetzt sind. 
+\begin{lstlisting}
+	public void saveGame(User user)
+	{
+		File   file    = new File("savegame.txt");
+		String cardIds = getCardIds(user);
+
+		try {
+			file.createNewFile();
+			FileWriter writer = new FileWriter(file);
+			writer.write(user.getName() + ";");
+			writer.write(cardIds);
+
+			writer.flush();
+			writer.close();
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+\end{lstlisting}
+Die Funktion erwartet ein User-Objekt um die entsprechend erstellten Decks hieraus auszulesen (über "getCardIds" werden die einzelnen Ids ermittelt) und diese samt dem User-Name in "savegame.txt" zu speichern.  Die Funktion "loadGame" baut dies wieder zurück in ein Deck-Objekt. Ein letzter Schritt, dieses Deck dem User wieder zuzuführen ist noch nicht ausimplementiert, jedoch nach aktuellem Entwicklungsstand auch nicht in Nutzung. 
