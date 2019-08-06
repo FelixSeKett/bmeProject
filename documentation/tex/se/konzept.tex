@@ -22,7 +22,6 @@ Damit strukturierte sich der Prozess nun neu, wie folgt:
 \item Implementation des jeweliligen Branches anhand der Anforderung die entweder im Glo-Board, Teammeeting oder beim Coding-Treffen definiert wurde
 \item Erstellen eines Pull-Requests mit Reviewer Sebastian Beck oder Philadelphia Gaus 
 \end{itemize}
-
 Ab hier begann der Review-Prozess, der sich wie folgt gliederte:
 \begin{itemize}
 \item Checktout des jeweiligen Branches
@@ -33,7 +32,20 @@ Ab hier begann der Review-Prozess, der sich wie folgt gliederte:
 \item Erneute Prüfung der Lauffähigkeit
 \item Abschließender Merge nach Develop
 \end{itemize}
-
-Gerade nach der Korrektur von Merge-Konflikten fiel, vorallem bei komplexen Änderungen, immer wieder auf, dass der mitglieferte Diff-Editor von Gitkraken sich nicht immer intuitiv verhielt. Das führte dazu, dass z. T. Methoden automatisiert oder unabsichtlich ineinander verschoben wurden oder nach dem Merge fehlten. Daraufhin führten wir vorallem bei umfangreichen Änderungen mit ein, dass der Stand nach Konfliktbehebung mittels dem Tool "Meld" erneut mit dem zu mergenden Stand abgeglichen wurde. Meld ermöglicht es relativ einfach komplette Verzeichnisse miteinander zu vergleichen und auf Unterschiede zu untersuchen. Damit konnten wir fehlenden Code oder fehlende Änderungen weitestgehend auszuschließen. Hierfür musste das Repository lediglich ein zweites mal in ein weiteres Verzeichnis ausgecheckt werden um die beiden Branches über Meld miteinander zu vergleichen. Im diesem Zuge wurde kurz auch das Tool "xxdiff" betrachtet, Meld wurde jedoch abschließend aufgrund seines einfachen UI bevorzugt. 
-
+Gerade nach der Korrektur von Merge-Konflikten fiel, vorallem bei komplexen Änderungen, immer wieder auf, dass der mitglieferte Diff-Editor von Gitkraken sich nicht immer intuitiv verhielt. Das führte dazu, dass z. T. Methoden automatisiert oder unabsichtlich ineinander verschoben wurden oder nach dem Merge fehlten. Daraufhin führten wir vorallem bei umfangreichen Änderungen mit ein, dass der Stand nach Konfliktbehebung mittels dem Tool "Meld" \cite{Meld} erneut mit dem zu mergenden Stand abgeglichen wurde. Meld ermöglicht es relativ einfach komplette Verzeichnisse miteinander zu vergleichen und auf Unterschiede zu untersuchen. Damit konnten wir fehlenden Code oder fehlende Änderungen weitestgehend auszuschließen. Hierfür musste das Repository lediglich ein zweites mal in ein weiteres Verzeichnis ausgecheckt werden um die beiden Branches über Meld miteinander zu vergleichen. Im diesem Zuge wurde kurz auch das Tool "xxdiff" betrachtet, Meld wurde jedoch abschließend aufgrund seines einfachen UI bevorzugt. \\
 Das beseitigen der Konflikte erfolgte in der Regel über einen Merge des aktuellen Develop-Stands in den jeweilgen Feature-Branch. Anhand dessen wurden die nötigen Korrekturen vorgenommen um die Lauffähigkeit wieder herzustellen. Der neue Stand des Features-Branches konnte nun zurück nach Develop gemerged werden. 
+
+\subsubsection{Ermittlung von Anforderungen}
+Im Projektverlauf wurde immer wieder klar, dass gewisse Features zu viel Zeit kosten würden um diese umzusetzen, jedoch nicht zu den Kernmechaniken unseres Spiels beitragen würden.
+Auf Basis dessen erstellte Robert Sabo ein Umfangreiches Dokument, welches mit bildern Illustrierte Spielzüge und kurze Texte hierzu auswies. Hierbei handelte es sich um die eben notwendigen Funktionalitäten um unser Spiel spielbar zu machen. Sebastian Beck übernahm in dem Zuge die Aufgabe, die einzelnen Spielschritte zu überprüfen und dabei Objekte, Aktionen und Attribute zu analysieren um eine Basis für die Planung der nächsten Features zu schaffen.
+
+Hier ein exemplarischer Auszug für das Objekt Spieler:
+\begin{itemize}
+\item Spieler legt Karte auf das Feld.
+\item Spieler zieht Karten von seinem Deck.
+\item Spielder beendet die Runde.
+\item Spieler legt Karte auf ein Eintrittsfeld eines Quartiers auf dem Feld.
+\item Spieler aktiviert Farbzone des Farbrads
+\end{itemize}
+
+Hieraus lassen sich weitere Objekte wie z. B. "Karte" oder "Feld" identifizieren und weiterentwickeln. Das entsprechende Dokument befindet sich im Anhang "Anforderungen\_Präsentation.docx".

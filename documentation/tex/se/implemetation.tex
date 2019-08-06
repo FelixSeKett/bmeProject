@@ -2,19 +2,15 @@
 In diesem Abschnitt sind einzeln konkrete Umsetzungen von Anforderungen aufgeführt und über Commit-IDs oder Branch-Namen weiter referenziert.
 
 \subsection{Renderer Controller Screen}
-Wie bereits im Zwischen-Bericht angeführt stellten wir nach mehreren Refactors unsere Grundlegende Architektur auf eine Art MVC-Architektur um. 
+Wie bereits im Zwischen-Bericht angeführt stellten wir nach mehreren Refactors unsere Grundlegende Architektur auf eine Art MVC-Architektur \cite{Design Patterns}(S. 30 ff) um. 
 Hierbei dienen die Spielobjekte als die jeweilgen "Models", die Renderer als "View" und die Controller als die gleichnamigen "Controller". Eine besonderheit bilden noch die "Screens" in LibGDX die die zentrale Steuerung der drei komponenten Übernehmen, sobald sie aufgerufen werden.
 Ursprüng hatten wir konzipiert, dass wir die einzelnen Screen-Controller-Renderer Konstrukte als separierte Einheiten betrachten und auch so implementieren. Während der Implementation stellte sich jedoch relativ früh heraus, dass es beispielsweise keine separaten Renderer benötigt, da diese immer nur eine Sammlung von Objekten erhielten, diese renderten und nach Veränderungen im Controller diese anzeigten. Daher lies sich dies auf einen zentralen Renderer reduzieren. Ähnlich verhielt es sich auch bei den Controllern - diese setzten wir in einer Vererbungshirarchie um. Die Screens wurden gegen einen AbstractScreen implementiert.
 
 \subsubsection{Verhinderung der Input-Auswertung}
 Für den Benutzer eines Videospiels soll die Bedienung möglichst intuitiv sein. Eine Konsequenz davon ist das so genannte „Polishing“, also der Feinschliff der Schnittstellen. Wenn etwa grafische Elemente den Spieler durch ihre Ausgestaltung durch das Spiel navigieren oder Soundeffekte auf die richtige Art und Weise Feedback geben, können schon im Vorfeld Irritationen und Fragen auf ein Minimum beschränkt werden.
-
 So verhält es sich auch mit der Nutzereingabe in Form von Mausklicks. Daher muss gewährleistet werden, dass die theoretische Möglichkeit, zu jeder Zeit auf jeden Punkt des Bildschirms zu klicken, nicht in einen Wust aus parallelen Spielveränderungen und damit einhergehenden Objektanimationen ausartet.
-
-So implementierte Felix Baumgarten einen Schutzmechanismus für Eingabeauswertungen, der wie folgt funktioniert: Da Nutzereingaben im Rahmen des Game Loops mit jedem darzustellenden Frame erneut abgefragt und ausgewertet werden, müssen sensible Aktionsauslöser im Programmcode lediglich sicherstellen, dass zum Zeitpunkt einer Nutzereingabe keine Animationen mehr abgearbeitet werden. Dies geschieht, indem die Methode isGoodToGo() des BattleControllers aufgerufen wird. Diese leitet die Anfrage schlicht an alle Komponenten weiter, die über Instanzen der Actor-Klasse verfügen, welche wiederum im Spielverlauf animiert sein könnten. Mit der Methode hasActions() wird eine solche Actor-Instanz dann auf gegenwärtig abzuwickelnde Animationen geprüft.
-
+So implementierte Felix Baumgarten einen Schutzmechanismus für Eingabeauswertungen, der wie folgt funktioniert: Da Nutzereingaben im Rahmen des Game Loops mit jedem darzustellenden Frame erneut abgefragt und ausgewertet werden, müssen sensible Aktionsauslöser im Programmcode lediglich sicherstellen, dass zum Zeitpunkt einer Nutzereingabe keine Animationen mehr abgearbeitet werden. Dies geschieht, indem die Methode isGoodToGo() des BattleControllers aufgerufen wird. Diese leitet die Anfrage schlicht an alle Komponenten weiter, die über Instanzen der Actor-Klasse verfügen, welche wiederum im Spielverlauf animiert sein könnten. Mit der Methode hasActions() wird eine solche Actor-Instanz dann auf gegenwärtig abzuwickelnde Animationen geprüft. \\
 Prüfung der BattleController-Klasse:
- 
 \begin{lstlisting}
 public boolean isGoodToGo()
 {
@@ -36,7 +32,6 @@ public boolean isGoodToGo()
    return true;
 }
 \end{lstlisting}
-
 Gibt es keine Actions (also Animationen), gibt die Methode isGoodToGo() den Wert „true“ zurück und lässt somit die Auswertung der Nutzereingabe zu. Dieses Verfahren äußert sich im Spielgeschehen etwa darin, dass der Spieler mit dem Klick auf Karten, Felder oder Buttons stets warten muss, bis beispielsweise zuvor geklickte Karten über den Bildschirm geflogen sind.
 Diese Vorgehensweise birgt die Gefahr, dass erfahrene Spieler in ihrem Spielfluss ausgebremst werden, weswegen es wichtig ist, Animationen in einem zeitlichen Kompromiss aus Zügigkeit und Erkennbarkeit abzuwickeln.
 
@@ -45,7 +40,6 @@ Das Spielkonzept sieht vor, dass Karten in bestimmten Positionen nur von bestimm
 Zu diesem Zweck hat Felix Baumgarten der „BattleCard“-Klasse zusätzlich zu ihrer individuellen Vorderseitentextur eine statische Rückseitentextur hinzugefügt, die für jede Instanz die gleiche sein wird. Außerdem verfügt jede „BattleCard“-Instanz über eine „Sprite“-Instanz, die dazu verwendet wird, im Rahmen des Game Loops eine beliebige Textur auf den Bildschirm zu zeichnen. Nun kann auf Kommando zwischen Vorder- und Rückseitentextur gewechselt werden.
 Indikator dafür, welche Textur der Sprite zeichnen soll, ist die „Field“-Klasse bzw. ihre zahlreichen Erweiterungen. Deren update-Methode weist den BattleCards nicht nur Positionen und Rotationen zu, sondern kommunizieren ihr auch, auf welche Textur ihr Sprite zugreifen soll.
 Die Anzeigelogik für eine Karte, die Spieler 1 kommandiert, während er am Zug ist, lautet wie folgt:
-\\
 \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4.5cm}| l | c | c | r |}
 \hline
  & \textbf{Spieler 1}  & \textbf{Spieler 2} & \textbf{Bedeutung} \\ \hline
@@ -54,7 +48,6 @@ Die Anzeigelogik für eine Karte, die Spieler 1 kommandiert, während er am Zug 
 \textbf{HandField von Spieler 1} & Vorderseite & Rückseite & Die Karte befindet sich auf der Hand von Spieler 1 – Spieler 1 hat Einischt in die Karte, Spieler 2 jedoch nicht \\
 \hline
 \end{tabular}
-\\ \\
 Beispielsweise überschreibt die „HandField“-Klasse die Methode updateReadabilityOfBattleCard() ihrer Super-Klasse „Field“, die im Rahmen der update()-Methode aufgerufen wird, daher wie folgt:
 
 \begin{lstlisting}
@@ -71,8 +64,8 @@ Beispielsweise überschreibt die „HandField“-Klasse die Methode updateReadab
 
 \subsubsection{Spielobjekte}
 Als Schöpfer der zu Grunde liegenden Spielmechanik übernahmen Robert Sabo und Felix Baumgarten die Implementierung der wichtigsten Spielobjekte, die im weiteren Programmierverlauf bei Bedarf mit Methoden angereichert werden konnten.
-Die BattleController-Instanz dient dabei als Knotenpunkt für alle beteiligten Objekte. Sie hält ein Battlefield – den kreisförmigen Bereich für ausgespielte Karten, analog: Spieltisch – sowie zwei Player-Instanzen, die die beiden Spielteilnehmer repräsentieren. Außerdem verwaltet Sie die linke und rechte Seitenspalte jeweils in einer DetailView-Instanz und einer ButtonView-Instanz. Diese Komponenten werden während der Laufzeit nicht mehr verändert und sind daher Konstanten. Einzig der aktive Spiele, die zuletzt angeklickte Karte und ein Token für einen gestarteten Spielzug werden als Variablen gespeichert.
-\\
+Die BattleController-Instanz dient dabei als Knotenpunkt für alle beteiligten Objekte. Sie hält ein Battlefield – den kreisförmigen Bereich für ausgespielte Karten, analog: Spieltisch – sowie zwei Player-Instanzen, die die beiden Spielteilnehmer repräsentieren. Außerdem verwaltet Sie die linke und rechte Seitenspalte jeweils in einer DetailView-Instanz und einer ButtonView-Instanz. Diese Komponenten werden während der Laufzeit nicht mehr verändert und sind daher Konstanten. Einzig der aktive Spiele, die zuletzt angeklickte Karte und ein Token für einen gestarteten Spielzug werden als Variablen gespeichert.\\
+
 \textbf{BattleController}
 \begin{lstlisting}[frame=single]
 private BME_PROJECT: BMEProject 
@@ -85,18 +78,15 @@ private activePlayer: Player \\
 private started: boolean \\
 private lastClickedBattleCard: BattleCard \\
 \end{lstlisting}
+Das Schlachtfeld beschreibt die kreisrunde Feldformation zwischen beiden Spielteilnehmern, auf der im Laufe des Spieles ausgespielte Karten Platz nehmen. Es wird durch die Battlefield-Klasse repräsentiert und ist in sechs Sektoren unterteilt, die in einer konstanten ArrayList gehalten werden. Diese kennt den BattleController und instanziiert den Tiefseekompass, der sich in ihrer Mitte befindet.\\
 
-Das Schlachtfeld beschreibt die kreisrunde Feldformation zwischen beiden Spielteilnehmern, auf der im Laufe des Spieles ausgespielte Karten Platz nehmen. Es wird durch die Battlefield-Klasse repräsentiert und ist in sechs Sektoren unterteilt, die in einer konstanten ArrayList gehalten werden. Diese kennt den BattleController und instanziiert den Tiefseekompass, der sich in ihrer Mitte befindet.
-\\
 \textbf{Battlefield}
 \begin{lstlisting}[frame=single]
 public BATTLE_CONTROLLER: BattleController 
 public COMPASS: Compass
 private SECTORS: ArrayList<Sector>
 \end{lstlisting}
-
-Der Tiefseekompass ist ein Spielobjekt, das sich in der Mitte des Schlachtfeldes befindet und als Compass-Objekt von diesem instanziiert wird. Er regelt die Verteilung der drei Farbzonen auf die insgesamt sechs Sektoren des Battlefields, indem er einen Sector speichert, ab dem die Farbreihe mit Rot beginnt. Außerdem speichert er die gegenwärtige Strömungsrichtung in der Variable stream und bietet für deren Veränderungen Schnittstellen in Form von Getter- und Setter-Methoden an.
-
+Der Tiefseekompass ist ein Spielobjekt, das sich in der Mitte des Schlachtfeldes befindet und als Compass-Objekt von diesem instanziiert wird. Er regelt die Verteilung der drei Farbzonen auf die insgesamt sechs Sektoren des Battlefields, indem er einen Sector speichert, ab dem die Farbreihe mit Rot beginnt. Außerdem speichert er die gegenwärtige Strömungsrichtung in der Variable stream und bietet für deren Veränderungen Schnittstellen in Form von Getter- und Setter-Methoden an. \\
 \textbf{Compass}
 \begin{lstlisting}[frame=single]
 public BATTLEFIELD: Battlefield
@@ -104,9 +94,7 @@ public ZONE_VIEWER: ZoneViewer
 private stream: Stream
 private startSector: Sector
 \end{lstlisting}
-
 Der FieldUser ist eine kleine Klasse, die eine ArrayList mit Fields bereitstellt. Er fasst die gemeinsamen Bedürfnisse von Sector und Player zusammen und vererbt diesen Klassen daher seine Eigenschaften.
-
 \textbf{FieldUser}
 \begin{lstlisting}[frame=single]
 protected FIELDS: ArrayList<Field>
@@ -211,7 +199,7 @@ Alle Karten, die die zuvor erstellte Liste beinhaltet, werden nun der Reihe nach
 \begin{itemize}
 \item \textbf{Quartier aktivieren} \\
 Quartiere schieben Karten, die sich auf dem Eintrittsfeld des gleichen Sektors befinden, auf das in Strömungsrichtung nächstgelegene freie Feld.
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\tiny]
 @Override public void getActivated()
 {
    EntryField correspondingEntryField = giveCorrespondingEntryField();
@@ -322,7 +310,7 @@ private void initStartSector()
 
 Felix Baumgarten visualisierte das Ganze in der Klasse „ZoneViewer“. Hierbei handelt es sich um eine Erweiterung der „Actor“-Klasse, die mit ihren Positions- und Rotationsattributen sowie ihrer Fähigkeit, „Actions“ abzuwickeln (und somit animiert zu werden), die idealen Voraussetzungen dafür bietet. Der „ZoneViewer“ würde zwei Grafiken enthalten, die entsprechend der „stream“- und „startSector“-Variablen des „Compass“ positioniert und rotiert sein würden. Deren Veränderung würde stets in den update-Methoden des „ZoneViewers“ münden.
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\tiny]
 public void updateRotation()
 {
    setRotation(giveZoneViewerRotation());
@@ -353,11 +341,9 @@ Das bedeutet: Ein aktueller Wert (Koordinaten, Rotation, Größe) würde zu eine
 Zwar wurde im Wintersemester bereits an dem Titelbildschirm gearbeitet, allerdings war dies nicht der letzte Stand. Im letzten Semester war es möglich, einen TextButton beziehungsweise ImageButton anzuklicken. Der Anwender konnte somit vom Titelbildschirm zum nächsten Screen navigiert werden. 
 In diesem Semester war das Ziel die Funktionalität zu erweitern. 
 Es sollte ermöglicht werden, zwischen den Screens zu wechseln. 
-
 Auf dem Titelbildschirm gibt es nicht nur Bilder sondern auch Buttons. Diese Buttons sind anklickbar und leiten den Nutzer durch das Spiel.
 Es gibt verschiedene Arten von Buttons. Der TextButton ist zum Beispiel ein Button, womit ein Button mit einem Text erstellt wird. Zusätzlich muss die Schriftart in einem uiskin.json festgelegt und anschließend mit der Skin Methode implementiert werden. 
 Für eine Klick-Funktionalität eines Buttons wird der addListener implementiert. Zum Schluss wird die Stage gerendert. 
-
 Eine weitere Möglichkeit einen Button zu implementieren ist der ImageButton. Hier kann der Button selber designet werden. Das fertige Button Bild wird in den assets Ordner eingefügt. Der Texture Methode werden die Button Bilder in der show() Methode zugewiesen. Die Image Buttons werden in einen initionsButton() implementiert. Hier wird nun ebenfalls ein addListener benötigt. Nach einem Klick auf den Button wird dem Nutzer der TestScreen angezeigt. Da unsere Designer im Team selber Buttons erstellt hatten, fiel die Entscheidung auf die letztere Variante, nämlich auf den ImageButton. Daher wurden die drei ImageButtons „Duell starten“, „Button“ und „Einstellungen“ hinzugefügt. 
 
 \textbf{Screens implementieren} \\
@@ -396,7 +382,6 @@ Der Nutzer hat hier die Möglichkeit sein Deck zu bearbeiten oder wieder zurück
 \end{figure}
 
 In der render() Methode wird festgelegt, welcher Screen nach einem Klick auf den imageButtonBack angezeigt wird. In diesem Fall, soll das Startbildschirm erneut angezeigt werden. Nachdem mit einer If-Anweisung überprüft wird, ob der zurück Button geklickt wurde, wird das Startbildschirm angezeigt.  
-
 Schließlich wurde durch diese Implementierung ermöglicht, die Spielumgebungen durch Klicks auf die Buttons anzusteuern und zwischen den Screens zu wechseln. 
 
 \subsubsection{Imagebuttons für BattleScreen}
@@ -404,6 +389,7 @@ Anfangs wurden die Screens mit einer Hintergrundfarbe festgelegt.
 Allerdings war das nur vorübergehend. In diesem Semester erstellte Robert Sabo alles, was für den BattleScreen benötigt wurden.
 Alle Bilder, die hierfür auf diesem Screen benötigen werden, wurden zunächst einmal in den Assets- beziehungsweise Visuals-Ordner eingefügt. Das Spielfeld sah anfangs an den Seiten leer aus. Das liegt daran, das alle Buttons hinzugefügt und richtig positioniert werden mussten. Das Endergebnis ist in Abbildung \ref{fig:Screenshot: BattleScreen mit ImageButtons} zu sehen.
 \begin{figure}
+\centering
 \includegraphics[width=0.5\textwidth]{../img/screenshot_battlescreen_buttons.PNG}
 \caption{Screenshot: BattleScreen mit ImageButtons}
 \label{fig:Screenshot: BattleScreen mit ImageButtons}
@@ -448,7 +434,7 @@ Bei jedem Kartenspiel ist es wichtig, die Karte, welche aus der Hand gespielt wi
 
 Die giveLastClickedBattledCard() Methode in der BattleControler Klasse gibt die lastClickedBattleCard, mit dem Rückgabetyp BattleCard, zurück. Mit Hilfe dessen, wurde zu aller erst ermittelt, ob die selecteCard null ist. Denn nur wenn eine Karte erst ausgewählt wird, kann diese auch wieder abgelegt werden. Nach einer weiteren if-Anweisung konnte mit Hilfe der Methoden addCard() und resetLastClicketBattleCard() die Funktionalität, die Karte aus der Hand zu legen, implementiert werden. Die folgenden Zeilen ermöglichen diesen Spielzug. 
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\tiny]
 @Override public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 {
     BattleController battleController = FIELDABLE.giveBattleController();
@@ -492,9 +478,7 @@ Der Fehler lag hierbei in der Positionierung des Assets, das fälschlicherweise 
 int zCor = getZIndex() - 1;
 glowBorder.setZIndex(zCor);
 \end{lstlisting}
-
 Der zweite Schritt wird durch den Mausklick auf die BattleCard angestoßen. Hier wird vorerst durch alle sechs Sektoren durchiteriert:
-
 \begin{lstlisting}
 public void activateSectorOfPlayer(Party party){
   for (Sector s : BATTLEFIELD.giveSectors()) {
@@ -531,9 +515,10 @@ glowBorder.setColor(1,1,1,0);
 \subsubsection{Klickanimation der Buttons}
 Für die visuelle Bestätigung der Durchführung eines Klicks wurden die Spielefeldbuttons um ein Asset erweitert. Der Aufruf des ImageButton-Konstruktors mit zwei Parametern, imageUp und imageDown, ermöglicht es die Buttongrafiken während eines Mausklicks, als auch nach dieser Aktion, zu setzen. Das neu hinzugefügte Asset beinhaltet die Buttongrafik in einer schwächeren Belichtung:
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\tiny]
 final Texture     BUTTON_RED_DOWN = new Texture("core/assets/visuals/buttons/3_rotbuttonSmall_down.png");
-final ImageButton RED_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)), new TextureRegionDrawable(new TextureRegion(BUTTON_RED_DOWN)));
+final ImageButton RED_BUTTON = new ImageButton(new TextureRegionDrawable(new TextureRegion(BUTTON_RED)), 
+	new TextureRegionDrawable(new TextureRegion(BUTTON_RED_DOWN)));
 \end{lstlisting}
 
 \subsubsection{Deselektion der BattleCard}
@@ -562,7 +547,7 @@ Zum Spielfeld von EDWARDS BIOTOPE gehören Sektoren, Zonen und die darin gescheh
 
 \textbf{Sektoren}
 Das Spielfeld von EDWARDS BIOTOPE ist in sechs Sektoren aufgeteilt, die jeweils ein Quartier und drei Kreaturen und Phänomene halten können. Die im Spiel gelegten Karten werden wiederum den verschiedenen Feldern zugeordnet, die im jeweiligen Sektor angelegt sind.
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\tiny]
 public Sector(Battlefield battlefield, Vector2 field1Vector, Vector2 field2Vector, Vector2 field3Vector,
       Vector2 quarterFieldVector)
 {
@@ -574,9 +559,7 @@ public Sector(Battlefield battlefield, Vector2 field1Vector, Vector2 field2Vecto
    FIELDS.add(new EndField(this, field3Vector));
 }
 \end{lstlisting}
-
 Es wird außerdem ausgegeben, welche Sektoren vor bzw. nach dem aktuellen Sektor stehen.
-
 \begin{lstlisting}
 public Sector givePreviousSector()
 {
@@ -596,7 +579,7 @@ Siehe im Git-Repository in den Commits:
 \item a936f5cfb03662dd957ca27a2ecf8b86e4da1c9a
 \end{itemize}
 
-\textbf{Zonen}
+\textbf{Zonen}\\
 Es erstrecken sich drei verschiedenfarbige Zonen über das Spielfeld: Rot, Grün und Blau. Jede Zone enthält jeweils zwei Sektoren. Die Zone selbst ist als eine Aufzählung angelegt und kann je nach momentan liegender Farbe aktiviert werden.
 \begin{lstlisting}
 public enum Zone
@@ -664,7 +647,7 @@ Siehe im Git-Repository in den Commits:
 \item c83d620c1d9bd22af5b58b22c683b0d596c66783
 \end{itemize}
 
-\textbf{Feldpositionierung}
+\textbf{Feldpositionierung}\\
 Für das Spielgeschehen spielt die Feldpositionierung eine entscheidende Rolle. Hiermit wird angegeben, auf welchem Feld sich eine Karte befindet, oder ob ein Feld leer ist. So hat ein Sektor ein Feld für das Quartier und drei Felder auf denen Kreaturen abgelegt werden können, wovon das erste das Eintrittsfeld darstellt. Über dieses Feld werden die Kreaturen in das Spielgeschehen geschickt. Sollte die grüne Zone aktiviert werden, kann die Kreatur dann auf eines der anderen Felder weitergeschoben werden, damit das Eintrittsfeld wieder frei wird für neu hinzukommende Karten.
 
 \begin{lstlisting}
@@ -678,9 +661,7 @@ Für das Spielgeschehen spielt die Feldpositionierung eine entscheidende Rolle. 
    return null;
 }
 \end{lstlisting}
-
 Mit der folgenden Funktion wird von den Sektoren abgefragt, ob das jeweilige Feld eine Karte hält oder nicht. Basierend auf diesen Flags, kann das Battlefield die Informationen dann dem Kontext entsprechend verarbeiten.
-
 \begin{lstlisting}
 public boolean hasBattleCard(BattleCard battleCardToHave)
 {
@@ -692,9 +673,7 @@ public boolean hasBattleCard(BattleCard battleCardToHave)
    return false;
 }
 \end{lstlisting}
-
 Des Weiteren wird ausgegeben, welches Feld mit welchen Karten belegt ist. Per get() findet hier eine eindeutige Zuweisung an der jeweiligen Stelle der zugrundeliegenden ArrayList ab. So können wir einen Trading-Card Spieltisch später mit fest zugewiesenen Slots für Karten verstehen und letztendlich grafisch übersichtlich präsentieren.
-
 \begin{lstlisting}
 public Field giveQuarterField()
 {
@@ -725,10 +704,8 @@ public EndField giveEndField()
    return (EndField)FIELDS.get(3);
 }
 \end{lstlisting}
-
 In welche Richtung die Karten auf dem Feld positioniert werden, wird an der aktuellen Strömungsrichtung ausgemacht. Sie dient durch ihre Sortierung der Array-Liste später auch dazu, Angriffsrichtungen im Stellungsspiel um die Quartierkarten zu bestimmen.
 Man drückt im Interface am Anfang der Runde auf einen optionalen Schalter und dreht damit den Ablauf entweder im, oder gegen den Urzeigersinn. Das bestimmt dann, wer für eine Kreaturen-Karte das nächste mögliche Angriffsziel sein kann.
-
 \begin{lstlisting}
 private ArrayList<BattleCard> reverseCardOrder(ArrayList<BattleCard> list)
 {
@@ -760,38 +737,30 @@ Siehe im Git-Repository in den Commits:
 LibGDX bietet eine Musikschnittstelle, mit der man Musik und Soundeffekte leicht in das Spiel einbinden kann. Dafür gibt es die zwei Klassen “Music” und “Sound”. Bei einer Audiodatei, deren Länge ein paar Sekunden übertrifft, handelt es sich um eine Music-Klasse.  Es ist zu bevorzugen, die Datei von der Festplatte zu streamen, anstatt sie vollständig in den Arbeitsspeicher zu laden. Die Sound-Klasse bedient Soundeffekte, wie kleine Audio-Samples, die in der Regel nicht länger als einige Sekunden dauern und bei bestimmten Spielereignissen wiedergegeben werden sollen, wie zum Beispiel beim Drücken eines Buttons, beim Kartenziehen oder beim Drehen des Kompasses. Soundeffekte können in verschiedenen Formaten gespeichert werden. LibGDX unterstützt MP3-, OGG- und WAV-Dateien. Die benötigten Audio-Dateien liegen dabei im Assets-Ordner.
 Um die Musik in das Spiel zu laden, muss eine Instanz der Music-Klasse generiert werden. Dies passiert in der BMEProjekt-Klasse, damit man die Musik und Soundeffekte in allen Klassen benutzen kann:
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\tiny]
 public static Music music = Gdx.audio.newMusic(Gdx.files.internal("core/assets/audio/music.mp3"));
 \end{lstlisting}
-
 Die Attribute der Music-Klasse erlauben die Anpassungen einiger Einstellungen, wie beispielsweise die Veränderung der Lautstärke und die Setzung der Audio-Datei auf Wiederholung:
-
 \begin{lstlisting}
 music.setVolume(1.0f);
 music.setLooping(true);
 \end{lstlisting}
-
 Das Abspielen der Musikinstanz funktioniert wie folgt:
-
 \begin{lstlisting}
 music.play();
 \end{lstlisting}
-
 Um Ressourcen freizugeben wird die Musikinstanz in der BMEProjekt-Klasse entsorgt, sobald sie nicht mehr benötigt wird:
-
 \begin{lstlisting}
 music.dispose();
 \end{lstlisting}
-
 Die Soundeffekte werden ähnlich implementiert und wie folgt abgespielt: 
 \begin{lstlisting}
 BMEProject.streamSound.play(0.2f);
 \end{lstlisting}
-
 Dadurch wird der Soundeffekt einmal mit der Lautstärke von 20 \% wiedergegeben. Die Methode .play(); wird beim Eintreten bestimmter Ereignissen gesetzt.
 
 \subsubsection{XML befüllen}
-Um der Klasse Cards ihre Werte zuzuweisen, wird ein XML benötigt mit allen relevanten Informationen. Jede Karte benötigt eine ID, cardName, cardType, cardEffect, cardDescription und den cardIllustrationFilePath. Diese Informationen wurden für 44 Karten hinterlegt.
+Um der Klasse Cards ihre Werte zuzuweisen, wird ein XML benötigt mit allen relevanten Informationen. Jede Karte benötigt eine ID, cardName, cardType, cardEffect, cardDescription und den cardIllustrationFilePath. Diese Informationen wurden für 44 Karten hinterlegt.\\
 Siehe hierzu den Commit:
 \begin{itemize}
 \item 1f719baad08daf434cbb0c69186e068338359ade
@@ -805,7 +774,7 @@ Die Effekte wurden jedoch gestrichen, da die Konzeption der einzelnen Effekte ni
 Siehe im Git-Repository den Branch: 70 76 KartenDetailsAnzeigen KartenAssets
 
 \subsubsection{Siegesbedingung}
-Um den Spieler zu signalisieren, wer der Gewinner ist, fehlte noch eine Methode mit einer Benachrichtigung über den Sieg. Nachdem ein Quartier den Besitzer gewechselt hat, wird über die sechs Quartiere auf dem Spielbrett iteriert. In der Iteration wird geprüft, welchem Spieler die Quartiere gehören. Besitzt ein Spieler alle sechs Quartiere, hat dieser gewonnen. Nach dem Erfüllen der Bedingung wird ein Bild angezeigt mit der Nachricht „du hast gewonnen“ oder „du hast verloren“. Zusätzlich werden Buttons eingefügt,  um ein neues Spiel zu starten und um zurück in das Hauptmenü zu gelangen. 
+Um den Spieler zu signalisieren, wer der Gewinner ist, fehlte noch eine Methode mit einer Benachrichtigung über den Sieg. Nachdem ein Quartier den Besitzer gewechselt hat, wird über die sechs Quartiere auf dem Spielbrett iteriert. In der Iteration wird geprüft, welchem Spieler die Quartiere gehören. Besitzt ein Spieler alle sechs Quartiere, hat dieser gewonnen. Nach dem Erfüllen der Bedingung wird ein Bild angezeigt mit der Nachricht „du hast gewonnen“ oder „du hast verloren“. Zusätzlich werden Buttons eingefügt,  um ein neues Spiel zu starten und um zurück in das Hauptmenü zu gelangen. \\
 Siehe im Git-Repository in den Commits:
 \begin{itemize}
 \item c390e51a6058673c1509ec47513f5e58ba560900
@@ -832,7 +801,7 @@ public void setEndOfGameScreen(EndOfGameScreen endOfGameScreen)
 \end{lstlisting}
 
 \subsubsection{Starter Deck mit drei Quartieren}
-Jeder Spieler darf in dem eigenen Deck Maximal drei Quartiere haben. Bisher wird das Kartendeck zufällig mit einem Random Number Generator generiert ohne dabei eine Obergrenze für Quartiere zu berücksichtigen. Die Quartiere in Cards\_XML haben die ID 1 bis 5 und die restlichen Kartentypen von 6 bis 44. Deshalb wurde der Random Number Generator aufgeteilt. Zunächst werden zufällig drei Zahlen von 1 bis 5 gezogen, anschließend werden 37 Zahlen zwischen 6 bis 44 gezogen. Die Kombination der Karten IDS wird beim Spielstart als Deck für den Nutzer gespeichert.
+Jeder Spieler darf in dem eigenen Deck Maximal drei Quartiere haben. Bisher wird das Kartendeck zufällig mit einem Random Number Generator generiert ohne dabei eine Obergrenze für Quartiere zu berücksichtigen. Die Quartiere in Cards\_XML haben die ID 1 bis 5 und die restlichen Kartentypen von 6 bis 44. Deshalb wurde der Random Number Generator aufgeteilt. Zunächst werden zufällig drei Zahlen von 1 bis 5 gezogen, anschließend werden 37 Zahlen zwischen 6 bis 44 gezogen. Die Kombination der Karten IDS wird beim Spielstart als Deck für den Nutzer gespeichert. \\
 Siehe im Git-Repository in dem Commit:
 \begin{itemize}
 \item c390e51a6058673c1509ec47513f5e58ba560900
@@ -841,7 +810,7 @@ Siehe im Git-Repository in dem Commit:
 \subsubsection{Auflösung auf des Title Screens und des BattleScreens auf HD anpassen}
 Bisher ist das Spielfeld auf eine Auflösung 800x450 Pixel konfiguriert. Diese Einstellung wurde auf Full HD Auflösung 1920x080 angepasst. Alle Regionen für die Karten waren absolut positioniert. Deshalb mussten alle Regionen neu positioniert und skaliert werden, um die volle Auflösung zu nutzen. 
 Die Assets waren nicht auf die HD-Auflösung angepasst und werden entweder vergrößert oder verkleinert angezeigt, dadurch entsteht ein Qualitätsverlust. Da EDWARDS BIOTOPE Full HD unterstützen soll, wurden die Assets auf die tatsächliche Größe angepasst. Um die tatsächlichen Größen auszulesen, wurde ein Screenshot des aktuellen Spiels in Adobe Photoshop vermessen und die benötigten Größen aufgeschrieben. Anschließend wurden die Assets in der tatsächlichen Größe erneut gespeichert und in das Spiel eingebunden. Die Spielkarten werden in zwei Größen benötigt. Einmal als kleine Version für das Spielbrett und eine große Version für die Detail-Ansicht. Deshalb muss die Klasse “Cards” um zwei Strings erweitert werden. Zum einen den LLUSTRATION\_FILE\_PATH dieser Path setzt sich "core/assets/visuals/cards/large/" und der Variable illustrationFilePath zusammen. Zusätzlich der ILLUSTRATION\_FILE\_PATH\_SMALL, dieser setzt sich aus "core/assets/visuals/cards/small/" und der Variable illustrationFilePath zusammen. Die Variable illustrationFilePath weist der XML Reader aus dem Card XML zu. Die Klasse “Battle Card” verwendet als Texturen für die Spielkarten den Pfad den ILLUSTRATION\_FILE\_PATH\_SMALL und die DetailView ILLUSTRATION\_FILE\_PATH. 
-Die Anzeige war nach den Anpassungen noch nicht zufriedenstellend, da LibGDX Texturen ohne Kantenglättung anzeigt.
+Die Anzeige war nach den Anpassungen noch nicht zufriedenstellend, da LibGDX Texturen ohne Kantenglättung anzeigt.\\
 Siehe hierzu die Commits:
 \begin{itemize}
 \item 8ccd2046db2a7def1d17a7988afe598631f64f7b
@@ -857,11 +826,18 @@ LibGDX bietet die Funktion .setFilter für Texturen an. Hierfür muss der Filter
 \begin{lstlisting}
 TEXTUR.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
 \end{lstlisting}
-hinzugefügt.
-Siehe hierzu den Commit:
+hinzugefügt. \\
+Siehe hierzu u. a. den Commit:
 \begin{itemize}
 \item 86617498da70acabe885862ce9db573342b08d6e
 \end{itemize}
+
+Später wurde dies zum Teil von Sebastian Beck in eine eigene Funktion ausgelagert:\\
+\begin{lstlisting}[basicstyle=\tiny]
+private void addAntialiasing(Texture texture) {
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    }
+\end{lstlisting}
 
 \subsubsection{Camera Handle für Variable Bildschirmgrößen}
 LibGDX hat schon eine vorgefertigte Camera-Klasse, die man benutzen kann. Es gibt 2 Subklassen und zwar die OrthographicCamera und PerspectiveCamera. Bei der Orthographic Camera gibt es keine Perspektive, sondern alle Längen bleiben gleich egal von welchem Winkel man sie betrachtet.
@@ -929,18 +905,16 @@ Die Karten, die auf dem Spielfeld vom Gegner besiegt werden, müssen auf dem Fri
 
 In dieser Methode wird dem Graveyard die BattleCard hinzugefügt mit dem Aufruf von addBattleCard(this). Außerdem wird für die Spielästhetik ein Sound abgespielt.
 Da jeder Spieler seinen eigenen Friedhof hat, muss dieser erst abgefragt werden mit PLAYER.giveGraveyard(). Im Spiel ist der Graveyard ein Field, das einem Spieler zugeweisen ist. Die giveGraveyard()-Methode von Player gibt das Field aus einer Liste zurück, das für den Friedhof dieses Spielers steht. Alle Fields vom Spielfeld sind in einer Liste vorhanden und jedes Feld kann addressiert werden.
-
 \begin{lstlisting}
 public Field giveGraveyard()
 {
    return FIELDS.get(2);
 }
 \end{lstlisting}
-
 Zu der Methode addBattleCard() ist die Beschreibung etwas umfangreicher. Es hört sich einfach an was die Methode macht, dennoch muss man einige Abfragen machen.
 Man hat ein currentField und einen FIELD\_USER. Man muss durch die Klassenhierarchie durchgehen. Man fragt den FIELD\_USER auf welchem Feld die mitgebene BattleCard sich befindet. Es kann auch sein, dass die BattleCard sich noch auf keinem Feld befindet. In den meisten Fällen ist das jedoch nicht so. Wenn das currentField also nicht null ist, wird die BattleCard von ihrem jetzigen Field entfernt mit removeCard(battleCardToAdd). Neben dieser Prüfung ist es auch wichtig nach der Existenz der Karte zu schauen. Wenn die Karte existiert wird sie der Liste CARDS hinzugefügt.
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\tiny]
 public void addBattleCard(BattleCard battleCardToAdd)
 {
    Field currentField = FIELD_USER.giveBattleController().giveCurrentFieldOfBattleCard(battleCardToAdd);
@@ -953,7 +927,6 @@ public void addBattleCard(BattleCard battleCardToAdd)
    update();
 }
 \end{lstlisting}
-
 Für die getDestroyed()-Methode des Quartiers müssen andere Abfragen und Befehle ausgeführt werden, deswegen ist diese Methode anders als die Kreatur- und Phänomen-Methode. Am Rande sei erwähnt, dass der Sound auch ein anderer ist und in deutlich niedrigerer Lautstärke.
 Quatiere haben einen Kommandeur(commander). Der commander ist der Spieler, der das Quartier gerade kontrolliert. In der Methode wird dem commander der Gegenspieler des derzeitigen commanders vom Quartier zugewiesen. In dieser Methode wird auch ein currentField angelegt.
 Dies dient dazu das currentField zu updaten.
@@ -977,30 +950,22 @@ Der BattleController ist verantwortlich für den Spielablauf während eines Tuni
 \begin{lstlisting}
 private Player activePlayer;
 \end{lstlisting}
-
 Bei unserem Spiel gibt es genau 2 Spieler. Beide Spieler haben eine Nummer und zwar Spieler 1 und Spieler 2. Am Anfang von einem Spiel soll Spieler 1 der aktive Spieler sein.
-
 \begin{lstlisting}
 PLAYER_1 = new Player(this, Party.ALLY);
 PLAYER_2 = new Player(this, Party.ENEMY);
 activePlayer = PLAYER_1;
 activePlayer.beginTurn();
 \end{lstlisting}
-
 Wer Spieler 1 und wer Spieler 2 ist, ist durch die Aufteilung des Spielfeldes festgelegt. Der Spieler der seine Hand auf der unteren Hälfte des Bildschirmes hat, ist der Spieler 1. Spieler 2 ist dementsprechend der Spieler auf der oberen Hälfte.
-
 \begin{figure}[h]
 \includegraphics[width=1\textwidth]{../img/screenshot_spielfeldeinteilung.PNG}
 \caption{Screenshot: Spielfeld mit Spielerbereichen}
 \label{fig:Screenshot Spielfeld Spielerbereiche}
 \end{figure}
-
 Jetzt funktioniert es, dass die Methoden vom activePlayer, der Spieler 1 ist, aufgerufen wird. Wenn Spieler 1 seinen Zug beendet ist er dennoch activePlayer, aber dies ist ja nicht was wir wollen. Wir brauchen eine neue Methode die den aktiven Spieler von Spieler 1 zu Spieler 2 ändert und auch in anderer Richtung.
-
 Diese Methode muss den activePlayer kennen und diesen neu zuweisen. ActivePlayer soll also Spieler 2 zugewiesen werden.
-
 Den activePlayer kennt die Methode, weil activePlayer eine Instanz-Variable ist. Dennoch besteht das Problem, dass man nicht einfach Spieler 2 dem activePlayer zuweisen kann. So funktioniert die Methode nur in eine Richtung und nicht rückwärts. Es wird eine weitere Methode benötig, die den gerade nicht aktiven Spieler ausgibt, also den Gegenspieler. GiveOppositePlayerOf(Player player) wäre so eine Methode.
-
 \begin{lstlisting}
 public Player giveOppositePlayerOf(Player player)
 {
@@ -1011,7 +976,6 @@ public Player giveOppositePlayerOf(Player player)
    }
 }
 \end{lstlisting}
-
 Die Abfrage ist recht trivial. Man gibt der Methode den activePlayer mit. Wenn der activePlayer Player 1 ist, wird der Player 2 zurückgegeben. Beim umgedrehten Fall wird Spieler 1 zurückgegeben. Nun können wir dahin zurück den activePlayer neu zuzuweisen. Die Methode changeActivePlayer() macht genau dies in Kombination mit getOppositePlayer(Player player).
 
 \begin{lstlisting}
@@ -1030,19 +994,15 @@ public void changeActivePlayer()
    showActivePlayerMessage();
 }
 \end{lstlisting}
-
 In der Methode wird eine neue Variable nextPlayer angelegt. Dieser wird der return-Wert von giveOppositePlayerOf(activePlayer) zugewiesen. Dem activePlayer wird dann nurnoch der nextPlayer-Wert zugewiesen und schon ist das Problem gelöst.
 Neben dem Opposite Player kann man natürlich auch den activePlayer, falls er gebraucht wird, ausgeben lassen.
-
 \begin{lstlisting}
 public Player giveActivePlayer()
 {
    return activePlayer;
 }
 \end{lstlisting}
-
 Wenn ein Spieler am Zug ist, müssen auch seine eigenen Sektoren aktiviert werden und die vom Gegener deaktiviert, damit er nur auf seine eigenen Sektoren Karten legen kann. Dafür benötigt man auch den activePlayer und man geht bei ALLY von Spieler 1 aus und bei ENEMY von Spieler 2.
-
 \begin{lstlisting}
 public void activateSectorOfPlayer(Party party){
    for (Sector s : BATTLEFIELD.giveSectors()) {
@@ -1083,7 +1043,7 @@ protected void updateReadabilityOfBattleCard(BattleCard battleCard)
 \textbf{AddBattleCard}
 Wie der Name schon sagt, wird hier eine Karte dem Field hinzugefügt. Unter der Haube passiert dennoch deutlich mehr. Es wird abgefragt, ob die Karte derzeit auf einem anderen Field liegt. Falls ja wird die Karte von diesem Field erst einmal entfernt. Außerdem wird die Existenz der Karte mit einer if-not-null-Kontrolle überprüft. Die Update-Methode wird am Ende aufgerufen.
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\tiny]
 public void addBattleCard(BattleCard battleCardToAdd)
 {
    Field currentField = FIELD_USER.giveBattleController().giveCurrentFieldOfBattleCard(battleCardToAdd);
@@ -1100,7 +1060,7 @@ public void addBattleCard(BattleCard battleCardToAdd)
 \textbf{AddBattleCards}
 Man kann nicht nur einzelne Karten hinzufügen, sondern auch ArrayListen von Karten. Hier wird auch eine Abfrage gemacht, falls eine Karte schon auf einem anderen Feld ist, diese erst von diesem Feld zu entfernen. Für jede BattleCard von der ArrayList an Karten wird diese Abfrage gemacht und dann dem Field hinzugefügt.
 
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\tiny]
 public void addBattleCards(ArrayList<BattleCard> battleCardsToAdd)
 {
    for (BattleCard battleCard : battleCardsToAdd) {
@@ -1127,7 +1087,6 @@ private void removeCard(BattleCard cardToRemove)
 
 \textbf{PullCard}
 Eine Karte wird anhand von ihrem index aus der ArrayList entfernt und dann zurückgegeben. Es gibt noch die Methode pullTopCard(), bei der der Index der Karte, die entfernt wird, einfach die ArrayList-Größe -1 ist. -1 weil Indices von 0 gezählt werden.
-
 \begin{lstlisting}
 public BattleCard pullCard(int index)
 {
@@ -1144,9 +1103,7 @@ public BattleCard pullTopCard()
    return pullCard(CARDS.size() - 1);
 }
 \end{lstlisting}
-
 Es gibt noch 2 weitere Methoden und zwar shuffle(), die die ArrayList CARDS durchmischt und getPileSize(), die die Größe der CARDS ArrayList zurückgibt.
-
 \begin{lstlisting}
 public void shuffle()
 {
